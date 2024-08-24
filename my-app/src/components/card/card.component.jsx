@@ -14,9 +14,12 @@ const Card = ({ pet }) => {
         <h3 className="pet-name">{capitalizeFirstLetter(pet.name)}</h3>
         <p>Breed: {pet.breed}</p>
         <p>Energy Level: {capitalizeFirstLetter(pet.energyLevel)}</p>
+        <p>Condición especial: Saludable</p>
       </div>
     </Link>
   );
 };
 
 export default Card;
+
+
