@@ -1,0 +1,10 @@
+.home-container {
+  padding: 20px;
+  margin-top: 60px; /* Space for the fixed Navbar */
+}
+
+.home-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
