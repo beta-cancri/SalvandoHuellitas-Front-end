@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import Navbar from './components/navbar/navbar.component';
+import Home from './views/home/home.component';
+import Detail from './views/detail/detail.component';
+import About from './views/about/about.component';
+import Landing from './views/landing/landing.component';
 import './App.css';
 
-function App() {
+const App = () => {
+  const location = useLocation();
+  
+  // Check if the current route is the landing page
+  const showNavbar = location.pathname !== '/';
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {showNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/about" element={<About />} />
+        {/* Additional routes can be added here */}
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
