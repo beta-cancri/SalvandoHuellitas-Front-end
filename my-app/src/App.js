@@ -7,7 +7,8 @@ import About from './views/about/about.component';
 import Landing from './views/landing/landing.component';
 import Contact from './views/contact/contact.component';
 import Login from './views/login/login.component';
-import Register from './views/register/register.component'; // Import Register component
+import Register from './views/register/register.component';
+import CreatePet from './views/create/create.component'; // Import CreatePet component
 import './App.css';
 
 const App = () => {
@@ -25,8 +26,9 @@ const App = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} /> {/* Login Route */}
-        <Route path="/register" element={<Register />} /> {/* Register Route */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/create" element={<CreatePet />} /> {/* Create Pet Route */}
       </Routes>
     </div>
   );

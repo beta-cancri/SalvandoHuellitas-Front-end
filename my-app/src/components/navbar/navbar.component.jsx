@@ -10,7 +10,7 @@ const Navbar = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(fetchPets(searchQuery)); // Dispatch the fetchPets action with the search query
+    dispatch(fetchPets({ search: searchQuery })); // Pass the search query as part of the filters object
   };
 
   return (
