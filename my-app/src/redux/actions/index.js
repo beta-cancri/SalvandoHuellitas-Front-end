@@ -9,15 +9,17 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const FETCH_REQUESTS_SUCCESS = 'FETCH_REQUESTS_SUCCESS';
 
-// Fetch all pets with optional search query
-export const fetchPets = (searchQuery = '') => async (dispatch) => {
+// Fetch all pets with optional filters and pagination
+export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
   try {
-    // If searchQuery is provided, include it in the request params
-    const response = await axios.get('http://localhost:3001/pets', {
-      params: { search: searchQuery },
-    });
+    const params = { ...filters, page }; 
+    const response = await axios.get('http://localhost:3001/pets', { params });
+    
     console.log('Fetched Pets:', response.data);
-    dispatch({ type: FETCH_PETS_SUCCESS, payload: response.data });
+    dispatch({
+      type: FETCH_PETS_SUCCESS,
+      payload: response.data, 
+    });
   } catch (error) {
     console.error('Error fetching pets:', error.message);
   }
