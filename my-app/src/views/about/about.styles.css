@@ -7,18 +7,6 @@ body {
     line-height: 1.6;
   }
   
-  .intro {
-    margin-bottom: 50px;
-    font-size: 1.8em; 
-    text-align: center;
-    color: #000;
-  }
-  
-  .intro h1 {
-    font-size: 3em; 
-    margin-bottom: 20px; 
-    color: #000;
-  }
   
   .intro p {
     font-size: 1.5em; 
@@ -73,6 +61,7 @@ body {
   .back-button {
     display: inline-block;
     margin-top: 20px;
+    margin-bottom: 30px;
     padding: 10px 25px;
     background-color: #000;
     color: white;

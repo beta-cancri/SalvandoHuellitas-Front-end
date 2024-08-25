@@ -1,12 +1,14 @@
+
 .animal-detail {
   max-width: 800px; 
-  margin: 50px auto; 
+  margin: 0px auto;
+  margin-top: 200px;
   padding: 30px; 
   border-radius: 12px; 
   background: #fcfdfc; 
   box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.1); 
-  text-align: center;
-  position: relative; 
+  text-align: center; 
+  position: relative;
 }
 
 .animal-image {
@@ -22,7 +24,7 @@
 }
 
 .animal-detail-content {
-  padding-top: 100px;
+  padding-top: 120px;
 }
 
 .animal-detail h2 {

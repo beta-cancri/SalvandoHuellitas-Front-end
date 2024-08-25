@@ -8,21 +8,30 @@ body, html {
 
 /* Container for the landing page */
 .landing-container {
-  background: url('https://i.imgur.com/ghMhL8y.png') no-repeat center center;
-  background-size: cover;
+  background-image: url('https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') ;
+  background-size: cover; 
+  background-attachment: fixed;
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: white;
+  position: relative;
 }
 
 /* Content wrapper */
 .landing-content {
-  background-color: rgba(0, 0, 0, 0.5); /* Adds a dark overlay for better text visibility */
-  padding: 20px;
-  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.3); 
+  padding: 25px;
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); 
+  color: white;
+  max-width: 90%; 
+  margin: 0 auto;
+  position: relative;
+  z-index: 1; 
+  border: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
 /* Main heading */
