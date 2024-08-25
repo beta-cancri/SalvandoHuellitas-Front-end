@@ -40,20 +40,22 @@ const Detail = () => {
   }
 
   return (
-    <div className="animal-detail">
-      <img src={animal.photo} alt={animal.name} className="animal-image" />
-      <div className="animal-detail-content">
-        <h2>{animal.name}</h2>
-        <p><strong>Species:</strong> {animal.species}</p>
-        <p><strong>Status:</strong> {animal.status}</p>
-        <p><strong>Age:</strong> {animal.age}</p>
-        <p><strong>Size:</strong> {animal.size}</p>
-        <p><strong>Energy Level:</strong> {animal.energyLevel}</p>
-        <p><strong>Good with Other Pets:</strong> {animal.okWithPets ? 'Yes' : 'No'}</p>
-        <p><strong>Good with Kids:</strong> {animal.okWithKids ? 'Yes' : 'No'}</p>
-        <p><strong>Breed:</strong> {animal.breed ? animal.breed : 'Not specified'}</p>
-        <p><strong>History:</strong> {animal.history ? animal.history : 'Not available'}</p>
-        <button className="back-button" onClick={handleBack}>Back</button>
+    <div className="full-screen-container-detail">
+      <div className="animal-detail">
+        <img src={animal.photo} alt={animal.name} className="animal-image" />
+        <div className="animal-detail-content">
+          <h2>{animal.name}</h2>
+          <p><strong>Species:</strong> {animal.species}</p>
+          <p><strong>Status:</strong> {animal.status}</p>
+          <p><strong>Age:</strong> {animal.age}</p>
+          <p><strong>Size:</strong> {animal.size}</p>
+          <p><strong>Energy Level:</strong> {animal.energyLevel}</p>
+          <p><strong>Good with Other Pets:</strong> {animal.okWithPets ? 'Yes' : 'No'}</p>
+          <p><strong>Good with Kids:</strong> {animal.okWithKids ? 'Yes' : 'No'}</p>
+          <p><strong>Breed:</strong> {animal.breed ? animal.breed : 'Not specified'}</p>
+          <p><strong>History:</strong> {animal.history ? animal.history : 'Not available'}</p>
+          <button className="back-button" onClick={handleBack}>Back</button>
+        </div>
       </div>
     </div>
   );
