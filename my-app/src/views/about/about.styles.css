@@ -1,0 +1,80 @@
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+  
+  
+  .intro p {
+    font-size: 1.5em; 
+    color: #555;
+  }
+  
+  .faq, .reviews {
+    margin-bottom: 50px;
+  }
+  
+  .faq h2, .reviews h2 {
+    font-size: 4em; 
+    margin-bottom: 20px;
+    color: #000;
+    border-bottom: 2px solid #211f1f;
+    padding-bottom: 8px;
+  }
+  
+  .faq ul, .reviews ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .faq li, .reviews li {
+    border-bottom: 1px solid #ddd;
+    padding: 20px 0; 
+    transition: background-color 0.3s ease;
+  }
+  
+  .faq li:hover, .reviews li:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .faq strong, .reviews strong {
+    display: block;
+    margin-bottom: 10px; 
+    font-weight: bold;
+    color: #000;
+    font-size: 1.8em;
+  }
+  
+  .faq span, .reviews span {
+    display: block;
+    font-size: 1.5em; 
+    color: #000000;
+  }
+  
+  .faq li:last-child, .reviews li:last-child {
+    border-bottom: none;
+  }
+  
+  .back-button {
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    padding: 10px 25px;
+    background-color: #000;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 2em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+  }
+  

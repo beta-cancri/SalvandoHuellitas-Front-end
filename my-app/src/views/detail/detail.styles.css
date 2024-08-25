@@ -1,34 +1,36 @@
+
 .animal-detail {
   max-width: 800px; 
-  margin: 50px auto; 
-  padding: 30px;
-  border-radius: 12px;
+  margin: 0px auto;
+  margin-top: 200px;
+  padding: 30px; 
+  border-radius: 12px; 
   background: #fcfdfc; 
   box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.1); 
-  text-align: center;
+  text-align: center; 
   position: relative;
 }
 
 .animal-image {
   width: 200px; 
   height: 200px; 
-  object-fit: cover;
+  object-fit: cover; 
   border-radius: 50%; 
   border: 6px solid #ddd; 
   position: absolute;
-  top: -80px; 
+  top: -40px; 
   left: 50%; 
   transform: translateX(-50%); 
 }
 
 .animal-detail-content {
-  padding-top: 100px; 
+  padding-top: 120px;
 }
 
 .animal-detail h2 {
   font-size: 36px; 
   color: #333; 
-  margin-bottom: 20px;
+  margin-bottom: 20px; 
 }
 
 .animal-detail p {
@@ -44,21 +46,22 @@
 
 .animal-detail p span {
   font-weight: 400; 
-  color: #777; 
+  color: #777;
 }
 
 .back-button {
-  background-color: #000000; 
-  color: white; 
-  border: none; 
-  padding: 10px 20px; 
-  border-radius: 5px; 
-  font-size: 16px; 
-  cursor: pointer; 
-  margin-top: 20px; 
-  transition: transform 0.3s ease; 
-}
-
-.back-button:hover {
-  transform: scale(1.05); 
-}
+    background-color: #000000; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    border-radius: 8px; 
+    font-size: 2em; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #333; 
+    transform: scale(1.05); 
+  }
