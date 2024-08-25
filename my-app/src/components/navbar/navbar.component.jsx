@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Assuming you're using axios for HTTP requests
+import { fetchPets } from '../../redux/actions';
 import './navbar.styles.css';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const dispatch = useDispatch();
 
-  const handleSearch = async (event) => {
+  const handleSearch = (event) => {
     event.preventDefault();
-
-    try {
-      const response = await axios.get('http://localhost:3001/pets', {
-        params: { search: searchQuery },
-      });
-      console.log('Search results:', response.data);
-      
-    } catch (error) {
-      console.error('Error fetching pets:', error);
-    }
+    dispatch(fetchPets(searchQuery)); // Dispatch the fetchPets action with the search query
   };
 
   return (
