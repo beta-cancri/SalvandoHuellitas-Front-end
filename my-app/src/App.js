@@ -8,7 +8,8 @@ import Landing from './views/landing/landing.component';
 import Contact from './views/contact/contact.component';
 import Login from './views/login/login.component';
 import Register from './views/register/register.component';
-import CreatePet from './views/create/create.component'; // Import CreatePet component
+import CreatePet from './views/create/create.component'; 
+import GoogleCallback from './components/google/GoogleCallback';
 import './App.css';
 
 const App = () => {
@@ -28,7 +29,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/create" element={<CreatePet />} /> {/* Create Pet Route */}
+        <Route path="/create" element={<CreatePet />} /> 
+        <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
       </Routes>
     </div>
   );
