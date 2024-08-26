@@ -1,17 +1,16 @@
-/* Full-screen container for the background */
 .full-screen-container-detail {
   width: 100%;
-  height: 100vh; /* Full viewport height */
+  height: 100vh; 
   display: flex;
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
+  justify-content: center;
+  align-items: center;
   background: url('https://static.vecteezy.com/system/resources/previews/017/551/368/non_2x/many-prints-of-dog-paws-and-bones-on-white-background-pattern-for-design-vector.jpg') no-repeat center center;
   background-size: cover;
   position: relative;
-  overflow: hidden; /* Ensures no overflow issues with pseudo-element */
+  overflow: hidden;
+  padding-top: 120px; /* Adjust top padding to account for the navbar */
 }
 
-/* Pseudo-element for background image */
 .full-screen-container-detail::before {
   content: "";
   position: absolute;
@@ -19,26 +18,26 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: inherit; /* Use the same background as the container */
-  opacity: 0.5; /* Adjust the opacity as needed */
-  z-index: -1; /* Places the image behind the content */
-  pointer-events: none; /* Ensures the background doesn't interfere with clicks */
+  background: inherit;
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .animal-detail {
-  width: 90%; /* Adjust width to fit the design */
-  max-width: 1000px; /* Ensure the card doesn't exceed a maximum width */
-  height: 80%; /* Adjust height to control the card's height */
-  max-height: 600px; /* Ensure the card doesn't exceed a maximum height */
+  width: 90%;
+  max-width: 1000px;
+  height: 80%;
+  max-height: 600px;
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent to make the content readable */
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: row; /* Horizontal layout */
-  align-items: center; /* Center items vertically within the card */
+  flex-direction: row;
+  align-items: center;
   position: relative;
-  box-sizing: border-box; /* Ensure padding and borders are included in the width and height */
+  box-sizing: border-box;
 }
 
 .animal-detail-body {
@@ -48,46 +47,43 @@
   width: 100%;
 }
 
-.animal-detail-text{
+.animal-detail-text {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
-/* Container for text and button */
 .animal-detail-content {
   display: flex;
-  flex-direction: column; /* Stack text and button vertically */
-  align-items: center; /* Center items horizontally within this container */
-  justify-content: center; /* Center items vertically within this container */
-  text-align: center; /* Center text within the container */
-  flex: 1; /* Allow this container to grow and fill the available space */
-  padding: 0 20px; /* Add padding to prevent content from touching the edges */
-  overflow: hidden; /* Prevent overflow */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex: 1;
+  padding: 0 20px;
+  overflow: hidden;
 }
 
-/* Adjust image size and spacing */
 .animal-image {
   width: 320px;
   height: 320px;
   object-fit: cover;
   border-radius: 5%;
   border: 6px solid #ddd;
-  margin-right: -180px; /* Space between image and content */
+  margin-right: -180px;
 }
 
-/* Styling for the h2 and other text content */
 .animal-detail h2 {
   font-size: 36px;
   color: #070606;
-  margin-bottom: 50px ; /* Remove default margin and set margin-bottom */
-  padding: 0; /* Remove default padding */
+  margin-bottom: 50px;
+  padding: 0;
 }
 
 .animal-detail p {
   font-size: 16px;
-  margin: 7px ;
-  text-align: center; 
+  margin: 7px;
+  text-align: center;
 }
 
 .animal-detail p strong {

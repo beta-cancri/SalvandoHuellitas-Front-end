@@ -1,15 +1,6 @@
 .about-container {
   background-image: url('https://i.imgur.com/v1io1jV.jpeg');
-=======
-.contact-container {
-  background-image: url('https://i.imgur.com/PIwrBMF.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-top: 60px;
+  padding-top: 120px; /* Adjust top padding to account for the navbar */
 }
 
 .intro-aboutus {
@@ -25,18 +16,18 @@
   font-size: 1.5em;
   margin-top: 24px;
   color: #555;
-=======
+}
+
 .navbar {
   height: 60px;
   width: 100%;
   padding: 10px 20px;
   display: flex;
-  justify-content: center; /* Center content horizontally */
+  justify-content: center;
   align-items: center;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 5px; 
-
 }
 
 .navbar-container {
@@ -46,14 +37,14 @@
   justify-content: space-between;
 }
 
-
 .faq h2, .reviews h2 {
   font-size: 2em;
   margin-bottom: 20px;
   color: #000;
   border-bottom: 1px solid #878787;
   padding-bottom: 8px;
-=======
+}
+
 .navbar-logo {
   width: 100px; 
   height: auto; 
@@ -72,8 +63,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1; /* Take up available space */
-  margin: 0 20px; /* Center the search bar */
+  flex-grow: 1;
+  margin: 0 20px;
 }
 
 .navbar-search-input {
@@ -104,9 +95,8 @@
   display: flex;
   gap: 10px;
   position: absolute;
-  right: 220px; /* Position to the left of the login button */
+  right: 220px;
 }
-
 
 .back-button-container {
   text-align: center;
@@ -116,6 +106,8 @@
 .back-button {
   padding: 10px 25px;
   background-color: #000;
+}
+
 .navbar-button-link {
   padding: 5px 20px;
   border-radius: 20px;
@@ -139,7 +131,7 @@
   font-size: 1rem;
   transition: background-color 0.3s;
   position: absolute;
-  right: 20px; /* Align to the right side of the navbar */
+  right: 20px;
 }
 
 .navbar-button:hover {
