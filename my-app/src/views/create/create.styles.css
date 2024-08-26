@@ -1,4 +1,3 @@
-/* Contenedor a pantalla completa para la creación de mascotas */
 .full-screen-container-create {
   width: 100%;
   height: 100vh; 
@@ -7,12 +6,11 @@
   align-items: center;
   position: relative;
   margin: 0;
-  padding: 0;
+  padding: 120px 0 0 0; /* Adjust top padding to account for the navbar */
   box-sizing: border-box;
   overflow: hidden;
 }
 
-/* Imagen de fondo con opacidad */
 .full-screen-container-create::before {
   content: "";
   position: absolute;
@@ -28,7 +26,6 @@
   z-index: -1;
 }
 
-/* Contenedor del formulario de creación de mascotas */
 .create-pet-container {
   max-width: 500px;
   width: 100%;
@@ -44,7 +41,6 @@
   box-sizing: border-box;
 }
 
-/* Encabezado del formulario */
 .create-pet-container h1 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8em;
@@ -55,14 +51,12 @@
   text-align: center;
 }
 
-/* Estilo del formulario */
 .create-pet-form {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-/* Estilo de los campos de entrada y selección */
 .create-pet-form input,
 .create-pet-form select,
 .create-pet-form textarea {
@@ -85,7 +79,6 @@
   outline: none;
 }
 
-/* Estilo del botón de creación de mascota */
 .create-pet-button {
   padding: 10px 15px;
   background-color: #E67E22;
@@ -104,7 +97,7 @@
   background-color: #D35400;
 }
 
-.create-checkbox{
+.create-checkbox {
   display: flex;
 }
 
@@ -113,7 +106,6 @@
   cursor: not-allowed;
 }
 
-/* Estilo de la imagen de vista previa */
 .create-pet-form img {
   max-width: 100%;
   height: auto;
@@ -121,49 +113,23 @@
   margin-bottom: 15px;
 }
 
-/* Estilo del label que contiene el checkbox */
 .create-pet-form label {
-  display:flow-root;
-  align-items:self-start;
+  display: flow-root;
+  align-items: self-start;
   margin-bottom: 5px;
-  width: 50%; /* Ocupa todo el ancho disponible */
+  width: 50%;
 }
 
-/* Estilo del checkbox */
 .create-pet-form input[type="checkbox"] {
-  margin-right: 5px; /* Espacio entre el checkbox y el texto */
+  margin-right: 5px;
 }
 
-/* Estilo para el h2 dentro de los labels */
 .create-pet-form h2.h2-create1,
 .create-pet-form h2.h2-create2 {
   font-family: 'Poppins', sans-serif;
   font-size: 1em;
   color: #333;
   margin: 0;
-  text-align: center; /* Centra el texto dentro del espacio disponible */
-  flex: 1; /* Ocupa el espacio restante en el contenedor */
-}
-
-/* Estilo del mensaje de error */
-.error-message {
-  color: #e74c3c;
-  font-size: 14px;
-  font-family: 'Poppins', sans-serif;
   text-align: center;
-}
-
-
-.create-pet-form img {
-  width: 100px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.pet-preview-image {
-  width: 100px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  flex: 1;
 }

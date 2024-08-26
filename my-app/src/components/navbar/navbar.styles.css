@@ -2,9 +2,9 @@
   position: fixed; 
   top: 0;
   left: 0;
-  height: 60px;
+  height: 80px !important; /* Increased the height */
   width: 100%;
-  padding: 10px 20px;
+  padding: 0px 0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,7 +16,7 @@
 }
 
 .navbar-container {
-  height: 90px;
+  height: 100%; /* Set the container height to 100% of the navbar */
   display: flex;
   align-items: center;
   width: 100%;
@@ -52,6 +52,7 @@
 }
 
 .navbar-search {
+  height: 100px;
   display: flex;
   align-items: center;
 }
@@ -96,15 +97,15 @@
 }
 
 .navbar-button {
-  height: 40px;
-  width: 60px;
+  height: 40px; /* Increased height to match the taller navbar */
+  width: 100px; /* Adjusted width to make the button larger */
   text-align: center;
   padding: 10px 30px;
   border-radius: 30px;
   background-color: #8B4513 !important;
   color: white;
   text-decoration: none;
-  font-size: 1.6rem !important;
+  font-size: 1.8rem !important;
   font-family: 'Monotype Corsiva', 'Lucida Handwriting', cursive;
   font-style: italic;
   margin-right: 40px;
