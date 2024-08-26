@@ -1,0 +1,168 @@
+.contact-container {
+  background-image: url('https://i.imgur.com/PIwrBMF.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 20px;
+  border-radius: 12px; /* Optional: for rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
+}
+
+.intro {
+  margin-bottom: 5px;
+  font-size: 1.5em;
+  text-align: center;
+  color: #ee7504;
+  padding: 20px;
+}
+
+.intro h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.intro p {
+  font-size: 1em;
+  color: #555;
+}
+
+.faq, .reviews {
+  margin-bottom: 40px;
+}
+
+.faq h2, .reviews h2 {
+  font-size: 3em;
+  margin-bottom: 20px;
+  color: #000;
+  border-bottom: 2px solid #211f1f;
+  padding-bottom: 8px;
+}
+
+.faq ul, .reviews ul {
+  list-style: none;
+  padding: 0;
+}
+
+.faq li, .reviews li {
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  transition: background-color 0.3s ease;
+}
+
+.faq li:hover, .reviews li:hover {
+  background-color: #f0f0f0;
+}
+
+.faq strong, .reviews strong {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ee7504;
+  font-size: 1.8em;
+}
+
+.faq span, .reviews span {
+  display: block;
+  font-size: 1.5em;
+  color: #000000;
+}
+
+.faq li:last-child, .reviews li:last-child {
+  border-bottom: none;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 2em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.back-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+.contact-options, .contact-info, .contact-social, .contact-hours {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1.5em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.contact-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+.contact-info h2::before,
+.contact-social h2::before,
+.contact-hours h2::before {
+  content: '🐾';
+  display: inline-block;
+  margin-right: 8px;
+  color: #000;
+}
+
+.contact-info h2,
+.contact-social h2,
+.contact-hours h2 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #000;
+  border-bottom: 2px solid #211f1f;
+  padding-bottom: 8px;
+}
+
+.contact-info p, .contact-social a, .contact-hours p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.contact-info a, .contact-social a {
+  color: #000;
+  text-decoration: none;
+}
+
+.contact-info a:hover, .contact-social a:hover {
+  text-decoration: underline;
+}
+
+.contact-social a {
+  margin: 0 50px;
+  font-size: 3em;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.contact-social a:hover {
+  color: #f46411;
+}
+
+.contact-map {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.contact-map iframe {
+  border: 0;
+  border-radius: 8px;
+}

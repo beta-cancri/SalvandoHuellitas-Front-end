@@ -11,6 +11,8 @@ const initialState = {
   reviews: [],
   users: [],
   requests: [],
+  currentPage: 1,
+  totalPages: 1,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -19,7 +21,9 @@ const rootReducer = (state = initialState, action) => {
       console.log('Reducer updating pets state with payload:', action.payload);
       return {
         ...state,
-        pets: action.payload,
+        pets: action.payload.results,
+        currentPage: action.payload.page,
+        totalPages: action.payload.totalPages,
       };
     case FETCH_PET_DETAIL_SUCCESS:
       console.log('Reducer updating petDetail state with payload:', action.payload);
