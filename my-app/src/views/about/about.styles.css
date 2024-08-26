@@ -1,15 +1,23 @@
 .about-container {
-  background-image: url('https://i.imgur.com/qFZZk8E.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg');
   padding: 20px;
-  border-radius: 12px; /* Optional: for rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
 }
 
-.intro p {
+.intro-aboutus {
+  margin-bottom: 40px;
+}
+
+.intro-aboutus h1 {
+  font-size: 3em;
+  color: orange;
+}
+
+.intro-aboutus p {
   font-size: 1.5em;
+  margin-top: 24px;
   color: #555;
 }
 
@@ -18,10 +26,10 @@
 }
 
 .faq h2, .reviews h2 {
-  font-size: 4em;
+  font-size: 2em;
   margin-bottom: 20px;
   color: #000;
-  border-bottom: 2px solid #211f1f;
+  border-bottom: 1px solid #878787;
   padding-bottom: 8px;
 }
 
@@ -58,10 +66,12 @@
   border-bottom: none;
 }
 
+.back-button-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
 .back-button {
-  display: inline-block;
-  margin-top: 20px;
-  margin-bottom: 30px;
   padding: 10px 25px;
   background-color: #000;
   color: white;

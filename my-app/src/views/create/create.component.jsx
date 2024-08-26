@@ -133,6 +133,7 @@ const CreatePet = () => {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
+          <div className="create-checkbox">
           <label>
             <input
               type="checkbox"
@@ -140,7 +141,8 @@ const CreatePet = () => {
               checked={formData.okWithPets}
               onChange={handleChange}
             />
-            OK with other pets
+            <h2 className='h2-create1'>OK with other pets</h2>
+          
           </label>
           <label>
             <input
@@ -149,8 +151,10 @@ const CreatePet = () => {
               checked={formData.okWithKids}
               onChange={handleChange}
             />
-            OK with kids
+            <h2 className='h2-create1'>OK with kids</h2>
+           
           </label>
+          </div>
           <textarea
             name="history"
             placeholder="History (Optional)"

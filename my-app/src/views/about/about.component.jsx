@@ -28,16 +28,16 @@ const About = () => {
 
   return (
     <div className="about-container">
-      <section className="intro">
+      <div className="intro-aboutus">
         <h1>About Us</h1>
         <h2>Pets transform our lives. We seek to change yours.</h2>
         <p>
           Misión Salvando Huellitas is a non-profit organization dedicated to rescuing, sheltering, and relocating abandoned, sick, and injured animals throughout the city.
           With your help, we hope to make a difference in the lives of these wonderful animals.
         </p>
-      </section>
+      </div>
       
-      <section className="faq">
+      <div className="faq">
         <h2>FAQ</h2>
         <ul>
           <li>
@@ -69,9 +69,9 @@ const About = () => {
             <span>Introduce them gradually in a controlled environment. Keep both animals on a leash initially and observe their behavior. Supervise all interactions until you are confident they get along well.</span>
           </li>
         </ul>
-      </section>
+      </div>
 
-      <section className="reviews">
+      <div className="reviews">
         <h2>Reviews</h2>
         {loading ? (
           <p>Loading reviews...</p>
@@ -88,8 +88,11 @@ const About = () => {
         ) : (
           <p>No reviews available.</p>
         )}
-      </section>
-      <button className="back-button" onClick={() => navigate('/home')}>Back to Home</button>        
+      </div>
+      
+      <div className="back-button-container">
+        <button className="back-button" onClick={() => navigate('/home')}>Back to Home</button>        
+      </div>
     </div>
   );
 };

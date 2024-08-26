@@ -31,7 +31,7 @@ body, html {
   border: 1px solid rgba(255, 255, 255, 0.2); 
 }
 
-h1 {
+.landing-title {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
