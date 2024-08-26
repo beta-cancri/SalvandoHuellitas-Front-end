@@ -10,18 +10,13 @@ const Navbar = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    dispatch(fetchPets({ search: searchQuery })); // Pass the search query as part of the filters object
+    dispatch(fetchPets({ search: searchQuery }));
+    setSearchQuery(''); // Clear the search query after searching
   };
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/home" className="navbar-logo">Salvando Huellitas</Link>
-        <div className="navbar-links">
-          <Link to="/about" className="navbar-link">About</Link>
-          <Link to="/register" className="navbar-link">Register</Link>
-          <Link to="/contact" className="navbar-link">Contact</Link>
-        </div>
         <form onSubmit={handleSearch} className="navbar-search">
           <input
             type="text"
@@ -30,8 +25,21 @@ const Navbar = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <button type="submit" className="navbar-search-button">Search</button>
+          <button type="submit" className="navbar-search-button">
+            <img src="https://i.imgur.com/YMQuWYz.png" alt="Search Icon" className="navbar-icon" />
+          </button>
         </form>
+        <div className="navbar-links">
+          <Link to="/about">
+            <img src="https://i.imgur.com/RdCaKES.png" alt="About Icon" className="navbar-icon" />
+          </Link>
+          <Link to="/register">
+            <img src="https://i.imgur.com/yK0Jf5X.png" alt="Register Icon" className="navbar-icon" />
+          </Link>
+          <Link to="/contact">
+            <img src="https://i.imgur.com/v27WHRN.png" alt="Contact Icon" className="navbar-icon" />
+          </Link>
+        </div>
         <Link to="/login" className="navbar-button">Login</Link>
       </div>
     </nav>

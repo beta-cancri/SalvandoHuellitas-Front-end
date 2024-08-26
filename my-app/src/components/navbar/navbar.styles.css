@@ -1,16 +1,22 @@
 .navbar {
-  width: 100%;
-  position: fixed;
+  position: fixed; 
   top: 0;
   left: 0;
-  z-index: 1000;
+  height: 60px;
+  width: 100%;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-image: url('https://i.imgur.com/MJZf1IZ.jpg');
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
 }
 
 .navbar-container {
+  height: 90px;
   display: flex;
   align-items: center;
   width: 100%;
@@ -18,10 +24,15 @@
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: black;
-  text-decoration: none;
+  width: 100px; 
+  height: auto; 
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo-image {
+  width: 160px; 
+  height: auto; 
 }
 
 .navbar-links {
@@ -29,15 +40,15 @@
   gap: 20px;
 }
 
-.navbar-link {
-  color: black;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
+.navbar-icon {
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  transition: transform 0.2s;
 }
 
-.navbar-link:hover {
-  color: #007BFF;
+.navbar-icon:hover {
+  transform: scale(1.1);
 }
 
 .navbar-search {
@@ -46,38 +57,64 @@
 }
 
 .navbar-search-input {
-  padding: 5px 10px;
-  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border-radius: 30px;
   border: 1px solid #ddd;
   outline: none;
+  width: 300px;
 }
 
 .navbar-search-button {
-  padding: 5px 10px;
+  padding: 0;
   margin-left: 10px;
-  border-radius: 20px;
-  background-color: #007BFF;
-  color: white;
   border: none;
+  background: none !important;
+  box-shadow: none !important;
   cursor: pointer;
-  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
+.navbar-search-button:focus, 
+.navbar-search-button:active, 
 .navbar-search-button:hover {
-  background-color: #0056b3;
+  background: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.navbar-search-button img {
+  display: block;
+  width: 75px;
+  height: 75px;
 }
 
 .navbar-button {
-  padding: 5px 20px;
-  border-radius: 20px;
-  background-color: #28A745;
+  height: 40px;
+  width: 60px;
+  text-align: center;
+  padding: 10px 30px;
+  border-radius: 30px;
+  background-color: #8B4513 !important;
   color: white;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 1.6rem !important;
+  font-family: 'Monotype Corsiva', 'Lucida Handwriting', cursive;
+  font-style: italic;
   margin-right: 40px;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar-button:hover {
-  background-color: #218838;
+  background-color: #5a3310 !important;
+  transform: scale(1.1);
 }
