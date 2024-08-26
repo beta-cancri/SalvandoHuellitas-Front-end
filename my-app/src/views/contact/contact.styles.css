@@ -1,42 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* Container Styles */
 .contact-container {
-  background-image: url('https://i.imgur.com/PIwrBMF.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 20px;
-  border-radius: 12px; /* Optional: for rounded corners */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for a subtle shadow */
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg');
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; 
+  height: 100vh;
+}
+
+.contact-body-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 60px;
+}
+
+/* Content Styles */
+.contact-container > * {
+  position: relative; /* Ensure content is above the overlay */
+  z-index: 2;
 }
 
 .intro {
-  margin-bottom: 5px;
-  font-size: 1.5em;
+  font-size: 1.2em;
   text-align: center;
-  color: #ee7504;
-  padding: 20px;
+  color: #6b6764;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
 }
 
-.intro h1 {
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  color: #000;
+.contact-options {
+  margin-top: 8px;
+}
+.intro-contact-title {
+  font-size: 1.8em;
+  margin-top: 15px;
+  color: #ef7630;
+}
+
+.contact-options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .intro p {
-  font-size: 1em;
+  font-size: 1.5em;
   color: #555;
+  margin-top: 15px;
 }
 
-.faq, .reviews {
-  margin-bottom: 40px;
+.contact-options-container div p {
+  margin-top: 10px;
 }
 
-.faq h2, .reviews h2 {
-  font-size: 3em;
-  margin-bottom: 20px;
-  color: #000;
-  border-bottom: 2px solid #211f1f;
-  padding-bottom: 8px;
+.contact-options-container div a {
+  margin-top: 10px;
 }
 
 .faq ul, .reviews ul {
@@ -46,70 +71,51 @@
 
 .faq li, .reviews li {
   border-bottom: 1px solid #ddd;
-  padding: 20px 0;
   transition: background-color 0.3s ease;
-}
-
-.faq li:hover, .reviews li:hover {
-  background-color: #f0f0f0;
 }
 
 .faq strong, .reviews strong {
   display: block;
-  margin-bottom: 10px;
   font-weight: bold;
   color: #ee7504;
-  font-size: 1.8em;
+  font-size: 1.2em;
 }
 
 .faq span, .reviews span {
   display: block;
-  font-size: 1.5em;
-  color: #000000;
+  font-size: 1.2em;
+  color: #000;
 }
 
 .faq li:last-child, .reviews li:last-child {
   border-bottom: none;
 }
 
-.back-button {
+/* Button Styles */
+.back-button, .contact-button {
   display: inline-block;
-  margin-top: 20px;
   padding: 10px 25px;
   background-color: #000;
   color: white;
   text-decoration: none;
   border-radius: 8px;
-  font-size: 2em;
+  font-size: 1em;
   transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
   cursor: pointer;
+  margin-top: 50px;
 }
 
-.back-button:hover {
+.back-button:hover, .contact-button:hover {
   background-color: #333;
   transform: scale(1.05);
 }
 
-.contact-options, .contact-info, .contact-social, .contact-hours {
-  margin: 20px 0;
-  text-align: center;
-}
-
-.contact-button {
-  display: inline-block;
-  padding: 10px 25px;
-  background-color: #000;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 1.5em;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.contact-button:hover {
-  background-color: #333;
-  transform: scale(1.05);
+.contact-social-icons {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .contact-info h2::before,
@@ -117,7 +123,6 @@
 .contact-hours h2::before {
   content: '🐾';
   display: inline-block;
-  margin-right: 8px;
   color: #000;
 }
 
@@ -125,10 +130,8 @@
 .contact-social h2,
 .contact-hours h2 {
   font-size: 2.5em;
-  margin-bottom: 20px;
   color: #000;
-  border-bottom: 2px solid #211f1f;
-  padding-bottom: 8px;
+  border-bottom: 1px solid #777070;
 }
 
 .contact-info p, .contact-social a, .contact-hours p {
@@ -146,9 +149,8 @@
 }
 
 .contact-social a {
-  margin: 0 50px;
   font-size: 3em;
-  color: #000;
+  color: #000000;
   text-decoration: none;
   display: inline-block;
 }
@@ -158,11 +160,31 @@
 }
 
 .contact-map {
-  margin-top: 30px;
   text-align: center;
 }
 
 .contact-map iframe {
   border: 0;
+  margin: 20px;
   border-radius: 8px;
+  width: 45vw;
+}
+
+
+/* WhatsApp Button Styles */
+.whatsapp-button {
+  font-size: 3em;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+  color: #39aa08;
+}
+
+.whatsapp-button i {
+  margin: 0;
+  font-size: 1.2em; /* Tamaño del ícono dentro del botón */
 }

@@ -17,9 +17,6 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/home" className="navbar-logo">
-          <img src="https://i.imgur.com/o4WPNxa.png" alt="Salvando Huellitas Logo" className="navbar-logo-image" />
-        </Link>
         <form onSubmit={handleSearch} className="navbar-search">
           <input
             type="text"
