@@ -38,6 +38,7 @@
 .navbar-links {
   display: flex;
   gap: 20px;
+  align-items: center; /* Ensure vertical alignment */
 }
 
 .navbar-icon {

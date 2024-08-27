@@ -24,12 +24,13 @@ const Home = ({setUser}) => {
       energyLevel: energyLevel || undefined,
       size: size || undefined,
     };
-    dispatch(fetchPets(filters, currentPage));
+    // Reset to page 1 when filters are applied
+    dispatch(fetchPets(filters, 1));
   };
 
   useEffect(() => {
     handleFilterChange(); // Trigger filter change on component mount
-  }, [dispatch, species, energyLevel, size, currentPage]);
+  }, [dispatch, species, energyLevel, size]);
 
   // Handle pagination
   const handleNextPage = () => {
