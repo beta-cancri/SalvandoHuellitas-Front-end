@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navbar/navbar.component';
 import Home from './views/home/home.component';
@@ -18,12 +18,15 @@ const App = () => {
   // Hide Navbar on the landing page and login page
   const showNavbar = location.pathname !== '/' && location.pathname !== '/login';
 
+  const [user, setUser] = useState(null);
+
+
   return (
     <div className="App">
-      {showNavbar && <Navbar />}
+      {showNavbar && <Navbar user={user} />}
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home setUser={setUser}/>} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />

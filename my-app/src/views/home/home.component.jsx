@@ -4,9 +4,11 @@ import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import './home.styles.css';
 import {manejarRedireccion} from "../../auth/auth"
-const Home = () => {
 
-  useEffect(manejarRedireccion, [])
+
+const Home = ({setUser}) => {
+
+  useEffect(manejarRedireccion(setUser), [])
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
   
