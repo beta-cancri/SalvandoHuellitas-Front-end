@@ -1,10 +1,20 @@
 .home-container {
-  padding: 20px;
-  background-image: url('https://i.imgur.com/kdZTsZ8.png');
-  background-size: cover;  /* Ensures the background covers the entire container */
-  background-position: center;  /* Centers the background image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  min-height: 100vh; /* Ensures the container takes up at least the full viewport height */
+  padding: 120px 20px 20px 20px; /* Adjust top padding to account for the navbar height */
+  background-image: url('https://i.imgur.com/NSwSO4T.png');
+  background-size: contain;
+  background-repeat: repeat;
+  min-height: 100vh;
+}
+
+.home-container h1 {
+  font-size: 48px; 
+  color: #030303;
+  margin-top: 50px;
+  margin-bottom: 40px; 
+  text-align: center; 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  font-weight: bold; 
 }
 
 .filter-controls {

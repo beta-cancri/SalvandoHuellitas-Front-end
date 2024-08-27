@@ -3,8 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import './home.styles.css';
+import {manejarRedireccion} from "../../auth/auth"
 
-const Home = () => {
+
+const Home = ({setUser}) => {
+
+  useEffect(manejarRedireccion(setUser), [])
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
   
@@ -20,12 +24,13 @@ const Home = () => {
       energyLevel: energyLevel || undefined,
       size: size || undefined,
     };
-    dispatch(fetchPets(filters, currentPage));
+    // Reset to page 1 when filters are applied
+    dispatch(fetchPets(filters, 1));
   };
 
   useEffect(() => {
     handleFilterChange(); // Trigger filter change on component mount
-  }, [dispatch, species, energyLevel, size, currentPage]);
+  }, [dispatch, species, energyLevel, size]);
 
   // Handle pagination
   const handleNextPage = () => {

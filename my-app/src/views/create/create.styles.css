@@ -1,87 +1,155 @@
 
-.full-screen-container-create {
-  width: 100%;
-  height: 100vh; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('https://i.imgur.com/QtE7tm6.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+html, body, #root, .App, .section-full-screen-container-create{
   margin: 0;
   padding: 0;
+  height: 100%;
+
+}
+
+.section-full-screen-container-create {
+  flex: 1;
+  z-index: -1;
+  height: 100%;
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+}
+.full-screen-container-create {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Align items at the top to allow scrolling */
+  position: relative;
+  padding: 120px 0 35px 0; /* Adjust top padding to account for the navbar */
+  box-sizing: border-box;
+
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+  }
+
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
+
+.full-screen-container-create::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.imgur.com/ywR5JeS.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .create-pet-container {
   max-width: 500px;
-  padding: 20px;
-  background-color: rgba(247, 247, 247, 0.9); 
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  margin-bottom: 20px; /* Add some margin to avoid cutting off the bottom */
 }
 
 .create-pet-container h1 {
-  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8em;
+  color: #D35400;
   margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
 }
 
 .create-pet-form {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .create-pet-form input,
 .create-pet-form select,
 .create-pet-form textarea {
+  width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 1px solid #e67e22;
+  border-radius: 8px;
   font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  background-color: rgba(255, 248, 240, 0.8);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.create-pet-form label {
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.create-pet-form input[type="checkbox"] {
-  margin-right: 10px;
+.create-pet-form input:focus,
+.create-pet-form select:focus,
+.create-pet-form textarea:focus {
+  border-color: #E67E22;
+  box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+  outline: none;
 }
 
 .create-pet-button {
   padding: 10px 15px;
-  background-color: #28a745;
+  background-color: #E67E22;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
-  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .create-pet-button:hover {
-  background-color: #218838;
+  background-color: #D35400;
+}
+
+.create-checkbox {
+  display: flex;
 }
 
 .create-pet-button:disabled {
-  background-color: #94d3a2;
+  background-color: #e67e22;
   cursor: not-allowed;
 }
 
-.error-message {
-  color: red;
-  text-align: center;
-  margin-top: 10px;
+.create-pet-form img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
 }
 
-.create-pet-form img {
-  width: 100px;
-  margin-top: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.create-pet-form label {
+  display: flow-root;
+  align-items: self-start;
+  margin-bottom: 5px;
+  width: 50%;
+}
+
+.create-pet-form input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.create-pet-form h2.h2-create1,
+.create-pet-form h2.h2-create2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1em;
+  color: #333;
+  margin: 0;
+  text-align: center;
+  flex: 1;
 }

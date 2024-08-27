@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../../redux/actions';
-import axios from 'axios'; // Import axios for handling the upload
 import './register.styles.css';
 
 const Register = () => {
@@ -14,13 +13,13 @@ const Register = () => {
     password: '',
     age: '',
     phone: '',
-    idCard: '', // This will store the Cloudinary URL
+    idCard: '',
     occupation: '',
+    gender: '', // Field for gender
   });
 
-  // State for handling errors
   const [error, setError] = useState('');
-  const [uploading, setUploading] = useState(false); // To manage uploading state
+  const [uploading] = useState(false);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -28,32 +27,6 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  // Handle image upload
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'your-upload-preset'); // Replace with your upload preset
-
-    try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/your-cloud-name/image/upload`,
-        formData
-      );
-      setFormData({
-        ...formData,
-        idCard: response.data.secure_url,
-      });
-      setUploading(false);
-    } catch (err) {
-      setError('Failed to upload image');
-      setUploading(false);
-    }
   };
 
   // Handle form submission
@@ -64,7 +37,19 @@ const Register = () => {
     try {
       await dispatch(createUser(formData));
       alert('User created successfully');
-      // Optionally, redirect to another page
+      
+      // Clear the form after successful submission
+      setFormData({
+        fullName: '',
+        email: '',
+        password: '',
+        age: '',
+        phone: '',
+        idCard: '',
+        occupation: '',
+        gender: '', 
+      });
+      
     } catch (err) {
       setError('Failed to create user: ' + err.message);
     }
@@ -110,22 +95,34 @@ const Register = () => {
           <input
             type="text"
             name="phone"
-            placeholder="Phone (Optional)"
+            placeholder="Phone"
             value={formData.phone}
             onChange={handleChange}
           />
           <input
             type="text"
+            name="idCard"
+            placeholder="ID Card"
+            value={formData.idCard}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
             name="occupation"
-            placeholder="Occupation (Optional)"
+            placeholder="Occupation"
             value={formData.occupation}
             onChange={handleChange}
           />
-
-          {/* Image upload for ID Card */}
-          <input type="file" name="idCard" onChange={handleImageUpload} />
-          {uploading && <p>Uploading image...</p>}
-          {formData.idCard && <img src={formData.idCard} alt="ID Card Preview" style={{ width: '100px' }} />}
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
 
           <button type="submit" className="register-button" disabled={uploading}>
             Register

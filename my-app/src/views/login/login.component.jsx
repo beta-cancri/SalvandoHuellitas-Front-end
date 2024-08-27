@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './login.styles.css';
+import { iniciarAutenticacion } from '../../auth/auth'; // Import the auth function
 
 const Login = () => {
+
   const handleGoogleLogin = () => {
-    // Add your Google login logic here
-    console.log('Google login clicked');
+    iniciarAutenticacion(); // Call the authentication function
   };
 
   const handleFacebookLogin = () => {
-    // Add your Facebook login logic here
     console.log('Facebook login clicked');
   };
 

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPet } from '../../redux/actions';
-import axios from 'axios';
-import './create.styles.css';  // Import the CSS file
+import './create.styles.css';
 
 const CreatePet = () => {
   const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
+    status: 'available',
+    photo: '',
     name: '',
     species: '',
     age: '',
@@ -17,11 +18,10 @@ const CreatePet = () => {
     okWithPets: false,
     okWithKids: false,
     history: '',
-    photo: '',  // This will store the Cloudinary URL
+    gender: '', // Added gender field
   });
 
   const [error, setError] = useState('');
-  const [uploading, setUploading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,31 +31,6 @@ const CreatePet = () => {
     });
   };
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setUploading(true);
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', 'your-upload-preset');  // Replace with your upload preset
-
-    try {
-      const response = await axios.post(
-        `https://api.cloudinary.com/v1_1/your-cloud-name/image/upload`,
-        formData
-      );
-      setFormData((prevData) => ({
-        ...prevData,
-        photo: response.data.secure_url,
-      }));
-      setUploading(false);
-    } catch (err) {
-      setError('Failed to upload image');
-      setUploading(false);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -63,17 +38,51 @@ const CreatePet = () => {
     try {
       await dispatch(createPet(formData));
       alert('Pet created successfully');
-      // Optionally, redirect to another page
+      // Reset the form after successful submission
+      setFormData({
+        status: 'available',
+        photo: '',
+        name: '',
+        species: '',
+        age: '',
+        size: '',
+        breed: '',
+        energyLevel: '',
+        okWithPets: false,
+        okWithKids: false,
+        history: '',
+        gender: '', // Reset gender field
+      });
     } catch (err) {
       setError('Failed to create pet: ' + err.message);
     }
   };
 
   return (
+    <div className='section-full-screen-container-create'>
     <div className="full-screen-container-create">
       <div className="create-pet-container">
         <h1>Create a New Pet</h1>
         <form className="create-pet-form" onSubmit={handleSubmit}>
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            required
+          >
+            <option value="available">Available</option>
+            <option value="adopted">Adopted</option>
+            <option value="onHold">On Hold</option>
+            <option value="inactive">Inactive</option>
+          </select>
+          <input
+            type="text"
+            name="photo"
+            placeholder="Photo URL"
+            value={formData.photo}
+            onChange={handleChange}
+            required
+          />
           <input
             type="text"
             name="name"
@@ -121,6 +130,7 @@ const CreatePet = () => {
             placeholder="Breed"
             value={formData.breed}
             onChange={handleChange}
+            required
           />
           <select
             name="energyLevel"
@@ -133,44 +143,50 @@ const CreatePet = () => {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
-          <label>
-            <input
-              type="checkbox"
-              name="okWithPets"
-              checked={formData.okWithPets}
-              onChange={handleChange}
-            />
-            OK with other pets
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="okWithKids"
-              checked={formData.okWithKids}
-              onChange={handleChange}
-            />
-            OK with kids
-          </label>
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
+          <div className="create-checkbox">
+            <label>
+              <input
+                type="checkbox"
+                name="okWithPets"
+                checked={formData.okWithPets}
+                onChange={handleChange}
+              />
+              <h2 className='h2-create1'>OK with other pets</h2>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="okWithKids"
+                checked={formData.okWithKids}
+                onChange={handleChange}
+              />
+              <h2 className='h2-create1'>OK with kids</h2>
+            </label>
+          </div>
           <textarea
             name="history"
             placeholder="History (Optional)"
             value={formData.history}
             onChange={handleChange}
           />
-          <input
-            type="file"
-            name="photo"
-            onChange={handleImageUpload}
-            required
-          />
-          {uploading && <p>Uploading image...</p>}
-          {formData.photo && <img src={formData.photo} alt="Pet" />}
-          <button type="submit" className="create-pet-button" disabled={uploading}>
+          {formData.photo && <img src={formData.photo} alt="Pet" className="pet-preview-image" />}
+          <button type="submit" className="create-pet-button">
             Create Pet
           </button>
         </form>
         {error && <p className="error-message">{error}</p>}
       </div>
+    </div>
     </div>
   );
 };
