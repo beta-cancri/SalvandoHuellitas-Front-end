@@ -4,136 +4,93 @@
 }
 
 .intro-aboutus {
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  font-size: 1.8em; 
+  text-align: center;
+  color: #000;
 }
 
 .intro-aboutus h1 {
-  font-size: 3em;
-  color: orange;
+  font-size: 3em; 
+  margin-bottom: 20px; 
+  color: #000;
+  
 }
 
 .intro-aboutus p {
-  font-size: 1.5em;
-  margin-top: 24px;
+  font-size: 1em; 
   color: #555;
 }
 
-.navbar {
-  height: 60px;
-  width: 100%;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 5px; 
-}
-
-.navbar-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
+.faq, .reviews {
+  margin-bottom: 50px;
 }
 
 .faq h2, .reviews h2 {
-  font-size: 2em;
+  font-size: 4em; 
   margin-bottom: 20px;
   color: #000;
-  border-bottom: 1px solid #878787;
+  border-bottom: 2px solid #211f1f;
   padding-bottom: 8px;
 }
 
-.navbar-logo {
-  width: 100px; 
-  height: auto; 
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: 20px;
+.faq ul, .reviews ul {
+  list-style: none;
+  padding: 0;
 }
 
-.navbar-logo-image {
-  width: 160px; 
-  height: auto; 
+.faq li, .reviews li {
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0; 
+  transition: background-color 0.3s ease;
 }
 
-.navbar-search {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  margin: 0 20px;
+.faq li:hover, .reviews li:hover {
+  background-color: #fff6f6;
 }
 
-.navbar-search-input {
-  width: 360px; 
-  height: auto;
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  outline: none;
+.faq strong, .reviews strong {
+  display: block;
+  margin-bottom: 10px; 
+  font-weight: bold;
+  color: #000;
+  font-size: 1.8em; 
 }
 
-.navbar-search-button {
-  padding: 5px 10px;
-  margin-left: 10px;
-  border-radius: 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.faq span, .reviews span {
+  display: block;
+  font-size: 1.5em; 
+  color: #000000;
 }
 
-.navbar-search-button:hover {
-  background-color: #0056b3;
+.faq li:last-child, .reviews li:last-child {
+  border-bottom: none;
+  background-color: #fff6f6;
+
 }
 
-.navbar-links {
-  display: flex;
-  gap: 10px;
-  position: absolute;
-  right: 220px;
-}
 
-.back-button-container {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.back-button {
+.intro a, .faq a, .reviews a {
+  display: inline-block;
+  margin-top: 20px;
   padding: 10px 25px;
   background-color: #000;
-}
-
-.navbar-button-link {
-  padding: 5px 20px;
-  border-radius: 20px;
-  background-color: #007BFF;
   color: white;
   text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+  font-size: 2em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.navbar-button-link:hover {
-  background-color: #0056b3;
+.intro a:hover, .faq a:hover, .reviews a:hover {
+  background-color: #fcf3f3;
+  transform: scale(1.05);
 }
 
-.navbar-button {
-  padding: 5px 20px;
-  border-radius: 20px;
-  background-color: #28A745;
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: background-color 0.3s;
-  position: absolute;
-  right: 20px;
-}
 
-.navbar-button:hover {
-  background-color: #218838;
+.faq h2::before, .reviews h2::before {
+  content: '🐾';
+  display: inline-block;
+  margin-right: 8px;
+  color: #000;
 }

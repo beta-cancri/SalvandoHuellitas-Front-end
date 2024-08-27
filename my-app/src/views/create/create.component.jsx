@@ -59,6 +59,7 @@ const CreatePet = () => {
   };
 
   return (
+    <div className='section-full-screen-container-create'>
     <div className="full-screen-container-create">
       <div className="create-pet-container">
         <h1>Create a New Pet</h1>
@@ -185,6 +186,7 @@ const CreatePet = () => {
         </form>
         {error && <p className="error-message">{error}</p>}
       </div>
+    </div>
     </div>
   );
 };

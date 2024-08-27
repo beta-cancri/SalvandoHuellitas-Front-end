@@ -1,15 +1,34 @@
+
+html, body, #root, .App, .section-full-screen-container-create{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+}
+
+.section-full-screen-container-create {
+  flex: 1;
+  z-index: -1;
+  height: 100%;
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+}
 .full-screen-container-create {
   width: 100%;
-  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: flex-start; /* Align items at the top to allow scrolling */
   position: relative;
-  margin: 0;
-  padding: 120px 0 0 0; /* Adjust top padding to account for the navbar */
+  padding: 120px 0 35px 0; /* Adjust top padding to account for the navbar */
   box-sizing: border-box;
+
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+  }
+
   overflow-y: auto; /* Allow vertical scrolling */
 }
+
 
 .full-screen-container-create::before {
   content: "";
@@ -38,6 +57,7 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+  height: 100%;
   margin-bottom: 20px; /* Add some margin to avoid cutting off the bottom */
 }
 

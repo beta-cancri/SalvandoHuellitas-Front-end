@@ -7,9 +7,9 @@
 .contact-container {
   background-image: url('https://i.imgur.com/v1io1jV.jpeg');
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; 
-  padding-top: 120px; /* Adjust top padding to account for the navbar */
-  height: 100vh;
+  margin-top: 80px;
+  padding-bottom: 70px;
+  overflow: hidden; /* Adjust top padding to account for the navbar */
 }
 
 .contact-body-container {
@@ -38,7 +38,7 @@
 }
 
 .intro-contact-title {
-  font-size: 1.8em;
+  font-size: 3em;
   margin-top: 15px;
   color: #ef7630;
 }
@@ -61,33 +61,6 @@
 
 .contact-options-container div a {
   margin-top: 10px;
-}
-
-.faq ul, .reviews ul {
-  list-style: none;
-  padding: 0;
-}
-
-.faq li, .reviews li {
-  border-bottom: 1px solid #ddd;
-  transition: background-color 0.3s ease;
-}
-
-.faq strong, .reviews strong {
-  display: block;
-  font-weight: bold;
-  color: #ee7504;
-  font-size: 1.2em;
-}
-
-.faq span, .reviews span {
-  display: block;
-  font-size: 1.2em;
-  color: #000;
-}
-
-.faq li:last-child, .reviews li:last-child {
-  border-bottom: none;
 }
 
 .back-button, .contact-button {
