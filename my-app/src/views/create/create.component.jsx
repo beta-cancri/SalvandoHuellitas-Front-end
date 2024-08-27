@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPet } from '../../redux/actions';
 import './create.styles.css';
+import validationForCreate from './validationForCreate';
 
 const CreatePet = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const CreatePet = () => {
     gender: '', // Added gender field
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState({});
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -29,11 +30,16 @@ const CreatePet = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
+
+    const validation = validationForCreate({ ...formData, [e.target.name]: e.target.value });
+    setError(validation);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+
+    const validateErrors = validationForCreate(formData);
+    setError(validateErrors);
 
     try {
       await dispatch(createPet(formData));
@@ -75,6 +81,7 @@ const CreatePet = () => {
             <option value="onHold">On Hold</option>
             <option value="inactive">Inactive</option>
           </select>
+          {error.status && <p className="error-message">{error.status}</p>}
           <input
             type="text"
             name="photo"
@@ -83,6 +90,7 @@ const CreatePet = () => {
             onChange={handleChange}
             required
           />
+          {error.photo && <p className="error-message">{error.photo}</p>}
           <input
             type="text"
             name="name"
@@ -91,6 +99,7 @@ const CreatePet = () => {
             onChange={handleChange}
             required
           />
+          {error.name && <p className="error-message">{error.name}</p>}
           <select
             name="species"
             value={formData.species}
@@ -101,6 +110,7 @@ const CreatePet = () => {
             <option value="cat">Cat</option>
             <option value="dog">Dog</option>
           </select>
+          {error.species && <p className="error-message">{error.species}</p>}
           <select
             name="age"
             value={formData.age}
@@ -113,6 +123,7 @@ const CreatePet = () => {
             <option value="adult">Adult</option>
             <option value="elder">Elder</option>
           </select>
+          {error.age && <p className="error-message">{error.age}</p>}
           <select
             name="size"
             value={formData.size}
@@ -124,6 +135,7 @@ const CreatePet = () => {
             <option value="medium">Medium</option>
             <option value="large">Large</option>
           </select>
+          {error.size && <p className="error-message">{error.size}</p>}
           <input
             type="text"
             name="breed"
@@ -143,6 +155,7 @@ const CreatePet = () => {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
+          {error.energyLevel && <p className="error-message">{error.energyLevel}</p>}
           <select
             name="gender"
             value={formData.gender}
@@ -153,6 +166,7 @@ const CreatePet = () => {
             <option value="female">Female</option>
             <option value="male">Male</option>
           </select>
+          {error.gender && <p className="error-message">{error.gender}</p>}
           <div className="create-checkbox">
             <label>
               <input
@@ -173,6 +187,8 @@ const CreatePet = () => {
               <h2 className='h2-create1'>OK with kids</h2>
             </label>
           </div>
+          {error.okWithPets && <p className="error-message">{error.okWithPets}</p>}
+          {error.okWithKids && <p className="error-message">{error.okWithKids}</p>}
           <textarea
             name="history"
             placeholder="History (Optional)"
@@ -184,7 +200,6 @@ const CreatePet = () => {
             Create Pet
           </button>
         </form>
-        {error && <p className="error-message">{error}</p>}
       </div>
     </div>
     </div>
