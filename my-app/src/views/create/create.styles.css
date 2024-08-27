@@ -17,13 +17,18 @@ html, body, #root, .App, .section-full-screen-container-create{
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align items at the top to allow scrolling */
   position: relative;
   padding: 120px 0 35px 0; /* Adjust top padding to account for the navbar */
   box-sizing: border-box;
+
   background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
 
   }
+
+  overflow-y: auto; /* Allow vertical scrolling */
+}
+
 
 .full-screen-container-create::before {
   content: "";
@@ -32,6 +37,12 @@ html, body, #root, .App, .section-full-screen-container-create{
   left: 0;
   width: 100%;
   height: 100%;
+  background-image: url('https://i.imgur.com/ywR5JeS.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .create-pet-container {
@@ -45,10 +56,9 @@ html, body, #root, .App, .section-full-screen-container-create{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   box-sizing: border-box;
   height: 100%;
-  
+  margin-bottom: 20px; /* Add some margin to avoid cutting off the bottom */
 }
 
 .create-pet-container h1 {

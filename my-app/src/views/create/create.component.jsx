@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPet } from '../../redux/actions';
-import './create.styles.css';  // Import the CSS file
+import './create.styles.css';
 
 const CreatePet = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,7 @@ const CreatePet = () => {
     okWithPets: false,
     okWithKids: false,
     history: '',
+    gender: '', // Added gender field
   });
 
   const [error, setError] = useState('');
@@ -50,6 +51,7 @@ const CreatePet = () => {
         okWithPets: false,
         okWithKids: false,
         history: '',
+        gender: '', // Reset gender field
       });
     } catch (err) {
       setError('Failed to create pet: ' + err.message);
@@ -141,27 +143,35 @@ const CreatePet = () => {
             <option value="medium">Medium</option>
             <option value="high">High</option>
           </select>
+          <select
+            name="gender"
+            value={formData.gender}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Select Gender</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+          </select>
           <div className="create-checkbox">
-          <label>
-            <input
-              type="checkbox"
-              name="okWithPets"
-              checked={formData.okWithPets}
-              onChange={handleChange}
-            />
-            <h2 className='h2-create1'>OK with other pets</h2>
-          
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="okWithKids"
-              checked={formData.okWithKids}
-              onChange={handleChange}
-            />
-            <h2 className='h2-create1'>OK with kids</h2>
-           
-          </label>
+            <label>
+              <input
+                type="checkbox"
+                name="okWithPets"
+                checked={formData.okWithPets}
+                onChange={handleChange}
+              />
+              <h2 className='h2-create1'>OK with other pets</h2>
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="okWithKids"
+                checked={formData.okWithKids}
+                onChange={handleChange}
+              />
+              <h2 className='h2-create1'>OK with kids</h2>
+            </label>
           </div>
           <textarea
             name="history"
