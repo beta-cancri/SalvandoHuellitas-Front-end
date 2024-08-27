@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createUser } from '../../redux/actions';
+//import validationForRegister from './validationForRegister';
 import './register.styles.css';
 
 const Register = () => {
@@ -18,7 +19,7 @@ const Register = () => {
     gender: '', // Field for gender
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState({});
   const [uploading] = useState(false);
 
   // Handle input changes
