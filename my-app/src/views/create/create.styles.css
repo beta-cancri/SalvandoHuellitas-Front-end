@@ -1,15 +1,29 @@
+
+html, body, #root, .App, .section-full-screen-container-create{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+
+}
+
+.section-full-screen-container-create {
+  flex: 1;
+  z-index: -1;
+  height: 100%;
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+}
 .full-screen-container-create {
   width: 100%;
-  height: 100vh; 
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 0;
-  padding: 120px 0 0 0; /* Adjust top padding to account for the navbar */
+  padding: 120px 0 35px 0; /* Adjust top padding to account for the navbar */
   box-sizing: border-box;
-  overflow: hidden;
-}
+  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+
+  }
 
 .full-screen-container-create::before {
   content: "";
@@ -18,12 +32,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://i.imgur.com/ywR5JeS.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.5;
-  z-index: -1;
 }
 
 .create-pet-container {
@@ -39,6 +47,8 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  height: 100%;
+  
 }
 
 .create-pet-container h1 {

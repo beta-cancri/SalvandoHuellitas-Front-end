@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  max-width: 350px;
 }
 
 .animal-detail-content {

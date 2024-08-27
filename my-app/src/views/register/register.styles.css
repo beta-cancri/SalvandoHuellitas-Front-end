@@ -5,11 +5,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; /* Para colocar la pseudo-capa */
+  position: relative; 
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden; /* Evita que el contenido se desborde */
+  overflow: hidden; 
 }
 
 .full-screen-container-register::before {
@@ -43,13 +43,14 @@
   box-sizing: border-box;
   margin: auto;
   height: 82vh;
+  margin-block-start: 5%;
 }
 
 /* Encabezado del formulario */
 .register-container h1 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8em;
-  color: #D35400; /* Naranja oscuro */
+  color: #D35400; 
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
