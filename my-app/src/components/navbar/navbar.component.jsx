@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { fetchPets } from '../../redux/actions';
 import './navbar.styles.css';
 
-const Navbar = () => {
+const Navbar = ({user}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
   const location = useLocation();
@@ -54,7 +54,12 @@ const Navbar = () => {
             <img src="https://i.imgur.com/v27WHRN.png" alt="Contact Icon" className="navbar-icon" />
           </Link>
         </div>
-        <Link to="/login" className="navbar-button">Login</Link>
+        {
+          user === null ? (
+              <Link to="/login" className="navbar-button">Login</Link>
+          ) : `${user.name}`
+        }
+
       </div>
     </nav>
   );
