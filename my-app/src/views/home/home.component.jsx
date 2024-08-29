@@ -13,9 +13,19 @@ const Home = ({ setUser }) => {
     manejarRedireccion(setUser);
 
     // Initialize SlimSelect for each select
-    new SlimSelect({ select: '#species-select' });
-    new SlimSelect({ select: '#energy-level-select' });
-    new SlimSelect({ select: '#size-select' });
+    const speciesSelect = new SlimSelect({ select: '#species-select' });
+    const energyLevelSelect = new SlimSelect({ select: '#energy-level-select' });
+    const sizeSelect = new SlimSelect({ select: '#size-select' });
+
+    // Save SlimSelect instances for later use
+    setSlimSelects({ speciesSelect, energyLevelSelect, sizeSelect });
+
+    return () => {
+      // Cleanup SlimSelect instances on unmount
+      speciesSelect.destroy();
+      energyLevelSelect.destroy();
+      sizeSelect.destroy();
+    };
   }, [setUser]);
 
   const dispatch = useDispatch();
@@ -24,6 +34,7 @@ const Home = ({ setUser }) => {
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
+  const [slimSelects, setSlimSelects] = useState({});
 
   const handleFilterChange = () => {
     const filters = {
@@ -55,6 +66,11 @@ const Home = ({ setUser }) => {
     setEnergyLevel('');
     setSize('');
     dispatch(fetchPets({}, 1));
+
+    // Reset SlimSelect values
+    slimSelects.speciesSelect.setSelected('');
+    slimSelects.energyLevelSelect.setSelected('');
+    slimSelects.sizeSelect.setSelected('');
   };
 
   return (
@@ -87,7 +103,7 @@ const Home = ({ setUser }) => {
             <option value="">Todos</option>
             <option value="small">Pequeño</option>
             <option value="medium">Mediano</option>
-            <option value="large">Largo</option>
+            <option value="large">Grande</option>
           </select>
         </label>
 
