@@ -15,7 +15,7 @@ const Login = () => {
 
   return (
     <div className="login-container">
-      <h1>Login</h1>
+      <h1>Iniciar sesión</h1>
       <form className="login-form">
         <input
           type="email"
@@ -25,22 +25,22 @@ const Login = () => {
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Contraseña"
           className="login-input"
           required
         />
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button">Entrar</button>
       </form>
       <div className="social-login-buttons">
         <button onClick={handleGoogleLogin} className="google-login-button">
-          Login with Google
+          Iniciar con Google
         </button>
         <button onClick={handleFacebookLogin} className="facebook-login-button">
-          Login with Facebook
+          Iniciar con Facebook
         </button>
       </div>
       <div className="login-links">
-        <Link to="/register">Don't have an account? Register</Link>
+        <Link to="/register">¿No tienes una cuenta? ¡Registrate!</Link>
       </div>
     </div>
   );

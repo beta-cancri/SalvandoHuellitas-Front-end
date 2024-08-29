@@ -1,38 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SlimSelect from 'slim-select';
+import '../../../node_modules/slim-select/dist/slimselect.css';
+import '../../assets/css/custom-slimselect.css';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import './home.styles.css';
-import {manejarRedireccion} from "../../auth/auth"
+import { manejarRedireccion } from "../../auth/auth";
 
+const Home = ({ setUser }) => {
+  useEffect(() => {
+    manejarRedireccion(setUser);
 
-const Home = ({setUser}) => {
+    // Initialize SlimSelect for each select
+    new SlimSelect({ select: '#species-select' });
+    new SlimSelect({ select: '#energy-level-select' });
+    new SlimSelect({ select: '#size-select' });
+  }, [setUser]);
 
-  useEffect(manejarRedireccion(setUser), [])
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
   
-  // States for filters
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
 
-  // Fetch pets based on filters
   const handleFilterChange = () => {
     const filters = {
       species: species || undefined,
       energyLevel: energyLevel || undefined,
       size: size || undefined,
     };
-    // Reset to page 1 when filters are applied
     dispatch(fetchPets(filters, 1));
   };
 
   useEffect(() => {
-    handleFilterChange(); // Trigger filter change on component mount
+    handleFilterChange();
   }, [dispatch, species, energyLevel, size]);
 
-  // Handle pagination
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       dispatch(fetchPets({ species, energyLevel, size }, currentPage + 1));
@@ -45,52 +50,49 @@ const Home = ({setUser}) => {
     }
   };
 
-  // Reset filters to default values
   const handleResetFilters = () => {
     setSpecies('');
     setEnergyLevel('');
     setSize('');
-    dispatch(fetchPets({}, 1)); // Fetch all pets with no filters
+    dispatch(fetchPets({}, 1));
   };
 
   return (
     <div className="home-container">
-      <h1>Available Pets for Adoption</h1>
+      <h1>Mascotas disponibles para adopción</h1>
 
-      {/* Filter Controls */}
       <div className="filter-controls">
         <label>
-          Species:
-          <select value={species} onChange={(e) => setSpecies(e.target.value)}>
-            <option value="">All</option>
-            <option value="dog">Dog</option>
-            <option value="cat">Cat</option>
+          Especie:
+          <select id="species-select" value={species} onChange={(e) => setSpecies(e.target.value)}>
+            <option value="">Ambas</option>
+            <option value="dog">Perro</option>
+            <option value="cat">Gato</option>
           </select>
         </label>
 
         <label>
-          Energy Level:
-          <select value={energyLevel} onChange={(e) => setEnergyLevel(e.target.value)}>
-            <option value="">All</option>
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
+          Nivel de energía:
+          <select id="energy-level-select" value={energyLevel} onChange={(e) => setEnergyLevel(e.target.value)}>
+            <option value="">Todas</option>
+            <option value="low">Baja</option>
+            <option value="medium">Media</option>
+            <option value="high">Alta</option>
           </select>
         </label>
 
         <label>
-          Size:
-          <select value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="">All</option>
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
+          Tamaño:
+          <select id="size-select" value={size} onChange={(e) => setSize(e.target.value)}>
+            <option value="">Todos</option>
+            <option value="small">Pequeño</option>
+            <option value="medium">Mediano</option>
+            <option value="large">Largo</option>
           </select>
         </label>
 
-        {/* Reset Filters Button */}
         <button onClick={handleResetFilters} className="reset-button">
-          Reset Filters
+          <i className="fas fa-trash"></i> {/* Ícono de tacho de basura */}
         </button>
       </div>
 
@@ -108,7 +110,7 @@ const Home = ({setUser}) => {
           </div>
         </div>
       ) : (
-        <p>No pets available</p>
+        <p>No hay mascotas disponibles</p>
       )}
     </div>
   );
