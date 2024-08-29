@@ -48,7 +48,7 @@
 }
 
 .navbar-search-button {
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px; 
   background-color: transparent; 
   color: #fff; 
@@ -57,11 +57,13 @@
   font-weight: 500; 
   transition: background-color 0.3s ease, color 0.3s ease; 
   margin-left: 5px;  
+  border: 1px solid #ffffff;
 }
 
 .navbar-search-button:hover {
   background-color: #cac8c5;  
-  color: #fff; 
+  color: #131212; 
+  border: 1px solid #ffffff; 
 }
 
 
@@ -82,8 +84,8 @@
 
 /* Login */
 .navbar-button {
-  padding: 10px 20px;
-  border-radius: 5px; 
+  padding: 10px 10px;
+  border-radius: 5px ; 
   background-color: transparent; 
   color: #fff; 
   cursor: pointer;

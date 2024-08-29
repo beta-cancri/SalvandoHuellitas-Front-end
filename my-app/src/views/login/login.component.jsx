@@ -29,7 +29,7 @@ const Login = () => {
           className="login-input"
           required
         />
-        <button type="submit" className="login-button">Entrar</button>
+        <button type="submit" className="button">Entrar</button>
       </form>
       <div className="social-login-buttons">
         <button onClick={handleGoogleLogin} className="google-login-button">

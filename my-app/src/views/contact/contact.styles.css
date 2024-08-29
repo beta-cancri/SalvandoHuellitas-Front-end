@@ -33,6 +33,7 @@
 
 .intro {
   font-size: 1.2em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   text-align: center;
   color: #ffffff;
   display: flex;
@@ -48,6 +49,8 @@
   font-size: 3em;
   margin-top: 15px;
   color: #f4a662;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
 }
 
 .contact-options-container {
@@ -58,6 +61,7 @@
 
 .intro p {
   font-size: 1.5em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   color: #fdfdfd;
   margin-top: 15px;
 }
@@ -70,6 +74,7 @@
 
 .contact-options-container div a {
   margin-top: 10px;
+
 }
 
 .back-button, .contact-button {
@@ -104,6 +109,8 @@
   content: '🐾';
   display: inline-block;
   color: #000;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
 }
 
 .contact-info h2,
@@ -112,6 +119,8 @@
   font-size: 2.5em;
   color: #000;
   border-bottom: 1px solid #777070;
+  text-shadow: 2px 2px 5px rgba(235, 224, 224, 0.7);
+
 }
 
 .contact-info p, .contact-social a, .contact-hours p {
@@ -141,6 +150,9 @@
 
 .contact-map {
   text-align: center;
+  color: #000;
+  text-shadow: 2px 2px 5px rgba(235, 224, 224, 0.7);
+
 }
 
 .contact-map iframe {
