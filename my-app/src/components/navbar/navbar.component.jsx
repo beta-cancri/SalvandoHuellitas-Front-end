@@ -30,7 +30,7 @@ const Navbar = ({user}) => {
         <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
 Salvando Huellitas      
   </Link>
-  {showSearch && (
+        {showSearch && (
           <form onSubmit={handleSearch} className="navbar-search">
             <input
               type="text"

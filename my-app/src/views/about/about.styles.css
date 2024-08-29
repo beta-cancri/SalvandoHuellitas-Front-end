@@ -34,6 +34,7 @@
   font-size: 1.8em;
   text-align: center;
   color: #ffbd61; /* Texto en color dorado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   font-family: 'Poppins', sans-serif; /* Fuente aplicada aquí */
 }
 
@@ -41,6 +42,7 @@
   font-size: 3em;
   margin-bottom: 20px;
   color: #fff; /* Texto blanco */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   font-family: 'Poppins', sans-serif; /* Fuente aplicada aquí */
 }
 
@@ -48,6 +50,7 @@
   font-size: 1em;
   margin-top: 10px;
   color: #ddd; /* Texto gris claro */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   font-family: 'Poppins', sans-serif; /* Fuente aplicada aquí */
 }
 .team {
@@ -89,6 +92,7 @@
 .team-info h3 {
   font-size: 1.2em;
   color: #ffbd61; /* Color dorado */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin: 5px 0;
   font-family: 'Poppins', sans-serif;
 }
@@ -106,7 +110,8 @@
 .faq h2, .reviews h2 {
   font-size: 4em;
   margin-bottom: 20px;
-  color: #fff; /* Texto blanco */
+  color: #faf7f7; /* Texto blanco */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   border-bottom: 2px solid #211f1f;
   padding-bottom: 8px;
   font-family: 'Poppins', sans-serif; /* Fuente aplicada aquí */
@@ -115,11 +120,14 @@
 .faq ul, .reviews ul {
   list-style: none;
   padding: 0;
+  
 }
 
 .faq li, .reviews li {
   border-bottom: 1px solid #ddd;
-  padding: 20px 0;
+  padding: 20px 10;
+  margin: 0 20px;
+  align-items: center;
   transition: background-color 0.3s ease;
   font-family: 'Poppins', sans-serif; /* Fuente aplicada aquí */
 }

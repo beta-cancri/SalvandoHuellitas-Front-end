@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './landing.styles.css';
+import '../../assets/css/button/Button.css'
 
 const Landing = () => {
   return (
@@ -9,8 +10,8 @@ const Landing = () => {
         <h1 className="lading-title">Nuestros amigos de cuatro patas necesitan tu ayuda.</h1>
         <p className="subtext">Salvando Huellitas</p>
         <div className="landing-buttons">
-          <Link to="/donate" className="btn btn-primary">Donar</Link>
-          <Link to="/home" className="btn btn-secondary">Adoptar</Link>
+          <Link to="/donate" className="button">Donar</Link>
+          <Link to="/home" className="button">Adoptar</Link>
         </div>
       </div>
     </div>

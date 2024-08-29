@@ -70,7 +70,7 @@ const CreatePet = () => {
       <div className="create-pet-container">
         <h1>Crea una nueva mascota</h1>
         <form className="create-pet-form" onSubmit={handleSubmit}>
-          <select
+          Estado<select
             name="status"
             value={formData.status}
             onChange={handleChange}
@@ -82,7 +82,7 @@ const CreatePet = () => {
             <option value="inactive">Inactivo</option>
           </select>
           {error.status && <p className="error-message">{error.status}</p>}
-          <input
+          Url de foto<input
             type="text"
             name="photo"
             placeholder="URL de foto"
@@ -91,7 +91,7 @@ const CreatePet = () => {
             required
           />
           {error.photo && <p className="error-message">{error.photo}</p>}
-          <input
+          Nombre<input
             type="text"
             name="name"
             placeholder="Nombre"
@@ -136,7 +136,7 @@ const CreatePet = () => {
             <option value="large">Largo</option>
           </select>
           {error.size && <p className="error-message">{error.size}</p>}
-          <input
+          Raza<input
             type="text"
             name="breed"
             placeholder="Raza"
@@ -189,14 +189,14 @@ const CreatePet = () => {
           </div>
           {error.okWithPets && <p className="error-message">{error.okWithPets}</p>}
           {error.okWithKids && <p className="error-message">{error.okWithKids}</p>}
-          <textarea
+          Historia<textarea
             name="history"
             placeholder="Historia (Opcional)"
             value={formData.history}
             onChange={handleChange}
           />
           {formData.photo && <img src={formData.photo} alt="Pet" className="pet-preview-image" />}
-          <button type="submit" className="create-pet-button">
+          <button type="submit" className="button">
             Enviar
           </button>
         </form>

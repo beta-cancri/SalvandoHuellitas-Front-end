@@ -64,7 +64,7 @@ const Register = () => {
     <div className="full-screen-container-register">
       <div className="register-container">
         <h1>Crea una cuenta</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="register-form" onSubmit={handleSubmit}>Nombre Completo
           <input
             type="text"
             name="fullName"
@@ -74,7 +74,7 @@ const Register = () => {
             required
           />
           {error.fullName && <p className="error-message">{error.fullName}</p>}
-          <input
+          Email<input
             type="email"
             name="email"
             placeholder="Email"
@@ -83,7 +83,7 @@ const Register = () => {
             required
           />
           {error.email && <p className="error-message">{error.email}</p>}
-          <input
+          Contraseña<input
             type="password"
             name="password"
             placeholder="Contraseña"
@@ -92,7 +92,7 @@ const Register = () => {
             required
           />
           {error.password && <p className="error-message">{error.password}</p>}
-          <input
+          Edad<input
             type="number"
             name="age"
             placeholder="Edad"
@@ -101,7 +101,7 @@ const Register = () => {
             required
           />
           {error.age && <p className="error-message">{error.age}</p>}
-          <input
+          Nro de teléfono<input
             type="text"
             name="phone"
             placeholder="Nro de teléfono"
@@ -109,7 +109,7 @@ const Register = () => {
             onChange={handleChange}
           />
           {error.phone && <p className="error-message">{error.phone}</p>}
-          <input
+          Tarjeta ID<input
             type="text"
             name="idCard"
             placeholder="Tarjeta ID"
@@ -117,7 +117,7 @@ const Register = () => {
             onChange={handleChange}
           />
           {error.idCard && <p className="error-message">{error.idCard}</p>}
-          <input
+          Ocupación<input
             type="text"
             name="occupation"
             placeholder="Ocupación"
@@ -136,7 +136,7 @@ const Register = () => {
           </select>
           {error.gender && <p className="error-message">{error.gender}</p>}
           
-          <button type="submit" className="register-button" disabled={uploading}>
+          <button type="submit" className="button" disabled={uploading}>
             Registrate
           </button>
         </form>

@@ -117,7 +117,7 @@ const About = () => {
       </div>
       
       <div className="back-button-container">
-        <button className="back-button" onClick={() => navigate('/home')}>Inicio</button>        
+        <button className="button" onClick={() => navigate('/home')}>Inicio</button>        
       </div>
     </div>
   );
