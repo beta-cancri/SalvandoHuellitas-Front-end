@@ -63,12 +63,12 @@ const Register = () => {
   return (
     <div className="full-screen-container-register">
       <div className="register-container">
-        <h1>Create an Account</h1>
+        <h1>Crea una cuenta</h1>
         <form className="register-form" onSubmit={handleSubmit}>
           <input
             type="text"
             name="fullName"
-            placeholder="Full Name"
+            placeholder="Nombre completo"
             value={formData.fullName}
             onChange={handleChange}
             required
@@ -86,7 +86,7 @@ const Register = () => {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
             required
@@ -95,7 +95,7 @@ const Register = () => {
           <input
             type="number"
             name="age"
-            placeholder="Age"
+            placeholder="Edad"
             value={formData.age}
             onChange={handleChange}
             required
@@ -104,7 +104,7 @@ const Register = () => {
           <input
             type="text"
             name="phone"
-            placeholder="Phone"
+            placeholder="Nro de teléfono"
             value={formData.phone}
             onChange={handleChange}
           />
@@ -112,7 +112,7 @@ const Register = () => {
           <input
             type="text"
             name="idCard"
-            placeholder="ID Card"
+            placeholder="Tarjeta ID"
             value={formData.idCard}
             onChange={handleChange}
           />
@@ -120,7 +120,7 @@ const Register = () => {
           <input
             type="text"
             name="occupation"
-            placeholder="Occupation"
+            placeholder="Ocupación"
             value={formData.occupation}
             onChange={handleChange}
           />
@@ -130,14 +130,14 @@ const Register = () => {
             onChange={handleChange}
             required
           >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="">Género</option>
+            <option value="male">Masculino</option>
+            <option value="female">Femenino</option>
           </select>
           {error.gender && <p className="error-message">{error.gender}</p>}
           
           <button type="submit" className="register-button" disabled={uploading}>
-            Register
+            Registrate
           </button>
         </form>
         {/*error && <p className="error-message">{error}</p>*/}
