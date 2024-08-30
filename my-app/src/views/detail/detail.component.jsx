@@ -64,7 +64,7 @@ const Detail = () => {
             </div>
           </div>
           <div>
-          <button className="detail-back-button" onClick={handleBack}>Atrás</button>
+          <button className="button" onClick={handleBack}>Atrás</button>
           </div>
         </div>
       </div>
