@@ -2,7 +2,6 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 500; /* Medium */
   color: #ddd;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 
 }
 
@@ -15,6 +14,7 @@ body {
   position: relative; /* Permite usar el pseudo-elemento ::before */
   padding: 20px;
   overflow: hidden; /* Asegura que el pseudo-elemento no se salga del contenedor */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .login-container::before {
