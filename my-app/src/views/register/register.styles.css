@@ -5,11 +5,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; 
+  position: relative;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden; 
+  overflow: hidden; /* Mantiene el contenido dentro del contenedor */
 }
 
 .full-screen-container-register::before {
@@ -19,38 +19,47 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://static.vecteezy.com/system/resources/previews/003/130/300/original/dog-and-cat-paw-pattern-background-free-vector.jpg');
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg'); /* Imagen de fondo */
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.5; /* Controla la opacidad de la imagen */
-  z-index: -1; /* Coloca la imagen detrás del contenido */
+  background-repeat: repeat;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad del 50% */
+  filter: brightness(50%); /* Reduce el brillo de la imagen para oscurecerla */
 }
 
 /* Contenedor del formulario de registro */
 .register-container {
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
-  padding: 40px;
+  padding: 20px;
   border-radius: 15px;
+  border: 1px solid #ffffffb9;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 254, 254, 0.323); 
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
   box-sizing: border-box;
   margin: auto;
-  height: 82vh;
-  margin-block-start: 5%;
+  max-height: 90vh; 
+  overflow-y: auto; /* Permite desplazamiento si el contenido se desborda */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+  -ms-overflow-style: none;  /* Oculta la barra de desplazamiento en IE y Edge */
+  margin-block-start: 3%;
+}
+
+/* Ocultar barra de desplazamiento en Webkit (Chrome, Safari) */
+.register-container::-webkit-scrollbar {
+  display: none;
 }
 
 /* Encabezado del formulario */
 .register-container h1 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8em;
-  color: #D35400; 
+  color: #ffbd61;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -63,6 +72,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  color: black;
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
 }
 
 /* Estilo de los campos de entrada y selección */
@@ -86,32 +97,11 @@
   outline: none;
 }
 
-/* Estilo del botón de registro */
-.register-button {
-  width: 100%;
-  padding: 15px;
-  background-color: #E67E22;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 18px;
-  font-family: 'Poppins', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.register-button:hover {
-  background-color: #D35400;
-  transform: translateY(-2px);
-}
-
-/* Mensaje de error */
 .error-message {
   color: #E74C3C; /* Rojo suave */
   text-align: center;
-  margin-top: 15px;
+  margin-top: 10px; /* Reducido el margen superior */
   font-size: 14px;
   font-family: 'Poppins', sans-serif;
+  word-wrap: break-word; /* Asegura que los mensajes largos se ajusten dentro del contenedor */
 }

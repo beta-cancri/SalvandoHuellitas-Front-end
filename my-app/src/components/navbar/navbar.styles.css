@@ -1,122 +1,102 @@
+/* Navbar Styles */
 .navbar {
-  position: fixed; 
-  top: 0;
-  left: 0;
-  height: 80px !important; /* Increased the height */
-  width: 100%;
-  padding: 0px 0px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-image: url('https://i.imgur.com/MJZf1IZ.jpg');
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 1000; 
+  background-color: #00000043; /* Fondo negro para el navbar */
+  padding: 10px 20px;
 }
 
 .navbar-container {
-  height: 100%; /* Set the container height to 100% of the navbar */
   display: flex;
-  align-items: center;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navbar-logo {
-  width: 100px; 
-  height: auto; 
-  display: flex;
-  align-items: center;
-}
-
-.navbar-logo-image {
-  width: 160px; 
-  height: auto; 
-}
-
-.navbar-links {
-  display: flex;
-  gap: 20px;
-  align-items: center; /* Ensure vertical alignment */
-}
-
-.navbar-icon {
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.navbar-icon:hover {
-  transform: scale(1.1);
+  font-size: 1.8em;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif; /* Fuente aplicada */
+  font-weight: 500; /* Medium weight */
 }
 
 .navbar-search {
-  height: 100px;
   display: flex;
   align-items: center;
 }
 
 .navbar-search-input {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border-radius: 30px;
-  border: 1px solid #ddd;
-  outline: none;
-  width: 300px;
+  width: 200px;
+  padding: 10px;
+  border: 0; 
+  border-bottom: 1px solid #ffffffb9; 
+  border-radius: 0; 
+  font-size: 0.8em;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  color: #fff; 
+  background-color: transparent; 
+  outline: none; 
+  transition: border-color 0.3s ease; 
+  margin-right: 5px; 
+}
+
+.navbar-search-input::placeholder {
+  color: #ddd; 
+}
+
+.navbar-search-input:focus {
+  border-bottom-color: #cac8c5; 
 }
 
 .navbar-search-button {
-  padding: 0;
-  margin-left: 10px;
-  border: none;
-  background: none !important;
-  box-shadow: none !important;
+  padding: 5px;
+  border-radius: 5px; 
+  background-color: transparent; 
+  color: #fff; 
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none !important;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  margin-left: 5px;  
+  border: 1px solid #ffffff;
 }
 
-.navbar-search-button:focus, 
-.navbar-search-button:active, 
 .navbar-search-button:hover {
-  background: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+  background-color: #cac8c5;  
+  color: #131212; 
+  border: 1px solid #ffffff; 
 }
 
-.navbar-search-button img {
-  display: block;
-  width: 75px;
-  height: 75px;
-}
 
-.navbar-button {
-  height: 40px; /* Increased height to match the taller navbar */
-  width: 100px; /* Adjusted width to make the button larger */
-  text-align: center;
-  padding: 10px 30px;
-  border-radius: 30px;
-  background-color: #8B4513 !important;
-  color: white;
+.navbar-links a {
+  font-family: 'Poppins', sans-serif;  
+  font-weight: 500; 
+  font-size: 1em;
   text-decoration: none;
-  font-size: 1.8rem !important;
-  font-family: 'Monotype Corsiva', 'Lucida Handwriting', cursive;
-  font-style: italic;
-  margin-right: 40px;
-  transition: background-color 0.3s, transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #fff; 
+  padding: 10px 15px;
+  transition: color 0.3s ease; 
 }
 
+.navbar-links a.active,
+.navbar-links a:hover {
+  color: #f0cd8a; 
+}
+
+/* Login */
+.navbar-button {
+  padding: 10px 10px;
+  border-radius: 5px ; 
+  background-color: transparent; 
+  color: #fff; 
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  text-decoration: none; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.navbar-button.active,
 .navbar-button:hover {
-  background-color: #5a3310 !important;
-  transform: scale(1.1);
+  background-color: #cac8c5; 
+  color: #fff;  
 }

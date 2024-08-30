@@ -32,11 +32,11 @@ const Detail = () => {
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <p>Cargando...</p>;
   }
 
   if (!animal) {
-    return <p>Error: Animal not found.</p>;
+    return <p>Error: Animal no carga.</p>;
   }
 
   return (
@@ -52,19 +52,19 @@ const Detail = () => {
               <img src={animal.photo} alt={animal.name} className="animal-image" />
             </div>
             <div className="animal-detail-text">
-              <p><strong>Species:</strong> {animal.species}</p>
-              <p><strong>Status:</strong> {animal.status}</p>
-              <p><strong>Age:</strong> {animal.age}</p>
-              <p><strong>Size:</strong> {animal.size}</p>
-              <p><strong>Energy Level:</strong> {animal.energyLevel}</p>
-              <p><strong>Good with Other Pets:</strong> {animal.okWithPets ? 'Yes' : 'No'}</p>
-              <p><strong>Good with Kids:</strong> {animal.okWithKids ? 'Yes' : 'No'}</p>
-              <p><strong>Breed:</strong> {animal.breed ? animal.breed : 'Not specified'}</p>
-              <p><strong>History:</strong> {animal.history ? animal.history : 'Not available'}</p>
+              <p><strong>Especie:</strong> {animal.species}</p>
+              <p><strong>Estado:</strong> {animal.status}</p>
+              <p><strong>Etapa de vida:</strong> {animal.age}</p>
+              <p><strong>Tamaño:</strong> {animal.size}</p>
+              <p><strong>Nivel de energía:</strong> {animal.energyLevel}</p>
+              <p><strong>Bueno con otras mascotas:</strong> {animal.okWithPets ? 'Yes' : 'No'}</p>
+              <p><strong>Bueno con los niños:</strong> {animal.okWithKids ? 'Yes' : 'No'}</p>
+              <p><strong>Raza:</strong> {animal.breed ? animal.breed : 'Not specified'}</p>
+              <p><strong>Historia:</strong> {animal.history ? animal.history : 'Not available'}</p>
             </div>
           </div>
           <div>
-          <button className="detail-back-button" onClick={handleBack}>Back</button>
+          <button className="button" onClick={handleBack}>Atrás</button>
           </div>
         </div>
       </div>

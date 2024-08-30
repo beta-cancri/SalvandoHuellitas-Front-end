@@ -21,42 +21,46 @@ const Navbar = ({user}) => {
       window.location.reload(); // Refresh the page if already on home
     }
   };
+ // input de búsqueda solo en '/home'
+ const showSearch = location.pathname === '/home';
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
-          <img src="https://i.imgur.com/o4WPNxa.png" alt="Salvando Huellitas Logo" className="navbar-logo-image" />
-        </Link>
-        <form onSubmit={handleSearch} className="navbar-search">
-          <input
-            type="text"
-            className="navbar-search-input"
-            placeholder="Search by breed or name"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="navbar-search-button">
-            <img src="https://i.imgur.com/YMQuWYz.png" alt="Search Icon" className="navbar-icon" />
-          </button>
-        </form>
+Salvando Huellitas      
+  </Link>
+        {showSearch && (
+          <form onSubmit={handleSearch} className="navbar-search">
+            <input
+              type="text"
+              className="navbar-search-input"
+              placeholder="Buscar por raza ó nombre"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="navbar-search-button">
+              Buscar
+            </button>
+          </form>
+        )}
         <div className="navbar-links">
-          <Link to="/about">
-            <img src="https://i.imgur.com/RdCaKES.png" alt="About Icon" className="navbar-icon" />
+          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>
+            Sobre Nosotros
           </Link>
-          <Link to="/create">
-            <img src="https://i.imgur.com/MJ7CHPU.png" alt="Create Icon" className="navbar-icon" />
+          <Link to="/create" className={location.pathname === '/create' ? 'active' : ''}>
+            Crear 
           </Link>
-          <Link to="/register">
-            <img src="https://i.imgur.com/yK0Jf5X.png" alt="Register Icon" className="navbar-icon" />
+          <Link to="/register" className={location.pathname === '/register' ? 'active' : ''}>
+          Registrate
           </Link>
-          <Link to="/contact">
-            <img src="https://i.imgur.com/v27WHRN.png" alt="Contact Icon" className="navbar-icon" />
+          <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
+          Contacto
           </Link>
         </div>
         {
           user === null ? (
-              <Link to="/login" className="navbar-button">Login</Link>
+              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`}>Ingresar</Link>
           ) : `${user.name}`
         }
 

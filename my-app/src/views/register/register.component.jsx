@@ -63,18 +63,18 @@ const Register = () => {
   return (
     <div className="full-screen-container-register">
       <div className="register-container">
-        <h1>Create an Account</h1>
-        <form className="register-form" onSubmit={handleSubmit}>
+        <h1>Crea una cuenta</h1>
+        <form className="register-form" onSubmit={handleSubmit}>Nombre Completo
           <input
             type="text"
             name="fullName"
-            placeholder="Full Name"
+            placeholder="Nombre completo"
             value={formData.fullName}
             onChange={handleChange}
             required
           />
           {error.fullName && <p className="error-message">{error.fullName}</p>}
-          <input
+          Email<input
             type="email"
             name="email"
             placeholder="Email"
@@ -83,44 +83,44 @@ const Register = () => {
             required
           />
           {error.email && <p className="error-message">{error.email}</p>}
-          <input
+          Contraseña<input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
             required
           />
           {error.password && <p className="error-message">{error.password}</p>}
-          <input
+          Edad<input
             type="number"
             name="age"
-            placeholder="Age"
+            placeholder="Edad"
             value={formData.age}
             onChange={handleChange}
             required
           />
           {error.age && <p className="error-message">{error.age}</p>}
-          <input
+          Nro de teléfono<input
             type="text"
             name="phone"
-            placeholder="Phone"
+            placeholder="Nro de teléfono"
             value={formData.phone}
             onChange={handleChange}
           />
           {error.phone && <p className="error-message">{error.phone}</p>}
-          <input
+          Tarjeta ID<input
             type="text"
             name="idCard"
-            placeholder="ID Card"
+            placeholder="Tarjeta ID"
             value={formData.idCard}
             onChange={handleChange}
           />
           {error.idCard && <p className="error-message">{error.idCard}</p>}
-          <input
+          Ocupación<input
             type="text"
             name="occupation"
-            placeholder="Occupation"
+            placeholder="Ocupación"
             value={formData.occupation}
             onChange={handleChange}
           />
@@ -130,14 +130,14 @@ const Register = () => {
             onChange={handleChange}
             required
           >
-            <option value="">Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="">Género</option>
+            <option value="male">Masculino</option>
+            <option value="female">Femenino</option>
           </select>
           {error.gender && <p className="error-message">{error.gender}</p>}
           
-          <button type="submit" className="register-button" disabled={uploading}>
-            Register
+          <button type="submit" className="button" disabled={uploading}>
+            Registrate
           </button>
         </form>
         {/*error && <p className="error-message">{error}</p>*/}

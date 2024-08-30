@@ -1,42 +1,62 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; /* Medium */
+  color: #ddd;
+
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('https://i.imgur.com/cP2CHxR.png');
-  background-size: cover;
-  background-position: center;
+  position: relative; /* Permite usar el pseudo-elemento ::before */
   padding: 20px;
+  overflow: hidden; /* Asegura que el pseudo-elemento no se salga del contenedor */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2021/02/gatos-vs-perros-2238147.jpg?tf=3840x') no-repeat center center;
+  background-size: cover;
+  z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+}
+
+.login-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad del 50% */
+  z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
 }
 
 .login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.45); /* Fondo blanco con opacidad */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
 }
 
 .login-input {
   margin-bottom: 10px;
   padding: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 280px; /* Reducido para un diseño más compacto */
   border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.login-button {
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 100%;
-  max-width: 300px;
+  border: 1px solid #ddd; /* Bordes más suaves */
 }
 
 .social-login-buttons {
@@ -48,17 +68,24 @@
 .google-login-button,
 .facebook-login-button {
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 280px; /* Reducido para un diseño más compacto */
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 0.9em; /* Fuente más pequeña */
+  transition: all 0.3s ease; /* Suaviza el cambio de tamaño y color */
 }
 
 .google-login-button {
-  background-color: #db4437;
+  background-color: #db4537bf;
   color: white;
+}
+
+.google-login-button:hover {
+  background-color: #c1351d; /* Color más oscuro en hover */
+  transform: scale(1.05); /* Agranda un poco el botón */
 }
 
 .facebook-login-button {
@@ -66,13 +93,19 @@
   color: white;
 }
 
+.facebook-login-button:hover {
+  background-color: #2d4373; /* Color más oscuro en hover */
+  transform: scale(1.05); /* Agranda un poco el botón */
+}
+
 .login-links {
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .login-links a {
-  color: #007bff;
+  color: #feffff;
   text-decoration: none;
+  font-size: 0.9em; /* Fuente más pequeña */
 }
 
 .login-links a:hover {
