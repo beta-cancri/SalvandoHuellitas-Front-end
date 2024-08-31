@@ -1,28 +1,53 @@
 .admin-dashboard {
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  .admin-dashboard h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .dashboard-content {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .dashboard-section {
-    flex: 1;
-    margin: 10px;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .dashboard-section h2 {
-    margin-bottom: 15px;
-    font-size: 1.5rem;
-  }
-  
+  padding: 20px;
+  background-color: #f4f4f4;
+  max-width: 300px; /* Ensuring dashboard aligns to the left with fixed width */
+}
+
+.admin-dashboard h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligning items to the left */
+}
+
+.dashboard-section {
+  margin: 10px 0;
+  padding: 20px;
+  width: 100%; /* Ensure full width for sections */
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section h2 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.dashboard-button, .create-pet-button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.dashboard-button:hover, .create-pet-button:hover {
+  background-color: #0056b3;
+}
+
+.create-pet-button {
+  background-color: #28a745;
+}
+
+.create-pet-button:hover {
+  background-color: #218838;
+}
