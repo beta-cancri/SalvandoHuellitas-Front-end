@@ -60,7 +60,7 @@ Salvando Huellitas
         </div>
         {
           user === null ? (
-              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`}>Login</Link>
+              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`}>Ingresar</Link>
           ) : `${user.name}`
         }
 
