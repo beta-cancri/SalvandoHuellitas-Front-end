@@ -28,9 +28,6 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-
-    const validation = validationForRegister({ ...formData, [e.target.name]: e.target.value }); 
-    setError(validation);
   };
 
   // Handle form submission

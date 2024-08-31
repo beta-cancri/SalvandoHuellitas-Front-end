@@ -31,8 +31,6 @@ const CreatePet = () => {
       [name]: type === 'checkbox' ? checked : value,
     });
 
-    const validation = validationForCreate({ ...formData, [e.target.name]: e.target.value });
-    setError(validation);
   };
 
   const handleSubmit = async (e) => {
@@ -187,8 +185,7 @@ const CreatePet = () => {
               <h2 className='h2-create1'>Bueno con los niños</h2>
             </label>
           </div>
-          {error.okWithPets && <p className="error-message">{error.okWithPets}</p>}
-          {error.okWithKids && <p className="error-message">{error.okWithKids}</p>}
+          {error.okWithPetsAndKids && <p className="error-message">{error.okWithPetsAndKids}</p>}
           Historia<textarea
             name="history"
             placeholder="Historia (Opcional)"

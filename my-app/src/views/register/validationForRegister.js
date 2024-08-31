@@ -2,52 +2,52 @@ const validationForRegister = (formData) => {
     let errors = {}
 
     if (!formData.fullName) {
-        errors.fullName = "Please, enter your full name"
+        errors.fullName = "Por favor, ingrese su nombre completo"
     } else if (!/^[a-zA-Z\s]+$/.test(formData.fullName)) {
-        errors.fullName = "Your name cannot contain numbers or special characters"
+        errors.fullName = "Su nombre no debe contener numeros o caracteres especiales"
     }
 
     if (!formData.email) {
-        errors.email = "An email is required"
+        errors.email = "Necesitamos un email"
     } else if (!/^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,6}$/.test(formData.email)) {
-        errors.email = "Please, enter a valid email"
+        errors.email = "Por favor, ingrese un email válido"
     }
 
     if (!formData.password) {
-        errors.password = "A password is required"
+        errors.password = "Se requiere de contraseña"
     } else if (formData.password.length < 6) {
-        errors.password = "Your password needs at least 6 characters"
+        errors.password = "Tu contraseña necesita de al menos 6 caracteres"
     } else if (formData.password.length > 10) {
-        errors.password = "Your password cannot be longer than 10 characters"
+        errors.password = "Tu contraseña no debe ser mayor a 10 caracteres"
     } else if (!/^(?=.*[a-z])/.test(formData.password)) {
-        errors.password = "You need at least a lowercase letter"
+        errors.password = "Necesitas al menos una minúscula"
     } else if (!/^(?=.*[A-Z])/.test(formData.password)) {
-        errors.password = "You need at least an uppercase letter"
+        errors.password = "Necesitas al menos una mayúscula"
     } else if (!/^(?=.*\d)/.test(formData.password)) {
-        errors.password = "You need at least a number"
+        errors.password = "Necesitas al menos un número"
     } else if (!/^(?=.*\W)/.test(formData.password)) {
-        errors.password = "You need at least a special character"
+        errors.password = "Necesitas al menos un caracter especial"
     }
     
 
     if (!formData.age) {
-        errors.age = "Please, enter your age"
+        errors.age = "Por favor, ingresa tu edad"
     } else if (formData.age < 18) {
-        errors.age = "You cannot enter if you are under 18"
+        errors.age = "No puedes registrarte si tienes menos de 18 años"
     }
 
     if (!formData.phone) {
-        errors.phone = "A phone number is required"
+        errors.phone = "Necesitamos un teléfono"
     } else if(!/^\+?\d{9,15}$/.test(formData.phone)){
-        errors.phone = "Please, enter a valid phone number"
+        errors.phone = "Por favor, ingresa un teléfono válido"
     }
 
     if (!formData.idCard || !/^https?:\/\/.+.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(formData.idCard)) {
-        errors.idCard = "Please, enter your ID card"
+        errors.idCard = "Por favor, muéstranos tu identificación"
     } 
 
     if (!formData.gender) {
-        errors.gender = "Please, select your gender"
+        errors.gender = "Por favor, selecciona tu genero"
     }
     return errors
 }

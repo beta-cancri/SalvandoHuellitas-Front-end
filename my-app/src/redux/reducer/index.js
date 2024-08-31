@@ -2,7 +2,7 @@ import {
   FETCH_PETS_SUCCESS, FETCH_PET_DETAIL_SUCCESS, CREATE_PET_SUCCESS, 
   FETCH_REVIEWS_SUCCESS, CREATE_REVIEW_SUCCESS,
   FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS,
-  FETCH_REQUESTS_SUCCESS
+  FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS
 } from '../actions';
 
 const initialState = {
@@ -60,6 +60,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         requests: action.payload,
+      };
+    case CREATE_REQUEST_SUCCESS:
+      return {
+        ...state,
+        requests: [...state.requests, action.payload],
       };
     default:
       return state;
