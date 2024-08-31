@@ -1,7 +1,8 @@
 .admin-dashboard {
   padding: 20px;
   background-color: #f4f4f4;
-  max-width: 300px; /* Ensuring dashboard aligns to the left with fixed width */
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-dashboard h1 {
@@ -11,14 +12,14 @@
 
 .dashboard-content {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Aligning items to the left */
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
 .dashboard-section {
-  margin: 10px 0;
+  flex: 1;
+  margin: 10px;
   padding: 20px;
-  width: 100%; /* Ensure full width for sections */
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -50,4 +51,11 @@
 
 .create-pet-button:hover {
   background-color: #218838;
+}
+
+.dashboard-display {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
