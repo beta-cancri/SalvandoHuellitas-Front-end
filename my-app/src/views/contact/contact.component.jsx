@@ -69,7 +69,7 @@ const Contact = () => {
                 </div>
             </div>
             
-            <button className="back-button" onClick={() => navigate('/home')}>Back to Home</button>        
+            <button className="button" onClick={() => navigate('/home')}>Back to Home</button>        
         </div>
     );
 };

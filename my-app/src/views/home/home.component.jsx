@@ -1,43 +1,90 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SlimSelect from 'slim-select';
-import '../../../node_modules/slim-select/dist/slimselect.css';
-import '../../assets/css/custom-slimselect.css';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
+import Select from 'react-select';
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
 
 const Home = ({ setUser }) => {
   useEffect(() => {
     manejarRedireccion(setUser);
-
-    // Initialize SlimSelect for each select
-    new SlimSelect({ select: '#species-select' });
-    new SlimSelect({ select: '#energy-level-select' });
-    new SlimSelect({ select: '#size-select' });
   }, [setUser]);
 
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
   
+  // Estados 
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
 
+  //  filtros
+  const speciesOptions = [
+    { value: '', label: 'Todos' },
+    { value: 'dog', label: 'Perro' },
+    { value: 'cat', label: 'Gato' }
+  ];
+
+  const energyLevelOptions = [
+    { value: '', label: 'Todos' },
+    { value: 'low', label: 'Bajo' },
+    { value: 'medium', label: 'Medio' },
+    { value: 'high', label: 'Alto' }
+  ];
+
+  const sizeOptions = [
+    { value: '', label: 'Todos' },
+    { value: 'small', label: 'Chico' },
+    { value: 'medium', label: 'Mediano' },
+    { value: 'large', label: 'Grande' }
+  ];
+
+  // Estilos React Select
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      borderColor: '#fff',
+      boxShadow: 'none',
+      borderRadius: '4px'
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      borderRadius: '4px'
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? '#a8a3a3' : state.isFocused ? '#f0cd8a' : 'rgba(0, 0, 0, 0.5)',
+      color: state.isSelected ? '#000' : '#fff',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#fff'
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#a8a3a3'
+    })
+  };
+
+  // Aplica los filtros
   const handleFilterChange = () => {
     const filters = {
       species: species || undefined,
       energyLevel: energyLevel || undefined,
       size: size || undefined,
     };
-    dispatch(fetchPets(filters, 1));
+    dispatch(fetchPets(filters, currentPage));
   };
 
   useEffect(() => {
-    handleFilterChange();
-  }, [dispatch, species, energyLevel, size]);
+    handleFilterChange(); 
+  }, [dispatch, species, energyLevel, size, currentPage]);
 
+  //  paginación
   const handleNextPage = () => {
     if (currentPage < totalPages) {
       dispatch(fetchPets({ species, energyLevel, size }, currentPage + 1));
@@ -50,49 +97,62 @@ const Home = ({ setUser }) => {
     }
   };
 
+  // Reinicia filtros
   const handleResetFilters = () => {
     setSpecies('');
     setEnergyLevel('');
     setSize('');
-    dispatch(fetchPets({}, 1));
+    dispatch(fetchPets({}, 1)); 
   };
 
   return (
     <div className="home-container">
       <h1>Mascotas disponibles para adopción</h1>
 
+      {/* Controles de filtro */}
       <div className="filter-controls">
         <label>
           Especie:
-          <select id="species-select" value={species} onChange={(e) => setSpecies(e.target.value)}>
-            <option value="">Ambas</option>
-            <option value="dog">Perro</option>
-            <option value="cat">Gato</option>
-          </select>
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={speciesOptions.find(option => option.value === species)}
+            onChange={(option) => setSpecies(option ? option.value : '')}
+            options={speciesOptions}
+            styles={customStyles}
+            isClearable
+          />
         </label>
 
         <label>
-          Nivel de energía:
-          <select id="energy-level-select" value={energyLevel} onChange={(e) => setEnergyLevel(e.target.value)}>
-            <option value="">Todas</option>
-            <option value="low">Baja</option>
-            <option value="medium">Media</option>
-            <option value="high">Alta</option>
-          </select>
+          Nivel de Energía:
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={energyLevelOptions.find(option => option.value === energyLevel)}
+            onChange={(option) => setEnergyLevel(option ? option.value : '')}
+            options={energyLevelOptions}
+            styles={customStyles}
+            isClearable
+          />
         </label>
 
         <label>
           Tamaño:
-          <select id="size-select" value={size} onChange={(e) => setSize(e.target.value)}>
-            <option value="">Todos</option>
-            <option value="small">Pequeño</option>
-            <option value="medium">Mediano</option>
-            <option value="large">Largo</option>
-          </select>
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={sizeOptions.find(option => option.value === size)}
+            onChange={(option) => setSize(option ? option.value : '')}
+            options={sizeOptions}
+            styles={customStyles}
+            isClearable
+          />
         </label>
 
+        {/*  reiniciar filtros */}
         <button onClick={handleResetFilters} className="reset-button">
-          <i className="fas fa-trash"></i> {/* Ícono de tacho de basura */}
+        <i className="fas fa-trash"></i>
         </button>
       </div>
 
@@ -101,11 +161,11 @@ const Home = ({ setUser }) => {
           <Cards pets={pets} />
           <div className="pagination">
             <button onClick={handlePreviousPage} disabled={currentPage === 1}>
-              Previous
+              Anterior
             </button>
-            <span>{`Page ${currentPage} of ${totalPages}`}</span>
+            <span>{`Página ${currentPage} de ${totalPages}`}</span>
             <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-              Next
+              Siguiente
             </button>
           </div>
         </div>

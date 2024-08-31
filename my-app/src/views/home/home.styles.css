@@ -1,7 +1,7 @@
 .home-container {
-  padding: 120px 20px 20px 20px; /* Ajusta el padding superior para la altura de la navbar */
+  padding: 120px 20px 20px 20px; 
   background-image: 
-  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Capa negra semi-transparente */
+  linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
   url('https://cloudfront-us-east-1.images.arcpublishing.com/infobae/N2GFBVR5PFF75OS4JH3XT4GU7A.jpg');
   background-size: cover;
   background-position: center;
@@ -17,13 +17,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);  /* Capa blanca con 50% de opacidad */
-  z-index: -1; /* Coloca la capa detrás del contenido */
+  background: rgba(0, 0, 0, 0.5);  
+  z-index: -1; 
 }
 
 .home-container h1 {
   font-size: 48px; 
   color: #fffafa;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin-top: 50px;
   margin-bottom: 40px; 
   text-align: center; 
@@ -33,6 +34,7 @@
 }
 
 .filter-controls {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   color: #fffafa;
   display: flex;
   align-items: center;
@@ -46,33 +48,65 @@
 }
 
 .reset-button {
-  background-color: transparent; /* Fondo transparente */
-  color: #a8a3a3; /* Color del ícono */
-  border: none; /* Sin borde */
-  border-radius: 4px; /* Bordes ligeramente redondeados */
-  padding: 8px; /* Espaciado interno del botón */
-  font-size: 24px; /* Tamaño del ícono */
-  cursor: pointer; /* Cursor de puntero al pasar sobre el ícono */
-  transition: color 0.3s, background-color 0.3s; /* Transición suave para el color de fondo y texto */
+  background-color: transparent; 
+  color: #080808; 
+  border: none; 
+  border-radius: 4px; 
+  padding: 8px; 
+  font-size: 24px; 
+  cursor: pointer;  
+  transition: color 0.3s, background-color 0.3s; 
+  margin: -5px;
+  margin-top: 16px;
 }
-
 .reset-button:hover {
-  color: #ffffff; /* Color del ícono en hover */
-  background-color: rgba(211, 47, 47, 0.5); /* Fondo gris transparente en hover */
+  color: #ffffff; 
+  background-color: rgba(211, 47, 47, 0.5); 
 }
-
 
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .pagination button {
-  margin: 0 10px;
-  padding: 10px 20px;
+  background-color: #333; 
+  color: #fff; 
+  border: 1px solid #444; 
+  border-radius: 50px; 
+  padding: 8px 16px; 
+  margin: 0 5px; 
+  font-size: 14px; 
+  cursor: pointer; 
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
+}
+
+.pagination button:hover {
+  background-color: #555; 
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.pagination button:disabled {
+  background-color: #222; 
+  color: #777; 
+  border: 1px solid #333; 
+  cursor: not-allowed;
 }
 
 .pagination span {
-  align-self: center;
+  color: #fff; 
+  font-size: 14px; 
+  margin: 0 10px; 
+  font-weight: 500; 
 }
+
+/*  React Select */
+.custom-select-container {
+  width: 170px; 
+  margin: 0 10px; 
+}
+

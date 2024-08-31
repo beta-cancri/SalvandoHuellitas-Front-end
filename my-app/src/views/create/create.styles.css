@@ -49,7 +49,8 @@ html, body, #root, .App, .section-full-screen-container-create{
   width: 100%;
   padding: 40px;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0); 
+  border:1px solid #ffffffb9 ;
+  background-color: rgba(3, 3, 3, 0.906); 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -66,7 +67,8 @@ html, body, #root, .App, .section-full-screen-container-create{
 .create-pet-container h1 {
   font-family: 'Poppins', sans-serif;
   font-size: 1.8em;
-  color: #D35400;
+  color: #ffbd61;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -77,8 +79,9 @@ html, body, #root, .App, .section-full-screen-container-create{
   display: flex;
   flex-direction: column;
   width: 100%;
+  color: #333;
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
 }
-
 .create-pet-form input,
 .create-pet-form select,
 .create-pet-form textarea {
@@ -101,23 +104,6 @@ html, body, #root, .App, .section-full-screen-container-create{
   outline: none;
 }
 
-.create-pet-button {
-  padding: 10px 15px;
-  background-color: #E67E22;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-family: 'Poppins', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.create-pet-button:hover {
-  background-color: #D35400;
-}
 
 .create-checkbox {
   display: flex;
