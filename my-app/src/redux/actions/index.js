@@ -8,6 +8,7 @@ export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const FETCH_REQUESTS_SUCCESS = 'FETCH_REQUESTS_SUCCESS';
+export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 
 // Fetch all pets with optional filters and pagination
 export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
@@ -102,3 +103,14 @@ export const fetchRequests = () => async (dispatch) => {
     console.error('Error fetching requests:', error.message);
   }
 };
+
+export const createRequest = (request) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://localhost:3001/requests', request);
+    console.log('Created Request:', response.data);
+    dispatch({ type: CREATE_REQUEST_SUCCESS, payload: response.data });
+  } catch (error) {
+    console.error('Error creating request:', error.message);
+  }
+};
+//*creé una nueva action para hacer el request de adopción del pet (Nadia)
