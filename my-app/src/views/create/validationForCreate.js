@@ -2,47 +2,46 @@ const validationForCreate = (formData) => {
     let errors = {}
 
     if(!formData.status) {
-        errors.status = "We have to know about the status of the pet"
+        errors.status = "Necesitamos saber el estado de la mascota"
     }
 
     if(!formData.photo || !/^https?:\/\/.+.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(formData.photo)) {
-        errors.photo = "You must upload a photo of the pet"
+        errors.photo = "Debes subir una foto de la mascota"
     }
 
     if (!formData.name) {
-        errors.name = "Please, enter a name for the pet"
+        errors.name = "Por favor, ponle un nombre"
     } else if(!/^[a-zA-Z\s]+$/.test(formData.name)){
-        errors.name = "The name for the pet cannot contain numbers or special characters"
+        errors.name = "El nombre no debe contener números ni caracteres especiales"
     }
 
     if (!formData.species) {
-        errors.species = "You have to choose a species" 
+        errors.species = "Debes especificar la especie de la mascota" 
     }
 
     if(!formData.age) {
-        errors.age = "We have to know about the age of the pet"
+        errors.age = "Necesitamos saber la edad"
     }
 
     if(!formData.size) {
-        errors.size = "the size of the pet is necesary"
+        errors.size = "El tamaño de la mascota es necesario"
     }
 
     if(!formData.energyLevel) {
-        errors.energyLevel = "Energy level is necesary"
+        errors.energyLevel = "Necesitamos saber el nivel de energía de la mascota"
     }
     
     if(!formData.okWithKids && !formData.okWithPets) {
-        errors.okWithKids = "Please, select at least one option"
-        errors.okWithPets = "Please, select at least one option"
+        errors.okWithPetsAndKids = "Por favor selecciona al menos una de las dos opciones"
+        
     }
 
     if(!formData.gender) {
-        errors.gender = "We have to know about the gender of the pet"
+        errors.gender = "Necesitamos saber el género de la mascota"
     }
 
 
     return errors
 }
-
 
 export default validationForCreate
