@@ -1,0 +1,54 @@
+.manage-requests {
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .manage-requests h2 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    color: #343a40;
+  }
+  
+  .manage-requests ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .manage-requests li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .manage-requests li:last-child {
+    border-bottom: none;
+  }
+  
+  .request-details {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .request-info {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  
+  .edit-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .edit-button:hover {
+    background-color: #0056b3;
+  }
+  
