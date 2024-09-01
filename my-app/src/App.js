@@ -9,8 +9,13 @@ import Contact from './views/contact/contact.component';
 import Login from './views/login/login.component';
 import Register from './views/register/register.component';
 import CreatePet from './views/create/create.component'; 
+<<<<<<< HEAD
+import GoogleCallback from './components/google/GoogleCallback';
+import './App.css';
+=======
 
 import GoogleCallback from './components/google/GoogleCallback';
+>>>>>>> e513803288c6f6de5c5e6008e98b11c8952b6b90
 import Adopt from './views/adopt/adopt.component';
 
 import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Import the AdminDashboard component
