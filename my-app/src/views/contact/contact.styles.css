@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contact-container {
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5) 
+    ), 
+    url('https://i.imgur.com/v1io1jV.jpeg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: 70px;
+  overflow: hidden; 
+}
+
+
+.contact-body-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 60px;
+}
+
+.contact-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.intro {
+  font-size: 1.2em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  text-align: center;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.contact-options {
+  margin-top: 8px;
+}
+
+.intro-contact-title {
+  font-size: 3em;
+  margin-top: 15px;
+  color: #f4a662;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
+}
+
+.contact-options-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.intro p {
+  font-size: 1.5em;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  color: #fdfdfd;
+  margin-top: 15px;
+}
+
+.contact-options-container div p {
+  margin-top: 10px;
+  color: #fdfdfd;
+
+}
+
+.contact-options-container div a {
+  margin-top: 10px;
+
+}
+
+.back-button, .contact-button {
+  display: inline-block;
+  padding: 10px 25px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.back-button:hover, .contact-button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+.contact-social-icons {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.contact-info h2::before,
+.contact-social h2::before,
+.contact-hours h2::before {
+  content: '🐾';
+  display: inline-block;
+  color: #000;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+
+}
+
+.contact-info h2,
+.contact-social h2,
+.contact-hours h2 {
+  font-size: 2.5em;
+  color: #000;
+  border-bottom: 1px solid #777070;
+  text-shadow: 2px 2px 5px rgba(235, 224, 224, 0.7);
+
+}
+
+.contact-info p, .contact-social a, .contact-hours p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.contact-info a, .contact-social a {
+  color: #fefefe;
+  text-decoration: none;
+}
+
+.contact-info a:hover, .contact-social a:hover {
+  text-decoration: underline;
+}
+
+.contact-social a {
+  font-size: 3em;
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.contact-social a:hover {
+  color: #f46411;
+}
+
+.contact-map {
+  text-align: center;
+  color: #000;
+  text-shadow: 2px 2px 5px rgba(235, 224, 224, 0.7);
+
+}
+
+.contact-map iframe {
+  border: 0;
+  margin: 20px;
+  border-radius: 8px;
+  width: 45vw;
+}
+
+.whatsapp-button {
+  font-size: 3em;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.whatsapp-button:hover {
+  transform: scale(1.1);
+  color: #39aa08;
+}
+
+.whatsapp-button i {
+  margin: 0;
+  font-size: 1.2em;
+}

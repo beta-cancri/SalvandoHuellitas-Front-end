@@ -1,45 +1,21 @@
+/* Navbar Styles */
 .navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  background-color: transparent; /* Invisible background */
+  background-color: #00000043; /* Fondo negro para el navbar */
   padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-container {
   display: flex;
-  align-items: center;
-  width: 100%;
   justify-content: space-between;
+  align-items: center;
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
+  font-size: 1.8em;
+  color: #fff;
   text-decoration: none;
-}
-
-.navbar-links {
-  display: flex;
-  gap: 20px;
-}
-
-.navbar-link {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-.navbar-link:hover {
-  color: #007BFF;
+  font-family: 'Poppins', sans-serif; /* Fuente aplicada */
+  font-weight: 500; /* Medium weight */
 }
 
 .navbar-search {
@@ -48,38 +24,79 @@
 }
 
 .navbar-search-input {
-  padding: 5px 10px;
-  border-radius: 20px;
-  border: 1px solid #ddd;
-  outline: none;
+  width: 200px;
+  padding: 10px;
+  border: 0; 
+  border-bottom: 1px solid #ffffffb9; 
+  border-radius: 0; 
+  font-size: 0.8em;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  color: #fff; 
+  background-color: transparent; 
+  outline: none; 
+  transition: border-color 0.3s ease; 
+  margin-right: 5px; 
+}
+
+.navbar-search-input::placeholder {
+  color: #ddd; 
+}
+
+.navbar-search-input:focus {
+  border-bottom-color: #cac8c5; 
 }
 
 .navbar-search-button {
-  padding: 5px 10px;
-  margin-left: 10px;
-  border-radius: 20px;
-  background-color: #007BFF;
-  color: white;
-  border: none;
+  padding: 5px;
+  border-radius: 5px; 
+  background-color: transparent; 
+  color: #fff; 
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  margin-left: 5px;  
+  border: 1px solid #ffffff;
 }
 
 .navbar-search-button:hover {
-  background-color: #0056b3;
+  background-color: #cac8c5;  
+  color: #131212; 
+  border: 1px solid #ffffff; 
 }
 
-.navbar-button {
-  padding: 5px 20px;
-  border-radius: 20px;
-  background-color: #28A745;
-  color: white;
+
+.navbar-links a {
+  font-family: 'Poppins', sans-serif;  
+  font-weight: 500; 
+  font-size: 1em;
   text-decoration: none;
-  font-size: 1rem;
-  margin-left: 20px;
-  transition: background-color 0.3s;
+  color: #fff; 
+  padding: 10px 15px;
+  transition: color 0.3s ease; 
 }
 
+.navbar-links a.active,
+.navbar-links a:hover {
+  color: #f0cd8a; 
+}
+
+/* Login */
+.navbar-button {
+  padding: 10px 10px;
+  border-radius: 5px ; 
+  background-color: transparent; 
+  color: #fff; 
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500; 
+  text-decoration: none; 
+  transition: background-color 0.3s ease, color 0.3s ease; 
+}
+
+.navbar-button.active,
 .navbar-button:hover {
-  background-color: #218838;
+  background-color: #cac8c5; 
+  color: #fff;  
 }

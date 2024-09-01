@@ -1,45 +1,69 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios'; // Assuming you're using axios for HTTP requests
+import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { fetchPets } from '../../redux/actions';
 import './navbar.styles.css';
 
-const Navbar = () => {
+const Navbar = ({user}) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-  const handleSearch = async (event) => {
+  const handleSearch = (event) => {
     event.preventDefault();
+    dispatch(fetchPets({ search: searchQuery }));
+    setSearchQuery(''); // Clear the search query after searching
+  };
 
-    try {
-      const response = await axios.get('http://localhost:3001/pets', {
-        params: { search: searchQuery },
-      });
-      console.log('Search results:', response.data);
-      
-    } catch (error) {
-      console.error('Error fetching pets:', error);
+  const handleLogoClick = (event) => {
+    if (location.pathname === '/home') {
+      event.preventDefault();
+      window.location.reload(); // Refresh the page if already on home
     }
   };
+ // input de búsqueda solo en '/home'
+ const showSearch = location.pathname === '/home';
 
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">Salvando Huellitas</Link>
+        <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
+Salvando Huellitas      
+  </Link>
+        {showSearch && (
+          <form onSubmit={handleSearch} className="navbar-search">
+            <input
+              type="text"
+              className="navbar-search-input"
+              placeholder="Buscar por raza ó nombre"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" className="navbar-search-button">
+              Buscar
+            </button>
+          </form>
+        )}
         <div className="navbar-links">
-          <Link to="/about" className="navbar-link">About</Link>
-          <Link to="/register" className="navbar-link">Register</Link>
-          <Link to="/contact" className="navbar-link">Contact</Link>
+          <Link to="/about" className={location.pathname === '/about' ? 'active' : ''}>
+            Sobre Nosotros
+          </Link>
+          <Link to="/create" className={location.pathname === '/create' ? 'active' : ''}>
+            Crear 
+          </Link>
+          <Link to="/register" className={location.pathname === '/register' ? 'active' : ''}>
+          Registrate
+          </Link>
+          <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''}>
+          Contacto
+          </Link>
         </div>
-        <form onSubmit={handleSearch} className="navbar-search">
-          <input
-            type="text"
-            className="navbar-search-input"
-            placeholder="Search by breed or name"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit" className="navbar-search-button">Search</button>
-        </form>
-        <Link to="/login" className="navbar-button">Login</Link>
+        {
+          user === null ? (
+              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`}>Ingresar</Link>
+          ) : `${user.name}`
+        }
+
       </div>
     </nav>
   );

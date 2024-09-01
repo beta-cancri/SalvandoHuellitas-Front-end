@@ -1,0 +1,107 @@
+/* Contenedor a pantalla completa */
+.full-screen-container-register {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* Mantiene el contenido dentro del contenedor */
+}
+
+.full-screen-container-register::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg'); /* Imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad del 50% */
+  filter: brightness(50%); /* Reduce el brillo de la imagen para oscurecerla */
+}
+
+/* Contenedor del formulario de registro */
+.register-container {
+  max-width: 500px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #ffffffb9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 254, 254, 0.323); 
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin: auto;
+  max-height: 90vh; 
+  overflow-y: auto; /* Permite desplazamiento si el contenido se desborda */
+  scrollbar-width: none; /* Oculta la barra de desplazamiento en Firefox */
+  -ms-overflow-style: none;  /* Oculta la barra de desplazamiento en IE y Edge */
+  margin-block-start: 3%;
+}
+
+/* Ocultar barra de desplazamiento en Webkit (Chrome, Safari) */
+.register-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Encabezado del formulario */
+.register-container h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8em;
+  color: #ffbd61;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+/* Estilo del formulario */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  color: black;
+  text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+}
+
+/* Estilo de los campos de entrada y selección */
+.register-form input,
+.register-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e67e22;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  background-color: rgba(255, 248, 240, 0.8); /* Fondo con un toque de naranja claro */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-form input:focus,
+.register-form select:focus {
+  border-color: #E67E22;
+  box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+  outline: none;
+}
+
+.error-message {
+  color: #E74C3C; /* Rojo suave */
+  text-align: center;
+  margin-top: 10px; /* Reducido el margen superior */
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  word-wrap: break-word; /* Asegura que los mensajes largos se ajusten dentro del contenedor */
+}
