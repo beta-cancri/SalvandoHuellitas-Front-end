@@ -5,11 +5,14 @@ import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
+//import api from '../../api/axiosConfig'; 
 
-const Home = ({ setUser }) => {
+const Home = () => {
+ 
   useEffect(() => {
-    manejarRedireccion(setUser);
-  }, [setUser]);
+    manejarRedireccion();
+    }
+  , []);
 
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
@@ -77,6 +80,7 @@ const Home = ({ setUser }) => {
       energyLevel: energyLevel || undefined,
       size: size || undefined,
     };
+    
     dispatch(fetchPets(filters, currentPage));
   }, [dispatch, species, energyLevel, size, currentPage]);
 
@@ -163,7 +167,7 @@ const Home = ({ setUser }) => {
             <button onClick={handlePreviousPage} disabled={currentPage === 1}>
               Anterior
             </button>
-            <span>{`Página ${currentPage} de ${totalPages}`}</span>
+            <span>Página {currentPage} de {totalPages} </span>
             <button onClick={handleNextPage} disabled={currentPage === totalPages}>
               Siguiente
             </button>

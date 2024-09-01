@@ -9,8 +9,8 @@ export function iniciarAutenticacion() {
 }
 
 
-export function manejarRedireccion(setUser) {
-  return () => {
+export function manejarRedireccion() {
+  
     const params = new URLSearchParams(window.location.hash.substring(1));
     const accessToken = params.get('access_token');
     console.log('Access Token:', accessToken);
@@ -22,10 +22,10 @@ export function manejarRedireccion(setUser) {
       }).then(response => {
         localStorage.setItem("jwt", response.data.token)
         var decoded = jwtDecode(response.data.token);
-        setUser(decoded)
+        localStorage.setItem("user",JSON.stringify(decoded));
+        window.location= "/home";
       }).catch(error => {
         console.log(error)
       })
     }
   }
-}

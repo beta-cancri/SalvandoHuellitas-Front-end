@@ -1,6 +1,6 @@
 body {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500; /* Medium */
+  font-weight: 500; 
   color: #ddd;
 
 }
@@ -11,9 +11,9 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  position: relative; /* Permite usar el pseudo-elemento ::before */
+  position: relative; 
   padding: 20px;
-  overflow: hidden; /* Asegura que el pseudo-elemento no se salga del contenedor */
+  overflow: hidden; 
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
@@ -26,7 +26,7 @@ body {
   height: 100%;
   background: url('https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2021/02/gatos-vs-perros-2238147.jpg?tf=3840x') no-repeat center center;
   background-size: cover;
-  z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+  z-index: -1; 
 }
 
 .login-container::after {
@@ -36,8 +36,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fondo negro con opacidad del 50% */
-  z-index: -1; /* Asegura que el pseudo-elemento esté detrás del contenido */
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: -1; 
 }
 
 .login-form {
@@ -46,17 +46,17 @@ body {
   align-items: center;
   padding: 20px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.45); /* Fondo blanco con opacidad */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+  background: rgba(255, 255, 255, 0.45); 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 .login-input {
   margin-bottom: 10px;
   padding: 10px;
   width: 100%;
-  max-width: 280px; /* Reducido para un diseño más compacto */
+  max-width: 280px; 
   border-radius: 5px;
-  border: 1px solid #ddd; /* Bordes más suaves */
+  border: 1px solid #ddd; 
 }
 
 .social-login-buttons {
@@ -70,12 +70,12 @@ body {
   margin-top: 10px;
   padding: 10px;
   width: 100%;
-  max-width: 280px; /* Reducido para un diseño más compacto */
+  max-width: 280px; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9em; /* Fuente más pequeña */
-  transition: all 0.3s ease; /* Suaviza el cambio de tamaño y color */
+  font-size: 0.9em; 
+  transition: all 0.3s ease; 
 }
 
 .google-login-button {
@@ -84,8 +84,8 @@ body {
 }
 
 .google-login-button:hover {
-  background-color: #c1351d; /* Color más oscuro en hover */
-  transform: scale(1.05); /* Agranda un poco el botón */
+  background-color: #c1351d; 
+  transform: scale(1.05); 
 }
 
 .facebook-login-button {
@@ -94,8 +94,8 @@ body {
 }
 
 .facebook-login-button:hover {
-  background-color: #2d4373; /* Color más oscuro en hover */
-  transform: scale(1.05); /* Agranda un poco el botón */
+  background-color: #2d4373; 
+  transform: scale(1.05); 
 }
 
 .login-links {
@@ -105,7 +105,7 @@ body {
 .login-links a {
   color: #feffff;
   text-decoration: none;
-  font-size: 0.9em; /* Fuente más pequeña */
+  font-size: 0.9em; 
 }
 
 .login-links a:hover {
