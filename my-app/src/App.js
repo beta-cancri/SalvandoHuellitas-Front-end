@@ -9,7 +9,8 @@ import Contact from './views/contact/contact.component';
 import Login from './views/login/login.component';
 import Register from './views/register/register.component';
 import CreatePet from './views/create/create.component'; 
-import GoogleCallback from './components/google/GoogleCallback';import './App.css';
+import GoogleCallback from './components/google/GoogleCallback';
+import './App.css';
 import Adopt from './views/adopt/adopt.component';
 
 const App = () => {
