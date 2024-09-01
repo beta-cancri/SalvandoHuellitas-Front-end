@@ -7,7 +7,6 @@ const AdminDashboard = () => {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets); // Access the pets array
   const requests = useSelector((state) => state.requests); // Access the requests array
-  const users = useSelector((state) => state.users); // Access the users array
   const [activeSection, setActiveSection] = useState(null);
 
   const handleFetchPets = () => {

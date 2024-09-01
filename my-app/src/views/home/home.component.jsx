@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
@@ -74,7 +74,7 @@ const Home = () => {
   };
 
   // Aplica los filtros
-  const handleFilterChange = () => {
+  const handleFilterChange = useCallback(() => {
     const filters = {
       species: species || undefined,
       energyLevel: energyLevel || undefined,
@@ -82,11 +82,11 @@ const Home = () => {
     };
     
     dispatch(fetchPets(filters, currentPage));
-  };
+  }, [dispatch, species, energyLevel, size, currentPage]);
 
   useEffect(() => {
     handleFilterChange(); 
-  }, [dispatch, species, energyLevel, size, currentPage]);
+  }, [handleFilterChange]);
 
   //  paginación
   const handleNextPage = () => {
@@ -156,7 +156,7 @@ const Home = () => {
 
         {/*  reiniciar filtros */}
         <button onClick={handleResetFilters} className="reset-button">
-        <i className="fas fa-trash"></i>
+          <i className="fas fa-trash"></i>
         </button>
       </div>
 
