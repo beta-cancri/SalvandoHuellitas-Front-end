@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/navbar/navbar.component';
 import Home from './views/home/home.component';
@@ -10,6 +10,7 @@ import Login from './views/login/login.component';
 import Register from './views/register/register.component';
 import CreatePet from './views/create/create.component'; 
 import GoogleCallback from './components/google/GoogleCallback';
+import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Import the AdminDashboard component
 import './App.css';
 
 const App = () => {
@@ -19,7 +20,6 @@ const App = () => {
   const showNavbar = location.pathname !== '/' && location.pathname !== '/login';
 
   const [user, setUser] = useState(null);
-
 
   return (
     <div className="App">
@@ -33,7 +33,8 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/create" element={<CreatePet />} /> 
-        <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
+        <Route path="/auth/google/callback" element={<GoogleCallback />} /> 
+        <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
       </Routes>
     </div>
   );
