@@ -1,76 +1,131 @@
-import React from 'react';
+import React, { useState } from 'react';
+//import './adopt.styles.css';
+import { createRequest, fetchPets } from '../../redux/actions/index';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import validationForAdopt from './validationForAdopt';
+const Adopt = ({id_pet}) => {
 
-const Adopt = ()=> {
-    //las funcionalidades se agregarán luego.
+    const dispatch = useDispatch();
+    const [requestData, setRequestData] = useState({
+        adress: '',
+        occupation: '',
+        idCard: '',
+        numberPeople: 0,
+        hasChildren: false,
+        hasOtherPets: false,
+        space: '',
+        daliyTime: '',
+        petType: '',
+    })
+
+    const [errors, setErrors] = useState({});
+
+    if(!id_pet){
+        dispatch(fetchPets(requestData));
+    } else {
+        dispatch(createRequest(requestData));
+    }
+    const handleChange = (e) => {
+        setRequestData({
+            ...requestData,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const validateErrors = validationForAdopt(requestData);
+        setErrors(validateErrors);
+        if (Object.keys(validateErrors).length === 0) {
+            dispatch(createRequest(requestData));
+            alert('Tu solicitud fue creada exitosamente');
+            setRequestData({
+                adress: '',
+                occupation: '',
+                idCard: '',
+                numberPeople: 1,
+                hasChildren: false,
+                hasOtherPets: false,
+                pets: [],
+                space: '',
+                daliyTime: '',
+                petType: '',
+            })
+        }
+        setErrors(validateErrors);
+    }
 
     return (
         <div>
-            <form action="">
-                <h1>If you want to adopt a pet, please fill out the form below</h1>
-                <h3>PART 1: Personal Data</h3>
-                
-                <h5>Contact Information</h5>
+            <form onSubmit={handleSubmit}>
+                <h1>A continuación, le pedimos por favor que complete el siguiente formulario para adoptar una mascota.</h1>
+                <h3>PARTE 1: Datos Personales</h3>
 
-                <label htmlFor="">Adress</label>
-                <input type="text" placeholder='Put here your adress' />
+                <h5>Información del contacto</h5>
 
-                <label htmlFor="">Occupation</label>
-                <input type="text" placeholder='What do you do for a living?' />
+                <label htmlFor="">Dirección</label>
+                <input type="text" placeholder='¿Dónde vives?' />
+
+                <label htmlFor="">Ocupación</label>
+                <input type="text" placeholder='¿A qué te dedicas?' />
 
                 <label htmlFor="">Please, show us your ID Card</label>
                 <input type="text" />
 
-                <h5>Household conditions</h5>
-                <label htmlFor="">How many people live with you?</label>
-                <input type="number" min="1"/>
+                <h5>Condiciones de vivienda</h5>
+                <label htmlFor="">¿Cuántas personas viven contigo?</label>
+                <input type="number" min="1" />
 
-                <label htmlFor="">There are any children?</label> <br/>
-                <input type="checkbox" id="childrenYes" name="children"/>
-                <label htmlFor="childrenYes">Yes</label>
-                <input type="checkbox" id="childrenNo" name="children"/>
+                <label htmlFor="">¿Hay niños en la vivienda?</label> <br />
+                <input type="checkbox" id="childrenYes" name="children" />
+                <label htmlFor="childrenYes">Sí</label>
+                <input type="checkbox" id="childrenNo" name="children" />
                 <label htmlFor="childrenNo">No</label>
 
-                <label htmlFor="">How much space do you have?</label>
+                <label htmlFor="">¿Cuánto espacio hay?</label>
                 <select name="" id="">
-                    <option value="">Select an option</option>
-                    <option value="">Little</option>
-                    <option value="">Medium</option>
-                    <option value="">Big</option>
+                    <option value="">Selecciona una opción</option>
+                    <option value="">Poco</option>
+                    <option value="">Medio</option>
+                    <option value="">Mucho</option>
                 </select>
 
-                <label htmlFor="">Do you have other pets under your care right now?</label> <br/>
-                <input type="checkbox" id="petYes" name="pet"/>
-                <label htmlFor="petYes">Yes</label>
-                <input type="checkbox" id="petNo" name="pet"/>
+                <label htmlFor="">¿Tienes otras mascotas a tu cuidado actualmente?</label> <br />
+                <input type="checkbox" id="petYes" name="pet" />
+                <label htmlFor="petYes">Sí</label>
+                <input type="checkbox" id="petNo" name="pet" />
                 <label htmlFor="petNo">No</label>
 
-                <label htmlFor="">How much daily time do you have for the care of your pet/s?</label>
+                <label htmlFor="">¿Cuánto tiempo tienes al día para dedicar al cuidado de tu/s mascota/s?</label>
                 <select name="" id="">
-                    <option value="">Select an option</option>
-                    <option value="">Almost no time</option>
-                    <option value="">Less than an hour</option>
-                    <option value="">An hour</option>
-                    <option value="">One or two hours</option>
-                    <option value="">More than two hours</option>
+                    <option value="">Selecciona una opción</option>
+                    <option value="">Casi no tengo tiempo</option>
+                    <option value="">Menos de una hora</option>
+                    <option value="">Una hora</option>
+                    <option value="">Más de una hora</option>
+                   
                 </select>
 
-                <label htmlFor="">Which pet do you want to adopt?</label> <br/>
-                <input type="checkbox" id="cat" name="cat"/>
-                <label htmlFor="cat">I want to adopt a cat</label>
-                <input type="checkbox" id="dog" name="dog"/>
-                <label htmlFor="dog">I want to adopt a dog</label>
+                <label htmlFor="">¿Qué mascota deseas adoptar?</label> <br />
+                <select name="" id="">
+                    <option value="">Selecciona una mascota</option>
+                    <option value="">Perro</option>
+                    <option value="">Gato</option>
+                </select>
 
 
-                <h3>PART 2: Clauses</h3>
-                <p>Please, before submitting, read and accept the following clauses</p>
+                <h3>PARTE 2: Cláusulas</h3>
+                <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
                 <ul>
-                    <li>I assume the responsibility of taking the pet to the vet if necesary</li>
-                    <li>I'm aware of the costs for the care of the pet, and I agree to pay them</li>
-                    <li>I declare that I can have pets in my household</li>
-                    <li>I declare that all the members of my family agreed to the adoption, and they will take care and give a good trait to the pet</li>
-                    <li>I declare that the pet will not exit the household except in supervised rides</li>
+                    <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
+                    <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
+                    <li>Declaro que en el lugar donde vivo se permite tener mascotas</li>
+                    <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
+                    <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
                 </ul>
-                <input type="checkbox"> I agree </input>
+                <input type="checkbox"> Estoy de acuerdo con las cláusulas </input>
+
             </form>
 
             <button type="submit"> Submit </button>
