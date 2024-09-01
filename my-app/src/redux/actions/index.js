@@ -14,7 +14,7 @@ export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
   try {
     const params = { ...filters, page }; 
-    const response = await axios.get('http://localhost:3001/pets', { params });
+    const response = await axios.get('/pets', { params });
     
     console.log('Fetched Pets:', response.data);
     dispatch({
@@ -30,7 +30,7 @@ export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
 export const fetchPetDetail = (id) => async (dispatch) => {
   try {
     console.log(`Fetching Pet detail for ID: ${id}`);
-    const response = await axios.get(`http://localhost:3001/pets/${id}`);
+    const response = await axios.get(`/pets/${id}`);
     console.log('Fetched Pet detail:', response.data);
     dispatch({ type: FETCH_PET_DETAIL_SUCCESS, payload: response.data });
   } catch (error) {
@@ -41,7 +41,7 @@ export const fetchPetDetail = (id) => async (dispatch) => {
 // Create a new pet
 export const createPet = (pet) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3001/pets', pet);
+    const response = await axios.post('/pets', pet);
     console.log('Created Pet:', response.data);
     dispatch({ type: CREATE_PET_SUCCESS, payload: response.data });
   } catch (error) {
@@ -52,7 +52,7 @@ export const createPet = (pet) => async (dispatch) => {
 // Fetch all reviews
 export const fetchReviews = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/reviews');
+    const response = await axios.get('/reviews');
     console.log('Fetched Reviews:', response.data);
     dispatch({ type: FETCH_REVIEWS_SUCCESS, payload: response.data });
   } catch (error) {
@@ -63,7 +63,7 @@ export const fetchReviews = () => async (dispatch) => {
 // Create a new review
 export const createReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3001/reviews', review);
+    const response = await axios.post('/reviews', review);
     console.log('Created Review:', response.data);
     dispatch({ type: CREATE_REVIEW_SUCCESS, payload: response.data });
   } catch (error) {
@@ -74,7 +74,7 @@ export const createReview = (review) => async (dispatch) => {
 // Fetch all users
 export const fetchUsers = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/users');
+    const response = await axios.get('/users');
     console.log('Fetched Users:', response.data);
     dispatch({ type: FETCH_USERS_SUCCESS, payload: response.data });
   } catch (error) {
@@ -85,7 +85,7 @@ export const fetchUsers = () => async (dispatch) => {
 // Create a new user
 export const createUser = (user) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3001/users', user);
+    const response = await axios.post('/users', user);
     console.log('Created User:', response.data);
     dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
@@ -96,7 +96,7 @@ export const createUser = (user) => async (dispatch) => {
 // Fetch all requests
 export const fetchRequests = () => async (dispatch) => {
   try {
-    const response = await axios.get('http://localhost:3001/requests');
+    const response = await axios.get('/requests');
     console.log('Fetched Requests:', response.data);
     dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: response.data });
   } catch (error) {
@@ -106,7 +106,7 @@ export const fetchRequests = () => async (dispatch) => {
 
 export const createRequest = (request) => async (dispatch) => {
   try {
-    const response = await axios.post('http://localhost:3001/requests', request);
+    const response = await axios.post('/requests', request);
     console.log('Created Request:', response.data);
     dispatch({ type: CREATE_REQUEST_SUCCESS, payload: response.data });
   } catch (error) {
