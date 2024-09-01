@@ -9,8 +9,8 @@ import Contact from './views/contact/contact.component';
 import Login from './views/login/login.component';
 import Register from './views/register/register.component';
 import CreatePet from './views/create/create.component'; 
-import GoogleCallback from './components/google/GoogleCallback';
-import './App.css';
+import GoogleCallback from './components/google/GoogleCallback';import './App.css';
+import Adopt from './views/adopt/adopt.component';
 
 const App = () => {
   const location = useLocation();
@@ -32,7 +32,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/create" element={<CreatePet />} /> 
+        <Route path="/create" element={<CreatePet />} />
+        <Route path="/adopt" element={<Adopt />} />  
         <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
       </Routes>
     </div>

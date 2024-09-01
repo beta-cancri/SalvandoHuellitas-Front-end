@@ -31,6 +31,10 @@ const Detail = () => {
     navigate(-1); 
   };
 
+  const handleAdopt = () => {
+    navigate('/adopt'); // Redirige a la página de adopción
+  };
+
   if (loading) {
     return <p>Cargando...</p>;
   }
@@ -63,9 +67,8 @@ const Detail = () => {
               <p><strong>Historia:</strong> {animal.history ? animal.history : 'Not available'}</p>
             </div>
           </div>
-          <div>
-          <button className="button" onClick={handleBack}>Atrás</button>
-          </div>
+          <button className="button-atras" onClick={handleBack}>X</button>
+          <button className="button" onClick={handleAdopt}>Adoptar</button> {/* Botón de Adopción */}
         </div>
       </div>
     </div>
