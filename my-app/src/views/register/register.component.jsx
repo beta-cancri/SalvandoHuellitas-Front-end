@@ -16,7 +16,6 @@ const Register = () => {
     phone: '',
     idCard: '',
     occupation: '',
-    gender: '', // Field for gender
   });
 
   const [error, setError] = useState({});
@@ -52,7 +51,6 @@ const Register = () => {
           phone: '',
           idCard: '',
           occupation: '',
-          gender: '',
         });
 
       } catch (err) {
@@ -158,6 +156,12 @@ const Register = () => {
             value={formData.occupation}
             onChange={handleChange}
           />
+          {error.occupation && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.occupation}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
 
           <button type="submit" className="button" disabled={uploading}>
             Registrate

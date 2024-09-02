@@ -60,6 +60,11 @@ const validationForRegister = (formData) => {
         return errors
     } 
 
+    if (!formData.occupation) {
+        errors.occupation = "Por favor, dinos a qué te de dedicas"
+        return errors
+    }
+
    
     return errors
 }
