@@ -31,8 +31,7 @@ const CreatePet = () => {
       [name]: type === 'checkbox' ? checked : value,
     });
 
-    const validation = validationForCreate({ ...formData, [e.target.name]: e.target.value });
-    setError(validation);
+    
   };
 
   const handleSubmit = async (e) => {
@@ -74,7 +73,7 @@ const CreatePet = () => {
             name="status"
             value={formData.status}
             onChange={handleChange}
-            required
+            className={error.status ? 'error' : ''}
           >
             <option value="available">Disponible</option>
             <option value="adopted">Adoptado</option>
@@ -88,7 +87,7 @@ const CreatePet = () => {
             placeholder="URL de foto"
             value={formData.photo}
             onChange={handleChange}
-            required
+            className={error.photo ? 'error' : ''}
           />
           {error.photo && <p className="error-message">{error.photo}</p>}
           Nombre<input
@@ -97,14 +96,14 @@ const CreatePet = () => {
             placeholder="Nombre"
             value={formData.name}
             onChange={handleChange}
-            required
+            className={error.name ? 'error' : ''}            
           />
           {error.name && <p className="error-message">{error.name}</p>}
           <select
             name="species"
             value={formData.species}
             onChange={handleChange}
-            required
+            className={error.species ? 'error' : ''}
           >
             <option value="">Selecciona especie</option>
             <option value="cat">Gato</option>
@@ -115,7 +114,7 @@ const CreatePet = () => {
             name="age"
             value={formData.age}
             onChange={handleChange}
-            required
+            className={error.age ? 'error' : ''}
           >
             <option value="">Selecciona etapa de vida</option>
             <option value="puppy">Cachorro</option>
@@ -128,7 +127,7 @@ const CreatePet = () => {
             name="size"
             value={formData.size}
             onChange={handleChange}
-            required
+            className={error.size ? 'error' : ''}
           >
             <option value="">Selecciona tamaño</option>
             <option value="small">Pequeño</option>
@@ -142,13 +141,13 @@ const CreatePet = () => {
             placeholder="Raza"
             value={formData.breed}
             onChange={handleChange}
-            required
+            
           />
           <select
             name="energyLevel"
             value={formData.energyLevel}
             onChange={handleChange}
-            required
+            
           >
             <option value="">Selecciona nivel de energía</option>
             <option value="low">Baja</option>
@@ -160,7 +159,7 @@ const CreatePet = () => {
             name="gender"
             value={formData.gender}
             onChange={handleChange}
-            required
+            
           >
             <option value="">Selecciona género</option>
             <option value="female">Hembra</option>
@@ -187,8 +186,7 @@ const CreatePet = () => {
               <h2 className='h2-create1'>Bueno con los niños</h2>
             </label>
           </div>
-          {error.okWithPets && <p className="error-message">{error.okWithPets}</p>}
-          {error.okWithKids && <p className="error-message">{error.okWithKids}</p>}
+          {error.okWithPetsAndKids && <p className="error-message">{error.okWithPetsAndKids}</p>}
           Historia<textarea
             name="history"
             placeholder="Historia (Opcional)"

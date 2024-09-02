@@ -12,7 +12,7 @@ const Register = () => {
     fullName: '',
     email: '',
     password: '',
-    age: '',
+    birthDate: '',
     phone: '',
     idCard: '',
     occupation: '',
@@ -29,8 +29,6 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
 
-    const validation = validationForRegister({ ...formData, [e.target.name]: e.target.value }); 
-    setError(validation);
   };
 
   // Handle form submission
@@ -41,14 +39,14 @@ const Register = () => {
 
     try {
       await dispatch(createUser(formData));
-      alert('User created successfully');
+      alert('El usuario fue creado exitosamente');
       
       // Clear the form after successful submission
       setFormData({
         fullName: '',
         email: '',
         password: '',
-        age: '',
+        birthDate: '',
         phone: '',
         idCard: '',
         occupation: '',
@@ -56,7 +54,7 @@ const Register = () => {
       });
       
     } catch (err) {
-      setError('Failed to create user: ' + err.message);
+      setError('Error al crear el usuario: ' + err.message);
     }
   };
 
@@ -71,7 +69,7 @@ const Register = () => {
             placeholder="Nombre completo"
             value={formData.fullName}
             onChange={handleChange}
-            required
+            className={error.fullName ? 'error' : ''}
           />
           {error.fullName && <p className="error-message">{error.fullName}</p>}
           Email<input
@@ -80,7 +78,7 @@ const Register = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            required
+            
           />
           {error.email && <p className="error-message">{error.email}</p>}
           Contraseña<input
@@ -89,24 +87,24 @@ const Register = () => {
             placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
-            required
+            className={error.password ? 'error' : ''}
           />
           {error.password && <p className="error-message">{error.password}</p>}
-          Edad<input
-            type="number"
-            name="age"
-            placeholder="Edad"
-            value={formData.age}
+          Fecha de nacimiento<input
+            type="date"
+            name="birthDate"
+            value={formData.birthDate}
             onChange={handleChange}
-            required
+            className={error.birthDate ? 'error' : ''}
           />
-          {error.age && <p className="error-message">{error.age}</p>}
+          {error.birthDate && <p className="error-message">{error.birthDate}</p>}
           Nro de teléfono<input
             type="text"
             name="phone"
             placeholder="Nro de teléfono"
             value={formData.phone}
             onChange={handleChange}
+            className={error.phone ? 'error' : ''}
           />
           {error.phone && <p className="error-message">{error.phone}</p>}
           Tarjeta ID<input
@@ -115,6 +113,7 @@ const Register = () => {
             placeholder="Tarjeta ID"
             value={formData.idCard}
             onChange={handleChange}
+            className={error.idCard ? 'error' : ''}
           />
           {error.idCard && <p className="error-message">{error.idCard}</p>}
           Ocupación<input
@@ -124,17 +123,6 @@ const Register = () => {
             value={formData.occupation}
             onChange={handleChange}
           />
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Género</option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-          </select>
-          {error.gender && <p className="error-message">{error.gender}</p>}
           
           <button type="submit" className="button" disabled={uploading}>
             Registrate

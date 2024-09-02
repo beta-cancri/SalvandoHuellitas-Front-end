@@ -78,6 +78,7 @@
 
 /* Estilo de los campos de entrada y selección */
 .register-form input,
+.register-form input[type="date"],
 .register-form select {
   width: 100%;
   padding: 10px;
@@ -91,6 +92,7 @@
 }
 
 .register-form input:focus,
+.register-form input[type="date"]:focus,
 .register-form select:focus {
   border-color: #E67E22;
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
@@ -98,10 +100,18 @@
 }
 
 .error-message {
-  color: #E74C3C; /* Rojo suave */
+  color: white; /* Rojo suave */
+  background-color: rgb(185, 39, 39);
   text-align: center;
   margin-top: 10px; /* Reducido el margen superior */
-  font-size: 14px;
+  font-size: 12px;
   font-family: 'Poppins', sans-serif;
   word-wrap: break-word; /* Asegura que los mensajes largos se ajusten dentro del contenedor */
+}
+
+.register-form input.error,
+.register-form input[type="date"].error,
+.register-form select.error {
+  border: 1px solid red;
+  background-color: #ffe6e6;
 }
