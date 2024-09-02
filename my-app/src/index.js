@@ -11,7 +11,7 @@ import { BrowserRouter as Router } from 'react-router-dom'; // Importa BrowserRo
 import axios from 'axios';
 
 //axios.defaults.baseURL = 'http://localhost:3001'; 
-axios.defaults.baseURL = 'http://salvandohuellitas-back-end-production.up.railway.app/'; 
+axios.defaults.baseURL = 'https://salvandohuellitas-back-end-production.up.railway.app/'; 
 
 
 const root = ReactDOM.createRoot(document.getElementById('root')); // Usa createRoot en lugar de render
