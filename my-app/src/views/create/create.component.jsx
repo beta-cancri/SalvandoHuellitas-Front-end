@@ -41,28 +41,30 @@ const CreatePet = () => {
     const validateErrors = validationForCreate(formData);
     setError(validateErrors);
 
-    try {
-      await dispatch(createPet(formData));
-      alert('La mascota se ingresó correctamente');
-      // Reset the form after successful submission
-      setFormData({
-        status: 'available',
-        photo: '',
-        name: '',
-        species: '',
-        age: '',
-        size: '',
-        breed: '',
-        energyLevel: '',
-        okWithPets: false,
-        okWithKids: false,
-        history: '',
-        gender: '', // Reset gender field
-      });
-    } catch (err) {
-      setError('Error al ingresar la mascota: ' + err.message);
-    }
-  };
+    if (Object.keys(validateErrors).length === 0) { //no se envia el formulario hasta que todos los campos estén completos
+      try {
+        await dispatch(createPet(formData));
+        alert('La mascota se ingresó correctamente');
+        // Reset the form after successful submission
+        setFormData({
+          status: 'available',
+          photo: '',
+          name: '',
+          species: '',
+          age: '',
+          size: '',
+          breed: '',
+          energyLevel: '',
+          okWithPets: false,
+          okWithKids: false,
+          history: '',
+          gender: '', // Reset gender field
+        });
+      } catch (err) {
+        setError('Error al ingresar la mascota: ' + err.message);
+      }
+    };
+  }
 
   return (
     <div className='section-full-screen-container-create'>

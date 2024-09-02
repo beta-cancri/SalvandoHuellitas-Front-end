@@ -1,60 +1,66 @@
-import React, { useState } from 'react';
+import React, { useState, /*useEffect*/ } from 'react';
 //import './adopt.styles.css';
-import { createRequest, fetchPets } from '../../redux/actions/index';
+import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validationForAdopt from './validationForAdopt';
-const Adopt = ({id_pet}) => {
+const Adopt = ({ id_pet }) => {
 
     const dispatch = useDispatch();
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
         idCard: '',
-        numberPeople: 0,
+        numberPeople: 1,
         hasChildren: false,
         hasOtherPets: false,
         space: '',
         daliyTime: '',
-        petType: '',
+        addedCondition: false,
     })
 
     const [errors, setErrors] = useState({});
 
-    if(!id_pet){
-        dispatch(fetchPets(requestData));
-    } else {
-        dispatch(createRequest(requestData));
-    }
+    /*useEffect(() => {
+        if (!id_pet) {
+            dispatch(fetchPets(requestData));
+        }
+    },[id_pet, requestData])*/
     const handleChange = (e) => {
+        const { name, value, type, checked } = e.target
         setRequestData({
             ...requestData,
-            [e.target.name]: e.target.value
+            [name]: type === 'checkbox' ? checked : value
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validationForAdopt(requestData);
         setErrors(validateErrors);
         if (Object.keys(validateErrors).length === 0) {
-            dispatch(createRequest(requestData));
-            alert('Tu solicitud fue creada exitosamente');
-            setRequestData({
-                adress: '',
-                occupation: '',
-                idCard: '',
-                numberPeople: 1,
-                hasChildren: false,
-                hasOtherPets: false,
-                pets: [],
-                space: '',
-                daliyTime: '',
-                petType: '',
-            })
-        }
-        setErrors(validateErrors);
-    }
+
+            try {
+                dispatch(createRequest(requestData));
+                alert('¡Gracias por enviarnos tu solicitud!');
+                setRequestData({
+                    adress: '',
+                    occupation: '',
+                    idCard: '',
+                    numberPeople: 1,
+                    hasChildren: false,
+                    hasOtherPets: false,
+                    space: '',
+                    daliyTime: '',
+                    addedCondition: false,
+                    clauses: false
+                })
+                setErrors(validateErrors);
+            } catch (error) {
+                alert('No pudimos procesar tu solicitud debido a esto:' + error.message);
+            };
+        };
+    };
 
     return (
         <div>
@@ -64,71 +70,101 @@ const Adopt = ({id_pet}) => {
 
                 <h5>Información del contacto</h5>
 
-                <label htmlFor="">Dirección</label>
-                <input type="text" placeholder='¿Dónde vives?' />
+                <label>Dirección</label>
+                <input type="text"
+                    name='adress'
+                    value={requestData.adress}
+                    onChange={handleChange}
+                    placeholder='¿Dónde vives?' />
 
-                <label htmlFor="">Ocupación</label>
-                <input type="text" placeholder='¿A qué te dedicas?' />
+                <label>Ocupación</label>
+                <input type="text"
+                    name='occupation'
+                    value={requestData.occupation}
+                    onChange={handleChange}
+                    placeholder='¿A qué te dedicas?' />
 
-                <label htmlFor="">Please, show us your ID Card</label>
-                <input type="text" />
+                <label>Muéstranos tu identificación</label>
+                <input type="text"
+                    name='idCard'
+                    value={requestData.idCard}
+                    onChange={handleChange}
+                    placeholder='Coloca aqui tu identificación'
+                />
 
                 <h5>Condiciones de vivienda</h5>
-                <label htmlFor="">¿Cuántas personas viven contigo?</label>
-                <input type="number" min="1" />
+                <label>¿Cuántas personas viven contigo?</label>
+                <input type="number"
+                    name='numberPeople'
+                    min="1"
+                    value={requestData.numberPeople}
+                    onChange={handleChange}
+                />
 
-                <label htmlFor="">¿Hay niños en la vivienda?</label> <br />
-                <input type="checkbox" id="childrenYes" name="children" />
-                <label htmlFor="childrenYes">Sí</label>
-                <input type="checkbox" id="childrenNo" name="children" />
-                <label htmlFor="childrenNo">No</label>
+                <label>¿Hay niños en la vivienda?</label> <br />
+                <input type="checkbox"
+                    name="hasChildren"
+                    onChange={handleChange}
+                    checked={requestData.hasChildren}
+                />
+                <label>Sí, hay niños en la vivienda.</label>
 
-                <label htmlFor="">¿Cuánto espacio hay?</label>
-                <select name="" id="">
+                <label>¿Cuánto espacio hay?</label>
+                <select
+                    name="space"
+                    value={requestData.space}
+                    onChange={handleChange}
+                >
                     <option value="">Selecciona una opción</option>
-                    <option value="">Poco</option>
-                    <option value="">Medio</option>
-                    <option value="">Mucho</option>
+                    <option value="small">Poco</option>
+                    <option value="medium">Medio</option>
+                    <option value="large">Mucho</option>
                 </select>
 
-                <label htmlFor="">¿Tienes otras mascotas a tu cuidado actualmente?</label> <br />
-                <input type="checkbox" id="petYes" name="pet" />
-                <label htmlFor="petYes">Sí</label>
-                <input type="checkbox" id="petNo" name="pet" />
-                <label htmlFor="petNo">No</label>
+                <label>¿Tienes otras mascotas a tu cuidado actualmente?</label> <br />
+                <input type="checkbox"
+                    name="hasOtherPets"
+                    onChange={handleChange}
+                    checked={requestData.hasOtherPets}
+                />
+                <label>Sí, tengo otras mascotas.</label>
 
-                <label htmlFor="">¿Cuánto tiempo tienes al día para dedicar al cuidado de tu/s mascota/s?</label>
-                <select name="" id="">
+                <label>¿Cuánto tiempo tienes al día para dedicar al cuidado de tu/s mascota/s?</label>
+                <select >
                     <option value="">Selecciona una opción</option>
-                    <option value="">Casi no tengo tiempo</option>
-                    <option value="">Menos de una hora</option>
-                    <option value="">Una hora</option>
-                    <option value="">Más de una hora</option>
-                   
+                    <option value="0">Casi no tengo tiempo.</option>
+                    <option value="-1">Menos de una hora.</option>
+                    <option value="1">Una hora.</option>
+                    <option value="+1">Más de una hora.</option>
                 </select>
 
-                <label htmlFor="">¿Qué mascota deseas adoptar?</label> <br />
-                <select name="" id="">
-                    <option value="">Selecciona una mascota</option>
-                    <option value="">Perro</option>
-                    <option value="">Gato</option>
-                </select>
-
+                <label>¿Adoptarías a una mascota con condiciones especiales?</label>
+                <input type="checkbox"
+                    name="addedCondition"
+                    onChange={handleChange}
+                    checked={requestData.addedCondition}
+                />
+                <label>Sí, estoy dispuesto a adoptar.</label>
 
                 <h3>PARTE 2: Cláusulas</h3>
                 <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
+
                 <ul>
                     <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
                     <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
-                    <li>Declaro que en el lugar donde vivo se permite tener mascotas</li>
+                    <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
                     <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
                     <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
                 </ul>
-                <input type="checkbox"> Estoy de acuerdo con las cláusulas </input>
+                <input type="checkbox" 
+                    name="clauses" 
+                    onChange={handleChange}
+                    checked= {requestData.clauses}/> Estoy de acuerdo con las cláusulas.
+
+                    
+                <button type="submit">Enviar</button>
 
             </form>
-
-            <button type="submit"> Submit </button>
         </div>
     )
 }

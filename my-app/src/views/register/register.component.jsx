@@ -37,27 +37,29 @@ const Register = () => {
     const validateErrors = validationForRegister(formData);
     setError(validateErrors);
 
-    try {
-      await dispatch(createUser(formData));
-      alert('El usuario fue creado exitosamente');
+    if (Object.keys(validateErrors).length === 0) { //no se envia el formulario hasta que todos los campos estén completos
+      try {
 
-      // Clear the form after successful submission
-      setFormData({
-        fullName: '',
-        email: '',
-        password: '',
-        birthDate: '',
-        phone: '',
-        idCard: '',
-        occupation: '',
-        gender: '',
-      });
+        await dispatch(createUser(formData));
+        alert('El usuario fue creado exitosamente');
 
-    } catch (err) {
-      setError('Error al crear el usuario: ' + err.message);
-    }
-  };
+        // Clear the form after successful submission
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          birthDate: '',
+          phone: '',
+          idCard: '',
+          occupation: '',
+          gender: '',
+        });
 
+      } catch (err) {
+        setError('Error al crear el usuario: ' + err.message);
+      }
+    };
+  }
   return (
     <div className="full-screen-container-register">
       <div className="register-container">
@@ -78,7 +80,7 @@ const Register = () => {
               <div className="error-arrow"></div>
             </div>
           )}
-          
+
           Email<input
             type="email"
             name="email"
@@ -87,7 +89,7 @@ const Register = () => {
             onChange={handleChange}
 
           />
-           {error.email && (
+          {error.email && (
             <div className="error-tooltip">
               <p className="error-text">{error.email}</p>
               <div className="error-arrow"></div>
