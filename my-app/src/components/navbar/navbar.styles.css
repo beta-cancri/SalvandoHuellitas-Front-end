@@ -1,6 +1,6 @@
 /* Navbar Styles */
 .navbar {
-  background-color: #0000006e; /* Fondo negro para el navbar */
+  background-color: #0000007d; /* Fondo negro para el navbar */
   padding: 10px 20px;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .navbar-search-input::placeholder {
-  color: #ddd; 
+  color: #fffefe; 
 }
 
 .navbar-search-input:focus {

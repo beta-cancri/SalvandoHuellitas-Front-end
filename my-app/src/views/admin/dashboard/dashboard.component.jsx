@@ -28,7 +28,7 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
-        <h2>Admin Dashboard</h2>
+        <h2>Administrador</h2>
         <button className="sidebar-button" onClick={handleFetchUsers}>
           Manejo de usuarios
         </button>
