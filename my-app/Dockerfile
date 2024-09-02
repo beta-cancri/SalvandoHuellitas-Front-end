@@ -7,6 +7,9 @@ WORKDIR /app
 # Copia el package.json y el package-lock.json si existe
 COPY package*.json ./
 
+# Actualiza NPM a una versión específica (por ejemplo, 8.x)
+RUN npm install -g npm@8
+
 # Instala las dependencias del proyecto
 RUN npm ci
 
