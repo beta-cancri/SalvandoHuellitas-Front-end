@@ -1,8 +1,0 @@
-[build]
-cmd = "npm run build"
-
-[start]
-cmd = "npm start"
-
-[setup]
-nodejs_version = "18" # O la versión específica que desees usar
