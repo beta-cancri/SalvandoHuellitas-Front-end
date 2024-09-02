@@ -1,32 +1,43 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';  // Asegúrate de importar axios
 
 const GoogleCallback = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const handleGoogleRedirect = () => {
-            // Extract the access token from the URL fragment (hash)
-            const params = new URLSearchParams(window.location.hash.substring(1)); // Removes the '#' at the start of the hash
-            const accessToken = params.get('access_token');
+  useEffect(() => {
+    const handleGoogleRedirect = () => {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const accessToken = params.get('access_token');
 
-            if (accessToken) {
-                console.log('Access Token:', accessToken);
-                // Store the access token in localStorage or sessionStorage
-                localStorage.setItem('accessToken', accessToken);
+        if (accessToken) {
+            console.log('Access Token:', accessToken);
+            localStorage.setItem('accessToken', accessToken);
 
-                // Optionally, redirect to a protected page
+            // Aquí podrías hacer una petición al backend para obtener información del usuario
+            axios.get('http://localhost:3001/user/profile', {
+                headers: { Authorization: `Bearer ${accessToken}` }  // Corregido aquí
+            }).then(response => {
+                localStorage.setItem('user', JSON.stringify(response.data));
                 navigate('/home');
-            } else {
-                // If no token is found, redirect to login
+            }).catch(error => {
+                console.error('Error fetching user profile:', error);
                 navigate('/login');
-            }
-        };
+            });
 
-        handleGoogleRedirect();
-    }, [navigate]);
+        } else {
+            navigate('/login');
+        }
+    };
 
-    return <div>Loading...</div>;
+    handleGoogleRedirect();
+  }, [navigate]);
+
+  return (
+    <div>
+      <p>Autenticando...</p>
+    </div>
+  );
 };
 
 export default GoogleCallback;

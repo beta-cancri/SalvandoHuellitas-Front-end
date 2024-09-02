@@ -7,7 +7,6 @@ const AdminDashboard = () => {
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets); // Access the pets array
   const requests = useSelector((state) => state.requests); // Access the requests array
-  const users = useSelector((state) => state.users); // Access the users array
   const [activeSection, setActiveSection] = useState(null);
 
   const handleFetchPets = () => {
@@ -28,7 +27,7 @@ const AdminDashboard = () => {
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
-        <h2>Admin Dashboard</h2>
+        <h2>Administrador</h2>
         <button className="sidebar-button" onClick={handleFetchUsers}>
           Manejo de usuarios
         </button>

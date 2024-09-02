@@ -1,6 +1,6 @@
 /* Navbar Styles */
 .navbar {
-  background-color: #00000043; /* Fondo negro para el navbar */
+  background-color: #0000007d; /* Fondo negro para el navbar */
   padding: 10px 20px;
 }
 
@@ -27,7 +27,7 @@
   width: 200px;
   padding: 10px;
   border: 0; 
-  border-bottom: 1px solid #ffffffb9; 
+  border-bottom: 1px solid #e6e4e4b9; 
   border-radius: 0; 
   font-size: 0.8em;
   font-family: 'Poppins', sans-serif; 
@@ -40,7 +40,7 @@
 }
 
 .navbar-search-input::placeholder {
-  color: #ddd; 
+  color: #fffefe; 
 }
 
 .navbar-search-input:focus {
@@ -99,4 +99,24 @@
 .navbar-button:hover {
   background-color: #cac8c5; 
   color: #fff;  
+}
+/* Estilos del botón de logout */
+.logout-button {
+  padding: 5px;
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #eaeaea;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  margin-left: 20px; /* Ajusta el margen aquí para aumentar el espacio */
+  font-size: 0.8em;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #ff4c4c;
+  color: #fff;
+  border-color: #ff4c4c;
 }
