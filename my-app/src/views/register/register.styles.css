@@ -99,14 +99,35 @@
   outline: none;
 }
 
-.error-message {
-  color: white; /* Rojo suave */
-  background-color: rgb(185, 39, 39);
-  text-align: center;
-  margin-top: 10px; /* Reducido el margen superior */
-  font-size: 12px;
-  font-family: 'Poppins', sans-serif;
-  word-wrap: break-word; /* Asegura que los mensajes largos se ajusten dentro del contenedor */
+.error-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.error-text {
+  background-color: #f8d7da; /* Rojo claro */
+  color: #721c24; /* Rojo oscuro */
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 30px; /* Altura del input */
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* Flecha del tooltip */
+.error-arrow {
+  position: absolute;
+  left: 10px; /* Ajusta esto para centrar la flecha bajo el tooltip */
+  bottom: 20px; /* Alineado con la parte superior del input */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #f8d7da; /* Rojo claro, mismo que el fondo del tooltip */
 }
 
 .register-form input.error,

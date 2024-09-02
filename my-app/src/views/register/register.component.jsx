@@ -40,7 +40,7 @@ const Register = () => {
     try {
       await dispatch(createUser(formData));
       alert('El usuario fue creado exitosamente');
-      
+
       // Clear the form after successful submission
       setFormData({
         fullName: '',
@@ -50,9 +50,9 @@ const Register = () => {
         phone: '',
         idCard: '',
         occupation: '',
-        gender: '', 
+        gender: '',
       });
-      
+
     } catch (err) {
       setError('Error al crear el usuario: ' + err.message);
     }
@@ -62,7 +62,8 @@ const Register = () => {
     <div className="full-screen-container-register">
       <div className="register-container">
         <h1>Crea una cuenta</h1>
-        <form className="register-form" onSubmit={handleSubmit}>Nombre Completo
+        <form className="register-form" onSubmit={handleSubmit}>
+          Nombre Completo
           <input
             type="text"
             name="fullName"
@@ -71,16 +72,27 @@ const Register = () => {
             onChange={handleChange}
             className={error.fullName ? 'error' : ''}
           />
-          {error.fullName && <p className="error-message">{error.fullName}</p>}
+          {error.fullName && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.fullName}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+          
           Email<input
             type="email"
             name="email"
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            
+
           />
-          {error.email && <p className="error-message">{error.email}</p>}
+           {error.email && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.email}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Contraseña<input
             type="password"
             name="password"
@@ -89,7 +101,12 @@ const Register = () => {
             onChange={handleChange}
             className={error.password ? 'error' : ''}
           />
-          {error.password && <p className="error-message">{error.password}</p>}
+          {error.password && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.password}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Fecha de nacimiento<input
             type="date"
             name="birthDate"
@@ -97,7 +114,13 @@ const Register = () => {
             onChange={handleChange}
             className={error.birthDate ? 'error' : ''}
           />
-          {error.birthDate && <p className="error-message">{error.birthDate}</p>}
+          {error.birthDate && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.birthDate}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+
           Nro de teléfono<input
             type="text"
             name="phone"
@@ -106,7 +129,12 @@ const Register = () => {
             onChange={handleChange}
             className={error.phone ? 'error' : ''}
           />
-          {error.phone && <p className="error-message">{error.phone}</p>}
+          {error.phone && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.phone}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Tarjeta ID<input
             type="text"
             name="idCard"
@@ -115,7 +143,12 @@ const Register = () => {
             onChange={handleChange}
             className={error.idCard ? 'error' : ''}
           />
-          {error.idCard && <p className="error-message">{error.idCard}</p>}
+          {error.idCard && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.idCard}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Ocupación<input
             type="text"
             name="occupation"
@@ -123,7 +156,7 @@ const Register = () => {
             value={formData.occupation}
             onChange={handleChange}
           />
-          
+
           <button type="submit" className="button" disabled={uploading}>
             Registrate
           </button>
