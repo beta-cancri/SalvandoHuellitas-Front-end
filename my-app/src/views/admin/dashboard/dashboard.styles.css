@@ -1,61 +1,119 @@
 .admin-dashboard {
-  padding: 20px;
-  background-color: #f4f4f4;
+  display: flex;
+  height: 100vh;
+  background-color: #333333;
+  padding: 0; /* O ajustar el padding si es necesario */
+}
+
+.sidebar {
+  width: 300px;
+  background-color: rgba(0, 0, 0, 0.359);
+  padding: 40px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-left: -20px; /* Ajusta este valor según sea necesario */
 }
 
-.admin-dashboard h1 {
-  font-size: 2.5rem;
+.sidebar h2 {
+  font-size: 1.2rem;
   margin-bottom: 20px;
+  color: #fdfcfc; 
 }
 
+.sidebar-button {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-bottom: 10px;
+}
+
+.sidebar-button:hover {
+  background-color: rgba(255, 255, 255, 0.047); 
+}
+.dashboard-display{
+  color: #ffffff;
+  margin: auto;
+  align-items: center;
+}
 .dashboard-content {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  flex-grow: 1;
+  padding: 20px;
+  margin-left: 20px;
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
 }
 
 .dashboard-section {
-  flex: 1;
-  margin: 10px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .dashboard-section h2 {
-  margin-bottom: 15px;
   font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #ffffff;
 }
 
-.dashboard-button, .create-pet-button {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
-  text-align: center;
-  border: none;
-  border-radius: 5px;
+.manage-pets ul,
+.manage-requests ul {
+  list-style-type: none;
+  padding: 0;
+ 
+}
+
+.manage-pets li,
+.manage-requests li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.manage-pets li:hover,
+.manage-requests li:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+}
+
+.pet-photo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #ffffff; 
+}
+
+.pet-details {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #dddddd; 
+}
+
+.edit-button {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 4px;
   cursor: pointer;
-  display: inline-block;
+  transition: background-color 0.2s ease;
 }
 
-.dashboard-button:hover, .create-pet-button:hover {
-  background-color: #0056b3;
+.edit-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
 }
 
-.create-pet-button {
-  background-color: #28a745;
-}
-
-.create-pet-button:hover {
-  background-color: #218838;
-}
-
-.dashboard-display {
-  flex: 1;
-  background-color: #ffffff;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
