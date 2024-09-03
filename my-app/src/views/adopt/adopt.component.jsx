@@ -1,12 +1,13 @@
-import React, { useState, /*useEffect*/ } from 'react';
+import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import validationForAdopt from './validationForAdopt';
-const Adopt = () => {
+const Adopt = ({ id_pet }) => {
 
     const dispatch = useDispatch();
+    const [user, setUser] = useState(null);
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
@@ -22,11 +23,19 @@ const Adopt = () => {
 
     const [errors, setErrors] = useState({});
 
+    // ? al montar el componente, se obtiene el usuario del localStorage
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser)); // ? se guarda el user en el estado
+        }
+    }, []);
+
     /*useEffect(() => {
         if (!id_pet) {
             dispatch(fetchPets(requestData));
         }
-    },[id_pet, requestData]) //* esto posiblemente se use luego*/
+    },[id_pet, requestData]) //! esto posiblemente se use luego, no descomentar aún*/
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
         setRequestData({
@@ -38,25 +47,41 @@ const Adopt = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validationForAdopt(requestData);
-        setErrors(validateErrors);
         if (Object.keys(validateErrors).length === 0) {
-
             try {
-                dispatch(createRequest(requestData));
-                alert('¡Gracias por enviarnos tu solicitud!');
-                setRequestData({
-                    adress: '',
-                    occupation: '',
-                    idCard: '',
-                    totalHabitants: 1,
-                    hasKids: false,
-                    hasPets: false,
-                    space: '',
-                    timeAvailable: '',
-                    addedCondition: false,
-                    clauses: false
-                })
-                setErrors(validateErrors);
+                if (user) {
+
+                    //? se configuran los headers con el token del usuario
+                    const headers = {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${user.token}`
+                    }
+
+                    //? se preparan los datos para la petición POST
+                    const requestDataWithUser = {
+                        ...requestData,
+                        id_pet: id_pet
+                    }
+
+                    //?se envía la solicitud vía Redux
+                    dispatch(createRequest(requestDataWithUser, headers));
+                    alert('¡Gracias por enviarnos tu solicitud!');
+                    setRequestData({
+                        adress: '',
+                        occupation: '',
+                        idCard: '',
+                        totalHabitants: 1,
+                        hasKids: false,
+                        hasPets: false,
+                        space: '',
+                        timeAvailable: '',
+                        addedCondition: false,
+                        clauses: false
+                    })
+                    setErrors(validateErrors);
+                } else {
+                    alert('Por favor, inicia sesión para poder adoptar una mascota');
+                }
             } catch (error) {
                 alert('No pudimos procesar tu solicitud debido a esto:' + error.message);
             };
