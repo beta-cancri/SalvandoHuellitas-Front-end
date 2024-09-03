@@ -1,4 +1,4 @@
-import React, { useState, /*useEffect*/ } from 'react';
+import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
@@ -7,6 +7,7 @@ import validationForAdopt from './validationForAdopt';
 const Adopt = () => {
 
     const dispatch = useDispatch();
+    const [user, setUser] = useState(null);
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
@@ -21,6 +22,13 @@ const Adopt = () => {
     })
 
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          setUser(JSON.parse(storedUser));
+        }
+      }, []);
 
     /*useEffect(() => {
         if (!id_pet) {
