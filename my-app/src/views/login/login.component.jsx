@@ -9,9 +9,9 @@ const Login = () => {
     iniciarAutenticacion(); // Call the authentication function
   };
 
-  const handleFacebookLogin = () => {
-    console.log('Facebook login clicked');
-  };
+ // const handleFacebookLogin = () => {
+   // console.log('Facebook login clicked');
+  //};
 
   return (
     <div className="login-container">
@@ -35,9 +35,9 @@ const Login = () => {
         <button onClick={handleGoogleLogin} className="google-login-button">
           Iniciar con Google
         </button>
-        <button onClick={handleFacebookLogin} className="facebook-login-button">
-          Iniciar con Facebook
-        </button>
+        {/*<button onClick={handleFacebookLogin} className="facebook-login-button">*/}
+         {/*Iniciar con Facebook*/}
+        {/*</button>*/}
       </div>
       <div className="login-links">
         <Link to="/register">¿No tienes una cuenta? ¡Registrate!</Link>
