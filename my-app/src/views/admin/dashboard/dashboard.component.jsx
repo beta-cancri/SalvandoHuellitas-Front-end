@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPets, fetchUsers, fetchRequests, deletePet } from '../../../redux/actions';
+import { fetchPets, fetchUsers, fetchRequests, changePetStatus } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
@@ -24,9 +24,9 @@ const AdminDashboard = () => {
     setActiveSection('requests');
   };
 
-  const handleDeletePet = (petId) => {
-    if (window.confirm('Are you sure you want to delete this pet?')) {
-      dispatch(deletePet(petId));
+  const handlechangePetStatus = (petId, status) => {
+    if (window.confirm('cambiaste el estado de la mascota')) {
+      dispatch(changePetStatus(petId, status));
     }
   };
 
@@ -59,12 +59,14 @@ const AdminDashboard = () => {
                         Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
                       </div>
                     </div>
-                    <button className="edit-buttons">Editar</button>
+                    <button className="edit-buttons"
+                    onClick={() => handlechangePetStatus(pet.id, "activo")}
+                    >Activo</button>
                     <button
                       className="delete-button"
-                      onClick={() => handleDeletePet(pet.id)}
+                      onClick={() => handlechangePetStatus(pet.id, "inactive")}
                     >
-                      Eliminar
+                      Inactivo
                     </button>
                   </li>
                 ))}
