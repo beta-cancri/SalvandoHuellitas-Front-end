@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './about.styles.css';
+import axios from 'axios';
 
 const About = () => {
   const [reviews, setReviews] = useState([]);
@@ -11,16 +12,14 @@ const About = () => {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const response = await fetch('http://localhost:3001/reviews/');
-        if (!response.ok) {
-          throw new Error('Failed to fetch reviews');
-        }
-        const data = await response.json();
+        const response = await axios.get('/reviews/');
+        const data = await response.data;
         setReviews(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching reviews:', error);
         setLoading(false);
+        throw new Error('Failed to fetch reviews');
       }
     };
 

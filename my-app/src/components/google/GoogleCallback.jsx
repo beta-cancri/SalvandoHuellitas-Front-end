@@ -15,7 +15,7 @@ const GoogleCallback = () => {
             localStorage.setItem('accessToken', accessToken);
 
             // Aquí podrías hacer una petición al backend para obtener información del usuario
-            axios.get('http://localhost:3001/user/profile', {
+            axios.get('/user/profile', {
                 headers: { Authorization: `Bearer ${accessToken}` }  // Corregido aquí
             }).then(response => {
                 localStorage.setItem('user', JSON.stringify(response.data));
