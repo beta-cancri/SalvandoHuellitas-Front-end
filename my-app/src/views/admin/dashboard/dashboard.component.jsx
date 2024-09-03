@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets, fetchUsers, fetchRequests, deletePet } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
+  // validate user admin (could be better written)
+  useEffect(() => {
+    let storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      storedUser = JSON.parse(storedUser)
+    }else{
+      window.location = "/"
+    }
+    if(!storedUser.isAdmin){
+      window.location = "/"
+    }
+  }, []);
+  //////
+
+
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets); // Access the pets array
   const requests = useSelector((state) => state.requests); // Access the requests array
