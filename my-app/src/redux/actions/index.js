@@ -3,6 +3,7 @@ import axios from 'axios';
 export const FETCH_PETS_SUCCESS = 'FETCH_PETS_SUCCESS';
 export const FETCH_PET_DETAIL_SUCCESS = 'FETCH_PET_DETAIL_SUCCESS';
 export const CREATE_PET_SUCCESS = 'CREATE_PET_SUCCESS';
+export const DELETE_PET_SUCCESS = 'DELETE_PET_SUCCESS';
 export const FETCH_REVIEWS_SUCCESS = 'FETCH_REVIEWS_SUCCESS';
 export const CREATE_REVIEW_SUCCESS = 'CREATE_REVIEW_SUCCESS';
 export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
@@ -46,6 +47,18 @@ export const createPet = (pet) => async (dispatch) => {
     dispatch({ type: CREATE_PET_SUCCESS, payload: response.data });
   } catch (error) {
     console.error('Error creating pet:', error.message);
+  }
+};
+
+// Delete a pet (mark as inactive)
+export const deletePet = (id) => async (dispatch) => {
+  try {
+    console.log(`Deleting Pet with ID: ${id}`);
+    const response = await axios.delete(`/pets/${id}`);
+    console.log('Deleted Pet:', response.data);
+    dispatch({ type: DELETE_PET_SUCCESS, payload: id });
+  } catch (error) {
+    console.error('Error deleting pet:', error.message);
   }
 };
 
@@ -113,4 +126,3 @@ export const createRequest = (request) => async (dispatch) => {
     console.error('Error creating request:', error.message);
   }
 };
-//*creé una nueva action para hacer el request de adopción del pet (Nadia)
