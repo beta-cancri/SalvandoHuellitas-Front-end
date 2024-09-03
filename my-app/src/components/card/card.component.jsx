@@ -12,8 +12,8 @@ const Card = ({ pet }) => {
       <div className="pet-card">
         <img src={pet.photo} alt={pet.name} className="pet-card-image" />
         <h3 className="pet-name">{capitalizeFirstLetter(pet.name)}</h3>
-        <p>Breed: {pet.breed}</p>
-        <p>Energy Level: {capitalizeFirstLetter(pet.energyLevel)}</p>
+        <p>Raza: {pet.breed}</p>
+        <p>Nivel de energía: {capitalizeFirstLetter(pet.energyLevel)}</p>
         <p>Condición especial: Saludable</p>
       </div>
     </Link>

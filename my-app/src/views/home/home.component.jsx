@@ -1,28 +1,38 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
-//import api from '../../api/axiosConfig'; 
 
 const Home = () => {
- 
-  useEffect(() => {
-    manejarRedireccion();
-    }
-  , []);
-
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
-  
-  // Estados 
+
+  // Estados para los filtros
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
 
-  //  filtros
+  // Cargar filtros desde el localStorage al montar el componente
+  useEffect(() => {
+    manejarRedireccion();
+
+    const savedFilters = JSON.parse(localStorage.getItem('filters'));
+    if (savedFilters) {
+      setSpecies(savedFilters.species || '');
+      setEnergyLevel(savedFilters.energyLevel || '');
+      setSize(savedFilters.size || '');
+      // Aplicar los filtros guardados al montar el componente
+      dispatch(fetchPets(savedFilters, savedFilters.currentPage || 1));
+    } else {
+      // Si no hay filtros guardados, cargar todos los datos
+      dispatch(fetchPets({}, 1));
+    }
+  }, [dispatch]);
+
+  // Opciones de filtros
   const speciesOptions = [
     { value: '', label: 'Todos' },
     { value: 'dog', label: 'Perro' },
@@ -43,7 +53,7 @@ const Home = () => {
     { value: 'large', label: 'Grande' }
   ];
 
-  // Estilos React Select
+  // Estilos personalizados para React Select
   const customStyles = {
     control: (provided) => ({
       ...provided,
@@ -73,40 +83,44 @@ const Home = () => {
     })
   };
 
-  // Aplica los filtros
-  const handleFilterChange = useCallback(() => {
+  // Maneja los cambios en los filtros y guarda en el localStorage
+  const handleFilterChange = (key, value) => {
     const filters = {
-      species: species || undefined,
-      energyLevel: energyLevel || undefined,
-      size: size || undefined,
+      species,
+      energyLevel,
+      size,
+      [key]: value,
     };
-    
-    dispatch(fetchPets(filters, currentPage));
-  }, [dispatch, species, energyLevel, size, currentPage]);
 
-  useEffect(() => {
-    handleFilterChange(); 
-  }, [handleFilterChange]);
+    if (key === 'species') setSpecies(value);
+    if (key === 'energyLevel') setEnergyLevel(value);
+    if (key === 'size') setSize(value);
 
-  //  paginación
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      dispatch(fetchPets({ species, energyLevel, size }, currentPage + 1));
-    }
+    // Guardar los filtros en localStorage
+    localStorage.setItem('filters', JSON.stringify({
+      ...filters,
+      currentPage: currentPage || 1 // Guardar la página actual
+    }));
+
+    // Despachar la acción para obtener los datos filtrados
+    dispatch(fetchPets(filters, 1)); // Resetear a la primera página
   };
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      dispatch(fetchPets({ species, energyLevel, size }, currentPage - 1));
-    }
+  // Cambiar de página
+  const handlePageChange = (pageNumber) => {
+    dispatch(fetchPets({ species, energyLevel, size }, pageNumber));
   };
 
-  // Reinicia filtros
+  // Reiniciar filtros y limpiar localStorage
   const handleResetFilters = () => {
     setSpecies('');
     setEnergyLevel('');
     setSize('');
-    dispatch(fetchPets({}, 1)); 
+
+    // Eliminar filtros de localStorage
+    localStorage.removeItem('filters');
+
+    dispatch(fetchPets({}, 1)); // Cargar todos los datos
   };
 
   return (
@@ -121,7 +135,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={speciesOptions.find(option => option.value === species)}
-            onChange={(option) => setSpecies(option ? option.value : '')}
+            onChange={(option) => handleFilterChange('species', option ? option.value : '')}
             options={speciesOptions}
             styles={customStyles}
             isClearable
@@ -134,7 +148,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={energyLevelOptions.find(option => option.value === energyLevel)}
-            onChange={(option) => setEnergyLevel(option ? option.value : '')}
+            onChange={(option) => handleFilterChange('energyLevel', option ? option.value : '')}
             options={energyLevelOptions}
             styles={customStyles}
             isClearable
@@ -147,14 +161,14 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={sizeOptions.find(option => option.value === size)}
-            onChange={(option) => setSize(option ? option.value : '')}
+            onChange={(option) => handleFilterChange('size', option ? option.value : '')}
             options={sizeOptions}
             styles={customStyles}
             isClearable
           />
         </label>
 
-        {/*  reiniciar filtros */}
+        {/* Botón para reiniciar filtros */}
         <button onClick={handleResetFilters} className="reset-button">
           <i className="fas fa-trash"></i>
         </button>
@@ -164,11 +178,11 @@ const Home = () => {
         <div>
           <Cards pets={pets} />
           <div className="pagination">
-            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages} </span>
-            <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+            <span>Página {currentPage} de {totalPages}</span>
+            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
               Siguiente
             </button>
           </div>
