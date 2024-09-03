@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPets } from '../../../redux/actions';
+import { fetchPets, updatePetStatus } from '../../../redux/actions';
 import './managepets.styles.css';
 
 const ManagePets = () => {
   const dispatch = useDispatch();
-  const pets = useSelector((state) => state.pets.results);
+  const pets = useSelector((state) => state.pets);
 
   useEffect(() => {
     dispatch(fetchPets());
   }, [dispatch]);
+
+  const handleStatusToggle = (petId, currentStatus) => {
+    const newStatus = currentStatus === 'available' ? 'inactive' : 'available';
+    dispatch(updatePetStatus(petId, newStatus));
+  };
 
   return (
     <div className="manage-pets">
@@ -26,6 +31,12 @@ const ManagePets = () => {
                 </div>
               </div>
               <button className="edit-button">Editar</button>
+              <button
+                className="status-button"
+                onClick={() => handleStatusToggle(pet.id, pet.status)}
+              >
+                {pet.status === 'available' ? 'Desactivar' : 'Activar'}
+              </button>
             </li>
           ))}
         </ul>
