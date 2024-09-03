@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPets, fetchUsers, fetchRequests, updatePetStatus } from '../../../redux/actions';
+import { fetchPets, fetchUsers, fetchRequests, deletePet } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
@@ -24,9 +24,10 @@ const AdminDashboard = () => {
     setActiveSection('requests');
   };
 
-  const handleStatusToggle = (petId, currentStatus) => {
-    const newStatus = currentStatus === 'available' ? 'inactive' : 'available';
-    dispatch(updatePetStatus(petId, newStatus));
+  const handleDeletePet = (petId) => {
+    if (window.confirm('Are you sure you want to delete this pet?')) {
+      dispatch(deletePet(petId));
+    }
   };
 
   return (
@@ -55,16 +56,16 @@ const AdminDashboard = () => {
                     <div className="pet-details">
                       <div className="pet-name">{pet.name}</div>
                       <div className="pet-info">
-                        Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}
+                        Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
                       </div>
                     </div>
+                    <button className="edit-button">Editar</button>
                     <button
-                className="status-button"
-                onClick={() => handleStatusToggle(pet.id, pet.status)}
-              >
-                {pet.status === 'available' ? 'Desactivar' : 'Activar'}
-              </button>
-                    <button className="edit-buttons">Editar</button>
+                      className="delete-button"
+                      onClick={() => handleDeletePet(pet.id)}
+                    >
+                      Eliminar
+                    </button>
                   </li>
                 ))}
               </ul>
