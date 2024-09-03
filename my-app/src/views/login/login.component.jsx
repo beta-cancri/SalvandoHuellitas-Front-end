@@ -25,15 +25,17 @@ const Login = () => {
   }
 
   const login = () => {
-      axios.post("/auth", form).then(response => {
-          localStorage.setItem("jwt", response.data.token);
-          var decoded = jwtDecode(response.data.token);
-          localStorage.setItem("user", JSON.stringify(decoded));
-          window.location = "/home"
-      }).catch(error => {
-          alert(error.response.data.error)
-      })
+    axios.post("/auth", form).then(response => {
+      localStorage.setItem("jwt", response.data.token);
+      var decoded = jwtDecode(response.data.token);
+      console.log(decoded); // Agrega esta línea para ver el contenido del decoded
+      localStorage.setItem("user", JSON.stringify(decoded));
+      window.location = "/home";
+    }).catch(error => {
+      alert(error.response.data.error);
+    });
   }
+  
 
   return (
     <div className="login-container">
