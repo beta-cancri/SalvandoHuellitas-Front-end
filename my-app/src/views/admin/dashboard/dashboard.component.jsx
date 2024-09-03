@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
+import { fetchPets, fetchUsers, fetchRequests, updatePetStatus } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
@@ -22,6 +22,11 @@ const AdminDashboard = () => {
   const handleFetchRequests = () => {
     dispatch(fetchRequests());
     setActiveSection('requests');
+  };
+
+  const handleStatusToggle = (petId, currentStatus) => {
+    const newStatus = currentStatus === 'available' ? 'inactive' : 'available';
+    dispatch(updatePetStatus(petId, newStatus));
   };
 
   return (
@@ -53,7 +58,13 @@ const AdminDashboard = () => {
                         Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}
                       </div>
                     </div>
-                    <button className="edit-button">Editar</button>
+                    <button
+                className="status-button"
+                onClick={() => handleStatusToggle(pet.id, pet.status)}
+              >
+                {pet.status === 'available' ? 'Desactivar' : 'Activar'}
+              </button>
+                    <button className="edit-buttons">Editar</button>
                   </li>
                 ))}
               </ul>
