@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './detail.styles.css';
+import axios from 'axios';
 
 const Detail = () => {
   const [animal, setAnimal] = useState(null);
@@ -11,16 +12,14 @@ const Detail = () => {
   useEffect(() => {
     const fetchAnimal = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/pets/${id}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch animal data');
-        }
-        const data = await response.json();
+        const response = await axios.get(`/pets/${id}`);
+        const data = await response.data;
         setAnimal(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching animal:', error);
         setLoading(false);
+        throw new Error('Failed to fetch animal data');
       }
     };
 
