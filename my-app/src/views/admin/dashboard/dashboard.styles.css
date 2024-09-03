@@ -3,6 +3,7 @@
   height: 100vh;
   background-color: #333333;
   padding: 0; /* O ajustar el padding si es necesario */
+  overflow: hidden;
 }
 
 .sidebar {
@@ -41,9 +42,12 @@
   background-color: rgba(255, 255, 255, 0.047); 
 }
 .dashboard-display{
+  display: flex; /* Utiliza flexbox para alinear los elementos */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100%; /* Asegura que el contenedor ocupe todo el alto disponible */
   color: #ffffff;
   margin: auto;
-  align-items: center;
 }
 .dashboard-content {
   flex-grow: 1;
@@ -52,7 +56,11 @@
   background-color: rgba(255, 255, 255, 0.1); 
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
+  overflow: auto; /* Esto permitirá que el contenido tenga scroll si se desborda */
+  max-width: 100%;
+ 
 }
+
 
 .dashboard-section {
   margin-bottom: 20px;
@@ -68,20 +76,26 @@
 .manage-requests ul {
   list-style-type: none;
   padding: 0;
- 
+  max-height: 600px; /* Ajusta esta altura según tus necesidades */
+  overflow-y: auto; /* Habilita el scroll vertical */
+  scrollbar-width: thin;
 }
 
 .manage-pets li,
 .manage-requests li {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1); 
   border-radius: 4px;
   transition: background-color 0.2s ease;
+  
 }
-
+.manage-pets li:last-child,
+.manage-requests li:last-child {
+  margin-bottom: 0; /* Elimina el margen inferior del último elemento */
+}
 .manage-pets li:hover,
 .manage-requests li:hover {
   background-color: rgba(255, 255, 255, 0.2); 
@@ -95,11 +109,13 @@
   margin-right: 15px;
   border: 2px solid #ffffff; 
 }
-
+.pet-name{
+  color: #ffffff;
+}
 .pet-details {
   flex-grow: 1;
   font-size: 0.9rem;
-  color: #dddddd; 
+  color: #fcf9f9; 
 }
 
 .edit-buttons {
@@ -114,6 +130,22 @@
 }
 
 .edit-buttons:hover {
+  background-color: rgba(255, 255, 255, 0.2); 
+}
+
+.delete-button {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin:10px;
+}
+
+.delete-button:hover {
   background-color: rgba(255, 255, 255, 0.2); 
 }
 
