@@ -75,7 +75,9 @@ const Navbar = () => {
         </div>
         {user ? (
           <div className="navbar-user-info">
-            <span>{user.name}</span>
+            <span>{user.name} {user.isAdmin ? (
+                <Link to="admin/dashboard">(Admin)</Link>
+            ) : null}</span>
             <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
           </div>
         ) : (

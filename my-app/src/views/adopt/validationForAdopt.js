@@ -12,7 +12,7 @@ const validationForAdopt = (formData) => {
         return errors
     }
 
-    if (!formData.idCard || !/^https?:\/\/.+.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(formData.idCard)) {
+    if (!formData.idCard) {
         errors.idCard = "Necesitas mostrar tu identificación para proceder."
         return errors
     }

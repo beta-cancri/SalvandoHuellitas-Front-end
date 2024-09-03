@@ -6,7 +6,7 @@ const validationForCreate = (formData) => {
         return errors
     }
 
-    if(!formData.photo || !/^https?:\/\/.+.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(formData.photo)) {
+    if(!formData.photo) {
         errors.photo = "Debes subir una foto de la mascota"
         return errors
     }

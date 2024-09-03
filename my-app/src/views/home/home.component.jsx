@@ -108,7 +108,7 @@ const Home = () => {
 
   // Cambiar de página
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size }, pageNumber));
+    dispatch(fetchPets({ species, energyLevel, size, status: "available" }, pageNumber));
   };
 
   // Reiniciar filtros y limpiar localStorage
