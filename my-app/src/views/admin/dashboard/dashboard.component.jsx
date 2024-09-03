@@ -59,7 +59,7 @@ const AdminDashboard = () => {
                         Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
                       </div>
                     </div>
-                    <button className="edit-button">Editar</button>
+                    <button className="edit-buttons">Editar</button>
                     <button
                       className="delete-button"
                       onClick={() => handleDeletePet(pet.id)}
