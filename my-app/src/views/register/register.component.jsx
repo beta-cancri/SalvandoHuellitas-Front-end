@@ -12,11 +12,10 @@ const Register = () => {
     fullName: '',
     email: '',
     password: '',
-    age: '',
+    birthDate: '',
     phone: '',
     idCard: '',
     occupation: '',
-    gender: '', // Field for gender
   });
 
   const [error, setError] = useState({});
@@ -29,8 +28,6 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
 
-    const validation = validationForRegister({ ...formData, [e.target.name]: e.target.value }); 
-    setError(validation);
   };
 
   // Handle form submission
@@ -39,84 +36,119 @@ const Register = () => {
     const validateErrors = validationForRegister(formData);
     setError(validateErrors);
 
-    try {
-      await dispatch(createUser(formData));
-      alert('User created successfully');
-      
-      // Clear the form after successful submission
-      setFormData({
-        fullName: '',
-        email: '',
-        password: '',
-        age: '',
-        phone: '',
-        idCard: '',
-        occupation: '',
-        gender: '', 
-      });
-      
-    } catch (err) {
-      setError('Failed to create user: ' + err.message);
-    }
-  };
+    if (Object.keys(validateErrors).length === 0) { //no se envia el formulario hasta que todos los campos estén completos
+      try {
 
+        await dispatch(createUser(formData));
+        alert('El usuario fue creado exitosamente');
+
+        // Clear the form after successful submission
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          birthDate: '',
+          phone: '',
+          idCard: '',
+          occupation: '',
+        });
+
+      } catch (err) {
+        setError('Error al crear el usuario: ' + err.message);
+      }
+    };
+  }
   return (
     <div className="full-screen-container-register">
       <div className="register-container">
         <h1>Crea una cuenta</h1>
-        <form className="register-form" onSubmit={handleSubmit}>Nombre Completo
+        <form className="register-form" onSubmit={handleSubmit}>
+          Nombre Completo
           <input
             type="text"
             name="fullName"
             placeholder="Nombre completo"
             value={formData.fullName}
             onChange={handleChange}
-            required
+            className={error.fullName ? 'error' : ''}
           />
-          {error.fullName && <p className="error-message">{error.fullName}</p>}
+          {error.fullName && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.fullName}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+
           Email<input
             type="email"
             name="email"
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            required
+
           />
-          {error.email && <p className="error-message">{error.email}</p>}
+          {error.email && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.email}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Contraseña<input
             type="password"
             name="password"
             placeholder="Contraseña"
             value={formData.password}
             onChange={handleChange}
-            required
+            className={error.password ? 'error' : ''}
           />
-          {error.password && <p className="error-message">{error.password}</p>}
-          Edad<input
-            type="number"
-            name="age"
-            placeholder="Edad"
-            value={formData.age}
+          {error.password && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.password}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+          Fecha de nacimiento<input
+            type="date"
+            name="birthDate"
+            value={formData.birthDate}
             onChange={handleChange}
-            required
+            className={error.birthDate ? 'error' : ''}
           />
-          {error.age && <p className="error-message">{error.age}</p>}
+          {error.birthDate && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.birthDate}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+
           Nro de teléfono<input
             type="text"
             name="phone"
             placeholder="Nro de teléfono"
             value={formData.phone}
             onChange={handleChange}
+            className={error.phone ? 'error' : ''}
           />
-          {error.phone && <p className="error-message">{error.phone}</p>}
+          {error.phone && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.phone}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Tarjeta ID<input
             type="text"
             name="idCard"
             placeholder="Tarjeta ID"
             value={formData.idCard}
             onChange={handleChange}
+            className={error.idCard ? 'error' : ''}
           />
-          {error.idCard && <p className="error-message">{error.idCard}</p>}
+          {error.idCard && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.idCard}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
           Ocupación<input
             type="text"
             name="occupation"
@@ -124,18 +156,13 @@ const Register = () => {
             value={formData.occupation}
             onChange={handleChange}
           />
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Género</option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-          </select>
-          {error.gender && <p className="error-message">{error.gender}</p>}
-          
+          {error.occupation && (
+            <div className="error-tooltip">
+              <p className="error-text">{error.occupation}</p>
+              <div className="error-arrow"></div>
+            </div>
+          )}
+
           <button type="submit" className="button" disabled={uploading}>
             Registrate
           </button>

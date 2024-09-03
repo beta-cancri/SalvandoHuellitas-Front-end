@@ -1,0 +1,141 @@
+.full-screen-container-adopt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* Cambia a columna para que el h2 esté sobre el formulario */
+    justify-content: flex-start;
+    /* Asegura que el contenido se alinee desde arriba */
+    align-items: center;
+    position: relative;
+    padding: 50px 0;
+    /* Puedes ajustar el padding según sea necesario */
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.adopt-container {
+    max-width: 700px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #ffffffb9;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    background-color: rgba(255, 254, 254, 0.323);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 3%;
+    /* Asegúrate de que esto no cause desbordamiento */
+    max-height: 90vh;
+    overflow-y: auto;
+    /* Asegura que el contenido adicional se desplaza */
+    scrollbar-width: none;
+    /* Oculta la barra de desplazamiento en Firefox */
+    -ms-overflow-style: none;
+    /* Oculta la barra de desplazamiento en IE y Edge */
+}
+
+.adopt-h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6em;
+    /* Ajusta el tamaño de la fuente si es necesario */
+    color: black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1.5px;
+}
+
+.adopt-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    color: black;
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
+    padding: 0 20px;
+    font-size: 15px;
+}
+
+.adopt-form .checkbox-group {
+    display: flex;
+    align-items: center; /* Alinea el checkbox y el texto verticalmente al centro */
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.adopt-form .checkbox-group input[type="checkbox"] {
+    margin-right: 10px; /* Espacio entre el checkbox y el texto */
+    cursor: pointer;
+}
+
+.adopt-form .checkbox-group label {
+    font-size: 12px;
+    font-weight: normal; /* Cambiado a 'normal' para evitar énfasis adicional */
+    cursor: pointer;
+    flex-grow: 1; /* Permite que el label ocupe todo el espacio disponible */
+}
+
+.adopt-form ul {
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    list-style-type: disc;
+    padding: 0;
+    font-size: 12px;
+}
+
+.adopt-form h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4em;
+    /* Ajusta el tamaño de la fuente si es necesario */
+    color: #ffbd61;
+    margin-bottom: 10px;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1.5px;
+}
+
+.adopt-form h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    /* Ajusta el tamaño de la fuente si es necesario */
+    color: black;
+    margin-bottom: 10px;
+    text-align: center;
+    letter-spacing: 1.5px;
+    font-weight: bolder;
+}
+
+.adopt-form input,
+
+.adopt-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e67e22;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(255, 248, 240, 0.8);
+    /* Fondo con un toque de naranja claro */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.adopt-form input:focus,
+.adopt-form select:focus {
+    border-color: #E67E22;
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+    outline: none;
+}
+
+.adopt-form input.error,
+.adopt-form select.error {
+    border: 1px solid red;
+    background-color: #ffe6e6;
+}
