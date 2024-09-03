@@ -55,7 +55,7 @@ const validationForRegister = (formData) => {
         return errors
     }
 
-    if (!formData.idCard || !/^https?:\/\/.+.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(formData.idCard)) {
+    if (!formData.idCard) {
         errors.idCard = "Por favor, muéstranos tu identificación"
         return errors
     } 
