@@ -75,7 +75,7 @@ const AdminDashboard = () => {
                       </div>
                     </div>
                     <button className="edit-buttons"
-                    onClick={() => handlechangePetStatus(pet.id, "activo")}
+                    onClick={() => handlechangePetStatus(pet.id, "active")}
                     >Activo</button>
                     <button
                       className="delete-button"
