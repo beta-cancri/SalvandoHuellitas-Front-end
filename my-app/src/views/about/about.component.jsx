@@ -86,8 +86,9 @@ const About = () => {
           ].map((faq, index) => (
             <li key={index}>
               <strong onClick={() => toggleFAQ(index)}>
-                {faq.question} <span className="caret">{expandedFAQs.includes(index) ? '-' : '+'}</span>
+                {faq.question} 
               </strong>
+              <span className="caret">{expandedFAQs.includes(index) ? '-' : '+'}</span>
               {expandedFAQs.includes(index) && <span>{faq.answer}</span>}
             </li>
           ))}
