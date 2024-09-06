@@ -42,6 +42,8 @@ const Detail = () => {
     return <p>Error: Animal no carga.</p>;
   }
 
+
+  
   return (
     <div className="detail-body">
       <div className="animal-detail">

@@ -20,6 +20,7 @@
   overflow: hidden;
 }
 
+
 /* Efecto hover en la tarjeta */
 .pet-card:hover {
   transform: translateY(-5px) scale(1.03); /* Ligeramente más alto y más grande */

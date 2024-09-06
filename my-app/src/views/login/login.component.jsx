@@ -35,7 +35,6 @@ const Login = () => {
       alert(error.response.data.error);
     });
   }
-  
 
   return (
     <div className="login-container">
