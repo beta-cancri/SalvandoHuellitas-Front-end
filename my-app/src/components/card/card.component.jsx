@@ -10,7 +10,10 @@ const Card = ({ pet }) => {
   return (
     <Link to={`/detail/${pet.id}`} className="pet-card-link">
       <div className="pet-card">
-        <img src={pet.photo} alt={pet.name} className="pet-card-image" />
+        {/* Contenedor para asegurar que la imagen no se deforme */}
+        <div className="pet-card-image-container">
+          <img src={pet.photo} alt={pet.name} className="pet-card-image" />
+        </div>
         <h3 className="pet-name">{capitalizeFirstLetter(pet.name)}</h3>
         <p>Raza: {pet.breed}</p>
         <p>Nivel de energía: {capitalizeFirstLetter(pet.energyLevel)}</p>
@@ -21,5 +24,3 @@ const Card = ({ pet }) => {
 };
 
 export default Card;
-
-

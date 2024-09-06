@@ -34,20 +34,20 @@ const Home = () => {
 
   // Opciones de filtros
   const speciesOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'dog', label: 'Perro' },
     { value: 'cat', label: 'Gato' }
   ];
 
   const energyLevelOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'low', label: 'Bajo' },
     { value: 'medium', label: 'Medio' },
     { value: 'high', label: 'Alto' }
   ];
 
   const sizeOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'small', label: 'Chico' },
     { value: 'medium', label: 'Mediano' },
     { value: 'large', label: 'Grande' }
@@ -170,12 +170,12 @@ const Home = () => {
 
         {/* Botón para reiniciar filtros */}
         <button onClick={handleResetFilters} className="reset-button">
-          <i className="fas fa-trash"></i>
+          Limpiar Filtros
         </button>
       </div>
 
       {pets.length > 0 ? (
-        <div>
+        <div className="pets-container">
           <Cards pets={pets} />
           <div className="pagination">
             <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>

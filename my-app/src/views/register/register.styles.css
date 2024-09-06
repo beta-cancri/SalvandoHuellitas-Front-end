@@ -1,7 +1,7 @@
 /* Contenedor a pantalla completa */
 .full-screen-container-register {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 55px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@
 /* Contenedor del formulario de registro */
 .register-container {
   max-width: 500px;
-  width: 100%;
+  width: 94%;
   padding: 20px;
   border-radius: 15px;
   border: 1px solid #ffffffb9;
@@ -82,6 +82,9 @@
   color: black;
   text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
 }
+.register-form label {
+  width: 90%;
+}
 
 /* Estilo de los campos de entrada y selección */
 .register-form input,
@@ -107,24 +110,12 @@
   outline: none;
 }
 
-.error-tooltip {
-  position: relative;
-  display: inline-block;
-  margin-top: 5px;
-}
-
 .error-text {
   background-color: #7e161f;
   color: #f7e5e6;
   padding: 10px;
   border-radius: 4px;
   font-size: 10px;
-  position: absolute;
-  left: 0;
-  bottom: 30px;
-  /* Altura del input */
-  z-index: 1;
-  white-space: nowrap;
 }
 
 /* Flecha del tooltip */
@@ -148,3 +139,5 @@
   border: 1px solid red;
   background-color: #ffe6e6;
 }
+
+/*Responsive*/
