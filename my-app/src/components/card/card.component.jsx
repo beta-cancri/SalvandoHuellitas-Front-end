@@ -8,6 +8,12 @@ const Card = ({ pet }) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
+  const mapEnergyLevel = {
+    low: "Bajo",
+    medium: "Medio",
+    high: "Alto"
+  }
+
   return (
     <Link to={`/detail/${pet.id}`} className="pet-card-link">
       <div className="pet-card">
@@ -17,7 +23,7 @@ const Card = ({ pet }) => {
         </div>
         <h3 className="pet-name">{capitalizeFirstLetter(pet.name)}</h3>
         <p>Raza: {pet.breed}</p>
-        <p>Nivel de energía: {capitalizeFirstLetter(pet.energyLevel)}</p>
+        <p>Nivel de energía: {mapEnergyLevel[pet.energyLevel]}</p>
         <p>Condición especial: Saludable</p>
       </div>
     </Link>
