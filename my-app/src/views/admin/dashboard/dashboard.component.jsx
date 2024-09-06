@@ -1,9 +1,24 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
+import { fetchPets, fetchUsers, fetchRequests, changePetStatus } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
+  // validate user admin (could be better written)
+  useEffect(() => {
+    let storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      storedUser = JSON.parse(storedUser)
+    }else{
+      window.location = "/"
+    }
+    if(!storedUser.isAdmin){
+      window.location = "/"
+    }
+  }, []);
+  //////
+
+
   const dispatch = useDispatch();
   const pets = useSelector((state) => state.pets); // Access the pets array
   const requests = useSelector((state) => state.requests); // Access the requests array
@@ -24,10 +39,16 @@ const AdminDashboard = () => {
     setActiveSection('requests');
   };
 
+  const handlechangePetStatus = (petId, status) => {
+    if (window.confirm('cambiaste el estado de la mascota')) {
+      dispatch(changePetStatus(petId, status));
+    }
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
-        <h2>Admin Dashboard</h2>
+        <h2>Administrador</h2>
         <button className="sidebar-button" onClick={handleFetchUsers}>
           Manejo de usuarios
         </button>
@@ -50,10 +71,18 @@ const AdminDashboard = () => {
                     <div className="pet-details">
                       <div className="pet-name">{pet.name}</div>
                       <div className="pet-info">
-                        Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}
+                        Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
                       </div>
                     </div>
-                    <button className="edit-button">Editar</button>
+                    <button className="edit-buttons"
+                    onClick={() => handlechangePetStatus(pet.id, "available")}
+                    >Activo</button>
+                    <button
+                      className="delete-button"
+                      onClick={() => handlechangePetStatus(pet.id, "inactive")}
+                    >
+                      Inactivo
+                    </button>
                   </li>
                 ))}
               </ul>

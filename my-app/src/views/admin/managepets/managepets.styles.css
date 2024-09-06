@@ -1,68 +1,93 @@
 .manage-pets {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .manage-pets h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #343a40;
-  }
-  
-  .manage-pets ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .manage-pets li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .manage-pets li:last-child {
-    border-bottom: none;
-  }
-  
-  .pet-details {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .pet-photo {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 5px;
-    margin-right: 20px;
-  }
-  
-  .pet-name {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .pet-info {
-    font-size: 1rem;
-    color: #6c757d;
-  }
-  
-  .edit-button {
-    padding: 10px 15px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .edit-button:hover {
-    background-color: #218838;
-  }
-  
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.manage-pets h2 {
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #343a40;
+}
+
+.manage-pets ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.manage-pets li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.manage-pets li:last-child {
+  border-bottom: none;
+}
+
+.pet-details {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.pet-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-right: 20px;
+}
+
+.pet-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+.pet-info {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+.edit-button {
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button:hover {
+  background-color: #218838;
+}
+
+.status-button {
+  padding: 10px 15px;
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.status-button.deactivate {
+  background-color: #dc3545;
+}
+
+.status-button.deactivate:hover {
+  background-color: #c82333;
+}
+
+.status-button.activate {
+  background-color: #17a2b8;
+}
+
+.status-button.activate:hover {
+  background-color: #138496;
+}

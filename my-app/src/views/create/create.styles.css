@@ -1,5 +1,8 @@
-
-html, body, #root, .App, .section-full-screen-container-create{
+html,
+body,
+#root,
+.App,
+.section-full-screen-container-create {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -12,18 +15,20 @@ html, body, #root, .App, .section-full-screen-container-create{
   height: 100%;
 
 }
+
 .full-screen-container-create {
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: flex-start; 
+  align-items: flex-start;
   position: relative;
-  padding: 120px 0 35px 0; 
+  padding: 120px 0 35px 0;
   box-sizing: border-box;
 
-  background-image: url('https://i.imgur.com/3q8Sbek.jpeg');
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg');
 
-  overflow-y: auto; /* Allow vertical scrolling */
+  overflow-y: auto;
+  /* Allow vertical scrolling */
 }
 
 
@@ -34,13 +39,13 @@ html, body, #root, .App, .section-full-screen-container-create{
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1; 
-  background-image: url('https://i.imgur.com/v1io1jV.jpeg'); 
+  z-index: -1;
+  background-image: url('https://i.imgur.com/v1io1jV.jpeg');
   background-size: cover;
   background-position: center;
   background-repeat: repeat;
-  background-color: rgba(0, 0, 0, 0.5); 
-  filter: brightness(50%); 
+  background-color: rgba(0, 0, 0, 0.5);
+  filter: brightness(50%);
 }
 
 
@@ -49,18 +54,18 @@ html, body, #root, .App, .section-full-screen-container-create{
   width: 100%;
   padding: 40px;
   border-radius: 15px;
-  border:1px solid #ffffffb9 ;
-  background-color: rgba(3, 3, 3, 0.906); 
+  border: 1px solid #ffffffb9;
+  background-color: rgba(3, 3, 3, 0.906);
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   height: 100%;
-  margin-bottom: 20px; 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 
-              0 12px 16px rgba(0, 0, 0, 0.08) inset, 
-              0 0 15px rgba(255, 255, 255, 0.4) inset; 
-  background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(240, 240, 240, 0.6)); 
+  margin-bottom: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
+    0 12px 16px rgba(0, 0, 0, 0.08) inset,
+    0 0 15px rgba(255, 255, 255, 0.4) inset;
+  background-image: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(240, 240, 240, 0.6));
 }
 
 
@@ -68,7 +73,8 @@ html, body, #root, .App, .section-full-screen-container-create{
   font-family: 'Poppins', sans-serif;
   font-size: 1.8em;
   color: #ffbd61;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Sombra */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  /* Sombra */
   margin-bottom: 20px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -82,6 +88,7 @@ html, body, #root, .App, .section-full-screen-container-create{
   color: #333;
   text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
 }
+
 .create-pet-form input,
 .create-pet-form select,
 .create-pet-form textarea {
@@ -140,4 +147,10 @@ html, body, #root, .App, .section-full-screen-container-create{
   margin: 0;
   text-align: center;
   flex: 1;
+}
+
+.create-pet-form input.error,
+.create-pet-form select.error {
+  border: 1px solid red;
+  background-color: #ffe6e6;
 }
