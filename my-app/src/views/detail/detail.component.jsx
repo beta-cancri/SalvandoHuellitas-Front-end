@@ -42,8 +42,32 @@ const Detail = () => {
     return <p>Error: Animal no carga.</p>;
   }
 
+  const mapEnergyLevel = {
+    low: "Bajo",
+    medium: "Medio",
+    high: "Alto"
+  }
 
-  
+  const mapStatus = {
+    available: "Disponible",
+    onHold: "Apartado",
+    adopted: "Adoptado",
+    inactive: "Inactivo",
+  }
+
+  const mapAge = {
+    young: "Joven",
+    puppy: "Cachorro",
+    adult: "Adulto",
+    elder: "Mayor",
+  }
+
+  const mapSize = {
+    small: "Pequeño",
+    medium: "Mediano",
+    large: "Grande",
+  }
+
   return (
     <div className="detail-body">
       <div className="animal-detail">
@@ -57,9 +81,9 @@ const Detail = () => {
             <div className="animal-detail-text">
               <p><strong>Especie:</strong> {animal.species}</p>
               <p><strong>Estado:</strong> {animal.status}</p>
-              <p><strong>Etapa de vida:</strong> {animal.age}</p>
-              <p><strong>Tamaño:</strong> {animal.size}</p>
-              <p><strong>Nivel de energía:</strong> {animal.energyLevel}</p>
+              <p><strong>Etapa de vida:</strong> {mapAge[animal.age]}</p>
+              <p><strong>Tamaño:</strong> {mapSize[animal.size]}</p>
+              <p><strong>Nivel de energía:</strong> {mapEnergyLevel[animal.energyLevel]}</p>
               <p><strong>Bueno con otras mascotas:</strong> {animal.okWithPets ? 'Yes' : 'No'}</p>
               <p><strong>Bueno con los niños:</strong> {animal.okWithKids ? 'Yes' : 'No'}</p>
               <p><strong>Raza:</strong> {animal.breed ? animal.breed : 'Not specified'}</p>
