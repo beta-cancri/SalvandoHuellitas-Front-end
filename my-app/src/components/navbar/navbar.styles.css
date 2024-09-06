@@ -29,8 +29,12 @@
   align-items: center;
 }
 
+.navbar-search-icon {
+  display: none;
+}
+
 .navbar-search-input {
-  padding: 10px;
+  padding: 10px 0px 10px 10px;
   border: 0; 
   border-bottom: 1px solid #e6e4e4b9; 
   border-radius: 0; 
@@ -177,4 +181,15 @@
   .navbar-container {
     justify-content: space-between;
   }
+
+  .navbar-search-icon {
+    display: block;
+    margin: 0;
+    border: none;
+    color: #dddddd;
+  }
+  .navbar-search-button-text{
+    display: none;
+  }
+
 }
