@@ -44,6 +44,7 @@ const Navbar = () => {
     setIsMenuActive(!isMenuActive);
   };
 
+  
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -62,8 +63,11 @@ const Navbar = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <button type="submit" className="navbar-search-button">
+            <button type="submit" className="navbar-search-button navbar-search-button-text">
               Buscar
+            </button>
+            <button type="submit" className="navbar-search-button navbar-search-icon">
+            <svg viewBox="0 0 22 22" height="22" width="22" preserveAspectRatio="xMidYMid meet" class="" version="1.1" x="0px" y="0px" enable-background="new 0 0 22 22"><title>send</title><path fill="currentColor" d="M1.101,21.757L23.8,12.028L1.101,2.3l0.011,7.912l13.623,1.816L1.112,13.845 L1.101,21.757z"></path></svg>
             </button>
           </form>
         )}

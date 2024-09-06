@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './about.styles.css';
 import axios from 'axios';
 
+
 const About = () => {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);

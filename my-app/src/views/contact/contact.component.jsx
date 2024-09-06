@@ -54,6 +54,7 @@ const Contact = () => {
                     </div>
                 </div>
 
+
                 <div className="contact-map">
                     <h2>Encuéntranos en el mapa</h2>
                     <iframe

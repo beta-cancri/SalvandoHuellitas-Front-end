@@ -180,6 +180,7 @@
   transform: scale(1.05);
 }
 
+
 .faq h2::before, .reviews h2::before {
   content: '🐾';
   display: inline-block;

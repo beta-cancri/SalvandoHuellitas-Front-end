@@ -6,6 +6,7 @@ import Select from 'react-select';
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
 
+
 const Home = () => {
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
