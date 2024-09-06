@@ -43,15 +43,13 @@ const Detail = () => {
   }
 
   return (
-    <div className="full-screen-container-detail">
+    <div className="detail-body">
       <div className="animal-detail">
-        <div className="animal-detail-content">
-         
           <div>
             <h2>{animal.name}</h2>
           </div>
           <div className="animal-detail-body">
-            <div>
+            <div className="image-container">
               <img src={animal.photo} alt={animal.name} className="animal-image" />
             </div>
             <div className="animal-detail-text">
@@ -67,8 +65,7 @@ const Detail = () => {
             </div>
           </div>
           <button className="button-atras" onClick={handleBack}>X</button>
-          <button className="button" onClick={handleAdopt}>Adoptar</button> {/* Botón de Adopción */}
-        </div>
+          <button className="button" onClick={handleAdopt}>🐾Adoptar Huellitas🐾</button> {/* Botón de Adopción */}
       </div>
     </div>
   );
