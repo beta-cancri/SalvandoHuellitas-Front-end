@@ -1,109 +1,75 @@
-.full-screen-container-detail {
-  width: 100%;
-  height: 100vh; 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.detail-body{
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative; 
-  overflow: hidden;
-  padding-top: 120px; 
+  padding: 2rem;
 }
 
-.full-screen-container-detail::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://i.imgur.com/v1io1jV.jpeg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.5;
-  z-index: -1;  
-  pointer-events: none; 
-  background-color: rgba(0, 0, 0, 0.5); 
-  filter: brightness(50%);
-}
-
-.animal-detail {
-  width: 90%;
-  max-width: 1000px;
-  height: 80%;
-  max-height: 600px;
-  padding: 30px;
-  background-color: rgba(255, 167, 2, 0.558);
-  border-radius: 12px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  box-sizing: border-box;
-  z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
-}
-
-.animal-detail-body {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.animal-detail-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  max-width: 350px;
-}
-
-.animal-detail-content {
+.animal-detail{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   flex: 1;
-  padding: 0 20px;
   overflow: hidden;
   color: #070606;
+  background-color: rgba(255, 167, 2, 0.558);
+  border-radius: 12px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  box-sizing: border-box;
+  z-index: 1;
+  max-width: 1000px;
+}
+
+.animal-detail-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 1.4rem;
+  gap: 1.4rem;
+}
+
+.animal-detail-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  max-width: 60%;
+  gap: 12px;
+}
+.image-container {
+  display: flex;
 }
 
 .animal-image {
-  width: 320px;
-  height: 320px;
   object-fit: cover;
   border-radius: 5%;
   border: 6px solid #ddd;
-  margin-right: -180px;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .animal-detail h2 {
-  font-size: 36px;
+  font-size: 3.4rem;
   color: #070606;
-  margin-bottom: 50px;
-  padding: 0;
 }
 
 .animal-detail p {
-  font-size: 16px;
-  margin: 7px;
+  font-size: 1.2rem;
   text-align: center;
   text-shadow: none;
-
+  width: 100%;
 }
-
-.animal-detail p strong {
-  font-weight: 600;
-  color: #555;
-  text-shadow: none;
-}
-
-.animal-detail p span {
-  font-weight: 400;
-  color: #777;
-  text-shadow: none;
-}
-
 
 .button-atras{
   position: absolute;
@@ -111,7 +77,7 @@
   right: 0;
   margin: 10px;
   padding: 6px 12px;
-  font-size: 16px;
+  font-size: 1.2rem;
   color: #ffffff;
   background-color: transparent ;
   border: 2px solid #ffffff;
@@ -134,4 +100,21 @@
   border-color: #ffffff;
 }
 
+
+
+
+@media (max-width: 768px) {
+  .animal-detail-body {
+    flex-direction: column;
+  }
+
+  .animal-detail-text {
+    max-width: 100%;
+  }
+
+  html {
+    font-size: 75%;
+  }
+
+}
 

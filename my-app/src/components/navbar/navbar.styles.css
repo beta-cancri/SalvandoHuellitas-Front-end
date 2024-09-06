@@ -1,7 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Navbar Styles */
 .navbar {
   background-color: #0000007d; /* Fondo negro para el navbar */
-  padding: 10px 20px;
+  padding: 10px 15px;
 }
 
 .navbar-container {
@@ -11,7 +17,7 @@
 }
 
 .navbar-logo {
-  font-size: 1.8em;
+  font-size: 1.6em;
   color: #fff;
   text-decoration: none;
   font-family: 'Poppins', sans-serif; /* Fuente aplicada */
@@ -24,7 +30,6 @@
 }
 
 .navbar-search-input {
-  width: 200px;
   padding: 10px;
   border: 0; 
   border-bottom: 1px solid #e6e4e4b9; 
@@ -66,15 +71,19 @@
   border: 1px solid #ffffff; 
 }
 
+.navbar-links {
+  padding: 10px 0;
+  display: flex;
+}
 
-.navbar-links a {
+.navbar-links div a {
   font-family: 'Poppins', sans-serif;  
   font-weight: 500; 
   font-size: 1em;
   text-decoration: none;
   color: #fff; 
   padding: 10px 15px;
-  transition: color 0.3s ease; 
+  transition: color 0.3s ease;
 }
 
 .navbar-links a.active,
@@ -100,6 +109,7 @@
   background-color: #cac8c5; 
   color: #fff;  
 }
+
 /* Estilos del botón de logout */
 .logout-button {
   padding: 5px;
@@ -119,4 +129,51 @@
   background-color: #ff4c4c;
   color: #fff;
   border-color: #ff4c4c;
+}
+
+.menu-icon {
+  display: none;
+  font-size: 2rem;
+  font-weight: bolder;
+  padding: 0 10px;
+}
+
+.navbar-options {
+  display: flex;
+  align-items: center; /* Alinea los items al centro verticalmente */
+}
+
+@media (max-width: 768px) {
+  .menu-icon {
+    display: flex;
+    cursor: pointer; /* Asegúrate de que el cursor cambie para el icono de menú */
+  }
+
+  .navbar-links {
+    display: flex;
+    flex-direction: column; /* Pone los enlaces en columna */
+    gap: 10px; /* Elimina el padding para el menú desplegable */
+  }
+
+  .navbar-options {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none; /* Inicialmente oculto */
+    flex-direction: column;
+    width: 200px;
+    font-size: 1.6rem;
+  }
+
+  .navbar-options.active {
+    display: flex; /* Muestra el menú cuando está activo */
+    z-index: 3;
+  }
+
+  .navbar-container {
+    justify-content: space-between;
+  }
 }

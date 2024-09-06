@@ -17,9 +17,10 @@ const Register = () => {
     idCard: '',
     occupation: '',
   });
-
+ // State for image file
+ const [idCardImage, setIdCardImage] = useState(null);
   const [error, setError] = useState({});
-  const [uploading] = useState(false);
+  const [uploading,setUploading] = useState(false);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -29,17 +30,38 @@ const Register = () => {
     });
 
   };
-
+ // Handle image change
+ const handleImageChange = (e) => {
+  setIdCardImage(e.target.files[0]);
+};
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validateErrors = validationForRegister(formData);
     setError(validateErrors);
 
-    if (Object.keys(validateErrors).length === 0) { //no se envia el formulario hasta que todos los campos estén completos
+    if (Object.keys(validateErrors).length === 0  && idCardImage) { //no se envia el formulario hasta que todos los campos estén completos
+      setUploading(true);
       try {
+        // Create FormData object to handle file upload
+        const formDataWithImage = new FormData();
+        formDataWithImage.append('file', idCardImage);
+        formDataWithImage.append('upload_preset', 'ID_Card_images'); // Cloudinary preset
 
-        await dispatch(createUser(formData));
+        // Send image to Cloudinary
+        const res = await fetch('https://api.cloudinary.com/v1_1/dlki6tbbk/image/upload', {
+          method: 'POST',
+          body: formDataWithImage,
+        });
+
+        const data = await res.json();
+
+        // Add Cloudinary URL to form data
+        const updatedFormData = {
+          ...formData,
+          idCardImage: data.secure_url, // Add image URL from Cloudinary
+        };
+        await dispatch(createUser(updatedFormData));// Enviar el formulario con la imagen, antes era formdata
         alert('El usuario fue creado exitosamente');
 
         // Clear the form after successful submission
@@ -52,16 +74,21 @@ const Register = () => {
           idCard: '',
           occupation: '',
         });
-
+        setIdCardImage(null);// Clear image file
       } catch (err) {
         setError('Error al crear el usuario: ' + err.message);
+
+      } finally {
+        setUploading(false);
       }
-    };
-  }
+    }
+  };
   return (
     <div className="full-screen-container-register">
       <div className="register-container">
         <h1>Crea una cuenta</h1>
+        {error.global && <p className="error-message">{error.global}</p>} {/* Mostrar error global img*/}
+
         <form className="register-form" onSubmit={handleSubmit}>
           Nombre Completo
           <input
@@ -135,17 +162,18 @@ const Register = () => {
               <div className="error-arrow"></div>
             </div>
           )}
-          Tarjeta ID<input
-            type="text"
-            name="idCard"
-            placeholder="Tarjeta ID"
-            value={formData.idCard}
-            onChange={handleChange}
-            className={error.idCard ? 'error' : ''}
+          
+           Tarjeta ID (subir imagen)
+          <input
+            type="file"
+            name="idCardImage"
+            accept="image/*"
+            onChange={handleImageChange}
+            className={error.idCardImage ? 'error' : ''}
           />
-          {error.idCard && (
+          {error.idCardImage && (
             <div className="error-tooltip">
-              <p className="error-text">{error.idCard}</p>
+              <p className="error-text">{error.idCardImage}</p>
               <div className="error-arrow"></div>
             </div>
           )}
@@ -174,3 +202,4 @@ const Register = () => {
 };
 
 export default Register;
+//funciona pero
