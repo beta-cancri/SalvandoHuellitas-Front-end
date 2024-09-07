@@ -14,13 +14,13 @@ export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 // Fetch all pets with optional filters and pagination
 export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
   try {
-    const params = { ...filters, page }; 
+    const params = { ...filters, page };
     const response = await axios.get('/pets', { params });
-    
+
     console.log('Fetched Pets:', response.data);
     dispatch({
       type: FETCH_PETS_SUCCESS,
-      payload: response.data, 
+      payload: response.data,
     });
   } catch (error) {
     console.error('Error fetching pets:', error.message);
@@ -55,7 +55,7 @@ export const changePetStatus = (id, status) => async (dispatch) => {
   try {
     console.log(`Deleting Pet with ID: ${id}`);
     let token = localStorage.getItem("jwt")
-    const response = await axios.patch(`/pets/${id}`,{status},{headers:{Authorization:`Bearer ${token}`  }});
+    const response = await axios.patch(`/pets/${id}`, { status }, { headers: { Authorization: `Bearer ${token}` } });
     console.log('Change Pet Status:', response.data);
     dispatch({ type: CHANGE_PET_STATUS, payload: id });
   } catch (error) {
@@ -118,9 +118,9 @@ export const fetchRequests = () => async (dispatch) => {
   }
 };
 
-export const createRequest = (request) => async (dispatch) => {
+export const createRequest = (request, headers) => async (dispatch) => {
   try {
-    const response = await axios.post('/requests', request);
+    const response = await axios.post('/requests', request, { headers });
     console.log('Created Request:', response.data);
     dispatch({ type: CREATE_REQUEST_SUCCESS, payload: response.data });
   } catch (error) {

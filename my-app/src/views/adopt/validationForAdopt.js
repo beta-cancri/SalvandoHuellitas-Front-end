@@ -22,13 +22,29 @@ const validationForAdopt = (formData) => {
         return errors
     }
 
+    if(!formData.hasKids === null) {
+        errors.hasKids = "No puedes dejar este campo vacío."
+        return errors
+    }
+
     if(!formData.space) {
         errors.space = "Necesitamos saber si el tamaño de la vivienda se adecúa al cuidado de la mascota."
         return errors
     }
 
+    
+    if(!formData.hasPets === null) {
+        errors.hasPets = "No puedes dejar este campo vacío."
+        return errors
+    }
+
     if(!formData.timeAvailable) {
         errors.timeAvailable = "Necesitamos saber el tiempo disponible para el cuidado correcto de la mascota."
+        return errors
+    }
+
+    if(!formData.addedCondition === null) {
+        errors.addedCondition = "No puedes dejar este campo vacío."
         return errors
     }
 
