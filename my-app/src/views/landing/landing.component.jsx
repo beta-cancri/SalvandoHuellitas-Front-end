@@ -10,8 +10,8 @@ const Landing = () => {
         <h1 className="lading-title">Nuestros amigos de cuatro patas necesitan tu ayuda.</h1>
         <p className="subtext">Salvando Huellitas</p>
         <div className="landing-buttons">
-          <Link to="/donate" className="button">Donar</Link>
-          <Link to="/home" className="button">Adoptar</Link>
+          <Link to="/donate" className="button-landing">Donar</Link>
+          <Link to="/home" className="button-landing">Adoptar</Link>
         </div>
       </div>
     </div>

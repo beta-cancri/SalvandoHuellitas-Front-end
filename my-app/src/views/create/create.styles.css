@@ -95,7 +95,7 @@ body,
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #e67e22;
+  border: 1px solid #ffbd61;
   border-radius: 8px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -106,7 +106,7 @@ body,
 .create-pet-form input:focus,
 .create-pet-form select:focus,
 .create-pet-form textarea:focus {
-  border-color: #E67E22;
+  border-color: #ffbd61;
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
   outline: none;
 }
@@ -114,10 +114,11 @@ body,
 
 .create-checkbox {
   display: flex;
+  justify-content: space-around;
 }
 
 .create-pet-button:disabled {
-  background-color: #e67e22;
+  background-color: #ffbd61;
   cursor: not-allowed;
 }
 
@@ -132,6 +133,9 @@ body,
   display: flow-root;
   align-items: self-start;
   margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .create-pet-form input[type="checkbox"] {
@@ -152,4 +156,39 @@ body,
 .create-pet-form select.error {
   border: 1px solid red;
   background-color: #ffe6e6;
+}
+/* boton encimado */
+.file-upload-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 158px;
+  height: 45%;
+  z-index: 10;
+  pointer-events: none;
+  background-color: #ffbd61;
+  box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  border-radius: 4px;
+  border: 1px solid #ffbd61;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+
+}
+
+.custom-button:hover{
+  background-color: #ffb246;
+
+}
+.file-input {
+  position: relative;
+  z-index: 5;
 }
