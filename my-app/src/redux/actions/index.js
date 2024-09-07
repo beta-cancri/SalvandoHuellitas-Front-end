@@ -42,7 +42,12 @@ export const fetchPetDetail = (id) => async (dispatch) => {
 // Create a new pet
 export const createPet = (pet) => async (dispatch) => {
   try {
-    const response = await axios.post('/pets', pet);
+    const response = await axios.post('/pets', pet,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })//agregado
     console.log('Created Pet:', response.data);
     dispatch({ type: CREATE_PET_SUCCESS, payload: response.data });
   } catch (error) {
@@ -99,7 +104,12 @@ export const fetchUsers = () => async (dispatch) => {
 // Create a new user
 export const createUser = (user) => async (dispatch) => {
   try {
-    const response = await axios.post('/users', user);
+    const response = await axios.post('/users', user,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }) //para saber que sube otros archivos
     console.log('Created User:', response.data);
     dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
