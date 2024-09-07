@@ -8,7 +8,7 @@ const Adopt = () => {
 
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
@@ -60,6 +60,7 @@ const Adopt = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validationForAdopt(requestData);
+        setErrors(validateErrors);
         if (Object.keys(validateErrors).length === 0) {
             try {
                 if (user) {
@@ -91,7 +92,7 @@ const Adopt = () => {
                         addedCondition: false,
                         clauses: false
                     })
-                    setErrors(validateErrors);
+
                 } else {
                     alert('Por favor, inicia sesión para poder adoptar una mascota');
                 }
@@ -129,7 +130,8 @@ const Adopt = () => {
                         name='occupation'
                         value={requestData.occupation}
                         onChange={handleChange}
-                        placeholder='¿A qué te dedicas?' />
+                        placeholder='¿A qué te dedicas?'
+                        style={{ position: "relative" }} />
                     {errors.occupation && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.occupation}</p>
@@ -298,24 +300,24 @@ const Adopt = () => {
 
 
                     <h3>PARTE 2: Cláusulas</h3>
-                    <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
-
-                    <ul>
-                        <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
-                        <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
-                        <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
-                        <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
-                        <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
-                    </ul>
-                    <div className="checkbox">
-                        <input type="checkbox"
-                            id="clauses"
-                            name="clauses"
-                            onChange={handleChange}
-                            checked={requestData.clauses}
-                        />
-                        <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
-                    </div>
+                        <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
+                        <ul>
+                            <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
+                            <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
+                            <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
+                            <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
+                            <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
+                        </ul>
+                        <div className="checkbox">
+                            <input type="checkbox"
+                                id="clauses"
+                                name="clauses"
+                                onChange={handleChange}
+                                checked={requestData.clauses}
+                            />
+                            <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
+                        </div>
+                    
                     {errors.clauses && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.clauses}</p>
@@ -323,11 +325,11 @@ const Adopt = () => {
                         </div>
                     )}
                     <div className='button-container'>
-                    <button type="submit" className='button-adopt'>Enviar</button>
+                        <button type="submit" className='button-adopt'>Enviar</button>
 
-                    <Link to="/home">
-                        <button className='button-adopt'>Volver</button>
-                    </Link>
+                        <Link to="/home">
+                            <button className='button-adopt'>Volver</button>
+                        </Link>
                     </div>
 
                 </form>
