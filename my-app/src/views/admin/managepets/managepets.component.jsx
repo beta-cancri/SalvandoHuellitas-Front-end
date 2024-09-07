@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPets, updatePetStatus } from '../../../redux/actions';
+import { fetchPets, changePetStatus } from '../../../redux/actions';
 import './managepets.styles.css';
 
 const ManagePets = () => {
@@ -11,9 +11,10 @@ const ManagePets = () => {
     dispatch(fetchPets());
   }, [dispatch]);
 
-  const handleStatusToggle = (petId, currentStatus) => {
-    const newStatus = currentStatus === 'available' ? 'inactive' : 'available';
-    dispatch(updatePetStatus(petId, newStatus));
+  const handlechangePetStatus = (petId, status) => {
+    if (window.confirm('cambiaste el estado de la mascota')) {
+      dispatch(changePetStatus(petId, status));
+    }
   };
 
   return (
@@ -25,17 +26,30 @@ const ManagePets = () => {
             <li key={pet.id}>
               <img src={pet.photo} alt={pet.name} className="pet-photo" />
               <div className="pet-details">
-                <div className="pet-name">{pet.name}</div>
+                <div className="pet-name">
+                  {/* Status light */}
+                  <div
+                    className={`status-light ${
+                      pet.status === 'available' ? 'status-available' : 'status-inactive'
+                    }`}
+                  ></div>
+                  {pet.name}
+                </div>
                 <div className="pet-info">
-                  Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}
+                  Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
                 </div>
               </div>
-              <button className="edit-button">Editar</button>
               <button
-                className="status-button"
-                onClick={() => handleStatusToggle(pet.id, pet.status)}
+                className="edit-buttons"
+                onClick={() => handlechangePetStatus(pet.id, 'available')}
               >
-                {pet.status === 'available' ? 'Desactivar' : 'Activar'}
+                Activo
+              </button>
+              <button
+                className="delete-button"
+                onClick={() => handlechangePetStatus(pet.id, 'inactive')}
+              >
+                Inactivo
               </button>
             </li>
           ))}

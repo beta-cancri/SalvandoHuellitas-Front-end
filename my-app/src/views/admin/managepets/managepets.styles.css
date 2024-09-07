@@ -1,17 +1,35 @@
+.dashboard-display {
+  flex-grow: 1;
+  padding: 5px;
+  height: calc(100vh - 60px); /* Adjust the height to occupy the full viewport, minus any header/footer */
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.1); /* Consistent with the palette */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-radius: 8px;
+}
+
 .manage-pets {
-  padding: 20px;
-  background-color: #ffffff;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  flex-grow: 1;
+  margin-top: 20px;
 }
 
 .manage-pets h2 {
   margin-bottom: 20px;
-  font-size: 1.8rem;
-  color: #343a40;
+  font-size: 1.5rem;
+  color: #ffffff; /* White header text */
 }
 
 .manage-pets ul {
+  max-height: calc(100vh - 200px); /* Set maximum height for scrolling based on viewport height */
+  overflow-y: auto;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -22,72 +40,95 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  border-bottom: 1px solid #ddd;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border */
 }
 
 .manage-pets li:last-child {
   border-bottom: none;
+  margin-bottom: 0;
+}
+
+.manage-pets li:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
 }
 
 .pet-details {
   flex: 1;
   margin-right: 20px;
+  font-size: 0.9rem;
+  color: #fcf9f9; /* White text for pet details */
 }
 
 .pet-photo {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
-  border-radius: 5px;
-  margin-right: 20px;
+  border-radius: 50%; /* Round images */
+  margin-right: 15px;
+  border: 2px solid #ffffff; /* White border */
 }
 
 .pet-name {
   font-size: 1.2rem;
   font-weight: bold;
-  color: #007bff;
+  color: #d59432; /* Accent color for pet names */
 }
 
 .pet-info {
   font-size: 1rem;
-  color: #6c757d;
+  color: #fcf9f9; /* White for pet info */
 }
 
-.edit-button {
-  padding: 10px 15px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
+/* Button styling */
+.delete-button,
+.edit-buttons {
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent button */
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border-radius: 4px;
   cursor: pointer;
-}
-
-.edit-button:hover {
-  background-color: #218838;
-}
-
-.status-button {
-  padding: 10px 15px;
-  background-color: #ffc107;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  transition: background-color 0.2s ease;
   margin-left: 10px;
 }
 
-.status-button.deactivate {
-  background-color: #dc3545;
+.delete-button:hover,
+.edit-buttons:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
 }
 
-.status-button.deactivate:hover {
-  background-color: #c82333;
+.status-button:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
 }
 
-.status-button.activate {
-  background-color: #17a2b8;
+/* Scrollbar customization */
+.dashboard-display::-webkit-scrollbar {
+  width: 8px;
 }
 
-.status-button.activate:hover {
-  background-color: #138496;
+.dashboard-display::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); /* White scroll thumb */
+  border-radius: 4px;
+}
+
+/* Status light styles */
+.status-light {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.status-available {
+  background-color: #28a745; /* Green for available */
+}
+
+.status-inactive {
+  background-color: #dc3545; /* Red for inactive or any other status */
 }
