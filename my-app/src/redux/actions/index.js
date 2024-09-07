@@ -12,8 +12,13 @@ export const FETCH_REQUESTS_SUCCESS = 'FETCH_REQUESTS_SUCCESS';
 export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 
 // Fetch all pets with optional filters and pagination
-export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
+export const fetchPets = (filters = {}, page = 1, isHome = false) => async (dispatch) => {
   try {
+    // If we're on the Home page, add status: "available" to the filters
+    if (isHome) {
+      filters.status = "available";
+    }
+
     const params = { ...filters, page }; 
     const response = await axios.get('/pets', { params });
     
@@ -51,17 +56,40 @@ export const createPet = (pet) => async (dispatch) => {
 };
 
 // Delete a pet (mark as inactive)
+// Change the status of a pet (mark as inactive or available)
 export const changePetStatus = (id, status) => async (dispatch) => {
   try {
-    console.log(`Deleting Pet with ID: ${id}`);
-    let token = localStorage.getItem("jwt")
-    const response = await axios.patch(`/pets/${id}`,{status},{headers:{Authorization:`Bearer ${token}`  }});
-    console.log('Change Pet Status:', response.data);
+    // Log the pet ID and status to confirm inputs
+    console.log(`Changing status of Pet with ID: ${id} to ${status}`);
+    
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Log the token to ensure it's being retrieved correctly
+    console.log('Token retrieved from localStorage:', token);
+
+    // Make the PATCH request to update the pet status
+    const response = await axios.patch(`/pets/${id}`, { status }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
+    // Log the response from the server
+    console.log('Change Pet Status response:', response.data);
+
+    // Dispatch the action with the ID of the updated pet
     dispatch({ type: CHANGE_PET_STATUS, payload: id });
+
+    // Return a resolved promise to allow chaining of actions
+    return Promise.resolve(response.data);
   } catch (error) {
-    console.error('Error deleting pet:', error.message);
+    // Log any errors encountered
+    console.error('Error changing pet status:', error.message);
+    return Promise.reject(error);
   }
 };
+
 
 // Fetch all reviews
 export const fetchReviews = () => async (dispatch) => {

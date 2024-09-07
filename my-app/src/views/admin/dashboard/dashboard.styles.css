@@ -1,159 +1,9 @@
-/* .admin-dashboard {
+.admin-dashboard {
   display: flex;
-  height: 100vh;
+  min-height: 100px; /* Ensure it takes up the full height of the viewport */
   background-color: #333333;
-  padding: 0; 
-  overflow: hidden;
-}
-
-.sidebar {
-  width: 300px;
-  background-color: rgba(0, 0, 0, 0.359);
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin-left: -20px; 
-}
-
-.sidebar h2 {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-  color: #fdfcfc; 
-}
-
-.sidebar-button {
-  width: 100%;
-  padding: 10px 15px;
-  font-size: 0.9rem;
-  background-color: rgba(255, 255, 255, 0.1); 
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 4px;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin-bottom: 10px;
-}
-
-.sidebar-button:hover {
-  background-color: rgba(255, 255, 255, 0.047); 
-}
-.dashboard-display{
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  height: 100%; 
-  color: #ffffff;
-  margin: auto;
-}
-.dashboard-content {
-  flex-grow: 1;
-  padding: 20px;
-  margin-left: 20px;
-  background-color: rgba(255, 255, 255, 0.1); 
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
-  overflow: auto; 
-  max-width: 100%;
- 
-}
-
-
-.dashboard-section {
-  margin-bottom: 20px;
-}
-
-.dashboard-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
-
-.manage-pets ul,
-.manage-requests ul {
-  list-style-type: none;
-  padding: 0;
-  max-height: 600px; 
-  overflow-y: auto; 
-  scrollbar-width: thin;
-}
-
-.manage-pets li,
-.manage-requests li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.1); 
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
-  
-}
-.manage-pets li:last-child,
-.manage-requests li:last-child {
-  margin-bottom: 0; 
-}
-.manage-pets li:hover,
-.manage-requests li:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
-}
-
-.pet-photo {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 15px;
-  border: 2px solid #ffffff; 
-}
-.pet-name{
-  color: #d59432;
-}
-.pet-details {
-  flex-grow: 1;
-  font-size: 0.9rem;
-  color: #fcf9f9; 
-}
-
-.edit-buttons {
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1); 
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.edit-buttons:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
-}
-
-.delete-button {
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1); 
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin:10px;
-}
-
-.delete-button:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
-}
- */
-
- .admin-dashboard {
-  display: flex;
-  height: 100vh;
-  background-color: #333333;
+  overflow: hidden; /* Prevent scrolling on the dashboard */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .sidebar {
@@ -168,21 +18,22 @@
   position: sticky;
   top: 0;
   height: 100vh;
+  overflow: hidden; /* Ensure sidebar does not scroll */
 }
 
 .sidebar h2 {
   font-size: 1.2rem;
   margin-bottom: 20px;
-  color: #fdfcfc; 
+  color: #fdfcfc;
 }
 
 .sidebar-button {
   width: 100%;
   padding: 10px 15px;
   font-size: 0.9rem;
-  background-color: rgba(255, 255, 255, 0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
   text-align: left;
   cursor: pointer;
@@ -191,5 +42,67 @@
 }
 
 .sidebar-button:hover {
-  background-color: rgba(255, 255, 255, 0.047); 
+  background-color: rgba(255, 255, 255, 0.047);
+}
+
+.dashboard-display {
+  flex-grow: 1;
+  padding: 0px 20px 20px 20px; /* Top padding set to 5px, other sides remain 20px */
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow-y: auto; /* Ensure only content scrolls if needed */
+  width: calc(100% - 270px); /* Width reduced for space with the sidebar */
+
+  /* Hide scrollbars */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+.dashboard-display::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto; /* Allow the sidebar to resize for smaller screens */
+    position: relative; /* No sticky positioning for smaller screens */
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .sidebar-button {
+    padding: 10px;
+    font-size: 0.8rem;
+    flex: 1; /* Distribute buttons evenly */
+    margin-right: 10px; /* Add some space between buttons */
+  }
+
+  .dashboard-display {
+    width: 100%;
+    margin-top: 20px; /* Add space between the sidebar and the content */
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar-button {
+    padding: 5px;
+    font-size: 0.7rem;
+    margin-right: 5px;
+  }
+
+  .sidebar h2 {
+    font-size: 1rem; /* Reduce size of heading */
+  }
+
+  .dashboard-display {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
 }
