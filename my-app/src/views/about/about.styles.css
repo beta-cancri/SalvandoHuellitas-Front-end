@@ -2,7 +2,7 @@
 .about-container {
   position: relative;
   overflow: hidden; 
-  padding-top: 120px; 
+  padding-top: 6vh; 
 }
 
 .about-container::before {
@@ -57,6 +57,7 @@
 .team {
   text-align: center;
   margin-bottom: 50px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .team h2 {
@@ -64,13 +65,15 @@
   color: #ffbd61;
   margin-bottom: 20px;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
 .team-members {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  gap: 20px;  
 }
 
 .team-member {
@@ -146,7 +149,7 @@
   padding: 10px;
   margin-bottom: 10px;
   font-weight: bold;
-  color: #ffad39c6; 
+  color: #ffbd61; 
   font-size: 1.8em;
   font-family: 'Poppins', sans-serif; 
   text-shadow: 2px 2px 5px rgba(50, 50, 50, 0.7);

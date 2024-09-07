@@ -12,15 +12,16 @@ const Register = () => {
     fullName: '',
     email: '',
     password: '',
-    age: '',
+    birthDate: '',
     phone: '',
     idCard: '',
     occupation: '',
-    gender: '', // Field for gender
   });
 
+  // State for image file
+  const [idCardImage, setIdCardImage] = useState(null);
   const [error, setError] = useState({});
-  const [uploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -28,9 +29,19 @@ const Register = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
 
-    const validation = validationForRegister({ ...formData, [e.target.name]: e.target.value }); 
-    setError(validation);
+  // Handle image change
+  const handleImageChange = (e) => {
+    console.log("maira")
+    console.log(e.target.files)
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setIdCardImage(file);
+      setError(prevError => ({ ...prevError, idCardImage: null }));
+    } else {
+      setError(prevError => ({ ...prevError, idCardImage: 'Por favor, selecciona una imagen válida' }));
+    }
   };
 
   // Handle form submission
@@ -39,24 +50,35 @@ const Register = () => {
     const validateErrors = validationForRegister(formData);
     setError(validateErrors);
 
-    try {
-      await dispatch(createUser(formData));
-      alert('User created successfully');
-      
-      // Clear the form after successful submission
-      setFormData({
-        fullName: '',
-        email: '',
-        password: '',
-        age: '',
-        phone: '',
-        idCard: '',
-        occupation: '',
-        gender: '', 
-      });
-      
-    } catch (err) {
-      setError('Failed to create user: ' + err.message);
+    if (Object.keys(validateErrors).length === 0 && idCardImage) {
+      setUploading(true);
+      try {
+        // Create FormData object to handle file upload
+        const formDataWithImage = new FormData();
+        formDataWithImage.append('idCard', idCardImage);
+        formDataWithImage.append('fullName', formData.fullName)
+        formDataWithImage.append('email', formData.email)
+        formDataWithImage.append('password', formData.password)
+        formDataWithImage.append('birthDate', formData.birthDate)
+        await dispatch(createUser(formDataWithImage)); // Enviar el formulario con la imagen, antes era formdata
+        alert('El usuario fue creado exitosamente');
+
+        // Clear the form after successful submission
+        setFormData({
+          fullName: '',
+          email: '',
+          password: '',
+          birthDate: '',
+          phone: '',
+          idCard: '',
+          occupation: '',
+        });
+        setIdCardImage(null); // Clear image file
+      } catch (err) {
+        setError(prevError => ({ ...prevError, global: 'Error al crear el usuario: ' + err.message }));
+      } finally {
+        setUploading(false);
+      }
     }
   };
 
@@ -64,83 +86,144 @@ const Register = () => {
     <div className="full-screen-container-register">
       <div className="register-container">
         <h1>Crea una cuenta</h1>
-        <form className="register-form" onSubmit={handleSubmit}>Nombre Completo
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Nombre completo"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-          />
-          {error.fullName && <p className="error-message">{error.fullName}</p>}
-          Email<input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          {error.email && <p className="error-message">{error.email}</p>}
-          Contraseña<input
-            type="password"
-            name="password"
-            placeholder="Contraseña"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-          {error.password && <p className="error-message">{error.password}</p>}
-          Edad<input
-            type="number"
-            name="age"
-            placeholder="Edad"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-          {error.age && <p className="error-message">{error.age}</p>}
-          Nro de teléfono<input
-            type="text"
-            name="phone"
-            placeholder="Nro de teléfono"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-          {error.phone && <p className="error-message">{error.phone}</p>}
-          Tarjeta ID<input
-            type="text"
-            name="idCard"
-            placeholder="Tarjeta ID"
-            value={formData.idCard}
-            onChange={handleChange}
-          />
-          {error.idCard && <p className="error-message">{error.idCard}</p>}
-          Ocupación<input
-            type="text"
-            name="occupation"
-            placeholder="Ocupación"
-            value={formData.occupation}
-            onChange={handleChange}
-          />
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Género</option>
-            <option value="male">Masculino</option>
-            <option value="female">Femenino</option>
-          </select>
-          {error.gender && <p className="error-message">{error.gender}</p>}
-          
+        {error.global && <p aria-live="assertive" className="error-message">{error.global}</p>}
+
+        <form className="register-form" onSubmit={handleSubmit}>
+          <label>
+            Nombre Completo
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Nombre completo"
+              value={formData.fullName}
+              onChange={handleChange}
+              className={error.fullName ? 'error' : ''}
+              autoComplete="name"
+            />
+            {error.fullName && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.fullName}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              autoComplete="email"
+            />
+            {error.email && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.email}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Contraseña
+            <input
+              type="password"
+              name="password"
+              placeholder="Contraseña"
+              value={formData.password}
+              onChange={handleChange}
+              className={error.password ? 'error' : ''}
+              autoComplete="new-password"
+            />
+            {error.password && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.password}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Fecha de nacimiento
+            <input
+              type="date"
+              name="birthDate"
+              value={formData.birthDate}
+              onChange={handleChange}
+              className={error.birthDate ? 'error' : ''}
+              autoComplete="bdate"
+            />
+            {error.birthDate && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.birthDate}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Nro de teléfono
+            <input
+              type="text"
+              name="phone"
+              placeholder="Nro de teléfono"
+              value={formData.phone}
+              onChange={handleChange}
+              className={error.phone ? 'error' : ''}
+              autoComplete="tel"
+            />
+            {error.phone && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.phone}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Tarjeta ID (subir imagen)
+            <div class="file-upload-container">
+            <button class="custom-button">Seleccionar archivo</button>
+            <input
+              type="file"
+              name="idCard"
+              accept="image/*"
+              onChange={handleImageChange}
+              className={error.idCard ? 'error' : ''}
+            />
+            </div>
+            {error.idCardImage && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.idCard}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
+          <label>
+            Ocupación
+            <input
+              type="text"
+              name="occupation"
+              placeholder="Ocupación"
+              value={formData.occupation}
+              onChange={handleChange}
+              autoComplete="organization-title"
+            />
+            {error.occupation && (
+              <div className="error-tooltip" role="alert">
+                <p className="error-text">{error.occupation}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
+          </label>
+
           <button type="submit" className="button" disabled={uploading}>
             Registrate
           </button>
         </form>
-        {/*error && <p className="error-message">{error}</p>*/}
       </div>
     </div>
   );
