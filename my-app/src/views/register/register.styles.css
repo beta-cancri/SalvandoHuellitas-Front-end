@@ -93,7 +93,7 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #e67e22;
+  border: 1px solid #ffbd61;
   border-radius: 8px;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
@@ -105,7 +105,7 @@
 .register-form input:focus,
 .register-form input[type="date"]:focus,
 .register-form select:focus {
-  border-color: #E67E22;
+  border-color: #ffbd61;
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
   outline: none;
 }

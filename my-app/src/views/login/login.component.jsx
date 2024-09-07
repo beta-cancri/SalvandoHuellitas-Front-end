@@ -58,7 +58,7 @@ const Login = () => {
           onChange={handleChange}
           // required
         />
-        <button type="button" className="button" onClick={login}>Entrar</button>
+        <button type="button" className="button" onClick={login}>Ingresar</button>
       </div>
       <div className="social-login-buttons">
         <button onClick={handleGoogleLogin} className="google-login-button">

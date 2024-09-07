@@ -57,3 +57,29 @@ body, html {
   justify-content: center;
 }
 
+.button-landing {
+  padding: 12px 24px;
+  font-size: 16px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  background-color: transparent ;
+  border: 2px solid #ffffff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  margin: 20px;
+}
+
+.button-landing:hover {
+  border: 2px solid #ffffff;
+  background-color: #00000076 ;
+  color: #ffffff;
+}
+
+.button-landing:active {
+  background-color: #222222;
+  border-color: #ffffff;
+}
