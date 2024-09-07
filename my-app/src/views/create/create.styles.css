@@ -3,16 +3,16 @@ body,
 #root,
 .App,
 .section-full-screen-container-create {
-  margin: 0;
+  margin: auto;
   padding: 0;
   height: 100%;
-
 }
 
 .section-full-screen-container-create {
   flex: 1;
   z-index: -1;
   height: 100%;
+  width: 96%;
 
 }
 
@@ -22,7 +22,7 @@ body,
   justify-content: center;
   align-items: flex-start;
   position: relative;
-  padding: 120px 0 35px 0;
+  padding: 20px 0 35px 0;
   box-sizing: border-box;
 
   background-image: url('https://i.imgur.com/v1io1jV.jpeg');
@@ -132,7 +132,6 @@ body,
   display: flow-root;
   align-items: self-start;
   margin-bottom: 5px;
-  width: 50%;
 }
 
 .create-pet-form input[type="checkbox"] {
@@ -144,7 +143,7 @@ body,
   font-family: 'Poppins', sans-serif;
   font-size: 1em;
   color: #333;
-  margin: 0;
+  margin: 10px;
   text-align: center;
   flex: 1;
 }

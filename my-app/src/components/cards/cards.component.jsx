@@ -2,6 +2,7 @@ import React from 'react';
 import Card from '../card/card.component';
 import './cards.styles.css';
 
+
 const Cards = ({ pets = [] }) => {
  // console.log('Cards component received pets:', pets); // Debugging log
   return (
