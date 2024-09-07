@@ -5,12 +5,12 @@ import './managepets.styles.css';
 
 const ManagePets = ({ status }) => {
   const dispatch = useDispatch();
-  const { pets, currentPage, totalPages } = useSelector((state) => state);
+  const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
 
   // Fetch pets with status filter
   useEffect(() => {
-    dispatch(fetchPets({ status }, 1, false));
-  }, [dispatch, status]);
+    dispatch(fetchPets({ status }, petsCurrentPage, false));
+  }, [dispatch, status, petsCurrentPage]);
 
   // Handle status change
   const handleToggleStatus = (petId, currentStatus) => {
@@ -21,7 +21,7 @@ const ManagePets = ({ status }) => {
       dispatch(changePetStatus(petId, newStatus))
         .then(() => {
           // Refetch pets after status change
-          dispatch(fetchPets({ status }, currentPage, false));
+          dispatch(fetchPets({ status }, petsCurrentPage, false));
         })
         .catch((error) => {
           console.error('Error changing status:', error);
@@ -71,11 +71,11 @@ const ManagePets = ({ status }) => {
 
           {/* Pagination */}
           <div className="pagination-admin">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <button onClick={() => handlePageChange(petsCurrentPage - 1)} disabled={petsCurrentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>Página {petsCurrentPage} de {petsTotalPages}</span>
+            <button onClick={() => handlePageChange(petsCurrentPage + 1)} disabled={petsCurrentPage === petsTotalPages}>
               Siguiente
             </button>
           </div>

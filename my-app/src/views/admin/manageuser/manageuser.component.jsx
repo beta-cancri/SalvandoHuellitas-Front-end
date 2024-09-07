@@ -5,12 +5,16 @@ import './manageuser.styles.css';
 
 const ManageUser = () => {
   const dispatch = useDispatch();
-  const { users, currentPage, totalPages } = useSelector((state) => state);
+  const { users, usersCurrentPage, usersTotalPages } = useSelector((state) => state);
 
   // Fetch users
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    console.log("Fetching users for page:", usersCurrentPage);
+    dispatch(fetchUsers(usersCurrentPage));
+  }, [dispatch, usersCurrentPage]);
+
+  // Log the current total pages for debugging
+  console.log("Total Pages for Users:", usersTotalPages);
 
   // Handle status change
   const handleToggleStatus = (userId, currentStatus) => {
@@ -21,7 +25,7 @@ const ManageUser = () => {
       dispatch(changeUserStatus(userId, newStatus))
         .then(() => {
           // Refetch users after status change
-          dispatch(fetchUsers(currentPage));
+          dispatch(fetchUsers(usersCurrentPage));
         })
         .catch((error) => {
           console.error('Error changing user status:', error);
@@ -35,31 +39,31 @@ const ManageUser = () => {
   };
 
   return (
-    <div className="manage-user">
-      <div className="manage-user-header">
+    <div className="manage-users">
+      <div className="manage-users-header">
         <h2>Manejo de Usuarios</h2>
       </div>
 
       {users && users.length > 0 ? (
-        <div className="users-container-admin">
-          <ul className="users-grid-admin">
+        <div className="users-container">
+          <ul className="users-grid">
             {users.map((user) => (
-              <li key={user.id} className="user-item-admin">
-                <div className="user-details-admin">
-                  <div className="user-name-admin">
+              <li key={user.id} className="user-item">
+                <div className="user-details">
+                  <div className="user-name">
                     <div
-                      className={`status-light-admin ${
-                        user.isActive ? 'status-available-admin' : 'status-inactive-admin'
+                      className={`status-light ${
+                        user.isActive ? 'status-available' : 'status-inactive'
                       }`}
                     ></div>
                     {user.fullName}
                   </div>
-                  <div className="user-info-admin">
+                  <div className="user-info">
                     Email: {user.email} | Teléfono: {user.phone}
                   </div>
                 </div>
                 <button
-                  className="status-button-admin"
+                  className="status-button"
                   onClick={() => handleToggleStatus(user.id, user.isActive)}
                 >
                   {user.isActive ? 'Inactivo' : 'Activo'}
@@ -69,12 +73,12 @@ const ManageUser = () => {
           </ul>
 
           {/* Pagination */}
-          <div className="pagination-admin">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+          <div className="pagination-users">
+            <button onClick={() => handlePageChange(usersCurrentPage - 1)} disabled={usersCurrentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>Página {usersCurrentPage} de {usersTotalPages}</span>
+            <button onClick={() => handlePageChange(usersCurrentPage + 1)} disabled={usersCurrentPage === usersTotalPages}>
               Siguiente
             </button>
           </div>

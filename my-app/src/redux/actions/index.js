@@ -122,14 +122,23 @@ export const createReview = (review) => async (dispatch) => {
 // Fetch all users
 export const fetchUsers = (page = 1) => async (dispatch) => {
   try {
-    const response = await axios.get(`/users?page=${page}`);
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the GET request with the token included in the headers
+    const response = await axios.get(`/users?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
     console.log('Fetched Users:', response.data);
     dispatch({
       type: FETCH_USERS_SUCCESS,
       payload: {
         results: response.data.results,
         page: response.data.page,
-        totalPages: response.data.totalPages,
+        totalPages: response.data.totalPages ,
       },
     });
   } catch (error) {
@@ -137,14 +146,24 @@ export const fetchUsers = (page = 1) => async (dispatch) => {
   }
 };
 
+
 // Change user status
 export const changeUserStatus = (userId, isActive) => async (dispatch) => {
   try {
     console.log(`Changing status of user with ID: ${userId} to ${isActive}`);
-    
-    const response = await axios.patch(`/users/${userId}`, { isActive });
+
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the PATCH request with the token included in the headers
+    const response = await axios.patch(`/users/${userId}`, { isActive }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
     console.log('Change User Status response:', response.data);
-    
+
     dispatch({ type: CHANGE_USER_STATUS, payload: userId });
 
     return Promise.resolve(response.data);
@@ -153,6 +172,7 @@ export const changeUserStatus = (userId, isActive) => async (dispatch) => {
     return Promise.reject(error);
   }
 };
+
 
 
 // Create a new user

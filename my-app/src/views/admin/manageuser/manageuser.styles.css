@@ -1,4 +1,4 @@
-.manage-user {
+.manage-users {
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
@@ -9,21 +9,21 @@
   min-height: 100vh;
 }
 
-.manage-user-header {
+.manage-users-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 0px;
 }
 
-.manage-user h2 {
+.manage-users h2 {
   font-size: 1.5rem;
   color: #ffffff; 
   margin: 0;
 }
 
 /* Users grid layout */
-.users-grid-admin {
+.users-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
@@ -32,7 +32,7 @@
   margin: 0;
 }
 
-.user-item-admin {
+.user-item {
   height: 100px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
@@ -43,33 +43,33 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.user-item-admin:last-child {
+.user-item:last-child {
   border-bottom: none;
 }
 
-.user-item-admin:hover {
+.user-item:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.user-details-admin {
+.user-details {
   flex: 1;
   margin-right: 20px;
   font-size: 0.9rem;
   color: #fcf9f9;
 }
 
-.user-name-admin {
+.user-name {
   font-size: 1.2rem;
   font-weight: bold;
   color: #d59432;
 }
 
-.user-info-admin {
+.user-info {
   font-size: 1rem;
   color: #fcf9f9;
 }
 
-.status-button-admin {
+.status-button {
   background-color: #333; 
   color: #fff; 
   border: 1px solid #444; 
@@ -80,20 +80,20 @@
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
 }
 
-.status-button-admin:hover {
+.status-button:hover {
   background-color: #555; 
   transform: translateY(-2px); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
-.pagination-admin {
+.pagination-users {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
 }
 
-.pagination-admin button {
+.pagination-users button {
   background-color: #333; 
   color: #fff; 
   border: 1px solid #444; 
@@ -105,20 +105,20 @@
   transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
 }
 
-.pagination-admin button:hover {
+.pagination-users button:hover {
   background-color: #555; 
   transform: translateY(-2px); 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
 }
 
-.pagination-admin button:disabled {
+.pagination-users button:disabled {
   background-color: #222; 
   color: #777; 
   border: 1px solid #333; 
   cursor: not-allowed;
 }
 
-.pagination-admin span {
+.pagination-users span {
   color: #fff; 
   font-size: 14px; 
   margin: 0 10px; 
@@ -126,7 +126,7 @@
 }
 
 /* Status light styles */
-.status-light-admin {
+.status-light {
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -134,59 +134,59 @@
   margin-right: 10px;
 }
 
-.status-available-admin {
+.status-available {
   background-color: #28a745;
 }
 
-.status-inactive-admin {
+.status-inactive {
   background-color: #dc3545;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 1024px) {
-  .users-grid-admin {
+  .users-grid {
     grid-template-columns: repeat(1, 1fr); /* 1 column on medium screens */
   }
 
-  .manage-user-header {
+  .manage-users-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .status-button-admin {
+  .status-button {
     padding: 6px 12px; /* Slightly smaller buttons */
     font-size: 12px;
   }
 }
 
 @media (max-width: 768px) {
-  .users-grid-admin {
+  .users-grid {
     grid-template-columns: repeat(1, 1fr); /* 1 column on small screens */
   }
 
-  .manage-user {
+  .manage-users {
     padding: 5px;
   }
 
-  .manage-user h2 {
+  .manage-users h2 {
     font-size: 1.2rem; /* Smaller title */
   }
 
-  .status-button-admin {
+  .status-button {
     padding: 5px 10px; /* Smaller buttons for mobile */
     font-size: 12px;
   }
 
-  .user-item-admin {
+  .user-item {
     padding: 10px;
   }
 
-  .pagination-admin {
+  .pagination-users {
     flex-direction: column; /* Stack pagination buttons vertically */
     align-items: center;
   }
 
-  .pagination-admin button {
+  .pagination-users button {
     margin: 5px 0;
     width: 100%; /* Full-width buttons on mobile */
   }
@@ -194,7 +194,7 @@
 
 @media (max-width: 480px) {
 
-  .pagination-admin span {
+  .pagination-users span {
     font-size: 12px;
   }
 }
