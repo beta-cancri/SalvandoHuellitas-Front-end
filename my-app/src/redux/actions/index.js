@@ -22,11 +22,11 @@ export const fetchPets = (filters = {}, page = 1, isHome = false) => async (disp
 
     const params = { ...filters, page }; 
     const response = await axios.get('/pets', { params });
-    
+
     console.log('Fetched Pets:', response.data);
     dispatch({
       type: FETCH_PETS_SUCCESS,
-      payload: response.data, 
+      payload: response.data,
     });
   } catch (error) {
     console.error('Error fetching pets:', error.message);
@@ -202,10 +202,11 @@ export const fetchRequests = () => async (dispatch) => {
   }
 };
 
+
 //Create a new request
-export const createRequest = (request) => async (dispatch) => {
+export const createRequest = (request, headers) => async (dispatch) => {
   try {
-    const response = await axios.post('/requests', request);
+    const response = await axios.post('/requests', request, { headers });
     console.log('Created Request:', response.data);
     dispatch({ type: CREATE_REQUEST_SUCCESS, payload: response.data });
   } catch (error) {
