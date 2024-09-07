@@ -10,11 +10,17 @@ export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const FETCH_REQUESTS_SUCCESS = 'FETCH_REQUESTS_SUCCESS';
 export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
+export const CHANGE_USER_STATUS = 'CHANGE_USER_STATUS';
 
 // Fetch all pets with optional filters and pagination
-export const fetchPets = (filters = {}, page = 1) => async (dispatch) => {
+export const fetchPets = (filters = {}, page = 1, isHome = false) => async (dispatch) => {
   try {
-    const params = { ...filters, page };
+    // If we're on the Home page, add status: "available" to the filters
+    if (isHome) {
+      filters.status = "available";
+    }
+
+    const params = { ...filters, page }; 
     const response = await axios.get('/pets', { params });
 
     console.log('Fetched Pets:', response.data);
@@ -56,17 +62,40 @@ export const createPet = (pet) => async (dispatch) => {
 };
 
 // Delete a pet (mark as inactive)
+// Change the status of a pet (mark as inactive or available)
 export const changePetStatus = (id, status) => async (dispatch) => {
   try {
-    console.log(`Deleting Pet with ID: ${id}`);
-    let token = localStorage.getItem("jwt")
-    const response = await axios.patch(`/pets/${id}`, { status }, { headers: { Authorization: `Bearer ${token}` } });
-    console.log('Change Pet Status:', response.data);
+    // Log the pet ID and status to confirm inputs
+    console.log(`Changing status of Pet with ID: ${id} to ${status}`);
+    
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Log the token to ensure it's being retrieved correctly
+    console.log('Token retrieved from localStorage:', token);
+
+    // Make the PATCH request to update the pet status
+    const response = await axios.patch(`/pets/${id}`, { status }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
+    // Log the response from the server
+    console.log('Change Pet Status response:', response.data);
+
+    // Dispatch the action with the ID of the updated pet
     dispatch({ type: CHANGE_PET_STATUS, payload: id });
+
+    // Return a resolved promise to allow chaining of actions
+    return Promise.resolve(response.data);
   } catch (error) {
-    console.error('Error deleting pet:', error.message);
+    // Log any errors encountered
+    console.error('Error changing pet status:', error.message);
+    return Promise.reject(error);
   }
 };
+
 
 // Fetch all reviews
 export const fetchReviews = () => async (dispatch) => {
@@ -91,15 +120,60 @@ export const createReview = (review) => async (dispatch) => {
 };
 
 // Fetch all users
-export const fetchUsers = () => async (dispatch) => {
+export const fetchUsers = (page = 1) => async (dispatch) => {
   try {
-    const response = await axios.get('/users');
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the GET request with the token included in the headers
+    const response = await axios.get(`/users?page=${page}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
     console.log('Fetched Users:', response.data);
-    dispatch({ type: FETCH_USERS_SUCCESS, payload: response.data });
+    dispatch({
+      type: FETCH_USERS_SUCCESS,
+      payload: {
+        results: response.data.results,
+        page: response.data.page,
+        totalPages: response.data.totalPages ,
+      },
+    });
   } catch (error) {
     console.error('Error fetching users:', error.message);
   }
 };
+
+
+// Change user status
+export const changeUserStatus = (userId, isActive) => async (dispatch) => {
+  try {
+    console.log(`Changing status of user with ID: ${userId} to ${isActive}`);
+
+    // Retrieve token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the PATCH request with the token included in the headers
+    const response = await axios.patch(`/users/${userId}`, { isActive }, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include the token in the request headers
+      },
+    });
+
+    console.log('Change User Status response:', response.data);
+
+    dispatch({ type: CHANGE_USER_STATUS, payload: userId });
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('Error changing user status:', error.message);
+    return Promise.reject(error);
+  }
+};
+
+
 
 // Create a new user
 export const createUser = (user) => async (dispatch) => {
@@ -128,6 +202,8 @@ export const fetchRequests = () => async (dispatch) => {
   }
 };
 
+
+//Create a new request
 export const createRequest = (request, headers) => async (dispatch) => {
   try {
     const response = await axios.post('/requests', request, { headers });

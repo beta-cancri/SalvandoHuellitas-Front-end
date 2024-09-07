@@ -1,36 +1,39 @@
 .admin-dashboard {
   display: flex;
-  height: 100vh;
+  min-height: 100px;
   background-color: #333333;
-  padding: 0; /* O ajustar el padding si es necesario */
   overflow: hidden;
+  flex-wrap: wrap;
 }
 
 .sidebar {
-  width: 300px;
+  width: 250px;
   background-color: rgba(0, 0, 0, 0.359);
-  padding: 40px;
+  padding: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Ensure it starts as a column */
   align-items: flex-start;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  margin-left: -20px; /* Ajusta este valor según sea necesario */
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar h2 {
   font-size: 1.2rem;
   margin-bottom: 20px;
-  color: #fdfcfc; 
+  color: #fdfcfc;
 }
 
 .sidebar-button {
   width: 100%;
   padding: 10px 15px;
   font-size: 0.9rem;
-  background-color: rgba(255, 255, 255, 0.1); 
+  background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
   text-align: left;
   cursor: pointer;
@@ -39,113 +42,154 @@
 }
 
 .sidebar-button:hover {
-  background-color: rgba(255, 255, 255, 0.047); 
+  background-color: rgba(255, 255, 255, 0.047);
 }
-.dashboard-display{
-  display: flex; /* Utiliza flexbox para alinear los elementos */
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  height: 100%; /* Asegura que el contenedor ocupe todo el alto disponible */
-  color: #ffffff;
-  margin: auto;
-}
-.dashboard-content {
+
+.dashboard-display {
   flex-grow: 1;
-  padding: 20px;
-  margin-left: 20px;
-  background-color: rgba(255, 255, 255, 0.1); 
+  padding: 0px 20px 20px 20px;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); 
-  overflow: auto; /* Esto permitirá que el contenido tenga scroll si se desborda */
-  max-width: 100%;
- 
+  overflow-y: auto;
+  width: calc(100% - 270px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-
-.dashboard-section {
-  margin-bottom: 20px;
+.dashboard-display::-webkit-scrollbar {
+  display: none;
 }
 
-.dashboard-section h2 {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #ffffff;
-}
-
-.manage-pets ul,
-.manage-requests ul {
-  list-style-type: none;
-  padding: 0;
-  max-height: 600px; /* Ajusta esta altura según tus necesidades */
-  overflow-y: auto; /* Habilita el scroll vertical */
-  scrollbar-width: thin;
-}
-
-.manage-pets li,
-.manage-requests li {
+/* Filter Controls */
+.filter-controls-admin {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.1); 
+  margin-left: auto;
+  width: 200px;
+  height: 100px;
+  position: relative;
+  z-index: 999; /* Ensures it appears over other content */
+}
+
+.custom-select-container-admin {
+  width: 100%;
+  z-index: 1000; /* Ensures it appears over other content */
+}
+
+.custom-select-admin__control {
+  position: relative;
+  z-index: 1001; /* Ensures it appears over other content */
+}
+
+.custom-select-admin__menu {
+  position: absolute;
+  z-index: 1002; /* Ensures it appears over everything */
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
-  transition: background-color 0.2s ease;
-  
-}
-.manage-pets li:last-child,
-.manage-requests li:last-child {
-  margin-bottom: 0; /* Elimina el margen inferior del último elemento */
-}
-.manage-pets li:hover,
-.manage-requests li:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
+  top: 100%;
 }
 
-.pet-photo {
-  width: 40px;
-  height: 40px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-right: 15px;
-  border: 2px solid #ffffff; 
-}
-.pet-name{
-  color: #d59432;
-}
-.pet-details {
-  flex-grow: 1;
-  font-size: 0.9rem;
-  color: #fcf9f9; 
+.custom-select-admin__option {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
 }
 
-.edit-buttons {
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1); 
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+.custom-select-admin__option--is-focused {
+  background-color: #555;
 }
 
-.edit-buttons:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
+/* Responsive behavior for smaller screens */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: column; /* Sidebar behaves as a column */
+    align-items: flex-start; /* Align content to the left */
+    padding: 10px;
+  }
+
+  .sidebar-button {
+    padding: 10px;
+    font-size: 0.8rem;
+    width: 100%; /* Ensure buttons take up full width */
+    margin-bottom: 10px; /* Add spacing between buttons */
+  }
+
+  .filter-controls-admin {
+    width: 100%; /* Ensure the filter takes full width */
+    margin-top: 20px;
+    z-index: 999; /* Ensure filter still appears over other content */
+    display: flex;
+    justify-content: flex-start; /* Aligns filter and dropdown */
+  }
+
+  .custom-select-container-admin {
+    width: 100%;
+    z-index: 1000; /* Ensure the dropdown works properly */
+  }
+
+  .custom-select-admin__control {
+    position: relative;
+    z-index: 1001; /* Dropdown control */
+  }
+
+  .custom-select-admin__menu {
+    position: absolute;
+    z-index: 1002;
+    left: 100%; /* Moves the dropdown to the right side of the filter */
+    top: 0; /* Aligns the dropdown to the top of the filter */
+    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
+    transform: translatey(-110px);
+  }
+
+  .dashboard-display {
+    width: 100%;
+    margin-top: 20px;
+  }
 }
 
-.delete-button {
-  padding: 5px 10px;
-  font-size: 0.8rem;
-  background-color: rgba(255, 255, 255, 0.1); 
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  margin:10px;
-}
+@media (max-width: 480px) {
+  .sidebar-button {
+    padding: 5px;
+    font-size: 0.7rem;
+  }
 
-.delete-button:hover {
-  background-color: rgba(255, 255, 255, 0.2); 
-}
+  .sidebar h2 {
+    font-size: 1rem;
+  }
 
+  .dashboard-display {
+    padding: 10px;
+  }
+
+  .filter-controls-admin {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    z-index: 999; /* Ensure filter takes full width and appears on top */
+  }
+
+  .custom-select-container-admin {
+    width: 100%;
+    margin-top: 10px;
+    z-index: 1000;
+  }
+
+  .custom-select-admin__control {
+    position: relative;
+    z-index: 1001; /* Ensure dropdown control is on top */
+  }
+
+  .custom-select-admin__menu {
+    position: absolute;
+    z-index: 1002;
+    left: 100%; /* Moves the dropdown to the right side of the filter */
+    top: 0; /* Aligns the dropdown to the top of the filter */
+    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
+    transform: translatey(-110px);
+  }
+}
