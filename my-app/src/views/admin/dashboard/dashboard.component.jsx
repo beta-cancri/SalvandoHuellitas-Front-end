@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
 import Select from 'react-select';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchPets } from '../../../redux/actions';
 import './dashboard.styles.css';
 
@@ -31,6 +31,19 @@ const AdminDashboard = () => {
       dispatch(fetchPets({ status }, 1, false));
     }
   }, [dispatch, status, activeSection]);
+
+  // Validate if the user is an admin
+  useEffect(() => {
+    let storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      storedUser = JSON.parse(storedUser);
+    } else {
+      window.location = "/"; // Redirect to home if user is not found
+    }
+    if (!storedUser || !storedUser.isAdmin) {
+      window.location = "/"; // Redirect to home if the user is not an admin
+    }
+  }, []);
 
   // Filter options for status
   const statusOptions = [
@@ -111,6 +124,7 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
 
 
 
