@@ -1,9 +1,9 @@
 .admin-dashboard {
   display: flex;
-  min-height: 100px; /* Ensure it takes up the full height of the viewport */
+  min-height: 100px;
   background-color: #333333;
-  overflow: hidden; /* Prevent scrolling on the dashboard */
-  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  overflow: hidden;
+  flex-wrap: wrap;
 }
 
 .sidebar {
@@ -11,14 +11,14 @@
   background-color: rgba(0, 0, 0, 0.359);
   padding: 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Ensure it starts as a column */
   align-items: flex-start;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden; /* Ensure sidebar does not scroll */
+  overflow: hidden;
 }
 
 .sidebar h2 {
@@ -47,21 +47,56 @@
 
 .dashboard-display {
   flex-grow: 1;
-  padding: 0px 20px 20px 20px; /* Top padding set to 5px, other sides remain 20px */
+  padding: 0px 20px 20px 20px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  overflow-y: auto; /* Ensure only content scrolls if needed */
-  width: calc(100% - 270px); /* Width reduced for space with the sidebar */
-
-  /* Hide scrollbars */
-  scrollbar-width: none; /* For Firefox */
-  -ms-overflow-style: none; /* For IE and Edge */
+  overflow-y: auto;
+  width: calc(100% - 270px);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .dashboard-display::-webkit-scrollbar {
-  display: none; /* For Chrome, Safari, and Opera */
+  display: none;
 }
 
+/* Filter Controls */
+.filter-controls-admin {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  width: 200px;
+  height: 100px;
+  position: relative;
+  z-index: 999; /* Ensures it appears over other content */
+}
+
+.custom-select-container-admin {
+  width: 100%;
+  z-index: 1000; /* Ensures it appears over other content */
+}
+
+.custom-select-admin__control {
+  position: relative;
+  z-index: 1001; /* Ensures it appears over other content */
+}
+
+.custom-select-admin__menu {
+  position: absolute;
+  z-index: 1002; /* Ensures it appears over everything */
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
+  top: 100%;
+}
+
+.custom-select-admin__option {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.custom-select-admin__option--is-focused {
+  background-color: #555;
+}
 
 /* Responsive behavior for smaller screens */
 @media (max-width: 768px) {
@@ -71,23 +106,49 @@
 
   .sidebar {
     width: 100%;
-    height: auto; /* Allow the sidebar to resize for smaller screens */
-    position: relative; /* No sticky positioning for smaller screens */
-    flex-direction: row;
-    justify-content: space-between;
+    height: auto;
+    flex-direction: column; /* Sidebar behaves as a column */
+    align-items: flex-start; /* Align content to the left */
     padding: 10px;
   }
 
   .sidebar-button {
     padding: 10px;
     font-size: 0.8rem;
-    flex: 1; /* Distribute buttons evenly */
-    margin-right: 10px; /* Add some space between buttons */
+    width: 100%; /* Ensure buttons take up full width */
+    margin-bottom: 10px; /* Add spacing between buttons */
+  }
+
+  .filter-controls-admin {
+    width: 100%; /* Ensure the filter takes full width */
+    margin-top: 20px;
+    z-index: 999; /* Ensure filter still appears over other content */
+    display: flex;
+    justify-content: flex-start; /* Aligns filter and dropdown */
+  }
+
+  .custom-select-container-admin {
+    width: 100%;
+    z-index: 1000; /* Ensure the dropdown works properly */
+  }
+
+  .custom-select-admin__control {
+    position: relative;
+    z-index: 1001; /* Dropdown control */
+  }
+
+  .custom-select-admin__menu {
+    position: absolute;
+    z-index: 1002;
+    left: 100%; /* Moves the dropdown to the right side of the filter */
+    top: 0; /* Aligns the dropdown to the top of the filter */
+    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
+    transform: translatey(-110px);
   }
 
   .dashboard-display {
     width: 100%;
-    margin-top: 20px; /* Add space between the sidebar and the content */
+    margin-top: 20px;
   }
 }
 
@@ -95,14 +156,40 @@
   .sidebar-button {
     padding: 5px;
     font-size: 0.7rem;
-    margin-right: 5px;
   }
 
   .sidebar h2 {
-    font-size: 1rem; /* Reduce size of heading */
+    font-size: 1rem;
   }
 
   .dashboard-display {
-    padding: 10px; /* Reduce padding for smaller screens */
+    padding: 10px;
+  }
+
+  .filter-controls-admin {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    z-index: 999; /* Ensure filter takes full width and appears on top */
+  }
+
+  .custom-select-container-admin {
+    width: 100%;
+    margin-top: 10px;
+    z-index: 1000;
+  }
+
+  .custom-select-admin__control {
+    position: relative;
+    z-index: 1001; /* Ensure dropdown control is on top */
+  }
+
+  .custom-select-admin__menu {
+    position: absolute;
+    z-index: 1002;
+    left: 100%; /* Moves the dropdown to the right side of the filter */
+    top: 0; /* Aligns the dropdown to the top of the filter */
+    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
+    transform: translatey(-110px);
   }
 }
