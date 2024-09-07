@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPet } from '../../redux/actions';
 import './create.styles.css';
 import validationForCreate from './validationForCreate';
-
 
 const CreatePet = () => {
   const dispatch = useDispatch();
@@ -20,10 +19,25 @@ const CreatePet = () => {
     okWithPets: false,
     okWithKids: false,
     history: '',
-    gender: '', // Added gender field
+    gender: '',
   });
 
+  const [petImage, setPetImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
   const [error, setError] = useState({});
+  const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    // Limpia la URL anterior si existe
+    if (petImage) {
+      const newPreviewUrl = URL.createObjectURL(petImage);
+      setPreviewUrl(newPreviewUrl);
+
+      return () => {
+        URL.revokeObjectURL(newPreviewUrl); // Libera la memoria utilizada por la URL anterior
+      };
+    }
+  }, [petImage]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -31,24 +45,52 @@ const CreatePet = () => {
       ...formData,
       [name]: type === 'checkbox' ? checked : value,
     });
-
-
   };
+
+  const handleImageChange = (e) => {
+    console.log(e.target.files)
+    const file = e.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      setFormData({
+        ...formData,
+        photo: "file" // Aquí, "file" es solo un marcador, no estás enviando el archivo real
+      });
+      setPetImage(file);
+      setError(prevError => ({ ...prevError, photo: null }));
+    } else {
+      setError(prevError => ({ ...prevError, photo: 'Por favor, selecciona una imagen válida' }));
+    }
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const validateErrors = validationForCreate(formData);
     setError(validateErrors);
-
-    if (Object.keys(validateErrors).length === 0) { //no se envia el formulario hasta que todos los campos estén completos
+  
+    if (Object.keys(validateErrors).length === 0 && petImage) {
+      setUploading(true);
       try {
-        await dispatch(createPet(formData));
+        const formDataWithImage = new FormData();
+        formDataWithImage.append('photo', petImage); // Aquí se agrega el archivo real
+        formDataWithImage.append('status', formData.status);
+        formDataWithImage.append('name', formData.name);
+        formDataWithImage.append('species', formData.species);
+        formDataWithImage.append('age', formData.age);
+        formDataWithImage.append('size', formData.size);
+        formDataWithImage.append('breed', formData.breed);
+        formDataWithImage.append('energyLevel', formData.energyLevel);
+        formDataWithImage.append('okWithPets', formData.okWithPets);
+        formDataWithImage.append('okWithKids', formData.okWithKids);
+        formDataWithImage.append('history', formData.history);
+        formDataWithImage.append('gender', formData.gender);
+  
+        await dispatch(createPet(formDataWithImage));
         alert('La mascota se ingresó correctamente');
-        // Reset the form after successful submission
+  
         setFormData({
           status: 'available',
-          photo: '',
+          photo: '', // Esta propiedad ya no es necesaria aquí
           name: '',
           species: '',
           age: '',
@@ -58,157 +100,200 @@ const CreatePet = () => {
           okWithPets: false,
           okWithKids: false,
           history: '',
-          gender: '', // Reset gender field
+          gender: '',
         });
+        setPetImage(null);
       } catch (err) {
-        setError('Error al ingresar la mascota: ' + err.message);
+        setError(prevError => ({ ...prevError, global: 'Error al ingresar la mascota: ' + err.message }));
+      } finally {
+        setUploading(false);
       }
-    };
-  }
+    }
+  };
+  
 
   return (
     <div className='section-full-screen-container-create'>
       <div className="full-screen-container-create">
         <div className="create-pet-container">
           <h1>Crea una nueva mascota</h1>
+          {error.global && <p className="error-message">{error.global}</p>}
           <form className="create-pet-form" onSubmit={handleSubmit}>
-            Estado<select
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              className={error.status ? 'error' : ''}
-            >
-              <option value="available">Disponible</option>
-              <option value="adopted">Adoptado</option>
-              <option value="onHold">En espera</option>
-              <option value="inactive">Inactivo</option>
-            </select>
-            {error.status && (
-              <div className="error-tooltip">
-                <p className="error-text">{error.status}</p>
-                <div className="error-arrow"></div>
+            {/* Status */}
+            <label>
+              Estado
+              <select
+                name="status"
+                value={formData.status}
+                onChange={handleChange}
+                className={error.status ? 'error' : ''}
+              >
+                <option value="available">Disponible</option>
+                <option value="adopted">Adoptado</option>
+                <option value="onHold">En espera</option>
+                <option value="inactive">Inactivo</option>
+              </select>
+            </label>
+            {error.status && <div className="error-tooltip"><p className="error-text">{error.status}</p><div className="error-arrow"></div></div>}
+
+            {/* Photo */}
+            <label>
+              Foto
+              <div class="file-upload-container">
+              <button class="custom-button">Seleccionar archivo</button>
+              <input
+                type="file"
+                name="photo"
+                onChange={handleImageChange}
+                className={error.photo ? 'error' : ''}
+              />
               </div>
-            )}
-            Url de foto<input
-              type="text"
-              name="photo"
-              placeholder="URL de foto"
-              value={formData.photo}
-              onChange={handleChange}
-              className={error.photo ? 'error' : ''}
-            />
             {error.photo && (
               <div className="error-tooltip">
                 <p className="error-text">{error.photo}</p>
-                <div className="error-arrow"></div>
-              </div>
-            )}
-            Nombre<input
-              type="text"
-              name="name"
-              placeholder="Nombre"
-              value={formData.name}
-              onChange={handleChange}
-              className={error.name ? 'error' : ''}
-            />
+                <div className="error-arrow"></div></div>
+                )}
+             {previewUrl && <img src={previewUrl} alt="Pet" className="pet-preview-image" />}
+            </label>
+            {/* Name */}
+            <label>
+              Nombre
+              <input
+                type="text"
+                name="name"
+                placeholder="Nombre"
+                value={formData.name}
+                onChange={handleChange}
+                className={error.name ? 'error' : ''}
+              />
+            </label>
             {error.name && (
               <div className="error-tooltip">
                 <p className="error-text">{error.name}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
-            <select
-              name="species"
-              value={formData.species}
-              onChange={handleChange}
-              className={error.species ? 'error' : ''}
-            >
-              <option value="">Selecciona especie</option>
-              <option value="cat">Gato</option>
-              <option value="dog">Perro</option>
-            </select>
+
+            {/* Species */}
+            <label>
+              Especie
+              <select
+                name="species"
+                value={formData.species}
+                onChange={handleChange}
+                className={error.species ? 'error' : ''}
+              >
+                <option value="">Selecciona especie</option>
+                <option value="cat">Gato</option>
+                <option value="dog">Perro</option>
+              </select>
+            </label>
             {error.species && (
               <div className="error-tooltip">
                 <p className="error-text">{error.species}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
-            <select
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              className={error.age ? 'error' : ''}
-            >
-              <option value="">Selecciona etapa de vida</option>
-              <option value="puppy">Cachorro</option>
-              <option value="young">Joven</option>
-              <option value="adult">Adulto</option>
-              <option value="elder">Anciano</option>
-            </select>
+
+            {/* Age */}
+            <label>
+              Edad
+              <select
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                className={error.age ? 'error' : ''}
+              >
+                <option value="">Selecciona etapa de vida</option>
+                <option value="puppy">Cachorro</option>
+                <option value="young">Joven</option>
+                <option value="adult">Adulto</option>
+                <option value="elder">Anciano</option>
+              </select>
+            </label>
             {error.age && (
               <div className="error-tooltip">
                 <p className="error-text">{error.age}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
-            <select
-              name="size"
-              value={formData.size}
-              onChange={handleChange}
-              className={error.size ? 'error' : ''}
-            >
-              <option value="">Selecciona tamaño</option>
-              <option value="small">Pequeño</option>
-              <option value="medium">Mediano</option>
-              <option value="large">Largo</option>
-            </select>
+
+            {/* Size */}
+            <label>
+              Tamaño
+              <select
+                name="size"
+                value={formData.size}
+                onChange={handleChange}
+                className={error.size ? 'error' : ''}
+              >
+                <option value="">Selecciona tamaño</option>
+                <option value="small">Pequeño</option>
+                <option value="medium">Mediano</option>
+                <option value="large">Grande</option>
+              </select>
+            </label>
             {error.size && (
               <div className="error-tooltip">
                 <p className="error-text">{error.size}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
-            Raza<input
-              type="text"
-              name="breed"
-              placeholder="Raza"
-              value={formData.breed}
-              onChange={handleChange}
 
-            />
-            <select
-              name="energyLevel"
-              value={formData.energyLevel}
-              onChange={handleChange}
+            {/* Breed */}
+            <label>
+              Raza
+              <input
+                type="text"
+                name="breed"
+                placeholder="Raza"
+                value={formData.breed}
+                onChange={handleChange}
+              />
+            </label>
 
-            >
-              <option value="">Selecciona nivel de energía</option>
-              <option value="low">Baja</option>
-              <option value="medium">Media</option>
-              <option value="high">Alta</option>
-            </select>
+            {/* Energy Level */}
+            <label>
+              Nivel de energía
+              <select
+                name="energyLevel"
+                value={formData.energyLevel}
+                onChange={handleChange}
+              >
+                <option value="">Selecciona nivel de energía</option>
+                <option value="low">Baja</option>
+                <option value="medium">Media</option>
+                <option value="high">Alta</option>
+              </select>
+            </label>
             {error.energyLevel && (
               <div className="error-tooltip">
                 <p className="error-text">{error.energyLevel}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
-            <select
-              name="gender"
-              value={formData.gender}
-              onChange={handleChange}
 
-            >
-              <option value="">Selecciona género</option>
-              <option value="female">Hembra</option>
-              <option value="male">Macho</option>
-            </select>
+            {/* Gender */}
+            <label>
+              Género
+              <select
+                name="gender"
+                value={formData.gender}
+                onChange={handleChange}
+              >
+                <option value="">Selecciona género</option>
+                <option value="female">Hembra</option>
+                <option value="male">Macho</option>
+              </select>
+            </label>
             {error.gender && (
               <div className="error-tooltip">
                 <p className="error-text">{error.gender}</p>
                 <div className="error-arrow"></div>
               </div>
             )}
+
+            {/* Checkboxes */}
             <div className="create-checkbox">
               <label>
                 <input
@@ -217,7 +302,7 @@ const CreatePet = () => {
                   checked={formData.okWithPets}
                   onChange={handleChange}
                 />
-                <h2 className='h2-create1'>Bueno con otras mascotas</h2>
+                Bueno con mascotas
               </label>
               <label>
                 <input
@@ -226,24 +311,23 @@ const CreatePet = () => {
                   checked={formData.okWithKids}
                   onChange={handleChange}
                 />
-                <h2 className='h2-create1'>Bueno con los niños</h2>
+                Bueno con niños
               </label>
             </div>
-            {error.okWithPetsAndKids && (
-              <div className="error-tooltip">
-                <p className="error-text">{error.okWithPetsAndKids}</p>
-                <div className="error-arrow"></div>
-              </div>
-            )}
-            Historia<textarea
-              name="history"
-              placeholder="Historia (Opcional)"
-              value={formData.history}
-              onChange={handleChange}
-            />
-            {formData.photo && <img src={formData.photo} alt="Pet" className="pet-preview-image" />}
-            <button type="submit" className="button">
-              Enviar
+
+            {/* History */}
+            <label>
+              Historia (Opcional)
+              <textarea
+                name="history"
+                placeholder="Historia"
+                value={formData.history}
+                onChange={handleChange}
+              />
+            </label>
+
+            <button type="submit" className='button' disabled={uploading}>
+              {uploading ? 'Subiendo...' : 'Crear'}
             </button>
           </form>
         </div>
@@ -253,4 +337,3 @@ const CreatePet = () => {
 };
 
 export default CreatePet;
-//SIN SELECCIONAR ARCHIVO
