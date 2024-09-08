@@ -1,3 +1,4 @@
+/* Main Admin Dashboard Container */
 .admin-dashboard {
   display: flex;
   min-height: 100px;
@@ -6,12 +7,13 @@
   flex-wrap: wrap;
 }
 
+/* Sidebar Styles */
 .sidebar {
   width: 250px;
   background-color: rgba(0, 0, 0, 0.359);
   padding: 20px;
   display: flex;
-  flex-direction: column; /* Ensure it starts as a column */
+  flex-direction: column;
   align-items: flex-start;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -27,6 +29,7 @@
   color: #fdfcfc;
 }
 
+/* Sidebar Button Styles */
 .sidebar-button {
   width: 100%;
   padding: 10px 15px;
@@ -37,7 +40,7 @@
   border-radius: 4px;
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
   margin-bottom: 10px;
 }
 
@@ -45,6 +48,14 @@
   background-color: rgba(255, 255, 255, 0.047);
 }
 
+/* Selected Button Style */
+.sidebar-button.selected {
+  background-color: rgba(255, 255, 255, 0.047); /* Same as hover background */
+  color: #d59432; /* Change font color to #d59432 */
+  border-color: #d59432; /* Optional: change border color to match */
+}
+
+/* Main Display Area */
 .dashboard-display {
   flex-grow: 1;
   padding: 0px 20px 20px 20px;
@@ -68,22 +79,22 @@
   width: 200px;
   height: 100px;
   position: relative;
-  z-index: 999; /* Ensures it appears over other content */
+  z-index: 999;
 }
 
 .custom-select-container-admin {
   width: 100%;
-  z-index: 1000; /* Ensures it appears over other content */
+  z-index: 1000;
 }
 
 .custom-select-admin__control {
   position: relative;
-  z-index: 1001; /* Ensures it appears over other content */
+  z-index: 1001;
 }
 
 .custom-select-admin__menu {
   position: absolute;
-  z-index: 1002; /* Ensures it appears over everything */
+  z-index: 1002;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 4px;
   top: 100%;
@@ -107,43 +118,43 @@
   .sidebar {
     width: 100%;
     height: auto;
-    flex-direction: column; /* Sidebar behaves as a column */
-    align-items: flex-start; /* Align content to the left */
+    flex-direction: column;
+    align-items: flex-start;
     padding: 10px;
   }
 
   .sidebar-button {
     padding: 10px;
     font-size: 0.8rem;
-    width: 100%; /* Ensure buttons take up full width */
-    margin-bottom: 10px; /* Add spacing between buttons */
+    width: 100%;
+    margin-bottom: 10px;
   }
 
   .filter-controls-admin {
-    width: 100%; /* Ensure the filter takes full width */
+    width: 100%;
     margin-top: 20px;
-    z-index: 999; /* Ensure filter still appears over other content */
+    z-index: 999;
     display: flex;
-    justify-content: flex-start; /* Aligns filter and dropdown */
+    justify-content: flex-start;
   }
 
   .custom-select-container-admin {
     width: 100%;
-    z-index: 1000; /* Ensure the dropdown works properly */
+    z-index: 1000;
   }
 
   .custom-select-admin__control {
     position: relative;
-    z-index: 1001; /* Dropdown control */
+    z-index: 1001;
   }
 
   .custom-select-admin__menu {
     position: absolute;
     z-index: 1002;
-    left: 100%; /* Moves the dropdown to the right side of the filter */
-    top: 0; /* Aligns the dropdown to the top of the filter */
-    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
-    transform: translatey(-110px);
+    left: 100%;
+    top: 0;
+    transform: translateX(10px);
+    transform: translateY(-110px);
   }
 
   .dashboard-display {
@@ -170,7 +181,7 @@
     width: 100%;
     margin-top: 10px;
     margin-bottom: 20px;
-    z-index: 999; /* Ensure filter takes full width and appears on top */
+    z-index: 999;
   }
 
   .custom-select-container-admin {
@@ -181,15 +192,15 @@
 
   .custom-select-admin__control {
     position: relative;
-    z-index: 1001; /* Ensure dropdown control is on top */
+    z-index: 1001;
   }
 
   .custom-select-admin__menu {
     position: absolute;
     z-index: 1002;
-    left: 100%; /* Moves the dropdown to the right side of the filter */
-    top: 0; /* Aligns the dropdown to the top of the filter */
-    transform: translateX(10px); /* Adds some space between the filter and the dropdown */
-    transform: translatey(-110px);
+    left: 100%;
+    top: 0;
+    transform: translateX(10px);
+    transform: translateY(-110px);
   }
 }

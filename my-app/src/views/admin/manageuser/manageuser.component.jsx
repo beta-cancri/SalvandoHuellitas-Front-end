@@ -3,18 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsers, changeUserStatus } from '../../../redux/actions';
 import './manageuser.styles.css';
 
-const ManageUser = () => {
+const ManageUser = ({ status }) => {
   const dispatch = useDispatch();
   const { users, usersCurrentPage, usersTotalPages } = useSelector((state) => state);
 
   // Fetch users
   useEffect(() => {
     console.log("Fetching users for page:", usersCurrentPage);
-    dispatch(fetchUsers(usersCurrentPage));
-  }, [dispatch, usersCurrentPage]);
-
-  // Log the current total pages for debugging
-  console.log("Total Pages for Users:", usersTotalPages);
+    dispatch(fetchUsers(usersCurrentPage, status));  // Pass the current status when fetching users
+  }, [dispatch, usersCurrentPage, status]);
 
   // Handle status change
   const handleToggleStatus = (userId, currentStatus) => {
@@ -25,7 +22,7 @@ const ManageUser = () => {
       dispatch(changeUserStatus(userId, newStatus))
         .then(() => {
           // Refetch users after status change
-          dispatch(fetchUsers(usersCurrentPage));
+          dispatch(fetchUsers(usersCurrentPage, status));  // Ensure status is passed when re-fetching
         })
         .catch((error) => {
           console.error('Error changing user status:', error);
@@ -35,7 +32,7 @@ const ManageUser = () => {
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchUsers(pageNumber));
+    dispatch(fetchUsers(pageNumber, status));  // Ensure status is passed when changing pages
   };
 
   return (
@@ -49,6 +46,7 @@ const ManageUser = () => {
           <ul className="users-grid">
             {users.map((user) => (
               <li key={user.id} className="user-item">
+                <img src={user.idCard} alt={user.fullName} className="user-idcard-image" />
                 <div className="user-details">
                   <div className="user-name">
                     <div
