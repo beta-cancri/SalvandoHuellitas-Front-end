@@ -8,6 +8,7 @@
 .navbar {
   background-color: #0000007d; /* Fondo negro para el navbar */
   padding: 10px 15px;
+  min-height: 65px;
 }
 
 .navbar-container {
