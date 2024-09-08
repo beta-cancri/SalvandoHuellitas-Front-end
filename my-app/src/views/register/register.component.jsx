@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { createUser } from '../../redux/actions';
+import Notification from '../create/Notification';
 import validationForRegister from './validationForRegister';
 import './register.styles.css';
 
 const Register = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // State for form inputs
   const [formData, setFormData] = useState({
@@ -22,6 +25,7 @@ const Register = () => {
   const [idCardImage, setIdCardImage] = useState(null);
   const [error, setError] = useState({});
   const [uploading, setUploading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -60,8 +64,14 @@ const Register = () => {
         formDataWithImage.append('email', formData.email)
         formDataWithImage.append('password', formData.password)
         formDataWithImage.append('birthDate', formData.birthDate)
+
         await dispatch(createUser(formDataWithImage)); // Enviar el formulario con la imagen, antes era formdata
-        alert('El usuario fue creado exitosamente');
+        setShowNotification(true);
+       
+         // redirigir a la página de inicio después de un registro exitoso
+         setTimeout(() => {
+          navigate('/home'); // Redirige al home
+        }, 2000); // Espera 2 segundos para mostrar la notificación
 
         // Clear the form after successful submission
         setFormData({
@@ -73,13 +83,16 @@ const Register = () => {
           idCard: '',
           occupation: '',
         });
-        setIdCardImage(null); // Clear image file
+        setIdCardImage(null); // limpia image file
       } catch (err) {
         setError(prevError => ({ ...prevError, global: 'Error al crear el usuario: ' + err.message }));
       } finally {
         setUploading(false);
       }
     }
+  };
+  const handleCloseNotification = () => {
+    setShowNotification(false);
   };
 
   return (
@@ -225,6 +238,9 @@ const Register = () => {
           </button>
         </form>
       </div>
+      {showNotification && (
+        <Notification message="¡Registro exitoso! 🐾" onClose={handleCloseNotification} />
+      )}
     </div>
   );
 };
