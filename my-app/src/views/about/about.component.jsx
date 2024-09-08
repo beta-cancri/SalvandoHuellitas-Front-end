@@ -127,6 +127,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './about.styles.css';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
+import formReviews from '../reviews/formReviews';
 
 const About = () => {
   const [reviews, setReviews] = useState([]);
@@ -287,7 +288,7 @@ const About = () => {
 
         <div className="back-button-container">
           <button className="button" onClick={() => navigate('/home')}>Inicio</button>
-          <button className="button" onClick={() => navigate('/home')}>ingresa tu calificación aquí 👇  </button>
+          <button className="button" onClick={() => navigate('/formReviews')}>ingresa tu calificación aquí 👇  </button>
         </div>
       </div>
     </div>
