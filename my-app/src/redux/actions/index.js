@@ -122,21 +122,29 @@ export const createReview = (review) => async (dispatch) => {
 // Fetch all users
 export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
   try {
-    // Retrieve token from localStorage
     let token = localStorage.getItem("jwt");
 
-    // Add status to query parameters if provided
+    // Map the status value to true or false for isActive
+    let isActiveStatus;
+    if (status === 'active') {
+      isActiveStatus = true;
+    } else if (status === 'inactive') {
+      isActiveStatus = false;
+    } else {
+      isActiveStatus = ''; // No filter for status
+    }
+
     const params = {
       page,
     };
 
-    if (status) {
+    if (isActiveStatus !== '') {  // Only include status if it's defined
       params.status = status;
     }
-    console.log('Dispatching fetchUsers with status:', status); // Log status before dispatch
 
+    console.log('Dispatching fetchUsers with params:', params); // Log params
+    console.log('Mapped isActiveStatus:', isActiveStatus); // Debug log for status mapping
 
-    // Make the GET request with the token and query parameters
     const response = await axios.get('/users', {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -144,7 +152,8 @@ export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
       params,
     });
 
-    console.log('Fetched Users:', response.data);
+    console.log('Response from fetchUsers:', response.data); // Log the backend response
+
     dispatch({
       type: FETCH_USERS_SUCCESS,
       payload: {
@@ -157,6 +166,9 @@ export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
     console.error('Error fetching users:', error.message);
   }
 };
+
+
+
 
 
 

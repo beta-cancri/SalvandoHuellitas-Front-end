@@ -3,7 +3,7 @@ import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
 import Select from 'react-select';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { fetchPets, fetchUsers } from '../../../redux/actions';
 import './dashboard.styles.css';
 
@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState(null);
   const [status, setStatus] = useState(''); // This will handle both pets and users status
   const dispatch = useDispatch();
-  const { petsCurrentPage, usersCurrentPage } = useSelector((state) => state);
+  
 
   // Handle section change
   const handleSectionChange = (section) => {
