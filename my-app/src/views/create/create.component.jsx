@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createPet } from '../../redux/actions';
+import Notification from './Notification';
 import './create.styles.css';
 import validationForCreate from './validationForCreate';
 
@@ -26,6 +27,7 @@ const CreatePet = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [error, setError] = useState({});
   const [uploading, setUploading] = useState(false);
+  const [showNotification, setShowNotification] = useState(false); //agregado
 
   useEffect(() => {
     // Limpia la URL anterior si existe
@@ -86,7 +88,7 @@ const CreatePet = () => {
         formDataWithImage.append('gender', formData.gender);
   
         await dispatch(createPet(formDataWithImage));
-        alert('La mascota se ingresó correctamente');
+        setShowNotification(true); //agregado
   
         setFormData({
           status: 'available',
@@ -103,6 +105,8 @@ const CreatePet = () => {
           gender: '',
         });
         setPetImage(null);
+        setPreviewUrl(null); // Limpiar la vista previa de la imagen
+        document.querySelector('input[name="photo"]').value = ''; // Limpiar el campo de archivo
       } catch (err) {
         setError(prevError => ({ ...prevError, global: 'Error al ingresar la mascota: ' + err.message }));
       } finally {
@@ -110,7 +114,9 @@ const CreatePet = () => {
       }
     }
   };
-  
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+  };
 
   return (
     <div className='section-full-screen-container-create'>
@@ -140,7 +146,7 @@ const CreatePet = () => {
             <label>
               Foto
               <div class="file-upload-container">
-              <button class="custom-button">Seleccionar archivo</button>
+              <button class="custom-button">Seleccionar</button>
               <input
                 type="file"
                 name="photo"
@@ -332,6 +338,10 @@ const CreatePet = () => {
           </form>
         </div>
       </div>
+      {showNotification && (
+        <Notification message="¡Mascota creada exitosamente! 🐾" onClose={handleCloseNotification} />
+      )}
+
     </div>
   );
 };
