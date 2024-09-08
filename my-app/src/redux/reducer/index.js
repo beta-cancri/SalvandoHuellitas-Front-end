@@ -1,7 +1,7 @@
 import {
   FETCH_PETS_SUCCESS, FETCH_PET_DETAIL_SUCCESS, CREATE_PET_SUCCESS, CHANGE_PET_STATUS,
   FETCH_REVIEWS_SUCCESS, CREATE_REVIEW_SUCCESS,
-  FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS,
+  FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS, CHANGE_USER_STATUS,
   FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS
 } from '../actions';
 
@@ -11,19 +11,22 @@ const initialState = {
   reviews: [],
   users: [],
   requests: [],
-  currentPage: 1,
-  totalPages: 1,
+  petsCurrentPage: 1,  // Separate currentPage for pets
+  petsTotalPages: 1,   // Separate totalPages for pets
+  usersCurrentPage: 1,  // Separate currentPage for users
+  usersTotalPages: 1,   // Separate totalPages for users
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    // Pets-related actions
     case FETCH_PETS_SUCCESS:
       console.log('Reducer updating pets state with payload:', action.payload);
       return {
         ...state,
         pets: action.payload.results,
-        currentPage: action.payload.page,
-        totalPages: action.payload.totalPages,
+        petsCurrentPage: action.payload.page,
+        petsTotalPages: action.payload.totalPages,
       };
     case FETCH_PET_DETAIL_SUCCESS:
       console.log('Reducer updating petDetail state with payload:', action.payload);
@@ -41,6 +44,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         pets: state.pets.filter(pet => pet.id !== action.payload),
       };
+
+    // Reviews-related actions
     case FETCH_REVIEWS_SUCCESS:
       return {
         ...state,
@@ -51,16 +56,28 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         reviews: [...state.reviews, action.payload],
       };
+
+    // Users-related actions
     case FETCH_USERS_SUCCESS:
+      console.log('Reducer updating users state with payload:', action.payload);
       return {
         ...state,
-        users: action.payload,
+        users: action.payload.results,
+        usersCurrentPage: action.payload.page,
+        usersTotalPages: action.payload.totalPages,
       };
     case CREATE_USER_SUCCESS:
       return {
         ...state,
         users: [...state.users, action.payload],
       };
+    case CHANGE_USER_STATUS:
+      return {
+        ...state,
+        users: state.users.filter(user => user.id !== action.payload),
+      };
+
+    // Requests-related actions
     case FETCH_REQUESTS_SUCCESS:
       return {
         ...state,
@@ -71,6 +88,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         requests: [...state.requests, action.payload],
       };
+
     default:
       return state;
   }

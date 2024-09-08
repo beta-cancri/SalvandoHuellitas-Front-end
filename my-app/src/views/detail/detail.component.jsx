@@ -31,7 +31,7 @@ const Detail = () => {
   };
 
   const handleAdopt = () => {
-    navigate('/adopt'); // Redirige a la página de adopción
+    navigate(`/adopt/${id}`); // Redirige a la página de adopción
   };
 
   if (loading) {

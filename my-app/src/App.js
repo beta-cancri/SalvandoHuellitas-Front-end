@@ -38,6 +38,7 @@ const App = () => {
 
         <Route path="/create" element={<CreatePet />} />
         <Route path="/adopt" element={<Adopt />} />  
+        <Route path="/adopt/:id" element={<Adopt />} />  
         <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} /> 

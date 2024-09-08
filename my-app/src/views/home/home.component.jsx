@@ -9,7 +9,7 @@ import { manejarRedireccion } from "../../auth/auth";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { pets, currentPage, totalPages } = useSelector((state) => state);
+  const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
 
   // Estados para los filtros
   const [species, setSpecies] = useState('');
@@ -26,10 +26,10 @@ const Home = () => {
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
       // Aplicar los filtros guardados al montar el componente
-      dispatch(fetchPets(savedFilters, savedFilters.currentPage || 1));
+      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage || 1, true)); // Ensure isHome is true here
     } else {
-      // Si no hay filtros guardados, cargar todos los datos
-      dispatch(fetchPets({}, 1));
+      // Si no hay filtros guardados, cargar solo las mascotas disponibles
+      dispatch(fetchPets({}, 1, true)); // Ensure isHome is true here
     }
   }, [dispatch]);
 
@@ -100,16 +100,16 @@ const Home = () => {
     // Guardar los filtros en localStorage
     localStorage.setItem('filters', JSON.stringify({
       ...filters,
-      currentPage: currentPage || 1 // Guardar la página actual
+      petsCurrentPage: petsCurrentPage || 1 // Guardar la página actual
     }));
 
     // Despachar la acción para obtener los datos filtrados
-    dispatch(fetchPets(filters, 1)); // Resetear a la primera página
+    dispatch(fetchPets(filters, 1, true)); // Reset to the first page and ensure isHome is true
   };
 
   // Cambiar de página
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size, status: "available" }, pageNumber));
+    dispatch(fetchPets({ species, energyLevel, size }, pageNumber, true)); // Pass isHome as true
   };
 
   // Reiniciar filtros y limpiar localStorage
@@ -121,7 +121,8 @@ const Home = () => {
     // Eliminar filtros de localStorage
     localStorage.removeItem('filters');
 
-    dispatch(fetchPets({}, 1)); // Cargar todos los datos
+    // Cargar solo las mascotas disponibles
+    dispatch(fetchPets({}, 1, true)); // Ensure only available pets are fetched on reset
   };
 
   return (
@@ -179,11 +180,11 @@ const Home = () => {
         <div className="pets-container">
           <Cards pets={pets} />
           <div className="pagination">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <button onClick={() => handlePageChange(petsCurrentPage - 1)} disabled={petsCurrentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>Página {petsCurrentPage} de {petsTotalPages}</span>
+            <button onClick={() => handlePageChange(petsCurrentPage + 1)} disabled={petsCurrentPage === petsTotalPages}>
               Siguiente
             </button>
           </div>
