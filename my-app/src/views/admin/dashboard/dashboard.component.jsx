@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
@@ -11,7 +12,7 @@ const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState(null);
   const [status, setStatus] = useState(''); // This will handle both pets and users status
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate(); // Initialize useNavigate for navigation
 
   // Handle section change
   const handleSectionChange = (section) => {
@@ -32,7 +33,6 @@ const AdminDashboard = () => {
       dispatch(fetchUsers(1, isActiveStatus)); // Always fetch from page 1 with isActive
     }
   };
-
 
   // Fetch pets whenever the status changes and the pets section is active
   useEffect(() => {
@@ -75,7 +75,6 @@ const AdminDashboard = () => {
     { value: 'inactive', label: 'Inactivo' }
   ];
 
-
   // Custom styles for Select dropdown
   const customStyles = {
     control: (provided) => ({
@@ -106,18 +105,26 @@ const AdminDashboard = () => {
     })
   };
 
+  // Navigate to the "Create a Pet" route
+  const handleCreatePet = () => {
+    navigate('/create');
+  };
+
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
         <h2>Administrador</h2>
-        <button className="sidebar-button" onClick={() => handleSectionChange('users')}>
+        <button className={`sidebar-button ${activeSection === 'users' ? 'selected' : ''}`} onClick={() => handleSectionChange('users')}>
           Manejo de usuarios
         </button>
-        <button className="sidebar-button" onClick={() => handleSectionChange('pets')}>
+        <button className={`sidebar-button ${activeSection === 'pets' ? 'selected' : ''}`} onClick={() => handleSectionChange('pets')}>
           Manejo de mascotas
         </button>
-        <button className="sidebar-button" onClick={() => handleSectionChange('requests')}>
+        <button className={`sidebar-button ${activeSection === 'requests' ? 'selected' : ''}`} onClick={() => handleSectionChange('requests')}>
           Ver peticiones de adopción
+        </button>
+        <button className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`} onClick={handleCreatePet}>
+          Crea una mascota
         </button>
 
         {/* Show filters for Pets section */}
