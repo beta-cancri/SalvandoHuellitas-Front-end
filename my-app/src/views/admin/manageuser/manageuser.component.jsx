@@ -49,6 +49,7 @@ const ManageUser = () => {
           <ul className="users-grid">
             {users.map((user) => (
               <li key={user.id} className="user-item">
+                <img src={user.idCard} alt={user.fullName} className="user-idcard-image" />
                 <div className="user-details">
                   <div className="user-name">
                     <div

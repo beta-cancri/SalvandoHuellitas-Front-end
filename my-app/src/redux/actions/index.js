@@ -120,16 +120,28 @@ export const createReview = (review) => async (dispatch) => {
 };
 
 // Fetch all users
-export const fetchUsers = (page = 1) => async (dispatch) => {
+export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
   try {
     // Retrieve token from localStorage
     let token = localStorage.getItem("jwt");
 
-    // Make the GET request with the token included in the headers
-    const response = await axios.get(`/users?page=${page}`, {
+    // Add status to query parameters if provided
+    const params = {
+      page,
+    };
+
+    if (status) {
+      params.status = status;
+    }
+    console.log('Dispatching fetchUsers with status:', status); // Log status before dispatch
+
+
+    // Make the GET request with the token and query parameters
+    const response = await axios.get('/users', {
       headers: {
-        Authorization: `Bearer ${token}`, // Include the token in the request headers
+        Authorization: `Bearer ${token}`,
       },
+      params,
     });
 
     console.log('Fetched Users:', response.data);
@@ -138,13 +150,16 @@ export const fetchUsers = (page = 1) => async (dispatch) => {
       payload: {
         results: response.data.results,
         page: response.data.page,
-        totalPages: response.data.totalPages ,
+        totalPages: response.data.totalPages,
       },
     });
   } catch (error) {
     console.error('Error fetching users:', error.message);
   }
 };
+
+
+
 
 
 // Change user status

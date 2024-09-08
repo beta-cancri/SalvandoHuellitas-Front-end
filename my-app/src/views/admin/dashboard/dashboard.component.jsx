@@ -4,31 +4,47 @@ import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
 import Select from 'react-select';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPets } from '../../../redux/actions';
+import { fetchPets, fetchUsers } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState(null);
+  const [status, setStatus] = useState(''); // This will handle both pets and users status
   const dispatch = useDispatch();
-  const { currentPage, totalPages } = useSelector((state) => state);
-
-  // Filter state for status
-  const [status, setStatus] = useState('');
+  const { petsCurrentPage, usersCurrentPage } = useSelector((state) => state);
 
   // Handle section change
   const handleSectionChange = (section) => {
     setActiveSection(section);
+    setStatus(''); // Reset status filter when changing sections
   };
 
-  // Handle filter change
+  // Handle filter change and reset to page 1
   const handleFilterChange = (selectedOption) => {
-    setStatus(selectedOption ? selectedOption.value : '');
+    const newStatus = selectedOption ? selectedOption.value : '';
+    setStatus(newStatus);
+
+    // Reset page to 1 when status filter changes
+    if (activeSection === 'pets') {
+      dispatch(fetchPets({ status: newStatus }, 1, false)); // Always fetch from page 1
+    } else if (activeSection === 'users') {
+      const isActiveStatus = newStatus === 'active' ? true : newStatus === 'inactive' ? false : '';
+      dispatch(fetchUsers(1, isActiveStatus)); // Always fetch from page 1 with isActive
+    }
   };
 
-  // Fetch pets whenever the status changes
+
+  // Fetch pets whenever the status changes and the pets section is active
   useEffect(() => {
     if (activeSection === 'pets') {
-      dispatch(fetchPets({ status }, 1, false));
+      dispatch(fetchPets({ status }, 1, false)); // Ensure reset to page 1
+    }
+  }, [dispatch, status, activeSection]);
+
+  // Fetch users whenever the status changes and the users section is active
+  useEffect(() => {
+    if (activeSection === 'users') {
+      dispatch(fetchUsers(1, status)); // Ensure reset to page 1
     }
   }, [dispatch, status, activeSection]);
 
@@ -51,6 +67,14 @@ const AdminDashboard = () => {
     { value: 'available', label: 'Activo' },
     { value: 'inactive', label: 'Inactivo' }
   ];
+
+  // User status filter options (active/inactive)
+  const userStatusOptions = [
+    { value: '', label: 'Todos' },
+    { value: 'active', label: 'Activo' },
+    { value: 'inactive', label: 'Inactivo' }
+  ];
+
 
   // Custom styles for Select dropdown
   const customStyles = {
@@ -96,10 +120,11 @@ const AdminDashboard = () => {
           Ver peticiones de adopción
         </button>
 
+        {/* Show filters for Pets section */}
         {activeSection === 'pets' && (
           <div className="filter-controls-admin">
             <label>
-              Estado:
+              Estado de las Mascotas:
               <Select
                 className="custom-select-container-admin"
                 classNamePrefix="custom-select-admin"
@@ -112,11 +137,29 @@ const AdminDashboard = () => {
             </label>
           </div>
         )}
+
+        {/* Show filters for Users section */}
+        {activeSection === 'users' && (
+          <div className="filter-controls-admin">
+            <label>
+              Estado de los Usuarios:
+              <Select
+                className="custom-select-container-admin"
+                classNamePrefix="custom-select-admin"
+                value={userStatusOptions.find(option => option.value === status)}
+                onChange={handleFilterChange}
+                options={userStatusOptions}
+                styles={customStyles}
+                isClearable
+              />
+            </label>
+          </div>
+        )}
       </div>
 
       <div className="dashboard-display">
         {activeSection === 'pets' && <ManagePets status={status} />}
-        {activeSection === 'users' && <ManageUser />}
+        {activeSection === 'users' && <ManageUser status={status} />}
         {activeSection === 'requests' && <ManageRequests />}
       </div>
     </div>
