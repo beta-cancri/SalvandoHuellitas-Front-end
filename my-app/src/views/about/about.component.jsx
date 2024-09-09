@@ -268,27 +268,39 @@ const About = () => {
           <div className="review-cards">
             {reviews.map((review) => (
               <div key={review.id_user} className="review-card">
-                <div className='review-name'>
-                  <strong>Nombre:</strong> {review.name}
+                <div className='review-item'>
+                  <div className='review-name'>
+                    <strong>Nombre:</strong>
+                    <span className='name-text'>{review.name}</span>
+                  </div>
+
+                  <div className='review-text'>
+                    <strong>Reseña:</strong>
+                    <span className='text-content'>{review.text}</span>
+                  </div>
+
+                  <div className='review-rating'>
+                    <strong>Calificación:</strong>
+                    <span className='rating-display'>
+                      <LittleFootprintRating rating={review.rating} setRating={() => { }} />
+                    </span>
+                    <span className='rating-note'></span>
+                  </div>
+
+                  <div className='review-date'>
+                    <strong>Fecha:</strong>
+                    <span className='date-text'>{new Date(review.date).toLocaleDateString()}</span>
+                  </div>
                 </div>
-                <div className='review-text'>
-                  <strong>Reseña:</strong> {review.text}
-                </div>
-                <div className='review-rating'>
-                  <strong>Calificación:</strong>
-                  <LittleFootprintRating rating={review.rating} setRating={() => { }} /> Solo para mostrar, sin funcionalidad
-                </div>
-                <div className='review-date'>
-                  <strong>Fecha:</strong> {new Date(review.date).toLocaleDateString()}
-                </div>
+
               </div>
             ))}
           </div>
         ) : null}
 
         <div className="back-button-container">
-          <button className="button" onClick={() => navigate('/home')}>Inicio</button>
-          <button className="button" onClick={() => navigate('/formReviews')}>ingresa tu calificación aquí 👇  </button>
+          <button className="button-review" onClick={() => navigate('/home')}>Inicio</button>
+          <button className="button-review " onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇  </button>
         </div>
       </div>
     </div>

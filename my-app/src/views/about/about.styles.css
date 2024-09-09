@@ -214,7 +214,7 @@
   padding: 15px;
   margin-top: 100px;
   text-align: center;
-  font-size: 1em;
+  font-size: 0.9em;
   color: #fff;
   font-family: "Poppins", sans-serif;
 }
@@ -230,7 +230,7 @@
   background-color: #bdbdbd;
   border: 3px solid #515151;
   border-radius: 50px;
-  padding: 50px;
+  padding: 40px;
   transition: transform 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
@@ -241,7 +241,68 @@
 }
 
 .review-name {
-  font-size: 0.8em !important;
-  color: #515151 !important;
+  font-size: 1.1em !important;
+  margin-left: 10px;
+  color: #ffffff !important;
   font-family: "Poppins", sans-serif !important; /* Fuente aplicada aquí */
+}
+
+.name-text {
+  font-size: 1em !important;
+  margin-left: 10px;
+  color: #ffffff !important;
+  font-family: "Poppins", sans-serif !important; /* Fuente aplicada aquí */
+}
+
+.text-content {
+  font-size: 1.2em !important;
+  margin-right: 5px;
+  color: #ffffff !important;
+  font-family: "Poppins", sans-serif !important; /* Fuente aplicada aquí */
+  word-wrap: break-word; /* Permite que las palabras largas se rompan y bajen de línea */
+  word-break: break-word; /* Rompe las palabras largas al borde del contenedor */
+}
+
+.rating-display {
+  font-size: 1.2em !important;
+  margin-right: 5px;
+  color: #ffffff !important;
+  font-family: "Poppins", sans-serif !important; /* Fuente aplicada aquí */
+}
+
+.date-text {
+  font-size: 1.2em !important;
+  margin-right: 5px;
+  color: #ffffff !important;
+  font-family: "Poppins", sans-serif !important; /* Fuente aplicada aquí */
+}
+
+.review-item {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #515151;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.button-review {
+  background-color: #515151;
+  color: white;
+  margin-right: 16px;
+  padding: 20px;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 4px solid #bdbdbd;
+  font-family: "Poppins", sans-serif; /* Fuente aplicada aquí */
+}
+
+.button-review:hover {
+  background-color: #ffad39c6;
+  color: #ffffff;
+  transform: scale(1.05);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
