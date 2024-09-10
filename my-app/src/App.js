@@ -11,7 +11,7 @@ import Register from './views/register/register.component';
 import CreatePet from './views/create/create.component'; 
 import GoogleCallback from './components/google/GoogleCallback';
 import Adopt from './views/adopt/adopt.component';
-
+import UserBoard from './views/user/user.component';
 import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Import the AdminDashboard component
 import './App.css';
 
@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
+        <Route path="/users/:id" element={<UserBoard />} />
         <Route path="/create" element={<CreatePet />} />
         <Route path="/adopt" element={<Adopt />} />  
         <Route path="/adopt/:id" element={<Adopt />} />  

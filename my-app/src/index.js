@@ -10,7 +10,8 @@ import store from './redux/store';
 import { BrowserRouter as Router } from 'react-router-dom'; // Importa BrowserRouter
 import axios from 'axios';
 
-let backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'
+let backendBaseUrl = 'http://localhost:3001'
+//'https://salvandohuellitas-back-end-production.up.railway.app'
 
 if(!backendBaseUrl){
     backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'

@@ -115,7 +115,7 @@ select:focus {
 }
 
 .adopt-form input.error,
-.adopt-form select.error {
+ select.error {
     border: 1px solid red;
     background-color: #ffe6e6;
 }
@@ -128,12 +128,12 @@ select:focus {
     margin-bottom: 5px;
 }
 
-.error-tooltip .error-text {
+.error-text {
     font-size: 12px;
     color: rgb(253, 193, 193);
 }
 
-.error-tooltip .error-arrow {
+.error-arrow {
     position: absolute;
     top: -5px;
     left: 50%;
@@ -172,6 +172,37 @@ select:focus {
     justify-content: center;
     gap: 400px;
 }
+
+.file-upload-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .custom-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 158px;
+    height: 45%;
+    z-index: 10;
+    pointer-events: none;
+    background-color: #ffbd61;
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    border-radius: 4px;
+    border: 1px solid #ffbd61;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+  
+  }
+  
+  .custom-button:hover{
+    background-color: #ffb246;
+  
+  }
 
 .button-adopt{
     top: 0;

@@ -3,6 +3,7 @@ import './adopt.styles.css';
 import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
 const Adopt = () => {
 
@@ -21,8 +22,10 @@ const Adopt = () => {
         addedCondition: null,
         clauses: false
     })
-
+    const [idCardImage, setIdCardImage] = useState(null);
     const [errors, setErrors] = useState({});
+    const [uploading, setUploading] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
 
     // ? al montar el componente, se obtiene el usuario del localStorage
     useEffect(() => {
@@ -57,11 +60,22 @@ const Adopt = () => {
         }
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            setIdCardImage(file);
+            setErrors(prevErrors => ({ ...prevErrors, idCardImage: null }));
+        } else {
+            setErrors(prevErrors => ({ ...prevErrors, idCardImage: 'Por favor, selecciona una imagen válida' }));
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validationForAdopt(requestData);
         setErrors(validateErrors);
-        if (Object.keys(validateErrors).length === 0) {
+        if (Object.keys(validateErrors).length === 0 && idCardImage) {
+            setUploading(true);
             try {
                 if (user) {
                     let token = localStorage.getItem("jwt");
@@ -77,9 +91,23 @@ const Adopt = () => {
                         id_pet: id
                     }
 
+
+                    //? aquí se preparan los datos con el añadido de imagen (cloudinary y redux)
+                    const formDataWithImage = new FormData();
+                    formDataWithImage.append('idCard', idCardImage);
+                    formDataWithImage.append('adress', requestDataWithUser.adress)
+                    formDataWithImage.append('occupation', requestDataWithUser.occupation)
+                    formDataWithImage.append('totalHabitants', requestDataWithUser.totalHabitants)
+                    formDataWithImage.append('hasKids', requestDataWithUser.hasKids)
+                    formDataWithImage.append('hasPets', requestDataWithUser.hasPets)
+                    formDataWithImage.append('space', requestDataWithUser.space)
+                    formDataWithImage.append('timeAvailable', requestDataWithUser.timeAvailable)
+                    formDataWithImage.append('addedCondition', requestDataWithUser.addedCondition)
+                    formDataWithImage.append('clauses', requestDataWithUser.clauses)
+
                     //?se envía la solicitud vía Redux
                     dispatch(createRequest(requestDataWithUser, headers));
-                    alert('¡Gracias por enviarnos tu solicitud!');
+
                     setRequestData({
                         adress: '',
                         occupation: '',
@@ -102,6 +130,9 @@ const Adopt = () => {
         };
     };
 
+    const handleCloseNotification = () => {
+        setShowNotification(false);
+    };
     return (
         <div className='full-screen-container-adopt'>
 
@@ -139,12 +170,15 @@ const Adopt = () => {
                         </div>
                     )}
                     Muéstranos tu identificación
-                    <input type="text"
+                    <div className="file-upload-container">
+                    <button className="custom-button">Seleccionar archivo</button>
+                    <input type="file"
                         name='idCard'
-                        value={requestData.idCard}
-                        onChange={handleChange}
-                        placeholder='Coloca aqui tu identificación'
+                        onChange={handleImageChange}
+                        accept="image/*"
+                       
                     />
+                    </div>
                     {errors.idCard && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.idCard}</p>
@@ -300,24 +334,24 @@ const Adopt = () => {
 
 
                     <h3>PARTE 2: Cláusulas</h3>
-                        <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
-                        <ul>
-                            <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
-                            <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
-                            <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
-                            <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
-                            <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
-                        </ul>
-                        <div className="checkbox">
-                            <input type="checkbox"
-                                id="clauses"
-                                name="clauses"
-                                onChange={handleChange}
-                                checked={requestData.clauses}
-                            />
-                            <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
-                        </div>
-                    
+                    <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
+                    <ul>
+                        <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
+                        <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
+                        <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
+                        <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
+                        <li>Declaro que la mascota no podrá salir de la vivienda a menos que sea en paseos supervisados.</li>
+                    </ul>
+                    <div className="checkbox">
+                        <input type="checkbox"
+                            id="clauses"
+                            name="clauses"
+                            onChange={handleChange}
+                            checked={requestData.clauses}
+                        />
+                        <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
+                    </div>
+
                     {errors.clauses && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.clauses}</p>
@@ -325,7 +359,7 @@ const Adopt = () => {
                         </div>
                     )}
                     <div className='button-container'>
-                        <button type="submit" className='button-adopt'>Enviar</button>
+                        <button type="submit" className='button-adopt' disabled={uploading}>Enviar</button>
 
                         <Link to="/home">
                             <button className='button-adopt'>Volver</button>
@@ -334,6 +368,12 @@ const Adopt = () => {
 
                 </form>
             </div >
+            {showNotification && (
+                <Notification
+                    message="¡Gracias por enviar tu solicitud! 🐾"
+                    onClose={handleCloseNotification}
+                />
+            )}
         </div >
     )
 }

@@ -1,56 +1,53 @@
 const validationForAdopt = (formData) => {
 
     let errors = {}
-
+    // Validate adress
     if (!formData.adress) {
         errors.adress = "Por favor, ingresa una dirección."
-        return errors
     }
 
+    // Validate occupation
     if (!formData.occupation) {
         errors.occupation = "Por favor, dinos a qué te de dedicas."
-        return errors
     }
 
+    // Validate idCard
     if (!formData.idCard) {
         errors.idCard = "Necesitas mostrar tu identificación para proceder."
-        return errors
     }
 
+    // Validate totalHabitants
     if(!formData.totalHabitants) {
         errors.totalHabitants = "No puedes dejar este campo vacío."
-        return errors
     }
 
+    // Validate hasKids
     if(!formData.hasKids === null) {
         errors.hasKids = "No puedes dejar este campo vacío."
-        return errors
     }
-
+    // Validate space
     if(!formData.space) {
         errors.space = "Necesitamos saber si el tamaño de la vivienda se adecúa al cuidado de la mascota."
-        return errors
     }
 
-    
+    // Validate hasPets
     if(!formData.hasPets === null) {
         errors.hasPets = "No puedes dejar este campo vacío."
-        return errors
     }
 
+    // Validate timeAvailable
     if(!formData.timeAvailable) {
         errors.timeAvailable = "Necesitamos saber el tiempo disponible para el cuidado correcto de la mascota."
-        return errors
     }
 
+    // Validate addedCondition
     if(!formData.addedCondition === null) {
         errors.addedCondition = "No puedes dejar este campo vacío."
-        return errors
     }
 
+    // Validate clauses
     if(!formData.clauses) {
         errors.clauses = "Debes aceptar las cláusulas para poder enviar la solicitud."
-        return errors
     }
 
 
