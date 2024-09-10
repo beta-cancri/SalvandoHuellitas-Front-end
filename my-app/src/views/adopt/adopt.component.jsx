@@ -3,6 +3,7 @@ import './adopt.styles.css';
 import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
+import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
 const Adopt = () => {
 
@@ -12,7 +13,7 @@ const Adopt = () => {
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
-        idCard: '',
+       // idCard: '',
         totalHabitants: 1,
         hasKids: null,
         hasPets: null,
@@ -23,6 +24,8 @@ const Adopt = () => {
     })
 
     const [errors, setErrors] = useState({});
+    const [uploading, setUploading] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
 
     // ? al montar el componente, se obtiene el usuario del localStorage
     useEffect(() => {
@@ -62,6 +65,7 @@ const Adopt = () => {
         const validateErrors = validationForAdopt(requestData);
         setErrors(validateErrors);
         if (Object.keys(validateErrors).length === 0) {
+            setUploading(true);
             try {
                 if (user) {
                     let token = localStorage.getItem("jwt");
@@ -83,7 +87,7 @@ const Adopt = () => {
                     setRequestData({
                         adress: '',
                         occupation: '',
-                        idCard: '',
+                       // idCard: '',
                         totalHabitants: 1,
                         hasKids: false,
                         hasPets: false,
@@ -101,16 +105,18 @@ const Adopt = () => {
             };
         };
     };
-
+    const handleCloseNotification = () => {
+        setShowNotification(false);
+    };
     return (
         <div className='full-screen-container-adopt'>
 
             <div className='adopt-container'>
-                <h2 className='adopt-h2'>A continuación, le pedimos por favor que complete el siguiente formulario para adoptar una mascota.</h2>
+                <h2 className='adopt-h2'> Formulario de Adopción</h2>
                 <form onSubmit={handleSubmit} className='adopt-form'>
-                    <h3>PARTE 1: Datos Personales</h3>
+                   {/* <h3>PARTE 1: Datos Personales</h3> */}
 
-                    <h5>Información del contacto</h5>
+                    <h5>🐾 Información de contacto</h5>
 
                     Dirección
                     <input type="text"
@@ -138,7 +144,7 @@ const Adopt = () => {
                             <div className="error-arrow"></div>
                         </div>
                     )}
-                    Muéstranos tu identificación
+                    {/*Muéstranos tu identificación
                     <input type="text"
                         name='idCard'
                         value={requestData.idCard}
@@ -150,20 +156,20 @@ const Adopt = () => {
                             <p className="error-text">{errors.idCard}</p>
                             <div className="error-arrow"></div>
                         </div>
-                    )}
-                    <h5>Condiciones de vivienda</h5>
+                    )}*/}
+                    <h5>🐾 Condiciones de vivienda</h5>
                     ¿Cuántas personas viven contigo?
                     <input type="number"
                         name='totalHabitants'
                         min="1"
                         value={requestData.totalHabitants}
                         onChange={handleChange}
-                    />
+                    /> <br />
                     {errors.totalHabitants && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.totalHabitants}</p>
                             <div className="error-arrow"></div>
-                        </div>
+                        </div>  
                     )}
 
                     <div className="radio-group">
@@ -196,7 +202,7 @@ const Adopt = () => {
                                 <div className="error-arrow"></div>
                             </div>
                         )}
-                    </div>
+                    </div> <br />
                     ¿Cuánto espacio hay?
                     <select
                         name="space"
@@ -207,12 +213,12 @@ const Adopt = () => {
                         <option value="small">Poco</option>
                         <option value="medium">Medio</option>
                         <option value="large">Mucho</option>
-                    </select>
+                    </select>  <br />
                     {errors.space && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.space}</p>
                             <div className="error-arrow"></div>
-                        </div>
+                        </div> 
                     )}
                     <div className="radio-group">
                         <p>¿Tienes otras mascotas a tu cuidado actualmente?</p> <br />
@@ -244,21 +250,21 @@ const Adopt = () => {
                                 <div className="error-arrow"></div>
                             </div>
                         )}
-                    </div>
+                    </div> <br />
 
 
                     ¿Cuánto tiempo tienes al día para dedicar al cuidado de tu/s mascota/s?
                     <select
-                        name="timeAvailable"
-                        value={requestData.timeAvailable}
-                        onChange={handleChange}
-                    >
-                        <option value="">Selecciona una opción</option>
-                        <option value="0">Casi no tengo tiempo.</option>
-                        <option value="-1">Menos de una hora.</option>
-                        <option value="1">Una hora.</option>
-                        <option value="+1">Más de una hora.</option>
-                    </select>
+    name="timeAvailable"
+    value={requestData.timeAvailable}
+    onChange={handleChange}
+>
+    <option value="">Selecciona una opción</option>
+    <option value="1">Casi no tengo tiempo (hasta 1 hora al día)</option>
+    <option value="2">Algo de tiempo (1-4 horas al día)</option>
+    <option value="3">Medio tiempo (4-8 horas al día)</option>
+    <option value="4">Tengo tiempo (más de 8 horas al día)</option>
+</select> <br />
                     {errors.timeAvailable && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.timeAvailable}</p>
@@ -267,7 +273,7 @@ const Adopt = () => {
                     )}
 
                     <div className="radio-group">
-                        <p>¿Adoptarías a una mascota con condiciones especiales?</p>
+                        <p>¿Adoptarías a una mascota con condiciones especiales?</p> <br />
                         <div className='radio-group-container'>
                             <label>
                                 <input
@@ -299,8 +305,8 @@ const Adopt = () => {
                     </div>
 
 
-                    <h3>PARTE 2: Cláusulas</h3>
-                        <p>Por favor, antes de enviar tu solicitud, te pediremos que aceptes las siguientes cláusulas</p>
+                    <h3>Cláusulas</h3>
+                       
                         <ul>
                             <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
                             <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
@@ -325,17 +331,25 @@ const Adopt = () => {
                         </div>
                     )}
                     <div className='button-container'>
-                        <button type="submit" className='button-adopt'>Enviar</button>
+                    <button type="submit" className='button' disabled={uploading}>Enviar</button>
 
                         <Link to="/home">
-                            <button className='button-adopt'>Volver</button>
+                            <button className='button'>Volver</button>
                         </Link>
                     </div>
 
                 </form>
             </div >
+            {showNotification && (
+                <Notification
+                    message="¡Gracias por enviar tu solicitud! 🐾"
+                    onClose={handleCloseNotification}
+                />
+            )}
         </div >
     )
 }
 
 export default Adopt
+
+//original de NADIA

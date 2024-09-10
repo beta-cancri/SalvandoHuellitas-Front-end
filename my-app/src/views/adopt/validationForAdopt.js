@@ -12,10 +12,10 @@ const validationForAdopt = (formData) => {
         return errors
     }
 
-    if (!formData.idCard) {
-        errors.idCard = "Necesitas mostrar tu identificación para proceder."
-        return errors
-    }
+   // if (!formData.idCard) {
+     //   errors.idCard = "Necesitas mostrar tu identificación para proceder."
+       // return errors
+    //}
 
     if(!formData.totalHabitants) {
         errors.totalHabitants = "No puedes dejar este campo vacío."
