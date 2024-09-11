@@ -10,10 +10,13 @@ import store from './redux/store';
 import { BrowserRouter as Router } from 'react-router-dom'; // Importa BrowserRouter
 import axios from 'axios';
 
-let backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'
+// Verificar si estamos en desarrollo o producción
+let backendBaseUrl = '';
 
-if(!backendBaseUrl){
-    backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'
+if (process.env.NODE_ENV === 'development') {
+    backendBaseUrl = 'http://localhost:3001'; // Apunta al backend local
+} else {
+    backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'; // Apunta al backend en producción
 }
 
 axios.defaults.baseURL = backendBaseUrl;

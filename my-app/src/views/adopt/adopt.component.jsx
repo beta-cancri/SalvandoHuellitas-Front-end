@@ -260,10 +260,10 @@ const Adopt = () => {
     onChange={handleChange}
 >
     <option value="">Selecciona una opción</option>
-    <option value="1">Casi no tengo tiempo (hasta 1 hora al día)</option>
-    <option value="2">Algo de tiempo (1-4 horas al día)</option>
-    <option value="3">Medio tiempo (4-8 horas al día)</option>
-    <option value="4">Tengo tiempo (más de 8 horas al día)</option>
+    <option value="1">Medio tiempo (4-8 horas al día)</option>
+    <option value="0">Casi no tengo tiempo (hasta 1 hora al día)</option>
+    <option value="-1">Algo de tiempo (1-4 horas al día)</option>
+    <option value="+1">Tengo mucho tiempo (más de 8 horas al día)</option>
 </select> <br />
                     {errors.timeAvailable && (
                         <div className="error-tooltip">
