@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest, /*fetchPets*/ } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate  } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
+import axios from 'axios'; 
+
 const Adopt = () => {
 
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
+    const navigate = useNavigate(); // Inicializa useNavigate para redirigir
     const { id } = useParams();
+    const [suggestedPets, setSuggestedPets] = useState([]);  // Estado para guardar las mascotas sugeridas
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
@@ -27,11 +31,11 @@ const Adopt = () => {
     const [uploading, setUploading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
 
-    // ? al montar el componente, se obtiene el usuario del localStorage
+    //  al montar el componente, se obtiene el usuario del localStorage
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser)); // ? se guarda el user en el estado
+            setUser(JSON.parse(storedUser)); // se guarda el user en el estado
         }
     }, []);
 
@@ -40,6 +44,10 @@ const Adopt = () => {
             dispatch(fetchPets(requestData));
         }
     },[id_pet, requestData]) //! esto posiblemente se use luego, no descomentar aún*/
+    
+    
+    
+    // Manejador de cambios en los inputs del formulario
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target
         if (type === 'checkbox') {
@@ -60,6 +68,7 @@ const Adopt = () => {
         }
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const validateErrors = validationForAdopt(requestData);
@@ -69,21 +78,32 @@ const Adopt = () => {
             try {
                 if (user) {
                     let token = localStorage.getItem("jwt");
-                    //? se configuran los headers con el token del usuario
+                    // se configuran los headers con el token del usuario
                     const headers = {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     }
 
-                    //? se preparan los datos para la petición POST
-                    const requestDataWithUser = {
-                        ...requestData,
-                        id_pet: id
-                    }
+                    // Si no hay mascota seleccionada, sugerimos mascotas
+                    if (!id) {
+                        const response = await axios.post("/pets/suggest", requestData, { headers });
+                        setSuggestedPets(response.data);  // Mostrar mascotas sugeridas
+                        
+                        // Redirigir a Home con las mascotas sugeridas
+                        navigate('/home', { state: { suggestedPets: response.data } });
 
-                    //?se envía la solicitud vía Redux
+                    } else {
+                        // Si hay mascota seleccionada, enviamos la solicitud de adopción
+                        const requestDataWithUser = {
+                            ...requestData,
+                            id_pet: id
+                        };
+
+
+                    //se envía la solicitud vía Redux
                     dispatch(createRequest(requestDataWithUser, headers));
                     alert('¡Gracias por enviarnos tu solicitud!');
+
                     setRequestData({
                         adress: '',
                         occupation: '',
@@ -96,6 +116,7 @@ const Adopt = () => {
                         addedCondition: false,
                         clauses: false
                     })
+                }
 
                 } else {
                     alert('Por favor, inicia sesión para poder adoptar una mascota');
@@ -105,6 +126,11 @@ const Adopt = () => {
             };
         };
     };
+
+
+      
+
+
     const handleCloseNotification = () => {
         setShowNotification(false);
     };
@@ -144,19 +170,7 @@ const Adopt = () => {
                             <div className="error-arrow"></div>
                         </div>
                     )}
-                    {/*Muéstranos tu identificación
-                    <input type="text"
-                        name='idCard'
-                        value={requestData.idCard}
-                        onChange={handleChange}
-                        placeholder='Coloca aqui tu identificación'
-                    />
-                    {errors.idCard && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.idCard}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}*/}
+                   
                     <h5>🐾 Condiciones de vivienda</h5>
                     ¿Cuántas personas viven contigo?
                     <input type="number"
@@ -255,16 +269,16 @@ const Adopt = () => {
 
                     ¿Cuánto tiempo tienes al día para dedicar al cuidado de tu/s mascota/s?
                     <select
-    name="timeAvailable"
-    value={requestData.timeAvailable}
-    onChange={handleChange}
->
-    <option value="">Selecciona una opción</option>
-    <option value="1">Casi no tengo tiempo (hasta 1 hora al día)</option>
-    <option value="2">Algo de tiempo (1-4 horas al día)</option>
-    <option value="3">Medio tiempo (4-8 horas al día)</option>
-    <option value="4">Tengo tiempo (más de 8 horas al día)</option>
-</select> <br />
+                        name="timeAvailable"
+                        value={requestData.timeAvailable}
+                        onChange={handleChange}
+                    >
+                        <option value="">Selecciona una opción</option>
+                        <option value="1">Medio tiempo (4-8 horas al día)</option>
+                        <option value="0">Casi no tengo tiempo (hasta 1 hora al día)</option>
+                        <option value="-1">Algo de tiempo (1-4 horas al día)</option>
+                        <option value="+1">Tengo mucho tiempo (más de 8 horas al día)</option>
+                    </select> <br />
                     {errors.timeAvailable && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.timeAvailable}</p>
@@ -352,4 +366,3 @@ const Adopt = () => {
 
 export default Adopt
 
-//original de NADIA
