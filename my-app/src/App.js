@@ -13,8 +13,8 @@ import GoogleCallback from './components/google/GoogleCallback';
 import Adopt from './views/adopt/adopt.component';
 
 import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Import the AdminDashboard component
+import UserDashboard from './views/user/dashboard/dashboard.component'; // Import the UserDashboard component
 import './App.css';
-
 
 const App = () => {
   const location = useLocation();
@@ -42,7 +42,7 @@ const App = () => {
         <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
 
         <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
-
+        <Route path="/user/dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
       </Routes>
     </div>
   );

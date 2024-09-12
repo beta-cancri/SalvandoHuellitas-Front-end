@@ -6,23 +6,24 @@ import './manageuser.styles.css';
 const ManageUser = ({ status }) => {
   const dispatch = useDispatch();
   const { users, usersCurrentPage, usersTotalPages } = useSelector((state) => state);
+  const sortCriteria = 'isActive';  // Sort by status (you can add other sorting criteria like name)
 
-  // Fetch users
+  // Fetch users with sorting and status filter
   useEffect(() => {
-    console.log("Fetching users for page:", usersCurrentPage);
-    dispatch(fetchUsers(usersCurrentPage, status));  // Pass the current status when fetching users
-  }, [dispatch, usersCurrentPage, status]);
+    console.log("Fetching users with sorting...");
+    dispatch(fetchUsers(1, status));  // Always fetch from the first page
+  }, [dispatch, status, sortCriteria]);  // Add sortCriteria to the dependency array
 
   // Handle status change
   const handleToggleStatus = (userId, currentStatus) => {
-    const newStatus = currentStatus === true ? false : true;
+    const newStatus = currentStatus ? false : true;
     const confirmationMessage = `¿Cambiar el estado del usuario a ${newStatus ? 'Activo' : 'Inactivo'}?`;
 
     if (window.confirm(confirmationMessage)) {
       dispatch(changeUserStatus(userId, newStatus))
         .then(() => {
           // Refetch users after status change
-          dispatch(fetchUsers(usersCurrentPage, status));  // Ensure status is passed when re-fetching
+          dispatch(fetchUsers(1, status));  // Ensure status is passed and we go back to page 1
         })
         .catch((error) => {
           console.error('Error changing user status:', error);
@@ -40,7 +41,6 @@ const ManageUser = ({ status }) => {
       <div className="manage-users-header">
         <h2>Manejo de Usuarios</h2>
       </div>
-
       {users && users.length > 0 ? (
         <div className="users-container">
           <ul className="users-grid">
