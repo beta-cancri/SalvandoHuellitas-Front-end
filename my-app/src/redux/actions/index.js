@@ -11,6 +11,8 @@ export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const FETCH_REQUESTS_SUCCESS = 'FETCH_REQUESTS_SUCCESS';
 export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 export const CHANGE_USER_STATUS = 'CHANGE_USER_STATUS';
+export const FETCH_USER_DETAIL_SUCCESS = 'FETCH_USER_DETAIL_SUCCESS';
+export const UPDATE_USER_PROFILE_SUCCESS = 'UPDATE_USER_PROFILE_SUCCESS';
 
 // Fetch all pets with optional filters and pagination
 export const fetchPets = (filters = {}, page = 1, isHome = false) => async (dispatch) => {
@@ -240,3 +242,63 @@ export const createRequest = (request, headers) => async (dispatch) => {
     console.error('Error creating request:', error.message);
   }
 };
+
+// Fetch user by ID
+export const fetchUserDetail = (userId) => async (dispatch) => {
+  try {
+    console.log(`Fetching User detail for ID: ${userId}`);
+    
+    const token = localStorage.getItem('jwt');
+    const response = await axios.get(`/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include JWT token for authorization
+      },
+    });
+    
+    console.log('Fetched User detail:', response.data);
+    dispatch({ type: FETCH_USER_DETAIL_SUCCESS, payload: response.data });
+  } catch (error) {
+    console.error('Error fetching user detail:', error.message);
+  }
+};
+
+
+// Update profile
+export const updateUserProfile = (formData) => async (dispatch) => {
+  try {
+    // Get the token from local storage
+    const token = localStorage.getItem('jwt');
+
+    // Ensure the token exists
+    if (!token) {
+      throw new Error("Token not found. User is not authenticated.");
+    }
+
+    // Log the token to check if it's correct
+    console.log('Token:', token);
+
+    // Log form data (for debugging purposes, check structure)
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
+
+    // Make the PATCH request with the token in the headers
+    const response = await axios.patch('http://localhost:3001/users/profile', formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // Include JWT token
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log('Updated User profile:', response.data);
+    dispatch({ type: 'UPDATE_USER_PROFILE_SUCCESS', payload: response.data });
+  } catch (error) {
+    console.error('Error updating user profile:', error.message);
+    alert("Error updating profile: " + error.message);
+  }
+};
+
+
+
+
+

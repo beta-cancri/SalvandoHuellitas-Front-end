@@ -6,11 +6,13 @@ import './managepets.styles.css';
 const ManagePets = ({ status }) => {
   const dispatch = useDispatch();
   const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
+  const sortCriteria = 'status';  // Sort by status (you can add other sorting criteria like name)
 
-  // Fetch pets with status filter
+  // Fetch pets with sorting and status filter
   useEffect(() => {
-    dispatch(fetchPets({ status }, petsCurrentPage, false));
-  }, [dispatch, status, petsCurrentPage]);
+    console.log("Fetching pets with sorting...");
+    dispatch(fetchPets({ status, sort: sortCriteria }, 1, false));  // Always reset to page 1 when status or sort changes
+  }, [dispatch, status, sortCriteria]);  // Remove petsCurrentPage from dependency array
 
   // Handle status change
   const handleToggleStatus = (petId, currentStatus) => {
@@ -21,7 +23,7 @@ const ManagePets = ({ status }) => {
       dispatch(changePetStatus(petId, newStatus))
         .then(() => {
           // Refetch pets after status change
-          dispatch(fetchPets({ status }, petsCurrentPage, false));
+          dispatch(fetchPets({ status, sort: sortCriteria }, 1, false));  // Ensure we go back to page 1
         })
         .catch((error) => {
           console.error('Error changing status:', error);
@@ -31,7 +33,7 @@ const ManagePets = ({ status }) => {
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ status }, pageNumber, false));
+    dispatch(fetchPets({ status, sort: sortCriteria }, pageNumber, false));
   };
 
   return (

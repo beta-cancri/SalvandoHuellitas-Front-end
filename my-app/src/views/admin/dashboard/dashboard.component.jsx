@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom';
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
@@ -10,9 +10,10 @@ import './dashboard.styles.css';
 
 const AdminDashboard = () => {
   const [activeSection, setActiveSection] = useState(null);
-  const [status, setStatus] = useState(''); // This will handle both pets and users status
+  const [status, setStatus] = useState('');
+  const [initialFetchDone, setInitialFetchDone] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
+  const navigate = useNavigate();
 
   // Handle section change
   const handleSectionChange = (section) => {
@@ -34,12 +35,13 @@ const AdminDashboard = () => {
     }
   };
 
-  // Fetch pets whenever the status changes and the pets section is active
+  // Fetch pets or users depending on the active section and only if the status changes
   useEffect(() => {
-    if (activeSection === 'pets') {
-      dispatch(fetchPets({ status }, 1, false)); // Ensure reset to page 1
+    if (!initialFetchDone && activeSection === 'pets') {
+      dispatch(fetchPets({ status }, 1, false)); // Fetch pets once on section load
+      setInitialFetchDone(true); // Set initial fetch done to avoid redundant fetch
     }
-  }, [dispatch, status, activeSection]);
+  }, [dispatch, status, activeSection, initialFetchDone]);
 
   // Fetch users whenever the status changes and the users section is active
   useEffect(() => {
