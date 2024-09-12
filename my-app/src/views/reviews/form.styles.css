@@ -166,3 +166,12 @@
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
   outline: none;
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 2px; /* Reducir la separación entre el input y el mensaje de error */
+  margin-bottom: 0; /* Evitar margen extra debajo */
+  position: relative;
+  top: -5px; /* Ajustar más cerca del input */
+}

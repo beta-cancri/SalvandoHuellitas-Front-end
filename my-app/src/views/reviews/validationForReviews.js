@@ -28,23 +28,26 @@
 const validate = (formData) => {
   let errors = {};
 
-  if (!formData || !formData.fullName || !formData.fullName.trim()) {
-    errors.fullName = "Por favor, ingrese su nombre completo";
-    return errors;
-  } else if (!/^[a-zA-Z\s]+$/.test(formData.fullName)) {
-    errors.fullName =
-      "Su nombre no debe contener números o caracteres especiales";
-    return errors;
+  // Validación para el nombre (solo letras y espacios)
+  if (!formData.userName || !formData.userName.trim()) {
+    errors.userName = "Por favor, ingresa tu nombre.";
+  } else if (!/^[a-zA-Z\s]+$/.test(formData.userName)) {
+    errors.userName = "El nombre solo debe contener letras.";
   }
 
-  if (!formData.date) {
-    errors.date = "Por favor, ingrese la fecha de la reseña";
-    return errors;
+  // Validación para el texto de la reseña
+  if (!formData.reviewText || !formData.reviewText.trim()) {
+    errors.reviewText = "Por favor, escribe un comentario.";
   }
 
-  if (!formData.occupation) {
-    errors.occupation = "Por favor, dinos a qué te dedicas";
-    return errors;
+  // Validación para la calificación
+  if (!formData.rating || formData.rating === "") {
+    errors.rating = "Por favor, selecciona una calificación.";
+  }
+
+  // Validación para la fecha
+  if (!formData.date || formData.date === "") {
+    errors.date = "Por favor, ingresa la fecha.";
   }
 
   return errors;

@@ -123,39 +123,13 @@
 // export default About;
 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './about.styles.css';
-import LittleFootprintRating from '../reviews/littleFootprintRating';
-import formReviews from '../reviews/formReviews';
 
 const About = () => {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [expandedFAQs, setExpandedFAQs] = useState([]);
-  const [formData, setFormData] = useState({ name: '', photoUrl: '', text: '', rating: 0 });
-  const [error, setError] = useState({});
-  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
-
-  // Reseñas estáticas
-  useEffect(() => {
-    const fetchReviews = async () => {
-      setLoading(true);
-      setTimeout(() => {
-        setReviews([
-          { name: 'Juan Pérez', text: 'Excelente experiencia, altamente recomendado.', rating: 5, date: new Date() },
-          { name: 'Ana Gómez', text: 'Muy buen servicio y atención.', rating: 4, date: new Date() },
-          { name: 'Carlos López', text: 'La atención podría mejorar.', rating: 3, date: new Date() },
-          { name: 'Lucía Fernández', text: 'Un lugar maravilloso para adoptar mascotas.', rating: 5, date: new Date() }
-        ]);
-        setLoading(false);
-      }, 1000); // Simula un retraso en la carga de datos
-    };
-
-
-    fetchReviews();
-  }, []);
 
   const toggleFAQ = (index) => {
     setExpandedFAQs((prev) =>
@@ -163,41 +137,6 @@ const About = () => {
         ? prev.filter((i) => i !== index)
         : [...prev, index]
     );
-  };
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleRatingChange = (rating) => {
-    setFormData({
-      ...formData,
-      rating,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validar datos del formulario
-    if (!formData.name || !formData.photoUrl || !formData.text || formData.rating === 0) {
-      setError({ general: 'Todos los campos son requeridos.' });
-      return;
-    }
-
-    // Agregar nueva reseña al estado
-    const newReview = {
-      id_user: reviews.length + 1, // Simple incremento para ID, podrías usar un UUID o similar en una aplicación real
-      ...formData,
-      date: new Date(),
-    };
-
-    setReviews([...reviews, newReview]);
-    setFormData({ name: '', photoUrl: '', text: '', rating: 0 });
-    setError({});
-    alert('Testimonio agregado exitosamente');
   };
 
   return (
@@ -259,52 +198,8 @@ const About = () => {
           ))}
         </ul>
       </div>
-
-      <div className="reviews">
-        <h2>Mira lo que dicen sobre nosotros 🫣</h2>
-        {loading ? (
-          <p>Cargando reseñas...</p>
-        ) : reviews.length > 0 ? (
-          <div className="review-cards">
-            {reviews.map((review) => (
-              <div key={review.id_user} className="review-card">
-                <div className='review-item'>
-                  <div className='review-name'>
-                    <strong>Nombre:</strong>
-                    <span className='name-text'>{review.name}</span>
-                  </div>
-
-                  <div className='review-text'>
-                    <strong>Reseña:</strong>
-                    <span className='text-content'>{review.text}</span>
-                  </div>
-
-                  <div className='review-rating'>
-                    <strong>Calificación:</strong>
-                    <span className='rating-display'>
-                      <LittleFootprintRating rating={review.rating} setRating={() => { }} />
-                    </span>
-                    <span className='rating-note'></span>
-                  </div>
-
-                  <div className='review-date'>
-                    <strong>Fecha:</strong>
-                    <span className='date-text'>{new Date(review.date).toLocaleDateString()}</span>
-                  </div>
-                </div>
-
-              </div>
-            ))}
-          </div>
-        ) : null}
-
-        <div className="back-button-container">
-          <button className="button-review" onClick={() => navigate('/home')}>Inicio</button>
-          <button className="button-review " onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇  </button>
-        </div>
-      </div>
     </div>
   );
-}
-export default About;
+};
 
+export default About;
