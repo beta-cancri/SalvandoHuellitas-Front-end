@@ -40,6 +40,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 40px;
+  z-index: 1;
 }
 
 .contact-options {
@@ -51,7 +52,7 @@
   margin-top: 15px;
   color: #ffbd61;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-
+  
 }
 
 .contact-options-container {
@@ -183,8 +184,15 @@
 
 @media (max-width: 768px) {
   .contact-body-container{
-    flex-direction: column
+    flex-direction: column;
+    
   }
+  .intro {
+    position: relative;  /* Necesario para que el z-index funcione */
+    z-index: 1;  /* Menor que el menú para estar detrás */
+  }
+  
+  
   .contact-map iframe {
     width: 80vw;
   }

@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchPets } from '../../redux/actions';
 import './navbar.styles.css';
+import DonationInput from '../../components/donation/DonationInput'; 
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [user, setUser] = useState(null);
-  const [isMenuActive, setIsMenuActive] = useState(false); // Estado para el menú
+  const [isMenuActive, setIsMenuActive] = useState(false); 
+  const [showDonationInput, setShowDonationInput] = useState(false); 
   const dispatch = useDispatch();
   const location = useLocation();
+  const donationButtonRef = useRef(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -20,10 +23,8 @@ const Navbar = () => {
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
-      // Aquí puedes despachar una acción para obtener todos los resultados
       dispatch(fetchPets({ search: '' }));
     } else {
-      // Despachar la acción de búsqueda solo si searchQuery no está vacío
       dispatch(fetchPets({ search: searchQuery }));
     }
   }, [searchQuery, dispatch]);
@@ -43,7 +44,7 @@ const Navbar = () => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
     setUser(null);
-    window.location.href = '/login';  // Redirigir al login después de cerrar sesión
+    window.location.href = '/login';
   };
 
   const showSearch = location.pathname === '/home';
@@ -53,66 +54,81 @@ const Navbar = () => {
   };
 
   const handleMenuItemClick = () => {
-    setIsMenuActive(false); // Cerrar el menú cuando se hace clic en un enlace
+    setIsMenuActive(false);
+  };
+
+  const handleDonateClick = () => {
+    setShowDonationInput(!showDonationInput); // Alternar la visibilidad del input
+  };
+
+  const handleDonationInputClose = () => {
+    setShowDonationInput(false);
   };
 
   return (
-    <nav className="navbar">
-      <div className="navbar-container">
-        <div>
-          <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
-            Salvando Huellitas
-          </Link>
-        </div>
-        {showSearch && (
-          <div className="navbar-search">
-            <input
-              type="text"
-              className="navbar-search-input"
-              placeholder="Buscar raza ó nombre"
-              value={searchQuery}
-              onChange={handleSearchChange}
-            />
-            {/* Aquí puedes agregar un botón de búsqueda si lo deseas, pero no es necesario para la búsqueda en tiempo real */}
-          </div>
-        )}
-        <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
-          <div className="navbar-links">
-            <div>
-              <Link to="/about" className={location.pathname === '/about' ? 'active' : ''} onClick={handleMenuItemClick}>
-                Nosotros
-              </Link>
-            </div>
-
-            {/* SE COMENTARON EL CREATE Y REGISTER */}
-            {/*<Link to="/create" className={location.pathname === '/create' ? 'active' : ''} onClick={handleMenuItemClick}>
-              Crear 
-            </Link>*/}
-            {/* <div>
-            <Link to="/register" className={location.pathname === '/register' ? 'active' : ''} onClick={handleMenuItemClick}>
-              Registrate
+    <>
+      <nav className="navbar">
+        <div className="navbar-container">
+          <div>
+            <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
+              Salvando Huellitas
             </Link>
-            </div> */}
-            <div>
-              <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={handleMenuItemClick}>
-                Contacto
-              </Link>
-            </div>
           </div>
-          {user ? (
-            <div className="navbar-user-info">
-              <span>{user.name} {user.isAdmin ? (
-                <Link to="admin/dashboard">(Admin)</Link>
-              ) : null}</span>
-              <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
+          {showSearch && (
+            <div className="navbar-search">
+              <input
+                type="text"
+                className="navbar-search-input"
+                placeholder="Buscar raza ó nombre"
+                value={searchQuery}
+                onChange={handleSearchChange}
+              />
             </div>
-          ) : (
-            <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`} onClick={handleMenuItemClick}>Ingresar</Link>
           )}
+          <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
+            <button 
+               onClick={() => { 
+                handleDonateClick(); 
+                handleMenuItemClick(); 
+              }} 
+              className="donate-button"
+              ref={donationButtonRef}
+            >
+              Donar
+            </button>
+            <div className="navbar-links">
+              <div>
+                <Link to="/about" className={location.pathname === '/about' ? 'active' : ''} onClick={handleMenuItemClick}>
+                  Nosotros
+                </Link>
+              </div>
+              <div>
+                <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={handleMenuItemClick}>
+                  Contacto
+                </Link>
+              </div>
+            </div>
+            {user ? (
+              <div className="navbar-user-info">
+                <span>{user.name} {user.isAdmin ? (
+                  <Link to="admin/dashboard">(Admin)</Link>
+                ) : null}</span>
+                <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
+              </div>
+            ) : (
+              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`} onClick={handleMenuItemClick}>Ingresar</Link>
+            )}
+          </div>
+          <span className="menu-icon" onClick={toggleMenu}>☰</span>
         </div>
-        <span className="menu-icon" onClick={toggleMenu}>☰</span>
-      </div>
-    </nav>
+      </nav>
+      
+      {showDonationInput && (
+        <div className="donation-input-container">
+          <DonationInput onClose={handleDonationInputClose} />
+        </div>
+      )}
+    </>
   );
 };
 

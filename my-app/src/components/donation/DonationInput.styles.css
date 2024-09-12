@@ -1,0 +1,54 @@
+.donation-form-container {
+  position: relative;
+}
+
+.donation-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  color: #ffbd61;
+}
+
+.donation-form input {
+  padding: 6px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.donation-form .confirm-button {
+  background: none; /* Sin fondo */
+  color: #ffffff; 
+  border: none; /* Sin bordes */
+  padding: 0; /* Elimina el espaciado interno */
+  cursor: pointer;
+  font-size: 16px; /* Tamaño del texto */
+  text-decoration: underline; /* Subraya el texto */
+  margin: 5px; /* Espaciado entre botones */
+  font-family: 'Poppins', sans-serif; /* Fuente para los botones */
+}
+
+.donation-form .confirm-button:hover {
+  color: #ffbd61; /* Color de texto más oscuro al pasar el mouse */
+  text-decoration: none; /* Elimina el subrayado al pasar el mouse */
+}
+
+.donation-form .close-button {
+  background: none; /* Sin fondo */
+  color: #ffffff; /* Color del texto para el botón de cerrar */
+  border: none; /* Sin bordes */
+  padding: 0; /* Elimina el espaciado interno */
+  cursor: pointer;
+  font-size: 16px; /* Tamaño del texto */
+  text-decoration: none; /* Sin subrayado para el botón de cerrar */
+  margin: 5px; /* Espaciado entre botones */
+  font-family: 'Poppins', sans-serif; /* Fuente para los botones */
+}
+
+.donation-form .close-button:hover {
+  color: #ffbd61; /* Color del texto más oscuro al pasar el mouse */
+}
