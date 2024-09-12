@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate  } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
+
+import axios from 'axios'; 
+
+const Adopt = () => {
+
 
 const Adopt = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
+    const navigate = useNavigate(); // Inicializa useNavigate para redirigir
     const { id } = useParams();
+    const [suggestedPets, setSuggestedPets] = useState([]);  // Estado para guardar las mascotas sugeridas
     const [requestData, setRequestData] = useState({
         adress: '',
         occupation: '',
@@ -26,6 +33,7 @@ const Adopt = () => {
     const [uploading, setUploading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
 
+
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -41,6 +49,7 @@ const Adopt = () => {
         }));
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -52,18 +61,32 @@ const Adopt = () => {
             try {
                 if (user) {
                     let token = localStorage.getItem("jwt");
+
                     const headers = {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     };
 
-                    const requestDataWithUser = {
-                        ...requestData,
-                        id_pet: id
-                    };
+                    // Si no hay mascota seleccionada, sugerimos mascotas
+                    if (!id) {
+                        const response = await axios.post("/pets/suggest", requestData, { headers });
+                        setSuggestedPets(response.data);  // Mostrar mascotas sugeridas
+                        
+                        // Redirigir a Home con las mascotas sugeridas
+                        navigate('/home', { state: { suggestedPets: response.data } });
 
-                    await dispatch(createRequest(requestDataWithUser, headers));
-                    setShowNotification(true);
+                    } else {
+                        // Si hay mascota seleccionada, enviamos la solicitud de adopción
+                        const requestDataWithUser = {
+                            ...requestData,
+                            id_pet: id
+                        };
+
+
+                    //se envía la solicitud vía Redux
+                    dispatch(createRequest(requestDataWithUser, headers));
+                    alert('¡Gracias por enviarnos tu solicitud!');
+
 
                     setRequestData({
                         adress: '',
@@ -75,7 +98,10 @@ const Adopt = () => {
                         timeAvailable: '',
                         addedCondition: '',
                         clauses: false
-                    });
+
+                    })
+                }
+
 
                 } else {
                     setShowNotification(true);
@@ -87,6 +113,7 @@ const Adopt = () => {
             }
         }
     };
+
 
     const handleCloseNotification = () => {
         setShowNotification(false);
@@ -232,7 +259,9 @@ const Adopt = () => {
                         <option value="0">Casi no tengo tiempo (hasta 1 hora al día)</option>
                         <option value="-1">Algo de tiempo (1-4 horas al día)</option>
                         <option value="+1">Tengo mucho tiempo (más de 8 horas al día)</option>
-                    </select>
+
+                    </select> <br />
+
                     {errors.timeAvailable && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.timeAvailable}</p>
@@ -317,4 +346,3 @@ const Adopt = () => {
 
 export default Adopt;
 
-//original de NADIA

@@ -11,7 +11,7 @@ const Landing = () => {
         <p className="subtext">Salvando Huellitas</p>
         <div className="landing-buttons">
           <Link to="/donate" className="button-landing">Donar</Link>
-          <Link to="/home" className="button-landing">Adoptar</Link>
+          <Link to="/adopt" className="button-landing">Adoptar</Link>
         </div>
       </div>
     </div>
