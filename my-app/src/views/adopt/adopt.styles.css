@@ -70,33 +70,33 @@
 .adopt-form ul {
     font-size: 16px;
     text-align: justify;
-    list-style: none; /* Elimina los puntos predeterminados */
-    padding: 0; /* Elimina el padding predeterminado */
-    margin: 0; /* Elimina el margin predeterminado */
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
 }
 
 .adopt-form li {
-    position: relative; /* Necesario para posicionar el ícono */
-    padding-left: 10px; /* Espacio para el ícono y más espacio para el texto */
-    margin-bottom: 20px; /* Espacio entre cada cláusula */
-    background-color: #ffffff7c; /* Fondo blanco para cada ítem */
-    border-radius: 8px; /* Bordes redondeados en cada ítem */
-    padding: 15px; /* Espacio interno en cada ítem */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil en cada ítem */
-    border-left: 5px solid #4CAF50; /* Línea verde a la izquierda de cada cláusula */
-    line-height: 1.6; /* Altura de línea para mejorar la legibilidad */
+    position: relative;
+    padding-left: 10px; 
+    margin-bottom: 20px; 
+    background-color: #ffffff7c; 
+    border-radius: 8px; 
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+    border-left: 5px solid #4CAF50; 
+    line-height: 1.6; 
 }
 
 .adopt-form li::before {
-    content: '\f00c'; /* Ícono de verificación de Font Awesome */
-    font-family: 'Font Awesome 5 Free'; /* Fuente de Font Awesome */
-    font-weight: 900; /* Necesario para algunos íconos */
+    content: '\f00c'; /* iconic */
+    font-family: 'Font Awesome 5 Free'; 
+    font-weight: 900; 
     position: relative;
-    left: 1px; /* Ajusta la posición del ícono */
+    left: 1px; 
     top: 50%;
-    transform: translateY(-50%); /* Centra el ícono verticalmente */
-    color: #4CAF50; /* Color verde para el ícono */
-    font-size: 22px; /* Tamaño del ícono */
+    transform: translateY(-50%); 
+    color: #4CAF50; 
+    font-size: 22px;
 }
 
 .adopt-form h5 {

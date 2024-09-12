@@ -19,14 +19,14 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim() === '') {
-      // Aquí puedes despachar una acción para obtener todos los resultados
-      dispatch(fetchPets({ search: '' }));
-    } else {
-      // Despachar la acción de búsqueda solo si searchQuery no está vacío
-      dispatch(fetchPets({ search: searchQuery }));
+    if (location.pathname === '/home') { // Ensure we are only on /home
+      if (searchQuery.trim() === '') {
+        dispatch(fetchPets({ search: '' }));
+      } else {
+        dispatch(fetchPets({ search: searchQuery }));
+      }
     }
-  }, [searchQuery, dispatch]);
+  }, [searchQuery, dispatch, location.pathname]); // Ensure it only runs when necessary
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -73,7 +73,6 @@ const Navbar = () => {
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            {/* Aquí puedes agregar un botón de búsqueda si lo deseas, pero no es necesario para la búsqueda en tiempo real */}
           </div>
         )}
         <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
@@ -84,15 +83,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* SE COMENTARON EL CREATE Y REGISTER */}
-            {/*<Link to="/create" className={location.pathname === '/create' ? 'active' : ''} onClick={handleMenuItemClick}>
-              Crear 
-            </Link>*/}
-            {/* <div>
-            <Link to="/register" className={location.pathname === '/register' ? 'active' : ''} onClick={handleMenuItemClick}>
-              Registrate
-            </Link>
-            </div> */}
             <div>
               <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={handleMenuItemClick}>
                 Contacto
