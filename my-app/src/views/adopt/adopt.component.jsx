@@ -9,9 +9,6 @@ import validationForAdopt from './validationForAdopt';
 import axios from 'axios'; 
 
 const Adopt = () => {
-
-
-const Adopt = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
     const navigate = useNavigate(); // Inicializa useNavigate para redirigir

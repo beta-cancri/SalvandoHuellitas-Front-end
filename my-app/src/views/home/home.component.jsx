@@ -68,18 +68,6 @@ const Home = () => {
     }
   }, [dispatch, suggestedPets]);
 
-
-
-  const handleFilterChange = (key, value) => {
-    const filters = { species, energyLevel, size, [key]: value };
-    if (key === 'species') setSpecies(value);
-    if (key === 'energyLevel') setEnergyLevel(value);
-    if (key === 'size') setSize(value);
-
-    localStorage.setItem('filters', JSON.stringify({ ...filters, currentPage: currentPage || 1 }));
-    dispatch(fetchPets(filters, 1));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Validar datos del formulario
@@ -104,18 +92,6 @@ const Home = () => {
     setFormData({ name: '', photoUrl: '', text: '', rating: 0 });
     setError({});
     alert('Testimonio agregado exitosamente');
-  };
-
-  const handleResetFilters = () => {
-    setSpecies('');
-    setEnergyLevel('');
-    setSize('');
-    localStorage.removeItem('filters');
-    dispatch(fetchPets({}, 1));
-  };
-
-  const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size, status: "available" }, pageNumber));
   };
 
   const speciesOptions = [
@@ -260,7 +236,7 @@ const Home = () => {
               Siguiente
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <p>No hay mascotas disponibles</p>
       )}
