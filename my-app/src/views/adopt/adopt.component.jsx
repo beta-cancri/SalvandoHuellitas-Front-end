@@ -8,8 +8,6 @@ import validationForAdopt from './validationForAdopt';
 
 import axios from 'axios'; 
 
-const Adopt = () => {
-
 
 const Adopt = () => {
     const dispatch = useDispatch();
@@ -345,4 +343,3 @@ const Adopt = () => {
 }
 
 export default Adopt;
-

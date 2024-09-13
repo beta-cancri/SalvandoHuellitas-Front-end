@@ -4,6 +4,7 @@ import {
   FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS, CHANGE_USER_STATUS,
   FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS,
   FETCH_USER_DETAIL_SUCCESS, UPDATE_USER_PROFILE_SUCCESS,
+  CREATE_DONATION_SUCCESS, CREATE_DONATION_ERROR 
 } from '../actions';
 
 const initialState = {
@@ -17,6 +18,8 @@ const initialState = {
   petsTotalPages: 1,   // Separate totalPages for pets
   usersCurrentPage: 1,  // Separate currentPage for users
   usersTotalPages: 1,   // Separate totalPages for users
+  paymentLink: '', // Añadido para las donaciones
+  donationError: '', // Añadido para manejar errores de donación
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -100,9 +103,23 @@ const rootReducer = (state = initialState, action) => {
         requests: [...state.requests, action.payload],
       };
 
+ 
+
+//DONATION
+case CREATE_DONATION_SUCCESS:
+      return {
+        ...state,
+        paymentLink: action.payload,
+        donationError: '', // Clear error on success
+      };
+    case CREATE_DONATION_ERROR:
+      return {
+        ...state,
+        donationError: action.payload,
+      };
+
     default:
       return state;
   }
 };
-
 export default rootReducer;
