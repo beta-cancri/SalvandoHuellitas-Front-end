@@ -8,6 +8,7 @@ import validationForAdopt from './validationForAdopt';
 
 import axios from 'axios'; 
 
+
 const Adopt = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
@@ -342,4 +343,3 @@ const Adopt = () => {
 }
 
 export default Adopt;
-

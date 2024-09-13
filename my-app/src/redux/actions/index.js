@@ -12,6 +12,8 @@ export const CREATE_REQUEST_SUCCESS = 'CREATE_REQUEST_SUCCESS';
 export const CHANGE_USER_STATUS = 'CHANGE_USER_STATUS';
 export const FETCH_USER_DETAIL_SUCCESS = 'FETCH_USER_DETAIL_SUCCESS';
 export const UPDATE_USER_PROFILE_SUCCESS = 'UPDATE_USER_PROFILE_SUCCESS';
+export const CREATE_DONATION_SUCCESS = 'CREATE_DONATION_SUCCESS';
+export const CREATE_DONATION_ERROR = 'CREATE_DONATION_ERROR';
 
 // Fetch all pets with optional filters and pagination
 export const fetchPets = (filters = {}, page = 1, isHome = false) => async (dispatch) => {
@@ -299,7 +301,26 @@ export const updateUserProfile = (formData) => async (dispatch) => {
   }
 };
 
+//Donation 
+export const createDonation = (amount) => async (dispatch) => {
+  try {
+    const response = await fetch('http://localhost:3001/paymentLink/', {  // Asegúrate de usar la ruta correcta
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount }),
+    });
 
+    if (!response.ok) {
+      throw new Error(`Request failed with status code ${response.status}`);
+    }
 
+    const data = await response.json();
+    dispatch({ type: CREATE_DONATION_SUCCESS, payload: data.paymentLink });
+  } catch (error) {
+    dispatch({ type: CREATE_DONATION_ERROR, payload: error.message });
+  }
+};
 
 
