@@ -15,15 +15,16 @@
   background-repeat: no-repeat;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding-bottom: 70px;
+  padding: 0 20px;
   overflow: hidden; 
+  min-height: calc(100vh - 65px);
 }
-
 
 .contact-body-container {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 
 .contact-container > * {
@@ -38,7 +39,8 @@
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-top: 40px;
+  z-index: 1;
 }
 
 .contact-options {
@@ -48,9 +50,9 @@
 .intro-contact-title {
   font-size: 3em;
   margin-top: 15px;
-  color: #f4a662;
+  color: #ffbd61;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-
+  
 }
 
 .contact-options-container {
@@ -145,7 +147,7 @@
 }
 
 .contact-social a:hover {
-  color: #f46411;
+  color: #ffbd61;
 }
 
 .contact-map {
@@ -178,3 +180,20 @@
   margin: 0;
   font-size: 1.2em;
 }
+
+
+@media (max-width: 768px) {
+  .contact-body-container{
+    flex-direction: column;
+    
+  }
+  .intro {
+    position: relative;  /* Necesario para que el z-index funcione */
+    z-index: 1;  /* Menor que el menú para estar detrás */
+  }
+  
+  
+  .contact-map iframe {
+    width: 80vw;
+  }
+  };
