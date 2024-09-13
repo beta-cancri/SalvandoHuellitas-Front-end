@@ -1,7 +1,7 @@
 /* Contenedor a pantalla completa */
 .full-screen-container-register {
   width: 100%;
-  height: calc(100vh - 55px);
+  min-height: calc(100vh - 65px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,19 +46,6 @@
   align-items: center;
   box-sizing: border-box;
   margin: auto;
-  max-height: 90vh;
-  overflow-y: auto;
-  /* Permite desplazamiento si el contenido se desborda */
-  scrollbar-width: none;
-  /* Oculta la barra de desplazamiento en Firefox */
-  -ms-overflow-style: none;
-  /* Oculta la barra de desplazamiento en IE y Edge */
-  margin-block-start: 3%;
-}
-
-/* Ocultar barra de desplazamiento en Webkit (Chrome, Safari) */
-.register-container::-webkit-scrollbar {
-  display: none;
 }
 
 /* Encabezado del formulario */

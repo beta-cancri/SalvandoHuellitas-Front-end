@@ -4,11 +4,18 @@
   box-sizing: border-box;
 }
 
+.input-group{
+  display: flex;
+  flex-direction: column;
+}
+
+
 /* Navbar Styles */
 .navbar {
   background-color: #0000007d; /* Fondo negro para el navbar */
   padding: 10px 15px;
   min-height: 65px;
+position: relative;
 }
 
 .navbar-container {
@@ -69,7 +76,11 @@
   margin-left: 5px;  
   border: 1px solid #ffffff;
 }
-
+.navbar-user-info{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 .navbar-search-button:hover {
   background-color: #cac8c5;  
   color: #131212; 
@@ -125,7 +136,6 @@
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
-  margin-left: 20px; /* Ajusta el margen aquí para aumentar el espacio */
   font-size: 0.8em;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
@@ -147,17 +157,56 @@
   display: flex;
   align-items: center; /* Alinea los items al centro verticalmente */
 }
+.donate-button {
+  background: none; 
+  color: #ffffff;
+  border: none; 
+  padding: 10px 20px; 
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500; 
+  font-size: 1em; 
+  transition: color 0.3s ease; 
+  text-decoration: underline;
+}
+
+.donate-button:hover {
+  color: #ffbd61; 
+}
+
+
+
+
+/* Contenedor del input de donación */
+.donation-input-container {
+  top: 65px; /* Ajusta según la altura del navbar más el espacio deseado */
+  background-color: #333333;
+  padding: 2px;
+  width: 25%;
+  min-width: 250px;
+  right: 10%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 4;
+  position: absolute; 
+}
+
 
 @media (max-width: 768px) {
   .menu-icon {
     display: flex;
     cursor: pointer; /* Asegúrate de que el cursor cambie para el icono de menú */
+    
+  }
+
+  .navbar-user-info{
+    flex-direction: column;
   }
 
   .navbar-links {
     display: flex;
     flex-direction: column; /* Pone los enlaces en columna */
     gap: 10px; /* Elimina el padding para el menú desplegable */
+    
   }
 
   .navbar-options {
@@ -176,7 +225,10 @@
   
   .navbar-options.active {
     display: flex; /* Muestra el menú cuando está activo */
-    z-index: 3;
+    /* Asegúrate de que el z-index funcione */
+    z-index: 5; /* Número más bajo que el título "Contacto" */
+   
+   
   }
 
   .navbar-container {
@@ -193,7 +245,9 @@
     display: none;
   }
 
-  
+  .logout-button{
+    margin-bottom: 12px;
+  }
 
 }
 
@@ -201,5 +255,6 @@
   .navbar-logo {
     font-size: 100%;
   }
+
 }
 
