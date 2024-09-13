@@ -2,7 +2,8 @@ import {
   FETCH_PETS_SUCCESS, FETCH_PET_DETAIL_SUCCESS, CREATE_PET_SUCCESS, CHANGE_PET_STATUS,
   FETCH_REVIEWS_SUCCESS, CREATE_REVIEW_SUCCESS,
   FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS, CHANGE_USER_STATUS,
-  FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS
+  FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS,
+  FETCH_USER_DETAIL_SUCCESS, UPDATE_USER_PROFILE_SUCCESS,
 } from '../actions';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   reviews: [],
   users: [],
   requests: [],
+  userDetail: {}, // Keep user detail in the state
   petsCurrentPage: 1,  // Separate currentPage for pets
   petsTotalPages: 1,   // Separate totalPages for pets
   usersCurrentPage: 1,  // Separate currentPage for users
@@ -59,7 +61,6 @@ const rootReducer = (state = initialState, action) => {
 
     // Users-related actions
     case FETCH_USERS_SUCCESS:
-      console.log('Reducer updating users state with payload:', action.payload);
       return {
         ...state,
         users: action.payload.results,
@@ -75,6 +76,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         users: state.users.filter(user => user.id !== action.payload),
+      };
+    case FETCH_USER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+    case UPDATE_USER_PROFILE_SUCCESS:
+      return {
+        ...state,
+        userDetail: action.payload, // Update user details after successful profile update
       };
 
     // Requests-related actions

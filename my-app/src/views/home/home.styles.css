@@ -12,14 +12,14 @@
 }
 
 .home-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);  
-  z-index: -1; 
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .home-container h1 {
@@ -27,11 +27,11 @@
   color: #fffafa;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin-top: 50px;
-  margin-bottom: 40px; 
-  text-align: center; 
-  text-transform: uppercase; 
-  letter-spacing: 2px; 
-  font-weight: bold; 
+  margin-bottom: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
 }
 
 .filter-controls {
@@ -44,8 +44,8 @@
 
 .filter-controls label {
   margin-right: 20px;
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500; 
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
 
 .reset-button:hover {
@@ -67,9 +67,17 @@
   text-decoration: underline;
   transition: color 0.3s ease, text-decoration-color 0.3s ease; 
   margin: 0;
+
   margin-top: 16px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
+
+.reset-button:hover {
+  color: #ffffff;
+  background-color: rgba(211, 47, 47, 0.5);
+}
+
+
 
 
 
@@ -81,45 +89,110 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .pagination button {
-  background-color: #333; 
-  color: #fff; 
-  border: 1px solid #444; 
-  border-radius: 50px; 
-  padding: 8px 16px; 
-  margin: 0 5px; 
-  font-size: 14px; 
-  cursor: pointer; 
-  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; 
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 50px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .pagination button:hover {
-  background-color: #555; 
-  transform: translateY(-2px); 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .pagination button:disabled {
-  background-color: #222; 
-  color: #777; 
-  border: 1px solid #333; 
+  background-color: #222;
+  color: #777;
+  border: 1px solid #333;
   cursor: not-allowed;
 }
 
 .pagination span {
-  color: #fff; 
-  font-size: 14px; 
-  margin: 0 10px; 
-  font-weight: 500; 
+  color: #fff;
+  font-size: 14px;
+  margin: 0 10px;
+  font-weight: 500;
 }
 
 /*  React Select */
 .custom-select-container {
-  width: 170px; 
-  margin: 0 10px; 
+  width: 170px;
+  margin: 0 10px;
+}
+
+
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 100px;
+  padding: 10px;
+}
+
+.reviews h2 {
+  margin: 20px;
+  margin-top: 50px;
+  /* padding: 20px; */
+  color: #fffafa;
+  font-family: "Poppins", sans-serif;
+  text-shadow: none;
+}
+
+.review-card {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid #515151;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  grid-template-rows: auto auto auto 1fr; /*Cada fila con altura automática excepto la última*/
+  gap: 10px; /*Espacio entre cada fila*/
+  justify-items: center; /* Centra horizontalmente los contenidos */
+}
+
+.review-name,
+.review-text,
+.review-rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /*Alinea todo en el centro horizontalmente */
+  width: 100%; /* Ocupa todo el ancho */
+}
+
+.name-text,
+.text-content,
+.rating-display,
+.date-text {
+  word-break: break-word;
+  text-align: center;
+}
+
+.button-review {
+  background-color: transparent;
+  color: white;
+  margin-right: 8px;
+  margin-top: 20px;
+  padding: 8px;
+  font-size: 1.3em;
+  cursor: pointer;
+  border-radius: 15px;
+  border: 3px solid #bdbdbd;
+  font-family: "Poppins", sans-serif; /* Fuente aplicada aquí */
+}
+
+.button-review:hover {
+  background-color: #ffad39c6;
+  color: #ffffff;
+  transform: scale(1.05);
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 
@@ -129,3 +202,4 @@
   };
   
 };
+

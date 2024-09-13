@@ -6,53 +6,54 @@
 }
 
 .about-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://i.imgur.com/v1io1jV.jpeg'); /* Imagen de fondo */
+  background-image: url("https://i.imgur.com/v1io1jV.jpeg"); /* Imagen de fondo */
   background-size: cover;
   background-position: center;
-  z-index: -1; 
+  z-index: -1;
 }
 
 .about-container::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: -1; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .intro-aboutus {
-  position: relative;  
+  position: relative;
   margin-bottom: 50px;
   font-size: 1.8em;
   text-align: center;
-  color: #ffbd61; 
+  color: #ffbd61;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
 }
 
 .intro-aboutus h1 {
   font-size: 3em;
   margin-bottom: 20px;
-  color: #fff; 
+  color: #fff;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
 }
 
 .intro-aboutus p {
   font-size: 1em;
   margin-top: 10px;
-  color: #ddd; 
+  color: #ddd;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   font-family: 'Poppins', sans-serif; 
+  margin: 9px;
 }
 .team {
   text-align: center;
@@ -85,9 +86,9 @@
 }
 
 .team-member img {
-  width: 180px;  
+  width: 180px;
   height: 180px;
-  border-radius: 50%; 
+  border-radius: 50%;
   object-fit: cover;
   margin-bottom: 10px;
   border: 5px solid #ffbd61;
@@ -95,52 +96,57 @@
 
 .team-info h3 {
   font-size: 1.2em;
-  color: #ffbd61; 
+  color: #ffbd61;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin: 5px 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .team-info p {
   font-size: 1em;
-  color: #ddd; 
-  font-family: 'Poppins', sans-serif;
+  color: #ddd;
+  font-family: "Poppins", sans-serif;
 }
 
-.faq, .reviews {
+.faq,
+.reviews {
   margin-bottom: 50px;
 }
 
-.faq h2, .reviews h2 {
+.faq h2,
+.reviews h2 {
   font-size: 4em;
   margin-bottom: 20px;
-  color: #faf7f7; 
+  color: #faf7f7;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-  border-bottom: 2px solid #211f1f;
   padding-bottom: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-.faq ul, .reviews ul {
+.faq ul,
+.reviews ul {
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: auto;
+  margin: 20px;
 }
 
 .faq li, .reviews li {
 
+
   border-bottom: 1px solid #ddd;
   align-items: center;
   transition: background-color 0.3s ease;
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
 }
 
-.faq li:hover, .reviews li:hover {
-  background-color: #0000002f; 
+.faq li:hover,
+.reviews li:hover {
+  background-color: #0000002f;
 }
+
 
 .faq strong, .reviews strong{
   cursor: pointer;
@@ -151,7 +157,7 @@
   font-weight: bold;
   color: #ffbd61; 
   font-size: 1.8em;
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
   text-shadow: 2px 2px 5px rgba(50, 50, 50, 0.7);
   border-radius: 5px;
   transition: background-color 0.3s ease;
@@ -160,8 +166,8 @@
 .faq span {
   margin-left: auto;
   font-size: 1.5em;
-  color: #ffffff; 
-  line-height: 1.6; 
+  color: #ffffff;
+  line-height: 1.6;
   text-align: left;
 }
 
@@ -174,19 +180,52 @@
 .reviews span {
   display: block;
   font-size: 1.5em;
-  color: #fff; 
-  font-family: 'Poppins', sans-serif; 
+  color: #fff;
+  font-family: "Poppins", sans-serif;
 }
 
-.intro a:hover, .faq a:hover, .reviews a:hover {
+
+.faq li:last-child,
+.reviews li:last-child {
+  border-bottom: 1px solid #ddd;
+}
+
+.intro a,
+.faq a,
+.reviews a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #000;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 2em;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: "Poppins", sans-serif; /* Fuente aplicada aquí */
+}
+
+.intro a:hover,
+.faq a:hover,
+.reviews a:hover {
   background-color: #c3a86e6c; /* Fondo oscuro en hover */
   transform: scale(1.05);
 }
 
 
+
 .faq h2::before, .reviews h2::before {
   content: '🐾';
+
   display: inline-block;
   margin-right: 8px;
   color: #fff; /* Color blanco */
+}
+
+.about-container {
+  padding: 15px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
 }

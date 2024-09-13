@@ -1,0 +1,17 @@
+.little-footprint-rating {
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  justify-content: center; /* Alinea horizontalmente */
+  margin-bottom: 10px;
+}
+
+.paw {
+  font-size: 24px; /* Tamaño de las huellas */
+  color: lightgray; /* Color para huellas vacías */
+  margin-right: 10px;
+  transition: color 0.3s ease; /* Transición para el cambio de color */
+}
+
+.paw.filled {
+  color: #ffd700; /* Color amarillo para las huellas llenas */
+}
