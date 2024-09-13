@@ -30,6 +30,7 @@ const Navbar = () => {
       }
     }
   }, [searchQuery, dispatch, location.pathname]); // Ensure it only runs when necessary
+  
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
