@@ -1,0 +1,177 @@
+/* Contenedor a pantalla completa */
+.full-screen-container-review {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Mantiene el contenido dentro del contenedor */
+}
+
+.full-screen-container-review::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("https://i.imgur.com/v1io1jV.jpeg");
+  /* Imagen de fondo */
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Fondo negro con opacidad del 50% */
+  filter: brightness(50%);
+  /* Reduce el brillo de la imagen para oscurecerla */
+}
+
+/* Contenedor del formulario de registro */
+.review-container {
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #ffffffb9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 254, 254, 0.323);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  /* Permite desplazamiento si el contenido se desborda */
+  scrollbar-width: none;
+  /* Oculta la barra de desplazamiento en Firefox */
+  -ms-overflow-style: none;
+  /* Oculta la barra de desplazamiento en IE y Edge */
+  margin-block-start: 3%;
+}
+
+/* Ocultar barra de desplazamiento en Webkit (Chrome, Safari) */
+.review-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Encabezado del formulario */
+.review-container h3 {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.8em;
+  color: #ffbd61;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+/* Estilo de los campos de entrada y selección */
+.review-form input,
+.review-form input[type="date"],
+.review-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #e67e22;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  background-color: rgba(255, 248, 240, 0.8);
+  /* Fondo con un toque de naranja claro */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-form input:focus,
+.review-form input[type="date"]:focus,
+.review-form select:focus {
+  border-color: #e67e22;
+  box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+  outline: none;
+}
+
+.error-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.error-text {
+  background-color: #7e161f;
+  color: #f7e5e6;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 10px;
+  position: absolute;
+  left: 0;
+  bottom: 30px;
+  /* Altura del input */
+  z-index: 1;
+  white-space: nowrap;
+}
+
+/* Flecha del tooltip */
+.error-arrow {
+  position: absolute;
+  left: 10px;
+  /* Ajusta esto para centrar la flecha bajo el tooltip */
+  bottom: 20px;
+  /* Alineado con la parte superior del input */
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #f8d7da;
+  /* Rojo claro, mismo que el fondo del tooltip */
+}
+
+.review-form input.error,
+.review-form input[type="date"].error,
+.review-form select.error {
+  border: 1px solid red;
+  background-color: #ffe6e6;
+}
+
+.submit-button {
+  width: 40%;
+  margin-right: 10px;
+  padding: 12px;
+  border: 1px solid #e67e22;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: "Poppins", sans-serif;
+  background-color: rgba(255, 248, 240, 0.8);
+  /* Fondo con un toque de naranja claro */
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+.textarea:focus {
+  border-color: #e67e22;
+  box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 2px; /* Reducir la separación entre el input y el mensaje de error */
+  margin-bottom: 0; /* Evitar margen extra debajo */
+  position: relative;
+  top: -5px; /* Ajustar más cerca del input */
+}
