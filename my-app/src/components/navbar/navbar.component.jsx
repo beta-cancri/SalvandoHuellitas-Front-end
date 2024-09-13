@@ -90,7 +90,7 @@ const Navbar = () => {
             )}
             <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
               <button 
-                 onClick={() => { 
+                onClick={() => { 
                   handleDonateClick(); 
                   handleMenuItemClick(); 
                 }} 
