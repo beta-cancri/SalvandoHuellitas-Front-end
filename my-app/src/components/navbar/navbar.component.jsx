@@ -22,12 +22,14 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (searchQuery.trim() === '') {
-      dispatch(fetchPets({ search: '' }));
-    } else {
-      dispatch(fetchPets({ search: searchQuery }));
+    if (location.pathname === '/home') { // Ensure we are only on /home
+      if (searchQuery.trim() === '') {
+        dispatch(fetchPets({ search: '' }));
+      } else {
+        dispatch(fetchPets({ search: searchQuery }));
+      }
     }
-  }, [searchQuery, dispatch]);
+  }, [searchQuery, dispatch, location.pathname]); // Ensure it only runs when necessary
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -66,70 +68,70 @@ const Navbar = () => {
   };
 
   return (
-    <>
-      <nav className="navbar">
-        <div className="navbar-container">
-          <div>
-            <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
-              Salvando Huellitas
-            </Link>
-          </div>
-          {showSearch && (
-            <div className="navbar-search">
-              <input
-                type="text"
-                className="navbar-search-input"
-                placeholder="Buscar raza ó nombre"
-                value={searchQuery}
-                onChange={handleSearchChange}
-              />
+      <>
+        <nav className="navbar">
+          <div className="navbar-container">
+            <div>
+              <Link to="/home" className="navbar-logo" onClick={handleLogoClick}>
+                Salvando Huellitas
+              </Link>
             </div>
-          )}
-          <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
-            <button 
-               onClick={() => { 
-                handleDonateClick(); 
-                handleMenuItemClick(); 
-              }} 
-              className="donate-button"
-              ref={donationButtonRef}
-            >
-              Donar
-            </button>
-            <div className="navbar-links">
-              <div>
-                <Link to="/about" className={location.pathname === '/about' ? 'active' : ''} onClick={handleMenuItemClick}>
-                  Nosotros
-                </Link>
+            {showSearch && (
+              <div className="navbar-search">
+                <input
+                  type="text"
+                  className="navbar-search-input"
+                  placeholder="Buscar raza ó nombre"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
               </div>
-              <div>
-                <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={handleMenuItemClick}>
-                  Contacto
-                </Link>
-              </div>
-            </div>
-            {user ? (
-              <div className="navbar-user-info">
-                <span>{user.name} {user.isAdmin ? (
-                  <Link to="admin/dashboard">(Admin)</Link>
-                ) : null}</span>
-                <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
-              </div>
-            ) : (
-              <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`} onClick={handleMenuItemClick}>Ingresar</Link>
             )}
+            <div className={`navbar-options ${isMenuActive ? 'active' : ''}`}>
+              <button 
+                 onClick={() => { 
+                  handleDonateClick(); 
+                  handleMenuItemClick(); 
+                }} 
+                className="donate-button"
+                ref={donationButtonRef}
+              >
+                Donar
+              </button>
+              <div className="navbar-links">
+                <div>
+                  <Link to="/about" className={location.pathname === '/about' ? 'active' : ''} onClick={handleMenuItemClick}>
+                    Nosotros
+                  </Link>
+                </div>
+                <div>
+                  <Link to="/contact" className={location.pathname === '/contact' ? 'active' : ''} onClick={handleMenuItemClick}>
+                    Contacto
+                  </Link>
+                </div>
+              </div>
+              {user ? (
+                <div className="navbar-user-info">
+                  <span>{user.name} {user.isAdmin ? (
+                    <Link to="admin/dashboard">(Admin)</Link>
+                  ) : null}</span>
+                  <button onClick={handleLogout} className="logout-button">Cerrar sesión</button>
+                </div>
+              ) : (
+                <Link to="/login" className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`} onClick={handleMenuItemClick}>Ingresar</Link>
+              )}
+            </div>
+            <span className="menu-icon" onClick={toggleMenu}>☰</span>
           </div>
-          <span className="menu-icon" onClick={toggleMenu}>☰</span>
-        </div>
-      </nav>
-      
-      {showDonationInput && (
-        <div className="donation-input-container">
-          <DonationInput onClose={handleDonationInputClose} />
-        </div>
-      )}
-    </>
-  );
-};
-
-export default Navbar;
+        </nav>
+        
+        {showDonationInput && (
+          <div className="donation-input-container">
+            <DonationInput onClose={handleDonationInputClose} />
+          </div>
+        )}
+      </>
+    );
+  };
+  
+  export default Navbar;

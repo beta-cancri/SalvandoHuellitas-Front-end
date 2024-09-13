@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './DonationInput.styles.css';  // Asegúrate de que la ruta sea correcta
+import './DonationInput.styles.css';  
 
 const DonationInput = ({ onClose }) => {
   const [donationAmount, setDonationAmount] = useState('');
@@ -14,7 +14,7 @@ const DonationInput = ({ onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('Donación realizada:', donationAmount);
-    // Aquí puedes agregar la lógica para procesar la donación
+    // agregar la lógica para procesar la donación
   };
 
   return (
@@ -38,5 +38,7 @@ const DonationInput = ({ onClose }) => {
     </div>
   );
 };
+
+
 
 export default DonationInput;

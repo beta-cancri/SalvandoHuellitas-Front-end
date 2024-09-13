@@ -3,13 +3,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
+import { useLocation } from 'react-router-dom'; // Importar useLocation para acceder a state de navigate
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
 
 
 const Home = () => {
   const dispatch = useDispatch();
+  const location = useLocation(); // Para obtener las mascotas sugeridas desde el state
   const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
+
+
+  // Estado para manejar mascotas sugeridas (si vienen en la redirección)
+  const [suggestedPets, setSuggestedPets] = useState(location.state?.suggestedPets || []);
+
 
   // Estados para los filtros
   const [species, setSpecies] = useState('');
@@ -25,13 +32,18 @@ const Home = () => {
       setSpecies(savedFilters.species || '');
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
-      // Aplicar los filtros guardados al montar el componente
-      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage || 1, true)); // Ensure isHome is true here
-    } else {
-      // Si no hay filtros guardados, cargar solo las mascotas disponibles
+
+      // Aplicar los filtros guardados al montar el componente solo si no hay mascotas sugeridas
+      if (!suggestedPets.length) {
+        dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage || 1, true)); // Ensure isHome is true here
+      }
+    } else if (!suggestedPets.length) {
+      // Si no hay filtros guardados ni mascotas sugeridas, cargar solo las mascotas disponibles
       dispatch(fetchPets({}, 1, true)); // Ensure isHome is true here
     }
-  }, [dispatch]);
+  }, [dispatch, suggestedPets]);
+
+
 
   // Opciones de filtros
   const speciesOptions = [

@@ -10,8 +10,10 @@ import store from './redux/store';
 import { BrowserRouter as Router } from 'react-router-dom'; // Importa BrowserRouter
 import axios from 'axios';
 
+
 // Verificar si estamos en desarrollo o producción
 let backendBaseUrl = '';
+
 
 if (process.env.NODE_ENV === 'development') {
     backendBaseUrl = 'http://localhost:3001'; // Apunta al backend local

@@ -21,34 +21,34 @@
 }
 
 .donation-form .confirm-button {
-  background: none; /* Sin fondo */
+  background: none;
   color: #ffffff; 
-  border: none; /* Sin bordes */
-  padding: 0; /* Elimina el espaciado interno */
+  border: none;
+  padding: 0; 
   cursor: pointer;
-  font-size: 16px; /* Tamaño del texto */
-  text-decoration: underline; /* Subraya el texto */
-  margin: 5px; /* Espaciado entre botones */
-  font-family: 'Poppins', sans-serif; /* Fuente para los botones */
+  font-size: 16px; 
+  text-decoration: underline; 
+  margin: 5px; 
+  font-family: 'Poppins', sans-serif;
 }
 
 .donation-form .confirm-button:hover {
-  color: #ffbd61; /* Color de texto más oscuro al pasar el mouse */
-  text-decoration: none; /* Elimina el subrayado al pasar el mouse */
+  color: #ffbd61; 
+  text-decoration: none; 
 }
 
 .donation-form .close-button {
-  background: none; /* Sin fondo */
-  color: #ffffff; /* Color del texto para el botón de cerrar */
-  border: none; /* Sin bordes */
-  padding: 0; /* Elimina el espaciado interno */
+  background: none; 
+  color: #ffffff; 
+  border: none; 
+  padding: 0; 
   cursor: pointer;
-  font-size: 16px; /* Tamaño del texto */
-  text-decoration: none; /* Sin subrayado para el botón de cerrar */
-  margin: 5px; /* Espaciado entre botones */
-  font-family: 'Poppins', sans-serif; /* Fuente para los botones */
+  font-size: 16px; 
+  text-decoration: none; 
+  margin: 5px; 
+  font-family: 'Poppins', sans-serif; 
 }
 
 .donation-form .close-button:hover {
-  color: #ffbd61; /* Color del texto más oscuro al pasar el mouse */
+  color: #ffbd61; 
 }
