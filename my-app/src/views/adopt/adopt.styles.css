@@ -1,50 +1,57 @@
 .full-screen-container-adopt {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    /* Cambia a columna para que el h2 esté sobre el formulario */
     justify-content: flex-start;
-    /* Asegura que el contenido se alinee desde arriba */
     align-items: center;
     position: relative;
-    padding: 50px 0;
-    /* Puedes ajustar el padding según sea necesario */
     box-sizing: border-box;
     overflow-y: auto;
+  
+}
+
+.full-screen-container-adopt::before {
+    content: "";
+    position: absolute; /* Necesario para cubrir el fondo completamente */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i.imgur.com/v1io1jV.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    background-color: rgba(0, 0, 0, 0.5); 
+    filter: brightness(50%); 
+    z-index: -1; 
 }
 
 .adopt-container {
-    max-width: 700px;
+    max-width: 800px;
     width: 100%;
     padding: 20px;
     border-radius: 15px;
-    border: 1px solid #ffffffb9;
+    border: 1px solid rgba(255, 255, 255, 0.73);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     background-color: rgba(255, 254, 254, 0.323);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px); /* Menos desenfoque para mayor claridad */
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-sizing: border-box;
-    margin: auto;
-    margin-top: 3%;
-    /* Asegúrate de que esto no cause desbordamiento */
-    max-height: 90vh;
-    overflow-y: auto;
-    /* Asegura que el contenido adicional se desplaza */
-    scrollbar-width: none;
-    /* Oculta la barra de desplazamiento en Firefox */
-    -ms-overflow-style: none;
-    /* Oculta la barra de desplazamiento en IE y Edge */
+    margin: 5px auto;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    position: relative; /* Asegúrate de que esté por encima del fondo */
+    z-index: 1; /* Asegúrate de que esté delante del fondo */
 }
+
 
 .adopt-h2 {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.6em;
-    /* Ajusta el tamaño de la fuente si es necesario */
-    color: black;
-    margin-bottom: 5px;
-    margin-top: 5px;
+    font-size: 2.7em;
+    color: #ffbd61;
+    margin: 5px 0;
     text-align: center;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
     letter-spacing: 1.5px;
@@ -56,64 +63,67 @@
     align-items: flex-start;
     width: 100%;
     color: black;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.7);
     padding: 0 20px;
-    font-size: 15px;
-}
-
-.adopt-form .checkbox-group {
-    display: flex;
-    align-items: center; /* Alinea el checkbox y el texto verticalmente al centro */
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.adopt-form .checkbox-group input[type="checkbox"] {
-    margin-right: 10px; /* Espacio entre el checkbox y el texto */
-    cursor: pointer;
-}
-
-.adopt-form .checkbox-group label {
-    font-size: 12px;
-    font-weight: normal; /* Cambiado a 'normal' para evitar énfasis adicional */
-    cursor: pointer;
-    flex-grow: 1; /* Permite que el label ocupe todo el espacio disponible */
+    font-size: 18px;
 }
 
 .adopt-form ul {
-    text-align: left;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    list-style-type: disc;
-    padding: 0;
-    font-size: 12px;
+    font-size: 16px;
+    text-align: justify;
+    list-style: none; 
+    padding: 0; 
+    margin: 0; 
 }
 
-.adopt-form h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.4em;
-    /* Ajusta el tamaño de la fuente si es necesario */
-    color: #ffbd61;
-    margin-bottom: 10px;
-    text-align: center;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
-    letter-spacing: 1.5px;
+.adopt-form li {
+    position: relative;
+    padding-left: 10px; 
+    margin-bottom: 20px; 
+    background-color: #ffffff7c; 
+    border-radius: 8px; 
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+    border-left: 5px solid #4CAF50; 
+    line-height: 1.6; 
+}
+
+.adopt-form li::before {
+    content: '\f00c'; /* iconic */
+    font-family: 'Font Awesome 5 Free'; 
+    font-weight: 900; 
+    position: relative;
+    left: 1px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    color: #4CAF50; 
+    font-size: 22px;
 }
 
 .adopt-form h5 {
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    /* Ajusta el tamaño de la fuente si es necesario */
     color: black;
-    margin-bottom: 10px;
     text-align: center;
+    margin-bottom: 15px;
     letter-spacing: 1.5px;
-    font-weight: bolder;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
-.adopt-form input,
+.adopt-form h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+    color: #ffbd61;
+    margin: 5px 0;
+    text-align: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+}
 
+
+
+.adopt-form input,
 .adopt-form select {
     width: 100%;
     padding: 10px;
@@ -121,21 +131,135 @@
     border: 1px solid #e67e22;
     border-radius: 8px;
     font-size: 16px;
-    font-family: 'Poppins', sans-serif;
     background-color: rgba(255, 248, 240, 0.8);
-    /* Fondo con un toque de naranja claro */
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.adopt-form input:focus,
-.adopt-form select:focus {
-    border-color: #E67E22;
-    box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
     outline: none;
 }
 
+.adopt-form input:focus,
+select:focus {
+    border-color: #E67E22;
+    box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
+}
+/* Estilo para los campos de entrada con error */
 .adopt-form input.error,
 .adopt-form select.error {
-    border: 1px solid red;
-    background-color: #ffe6e6;
+    border: 2px solid #d9534f; /* Borde rojo para indicar error */
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    background-color: #fff; /* Fondo blanco para los campos de entrada */
+}
+
+/* Estilo para el mensaje de error debajo del campo */
+.error-tooltip {
+    display: flex;
+    align-items: center;
+    color: #b70600; /* Color del texto de error */
+    font-size: 15px;
+    margin-top: 4px; /* Espacio entre el campo y el mensaje de error */
+    margin-bottom: 10px; /* Espacio debajo del mensaje de error */
+}
+
+/* Icono de advertencia */
+.error-tooltip::before {
+    content: '⚠'; /* Símbolo de advertencia */
+    font-size: 18px; /* Tamaño del icono */
+    margin-right: 4px; /* Espacio entre el icono y el texto */
+    color: #ba0600; /* Color del icono de advertencia */
+}
+
+/* Estilo opcional para mejorar la visibilidad */
+.adopt-form input.error::placeholder,
+.adopt-form select.error::placeholder {
+    color: #c80700; /* Color del texto del placeholder cuando hay error */
+}
+
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre el checkbox y el texto */
+    margin-bottom: 10px;
+}
+.checkbox input[type="checkbox"] {
+    accent-color: #ffbd61;/* Color de acento para el checkbox (en navegadores que lo soportan) */
+    width: 20px; /* Tamaño del checkbox */
+    height: 20px; /* Tamaño del checkbox */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el checkbox */
+    transition: background-color 0.2s ease, border-color 0.2s ease; /* Transición suave para el color de fondo y borde */
+}
+.checkbox label {
+    font-size: 16px; /* Tamaño de la fuente */
+    color: #000000; /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el label */
+    transition: color 0.2s ease; /* Transición suave para el color del texto */
+}
+
+
+.radio-group {
+    display: flex;
+    flex-direction: column; 
+   
+  
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center; /* Alinea verticalmente el texto con el botón de radio */
+    font-size: 16px; /* Tamaño de fuente más pequeño para un aspecto más sutil */
+    color: #000000; /* Color de texto más suave */
+    margin-bottom: 0; /* Elimina el margen inferior adicional */
+    cursor: pointer; /* Cambia el cursor al pasar sobre la etiqueta */
+    transition: color 0.2s ease; /* Transición suave para el color del texto */
+}
+
+
+.radio-group input[type="radio"] {
+    margin-right: 10px; /* Espacio entre el botón de radio y el texto */
+    accent-color: #ffbd61; /* Color de acento para el botón de radio (en navegadores que lo soportan) */
+}
+
+/* Estilo adicional para los radio buttons si se quiere más personalización */
+.radio-group input[type="radio"] {
+    position: relative;
+    width: 16px; /* Tamaño del botón de radio */
+    height: 16px; /* Tamaño del botón de radio */
+    appearance: none; /* Elimina el estilo predeterminado del navegador */
+    border: 2px solid #ffbd61; /* Borde del botón de radio */
+    border-radius: 50%; /* Hace que el botón de radio sea redondo */
+    outline: none; /* Elimina el borde de enfoque predeterminado */
+    background-color: #fff; /* Fondo blanco para el botón de radio */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón de radio */
+    transition: border-color 0.2s ease; /* Transición suave para el borde del botón de radio */
+}
+
+.radio-group input[type="radio"]:checked {
+    border-color: #ffbd61; /* Borde azul cuando está seleccionado */
+}
+
+.radio-group input[type="radio"]:checked::after {
+    content: ''; /* Adicional para mostrar el punto de selección */
+    display: block;
+    width: 8px; /* Tamaño del punto de selección */
+    height: 8px; /* Tamaño del punto de selección */
+    border-radius: 50%; /* Redondea el punto */
+    background-color: #ffbd61; /* Color del punto de selección */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el punto de selección dentro del botón de radio */
+}
+.adopt-form .button-container {
+    display: flex;
+    justify-content: center;
+    gap: 430px;
+}
+
+@media (max-width: 768px){
+    .adopt-form .button-container {
+        flex-direction: column; /* Cambia a columna para pantallas pequeñas */
+        gap: 5px; /* Reduce el gap aún más */
+    
+}
 }

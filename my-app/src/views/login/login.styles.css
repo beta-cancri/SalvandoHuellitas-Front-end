@@ -17,6 +17,7 @@ body {
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
+
 .login-container::before {
   content: "";
   position: absolute;
@@ -110,4 +111,29 @@ body {
 
 .login-links a:hover {
   text-decoration: underline;
+}
+.password-container {
+  position: relative;
+}
+
+.login-input {
+  padding-right: 40px; /* Ajusta el espacio para el ícono */
+
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.eye-icon {
+  stroke: #666666; 
+  margin-top: -10px;
+  width: 20px; 
+  height: 20px; 
 }

@@ -1,45 +1,87 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPets, updatePetStatus } from '../../../redux/actions';
+import { fetchPets, changePetStatus } from '../../../redux/actions';
 import './managepets.styles.css';
 
-const ManagePets = () => {
+const ManagePets = ({ status }) => {
   const dispatch = useDispatch();
-  const pets = useSelector((state) => state.pets);
+  const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
+  const sortCriteria = 'status';  // Sort by status (you can add other sorting criteria like name)
 
+  // Fetch pets with sorting and status filter
   useEffect(() => {
-    dispatch(fetchPets());
-  }, [dispatch]);
+    console.log("Fetching pets with sorting...");
+    dispatch(fetchPets({ status, sort: sortCriteria }, 1, false));  // Always reset to page 1 when status or sort changes
+  }, [dispatch, status, sortCriteria]);  // Remove petsCurrentPage from dependency array
 
-  const handleStatusToggle = (petId, currentStatus) => {
+  // Handle status change
+  const handleToggleStatus = (petId, currentStatus) => {
     const newStatus = currentStatus === 'available' ? 'inactive' : 'available';
-    dispatch(updatePetStatus(petId, newStatus));
+    const confirmationMessage = `¿Cambiar el estado de la mascota a ${newStatus === 'available' ? 'Activo' : 'Inactivo'}?`;
+
+    if (window.confirm(confirmationMessage)) {
+      dispatch(changePetStatus(petId, newStatus))
+        .then(() => {
+          // Refetch pets after status change
+          dispatch(fetchPets({ status, sort: sortCriteria }, 1, false));  // Ensure we go back to page 1
+        })
+        .catch((error) => {
+          console.error('Error changing status:', error);
+        });
+    }
+  };
+
+  // Pagination handling
+  const handlePageChange = (pageNumber) => {
+    dispatch(fetchPets({ status, sort: sortCriteria }, pageNumber, false));
   };
 
   return (
     <div className="manage-pets">
-      <h2>Editar Mascotas</h2>
+      <div className="manage-pets-header">
+        <h2>Administrar Mascotas</h2>
+      </div>
+
       {pets && pets.length > 0 ? (
-        <ul>
-          {pets.map((pet) => (
-            <li key={pet.id}>
-              <img src={pet.photo} alt={pet.name} className="pet-photo" />
-              <div className="pet-details">
-                <div className="pet-name">{pet.name}</div>
-                <div className="pet-info">
-                  Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}
+        <div className="pets-container-admin">
+          <ul className="pets-grid-admin">
+            {pets.map((pet) => (
+              <li key={pet.id} className="pet-item-admin">
+                <img src={pet.photo} alt={pet.name} className="pet-photo-admin" />
+                <div className="pet-details-admin">
+                  <div className="pet-name-admin">
+                    <div
+                      className={`status-light-admin ${
+                        pet.status === 'available' ? 'status-available-admin' : 'status-inactive-admin'
+                      }`}
+                    ></div>
+                    {pet.name}
+                  </div>
+                  <div className="pet-info-admin">
+                    Raza: {pet.breed}, Edad: {pet.age}, Tamaño: {pet.size}, Status: {pet.status}
+                  </div>
                 </div>
-              </div>
-              <button className="edit-button">Editar</button>
-              <button
-                className="status-button"
-                onClick={() => handleStatusToggle(pet.id, pet.status)}
-              >
-                {pet.status === 'available' ? 'Desactivar' : 'Activar'}
-              </button>
-            </li>
-          ))}
-        </ul>
+                <button
+                  className="status-button-admin"
+                  onClick={() => handleToggleStatus(pet.id, pet.status)}
+                >
+                  {pet.status === 'available' ? 'Inactivo' : 'Activo'}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {/* Pagination */}
+          <div className="pagination-admin">
+            <button onClick={() => handlePageChange(petsCurrentPage - 1)} disabled={petsCurrentPage === 1}>
+              Anterior
+            </button>
+            <span>Página {petsCurrentPage} de {petsTotalPages}</span>
+            <button onClick={() => handlePageChange(petsCurrentPage + 1)} disabled={petsCurrentPage === petsTotalPages}>
+              Siguiente
+            </button>
+          </div>
+        </div>
       ) : (
         <p>No se encontraron mascotas.</p>
       )}
