@@ -17,13 +17,14 @@ const initialState = {
   petsTotalPages: 1,   // Separate totalPages for pets
   usersCurrentPage: 1,  // Separate currentPage for users
   usersTotalPages: 1,   // Separate totalPages for users
+  requestsCurrentPage: 1,  // Separate currentPage for requests
+  requestsTotalPages: 1,   // Separate totalPages for requests
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     // Pets-related actions
     case FETCH_PETS_SUCCESS:
-      console.log('Reducer updating pets state with payload:', action.payload);
       return {
         ...state,
         pets: action.payload.results,
@@ -31,7 +32,6 @@ const rootReducer = (state = initialState, action) => {
         petsTotalPages: action.payload.totalPages,
       };
     case FETCH_PET_DETAIL_SUCCESS:
-      console.log('Reducer updating petDetail state with payload:', action.payload);
       return {
         ...state,
         petDetail: action.payload,
@@ -92,7 +92,9 @@ const rootReducer = (state = initialState, action) => {
     case FETCH_REQUESTS_SUCCESS:
       return {
         ...state,
-        requests: action.payload,
+        requests: action.payload.results,
+        requestsCurrentPage: action.payload.page,
+        requestsTotalPages: action.payload.totalPages,
       };
     case CREATE_REQUEST_SUCCESS:
       return {

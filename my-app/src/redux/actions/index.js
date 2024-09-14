@@ -122,31 +122,13 @@ export const createReview = (review) => async (dispatch) => {
   }
 };
 
-// Fetch all users
-export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
+
+// Fetch all users with automatic sorting
+export const fetchUsers = (filters = {}, page = 1) => async (dispatch) => {
   try {
     let token = localStorage.getItem("jwt");
 
-    // Map the status value to true or false for isActive
-    let isActiveStatus;
-    if (status === 'active') {
-      isActiveStatus = true;
-    } else if (status === 'inactive') {
-      isActiveStatus = false;
-    } else {
-      isActiveStatus = ''; // No filter for status
-    }
-
-    const params = {
-      page,
-    };
-
-    if (isActiveStatus !== '') {  // Only include status if it's defined
-      params.status = status;
-    }
-
-    console.log('Dispatching fetchUsers with params:', params); // Log params
-    console.log('Mapped isActiveStatus:', isActiveStatus); // Debug log for status mapping
+    const params = { ...filters, page, sort: 'isActive' };
 
     const response = await axios.get('/users', {
       headers: {
@@ -159,16 +141,15 @@ export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
 
     dispatch({
       type: FETCH_USERS_SUCCESS,
-      payload: {
-        results: response.data.results,
-        page: response.data.page,
-        totalPages: response.data.totalPages,
-      },
+      payload: response.data,
     });
   } catch (error) {
     console.error("Error fetching users:", error.message);
   }
 };
+
+
+
 
 
 
@@ -222,15 +203,41 @@ export const createUser = (user) => async (dispatch) => {
 };
 
 // Fetch all requests
-export const fetchRequests = () => async (dispatch) => {
+export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC') => async (dispatch) => {
   try {
-    const response = await axios.get("/requests");
-    console.log("Fetched Requests:", response.data);
-    dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: response.data });
+    let token = localStorage.getItem("jwt");
+
+    const params = {
+      page,
+      limit,
+      sort,
+      order,
+    };
+
+    const response = await axios.get("/requests", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    });
+
+    dispatch({
+      type: FETCH_REQUESTS_SUCCESS,
+      payload: {
+        results: response.data.results,
+        page: response.data.page,
+        totalPages: response.data.totalPages,
+      },
+    });
   } catch (error) {
     console.error("Error fetching requests:", error.message);
   }
 };
+
+
+
+
+
 
 
 //Create a new request
@@ -269,7 +276,8 @@ export const updateUserProfile = (formData) => async (dispatch) => {
   try {
     // Get the token from local storage
     const token = localStorage.getItem('jwt');
-
+    console.log('Token:', token);
+    
     // Ensure the token exists
     if (!token) {
       throw new Error("Token not found. User is not authenticated.");
@@ -284,7 +292,7 @@ export const updateUserProfile = (formData) => async (dispatch) => {
     }
 
     // Make the PATCH request with the token in the headers
-    const response = await axios.patch('http://localhost:3001/users/profile', formData, {
+    const response = await axios.patch('/users/profile', formData, {
       headers: {
         Authorization: `Bearer ${token}`, // Include JWT token
         'Content-Type': 'multipart/form-data',

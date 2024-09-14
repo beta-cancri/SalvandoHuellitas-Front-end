@@ -6,13 +6,11 @@ import './manageuser.styles.css';
 const ManageUser = ({ status }) => {
   const dispatch = useDispatch();
   const { users, usersCurrentPage, usersTotalPages } = useSelector((state) => state);
-  const sortCriteria = 'isActive';  // Sort by status (you can add other sorting criteria like name)
 
-  // Fetch users with sorting and status filter
+  // Fetch users with status filter and default sorting (active first, then alphabetically)
   useEffect(() => {
-    console.log("Fetching users with sorting...");
-    dispatch(fetchUsers(1, status));  // Always fetch from the first page
-  }, [dispatch, status, sortCriteria]);  // Add sortCriteria to the dependency array
+    dispatch(fetchUsers({ status }, 1));  // Always fetch from the first page
+  }, [dispatch, status]);
 
   // Handle status change
   const handleToggleStatus = (userId, currentStatus) => {
@@ -22,8 +20,7 @@ const ManageUser = ({ status }) => {
     if (window.confirm(confirmationMessage)) {
       dispatch(changeUserStatus(userId, newStatus))
         .then(() => {
-          // Refetch users after status change
-          dispatch(fetchUsers(1, status));  // Ensure status is passed and we go back to page 1
+          dispatch(fetchUsers({ status }, 1));  // Ensure status is passed and we go back to page 1
         })
         .catch((error) => {
           console.error('Error changing user status:', error);
@@ -33,7 +30,7 @@ const ManageUser = ({ status }) => {
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchUsers(pageNumber, status));  // Ensure status is passed when changing pages
+    dispatch(fetchUsers({ status }, pageNumber));  // Ensure status is passed when changing pages
   };
 
   return (
@@ -50,9 +47,7 @@ const ManageUser = ({ status }) => {
                 <div className="user-details">
                   <div className="user-name">
                     <div
-                      className={`status-light ${
-                        user.isActive ? 'status-available' : 'status-inactive'
-                      }`}
+                      className={`status-light ${user.isActive ? 'status-available' : 'status-inactive'}`}
                     ></div>
                     {user.fullName}
                   </div>

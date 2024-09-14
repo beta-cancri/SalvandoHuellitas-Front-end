@@ -5,7 +5,6 @@ import { useDispatch } from 'react-redux';
 import { Link, useParams, useNavigate  } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
-
 import axios from 'axios'; 
 
 const Adopt = () => {
@@ -30,7 +29,6 @@ const Adopt = () => {
     const [uploading, setUploading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
 
-
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -45,7 +43,6 @@ const Adopt = () => {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -76,30 +73,28 @@ const Adopt = () => {
                         // Si hay mascota seleccionada, enviamos la solicitud de adopción
                         const requestDataWithUser = {
                             ...requestData,
-                            id_pet: id
+                            id_pet: id,
+                            hasKids: requestData.hasKids === 'true', // Convert string to boolean
+                            hasPets: requestData.hasPets === 'true', // Convert string to boolean
+                            addedCondition: requestData.addedCondition === 'true' // Convert string to boolean
                         };
 
-
-                    //se envía la solicitud vía Redux
-                    dispatch(createRequest(requestDataWithUser, headers));
-                    alert('¡Gracias por enviarnos tu solicitud!');
-
-
-                    setRequestData({
-                        adress: '',
-                        occupation: '',
-                        totalHabitants: 1,
-                        hasKids: '',
-                        hasPets: '',
-                        space: '',
-                        timeAvailable: '',
-                        addedCondition: '',
-                        clauses: false
-
-                    })
-                }
-
-
+                        //se envía la solicitud vía Redux
+                        dispatch(createRequest(requestDataWithUser, headers));
+                        alert('¡Gracias por enviarnos tu solicitud!');
+                        
+                        setRequestData({
+                            adress: '',
+                            occupation: '',
+                            totalHabitants: 1,
+                            hasKids: '',
+                            hasPets: '',
+                            space: '',
+                            timeAvailable: '',
+                            addedCondition: '',
+                            clauses: false
+                        });
+                    }
                 } else {
                     setShowNotification(true);
                 }
@@ -110,7 +105,6 @@ const Adopt = () => {
             }
         }
     };
-
 
     const handleCloseNotification = () => {
         setShowNotification(false);
@@ -307,14 +301,14 @@ const Adopt = () => {
                     </ul>
 
                     <div className="checkbox">
-                            <input type="checkbox"
-                                id="clauses"
-                                name="clauses"
-                                onChange={handleChange}
-                                checked={requestData.clauses}
-                            />
-                            <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
-                        </div>
+                        <input type="checkbox"
+                            id="clauses"
+                            name="clauses"
+                            onChange={handleChange}
+                            checked={requestData.clauses}
+                        />
+                        <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
+                    </div>
                     
                     {errors.clauses && (
                         <div className="error-tooltip">
@@ -322,11 +316,12 @@ const Adopt = () => {
                             <div className="error-arrow"></div>
                         </div>
                     )}
+
                     <div className='button-container'>
-                    <button type="submit" className='button' disabled={uploading}>
-                        {uploading ? 'Enviando...' : 'Enviar'}
-                    </button>
-                    <Link className='button' to="/home">Volver</Link>
+                        <button type="submit" className='button' disabled={uploading}>
+                            {uploading ? 'Enviando...' : 'Enviar'}
+                        </button>
+                        <Link className='button' to="/home">Volver</Link>
                     </div>
                 </form>
             </div>
@@ -342,4 +337,3 @@ const Adopt = () => {
 }
 
 export default Adopt;
-
