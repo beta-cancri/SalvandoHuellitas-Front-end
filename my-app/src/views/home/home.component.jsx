@@ -171,8 +171,8 @@ const Home = () => {
         </>
       ) : (
         <p>No hay mascotas disponibles</p>
-      )}
-
+      )
+      }
       <div className="reviews">
         <h2> MIRA LO QUE DICEN SOBRE NOSOTROS </h2>
         {loading ? (

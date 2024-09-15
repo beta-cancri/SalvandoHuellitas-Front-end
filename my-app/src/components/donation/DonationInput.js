@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createDonation } from '../../redux/actions/index';
+import Notification from '../../views/create/Notification.jsx';
 import './DonationInput.styles.css';  
 
 const DonationInput = ({ onClose }) => {
   const [donationAmount, setDonationAmount] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+const [notificationMessage, setNotificationMessage] = useState('');
+
+  const dispatch = useDispatch();
+  const donationError = useSelector(state => state.donationError);
+  const paymentLink = useSelector(state => state.paymentLink);
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -13,9 +22,20 @@ const DonationInput = ({ onClose }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Donación realizada:', donationAmount);
-    // agregar la lógica para procesar la donación
+    if (donationAmount > 0) {
+      dispatch(createDonation(donationAmount));
+    } else {
+      setNotificationMessage('⚠ Ingrese un monto de donación válido');
+      setShowNotification(true);
+    }
   };
+
+  React.useEffect(() => {
+    if (paymentLink) {
+      window.location.href = paymentLink; // Redirige al link de pago
+      setDonationAmount(''); // Limpia el campo de entrada
+    }
+  }, [paymentLink]);
 
   return (
     <div className="donation-form-container">
@@ -34,7 +54,14 @@ const DonationInput = ({ onClose }) => {
             Cerrar
           </button>
         </div>
+        {donationError && <div className="error-message">{donationError}</div>}
       </form>
+      {showNotification && (
+        <Notification 
+          message={notificationMessage} 
+          onClose={() => setShowNotification(false)} 
+          />
+      )}
     </div>
   );
 };

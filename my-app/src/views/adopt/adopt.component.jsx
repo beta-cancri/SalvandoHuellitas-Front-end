@@ -30,7 +30,6 @@ const Adopt = () => {
     const [uploading, setUploading] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
 
-
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
@@ -45,7 +44,6 @@ const Adopt = () => {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -76,7 +74,10 @@ const Adopt = () => {
                         // Si hay mascota seleccionada, enviamos la solicitud de adopción
                         const requestDataWithUser = {
                             ...requestData,
-                            id_pet: id
+                            id_pet: id,
+                            hasKids: requestData.hasKids === 'true', // Convert string to boolean
+                            hasPets: requestData.hasPets === 'true', // Convert string to boolean
+                            addedCondition: requestData.addedCondition === 'true' // Convert string to boolean
                         };
 
 
@@ -110,7 +111,6 @@ const Adopt = () => {
             }
         }
     };
-
 
     const handleCloseNotification = () => {
         setShowNotification(false);
@@ -315,21 +315,23 @@ const Adopt = () => {
                         />
                         <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
                     </div>
+                    {
+                        errors.clauses && (
+                            <div className="error-tooltip">
+                                <p className="error-text">{errors.clauses}</p>
+                                <div className="error-arrow"></div>
+                            </div>
+                        )
+                    }
 
-                    {errors.clauses && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.clauses}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}
                     <div className='button-container'>
                         <button type="submit" className='button' disabled={uploading}>
                             {uploading ? 'Enviando...' : 'Enviar'}
                         </button>
                         <Link className='button' to="/home">Volver</Link>
                     </div>
-                </form>
-            </div>
+                </form >
+            </div >
             {showNotification && (
                 <Notification
                     onClose={handleCloseNotification}
@@ -337,9 +339,8 @@ const Adopt = () => {
                     message="¡Gracias por enviar tu solicitud! Nos pondremos en contacto contigo pronto 🐾."
                 />
             )}
-        </div>
+        </div >
     );
 }
 
 export default Adopt;
-
