@@ -83,21 +83,20 @@
 
 /* Login */
 .navbar-button {
-  padding: 10px 10px;
-  border-radius: 5px;
-  background-color: transparent;
-  color: #fff;
-  cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
+  font-size: 1em;
   text-decoration: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  color: #fff;
+  padding: 10px 15px;
+  transition: color 0.3s ease;
+  background-color: transparent;
+  border: transparent;
 }
 
 .navbar-button.active,
 .navbar-button:hover {
-  background-color: #cac8c5;
-  color: #fff;
+  color: #ffbd61;
 }
 
 /* Estilos del botón de logout */

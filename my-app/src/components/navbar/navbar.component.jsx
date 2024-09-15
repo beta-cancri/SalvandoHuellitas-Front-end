@@ -19,18 +19,21 @@ const Navbar = () => {
   const profileButtonRef = useRef(null);
   const menuRef = useRef(null);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   // Get userDetail data from Redux store
   const userDetail = useSelector((state) => state.userDetail);
 
-  // Fetch user details on mount
+  // Fetch user details on mount if a user is logged in
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
     const token = localStorage.getItem('jwt');
 
     if (storedUser && storedUser.userID && token) {
       dispatch(fetchUserDetail(storedUser.userID));
+      setIsLoggedIn(true); // Set the logged-in state to true
     } else {
-      console.error('Token or userID not found in local storage.');
+      setIsLoggedIn(false); // No token, so the user is not logged in
     }
   }, [dispatch]);
 
@@ -55,7 +58,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
-    window.location.href = '/login';
+    window.location.href = '/home';
   };
 
   const showSearch = location.pathname === '/home';
@@ -85,7 +88,6 @@ const Navbar = () => {
   // Close menus (donation and profile) when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Handle donation menu outside click
       if (
         donationInputRef.current &&
         !donationInputRef.current.contains(event.target) &&
@@ -95,7 +97,6 @@ const Navbar = () => {
         setShowDonationInput(false);
       }
 
-      // Handle user menu outside click
       if (
         userMenuRef.current &&
         !userMenuRef.current.contains(event.target) &&
@@ -105,7 +106,6 @@ const Navbar = () => {
         setIsUserMenuActive(false);
       }
 
-      // Handle hamburger menu outside click
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target) &&
@@ -171,7 +171,7 @@ const Navbar = () => {
 
               {/* Responsive view additional buttons */}
               <div className="navbar-responsive-buttons">
-                {userDetail && (
+                {isLoggedIn ? (
                   <>
                     {location.pathname !== '/user/dashboard' && (
                       <button
@@ -189,10 +189,17 @@ const Navbar = () => {
                       Cerrar sesión
                     </button>
                   </>
+                ) : (
+                  <button
+                    className="navbar-button"
+                    onClick={() => window.location.href = '/login'}
+                  >
+                    Ingresar
+                  </button>
                 )}
               </div>
             </div>
-            {userDetail && (
+            {isLoggedIn ? (
               <div className="user-menu" ref={userMenuRef}>
                 <button
                   className="user-button"
@@ -222,6 +229,13 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
+            ) : (
+              <button
+                className="navbar-button"
+                onClick={() => window.location.href = '/login'}
+              >
+                Ingresar
+              </button>
             )}
           </div>
           <span className="menu-icon" onClick={toggleMenu}>
