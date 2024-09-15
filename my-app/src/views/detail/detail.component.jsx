@@ -87,8 +87,10 @@ const Detail = () => {
               <p><strong>Historia:</strong> {animal.history ? animal.history : 'Not available'}</p>
             </div>
           </div>
-          <button className="button-atras" onClick={handleBack}>X</button>
+      <div className="buttons-detail">
+          <button className="button" onClick={handleBack}>Atras</button>
           <button className="button" onClick={handleAdopt}>🐾Adoptar Huellitas🐾</button> {/* Botón de Adopción */}
+          </div>
       </div>
     </div>
   );
