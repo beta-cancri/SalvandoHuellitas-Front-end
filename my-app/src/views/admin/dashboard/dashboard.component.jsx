@@ -9,7 +9,7 @@ import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
-  const [activeSection, setActiveSection] = useState(null);
+  const [activeSection, setActiveSection] = useState(null); // Initially null
   const [status, setStatus] = useState('');
   const [initialFetchDone, setInitialFetchDone] = useState({
     pets: false,
@@ -205,7 +205,7 @@ const AdminDashboard = () => {
                 onChange={(selectedOption) => {
                   const newStatus = selectedOption ? selectedOption.value : '';
                   setStatus(newStatus);
-                  dispatch(fetchRequests(1, 10, 'id', 'ASC', newStatus));
+                  dispatch(fetchRequests(1, 10, 'id', 'ASC', newStatus)); // Fetch requests with the selected status
                 }}
                 options={requestStatusOptions}
                 styles={customStyles}
@@ -217,6 +217,11 @@ const AdminDashboard = () => {
       </div>
 
       <div className="dashboard-display">
+        {!activeSection && (
+          <div className="no-selection-message">
+            <p>Elige alguna acción de la barra lateral</p>
+          </div>
+        )}
         {activeSection === 'pets' && initialFetchDone.pets && <ManagePets status={status} />}
         {activeSection === 'users' && initialFetchDone.users && <ManageUser status={status} />}
         {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests status={status} />}
