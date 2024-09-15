@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import UserProfile from '../profile/profile.component'; // Import the profile component
+import FetchRequests from '../requests/requests.component';
 import './dashboard.styles.css';
 
 const UserDashboard = () => {
@@ -44,7 +45,7 @@ const UserDashboard = () => {
 
       <div className="dashboard-display">
         {activeSection === 'user-data' && <UserProfile />} {/* Render profile when user-data is active */}
-        {activeSection === 'user-requests' && <div>Placeholder: Peticiones del usuario</div>}
+        {activeSection === 'user-requests' && <FetchRequests />}
         {activeSection === 'donate' && <div>Placeholder: Donar</div>}
       </div>
     </div>

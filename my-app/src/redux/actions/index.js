@@ -150,16 +150,6 @@ export const fetchUsers = (filters = {}, page = 1) => async (dispatch) => {
   }
 };
 
-
-
-
-
-
-
-
-
-
-
 // Change user status
 export const changeUserStatus = (userId, isActive) => async (dispatch) => {
   try {
@@ -240,12 +230,6 @@ export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC', 
   }
 };
 
-
-
-
-
-
-
 // Update request status and comment
 export const updateRequest = (requestId, status, comment) => async (dispatch) => {
   try {
@@ -276,9 +260,6 @@ export const updateRequest = (requestId, status, comment) => async (dispatch) =>
   }
 };
 
-
-
-
 //Create a new request
 export const createRequest = (request, headers) => async (dispatch) => {
   try {
@@ -295,12 +276,15 @@ export const fetchUserDetail = (userId) => async (dispatch) => {
   try {
     console.log(`Fetching User detail for ID: ${userId}`);
     
+    // Get tokens from localStorage
     const token = localStorage.getItem('jwt');
-    const response = await axios.get(`/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`, // Include JWT token for authorization
-      },
-    });
+    const googleAccessToken = localStorage.getItem('accessToken'); // Access token for Google login
+
+    const headers = {
+      Authorization: `Bearer ${googleAccessToken || token}`, // Use Google access token if present, otherwise JWT token
+    };
+
+    const response = await axios.get(`/users/${userId}`, { headers });
     
     console.log('Fetched User detail:', response.data);
     dispatch({ type: FETCH_USER_DETAIL_SUCCESS, payload: response.data });
@@ -308,6 +292,7 @@ export const fetchUserDetail = (userId) => async (dispatch) => {
     console.error('Error fetching user detail:', error.message);
   }
 };
+
 
 
 // Update profile
