@@ -101,9 +101,17 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         requests: [...state.requests, action.payload],
       };
-
-    default:
-      return state;
+    
+      case 'UPDATE_REQUEST_SUCCESS':
+        return {
+          ...state,
+          requests: state.requests.map((request) =>
+            request.id === action.payload.id ? action.payload : request
+          ),
+        };
+  
+      default:
+        return state;
   }
 };
 

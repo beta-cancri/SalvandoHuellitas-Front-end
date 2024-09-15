@@ -1,20 +1,36 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRequests } from '../../../redux/actions';
+import { fetchRequests, updateRequest } from '../../../redux/actions';
 import './managerequests.styles.css';
 
-const ManageRequests = () => {
+const ManageRequests = ({ status }) => {
   const dispatch = useDispatch();
   const { requests, requestsCurrentPage, requestsTotalPages } = useSelector((state) => state);
 
-  // Fetch requests with pagination
+  // Fetch requests with pagination and filtering by status
   useEffect(() => {
-    dispatch(fetchRequests(1)); // Always fetch from the first page initially
-  }, [dispatch]);
+    dispatch(fetchRequests(1, 10, 'id', 'ASC', status)); // Fetch requests filtered by status
+  }, [dispatch, status]);
+
+  // Handle request status update
+  const handleUpdateRequest = (requestId, status) => {
+    const comment = window.prompt('Agrega un comentario (opcional):');
+    const confirmationMessage = `¿Estás seguro de cambiar el estado de la solicitud a ${status}?`;
+
+    if (window.confirm(confirmationMessage)) {
+      dispatch(updateRequest(requestId, status, comment))
+        .then(() => {
+          dispatch(fetchRequests(1, 10, 'id', 'ASC', status)); // Refetch requests after updating
+        })
+        .catch((error) => {
+          console.error('Error al actualizar la solicitud:', error);
+        });
+    }
+  };
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchRequests(pageNumber)); // Change page number when paginating
+    dispatch(fetchRequests(pageNumber, 10, 'id', 'ASC', status)); // Change page number when paginating
   };
 
   return (
@@ -39,8 +55,18 @@ const ManageRequests = () => {
                   </div>
                 </div>
                 <div className="button-group">
-                  <button className="deny-button">Denegar</button>
-                  <button className="approve-button">Aprobar</button>
+                  <button
+                    className="deny-button"
+                    onClick={() => handleUpdateRequest(request.id, 'denied')}
+                  >
+                    Denegar
+                  </button>
+                  <button
+                    className="approve-button"
+                    onClick={() => handleUpdateRequest(request.id, 'approved')}
+                  >
+                    Aprobar
+                  </button>
                 </div>
               </li>
             ))}

@@ -202,8 +202,8 @@ export const createUser = (user) => async (dispatch) => {
   }
 };
 
-// Fetch all requests
-export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC') => async (dispatch) => {
+// Fetch all requests with status filter
+export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC', status = '') => async (dispatch) => {
   try {
     let token = localStorage.getItem("jwt");
 
@@ -213,6 +213,10 @@ export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC') 
       sort,
       order,
     };
+
+    if (status) {
+      params.status = status; // Include status if it's provided
+    }
 
     const response = await axios.get("/requests", {
       headers: {
@@ -236,6 +240,39 @@ export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC') 
 
 
 
+
+
+
+
+// Update request status and comment
+export const updateRequest = (requestId, status, comment) => async (dispatch) => {
+  try {
+    console.log(`Updating request with ID: ${requestId} to status: ${status}`);
+
+    // Retrieve the token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the PATCH request to update the request
+    const response = await axios.patch(`/requests/${requestId}`, { status, comment }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Update Request response:', response.data);
+
+    // Dispatch an action to update the state
+    dispatch({
+      type: 'UPDATE_REQUEST_SUCCESS',
+      payload: response.data.request,
+    });
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('Error updating request status:', error.message);
+    return Promise.reject(error);
+  }
+};
 
 
 

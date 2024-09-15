@@ -5,7 +5,7 @@ import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
-import { fetchPets, fetchUsers } from '../../../redux/actions';
+import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
@@ -66,7 +66,7 @@ const AdminDashboard = () => {
     }
   }, []);
 
-  // Filter options for pets and users
+  // Filter options for pets, users, and requests
   const statusOptions = [
     { value: '', label: 'Todos' },
     { value: 'available', label: 'Activo' },
@@ -77,6 +77,14 @@ const AdminDashboard = () => {
     { value: '', label: 'Todos' },
     { value: 'active', label: 'Activo' },
     { value: 'inactive', label: 'Inactivo' },
+  ];
+
+  const requestStatusOptions = [
+    { value: '', label: 'Todos' },
+    { value: 'pending', label: 'Pendiente' },
+    { value: 'approved', label: 'Aprobada' },
+    { value: 'denied', label: 'Denegada' },
+    { value: 'closed', label: 'Cerrada' },
   ];
 
   // Custom styles for Select dropdown
@@ -184,12 +192,34 @@ const AdminDashboard = () => {
             </label>
           </div>
         )}
+
+        {/* Show filters for Requests section */}
+        {activeSection === 'requests' && (
+          <div className="filter-controls-admin">
+            <label>
+              Estado de las Solicitudes:
+              <Select
+                className="custom-select-container-admin"
+                classNamePrefix="custom-select-admin"
+                value={requestStatusOptions.find((option) => option.value === status)}
+                onChange={(selectedOption) => {
+                  const newStatus = selectedOption ? selectedOption.value : '';
+                  setStatus(newStatus);
+                  dispatch(fetchRequests(1, 10, 'id', 'ASC', newStatus));
+                }}
+                options={requestStatusOptions}
+                styles={customStyles}
+                isClearable
+              />
+            </label>
+          </div>
+        )}
       </div>
 
       <div className="dashboard-display">
         {activeSection === 'pets' && initialFetchDone.pets && <ManagePets status={status} />}
         {activeSection === 'users' && initialFetchDone.users && <ManageUser status={status} />}
-        {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests />}
+        {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests status={status} />}
       </div>
     </div>
   );
