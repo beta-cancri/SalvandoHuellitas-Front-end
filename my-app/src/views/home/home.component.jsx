@@ -3,19 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
+import { useLocation } from 'react-router-dom'; // Importar useLocation para acceder a state de navigate
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
 import { useNavigate } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
 
+
 const Home = () => {
   const dispatch = useDispatch();
-  const { pets, currentPage, totalPages } = useSelector((state) => state);
+  const location = useLocation(); // Para obtener las mascotas sugeridas desde el state
+  const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
+
+
+  // Estado para manejar mascotas sugeridas (si vienen en la redirección)
+  const [suggestedPets, setSuggestedPets] = useState(location.state?.suggestedPets || []);
+
 
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
+  const [formData, setFormData] = useState({ name: '', photoUrl: '', text: '', rating: 0 });
+  const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
@@ -46,49 +56,59 @@ const Home = () => {
       setSpecies(savedFilters.species || '');
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
-      dispatch(fetchPets(savedFilters, savedFilters.currentPage || 1));
-    } else {
-      dispatch(fetchPets({}, 1));
+
+      // Aplicar los filtros guardados al montar el componente solo si no hay mascotas sugeridas
+      if (!suggestedPets.length) {
+        dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage || 1, true)); // Ensure isHome is true here
+      }
+    } else if (!suggestedPets.length) {
+      // Si no hay filtros guardados ni mascotas sugeridas, cargar solo las mascotas disponibles
+      dispatch(fetchPets({}, 1, true)); // Ensure isHome is true here
+
     }
-  }, [dispatch]);
+  }, [dispatch, suggestedPets]);
 
-  const handleFilterChange = (key, value) => {
-    const filters = { species, energyLevel, size, [key]: value };
-    if (key === 'species') setSpecies(value);
-    if (key === 'energyLevel') setEnergyLevel(value);
-    if (key === 'size') setSize(value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validar datos del formulario
+    if (!formData.name || !formData.photoUrl || !formData.text || formData.rating === 0) {
+      setError({ general: 'Todos los campos son requeridos.' });
+      return;
+    }
 
-    localStorage.setItem('filters', JSON.stringify({ ...filters, currentPage: currentPage || 1 }));
-    dispatch(fetchPets(filters, 1));
-  };
+    // Agregar nueva reseña al estado
+    const newReview = {
+      id_user: reviews.length + 1, // Generar ID
+      ...formData,
+      date: new Date(),
+    };
 
-  const handleResetFilters = () => {
-    setSpecies('');
-    setEnergyLevel('');
-    setSize('');
-    localStorage.removeItem('filters');
-    dispatch(fetchPets({}, 1));
-  };
+    const updatedReviews = [...reviews, newReview];
+    setReviews(updatedReviews);
 
-  const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size, status: "available" }, pageNumber));
+    // Guardar reseñas en localStorage
+    localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+
+    setFormData({ name: '', photoUrl: '', text: '', rating: 0 });
+    setError({});
+    alert('Testimonio agregado exitosamente');
   };
 
   const speciesOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'dog', label: 'Perro' },
     { value: 'cat', label: 'Gato' }
   ];
 
   const energyLevelOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'low', label: 'Bajo' },
     { value: 'medium', label: 'Medio' },
     { value: 'high', label: 'Alto' }
   ];
 
   const sizeOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'small', label: 'Chico' },
     { value: 'medium', label: 'Mediano' },
     { value: 'large', label: 'Grande' }
@@ -105,8 +125,56 @@ const Home = () => {
       backgroundColor: state.isSelected ? '#a8a3a3' : state.isFocused ? '#f0cd8a' : 'rgba(0, 0, 0, 0.5)',
       color: state.isSelected ? '#000' : '#fff',
     }),
-    singleValue: (provided) => ({ ...provided, color: '#fff' }),
-    placeholder: (provided) => ({ ...provided, color: '#a8a3a3' })
+
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#fff'
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#a8a3a3'
+    })
+  };
+
+  // Maneja los cambios en los filtros y guarda en el localStorage
+  const handleFilterChange = (key, value) => {
+    const filters = {
+      species,
+      energyLevel,
+      size,
+      [key]: value,
+    };
+
+    if (key === 'species') setSpecies(value);
+    if (key === 'energyLevel') setEnergyLevel(value);
+    if (key === 'size') setSize(value);
+
+    // Guardar los filtros en localStorage
+    localStorage.setItem('filters', JSON.stringify({
+      ...filters,
+      petsCurrentPage: petsCurrentPage || 1 // Guardar la página actual
+    }));
+
+    // Despachar la acción para obtener los datos filtrados
+    dispatch(fetchPets(filters, 1, true)); // Reset to the first page and ensure isHome is true
+  };
+
+  // Cambiar de página
+  const handlePageChange = (pageNumber) => {
+    dispatch(fetchPets({ species, energyLevel, size }, pageNumber, true)); // Pass isHome as true
+  };
+
+  // Reiniciar filtros y limpiar localStorage
+  const handleResetFilters = () => {
+    setSpecies('');
+    setEnergyLevel('');
+    setSize('');
+
+    // Eliminar filtros de localStorage
+    localStorage.removeItem('filters');
+
+    // Cargar solo las mascotas disponibles
+    dispatch(fetchPets({}, 1, true)); // Ensure only available pets are fetched on reset
   };
 
   return (
@@ -152,27 +220,27 @@ const Home = () => {
         </label>
 
         <button onClick={handleResetFilters} className="reset-button">
-          <i className="fas fa-trash"></i>
+          Limpiar Filtros
         </button>
       </div>
 
       {pets.length > 0 ? (
-        <>
+        <div className="pets-container">
           <Cards pets={pets} />
           <div className="pagination">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <button onClick={() => handlePageChange(petsCurrentPage - 1)} disabled={petsCurrentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>Página {petsCurrentPage} de {petsTotalPages}</span>
+            <button onClick={() => handlePageChange(petsCurrentPage + 1)} disabled={petsCurrentPage === petsTotalPages}>
               Siguiente
             </button>
           </div>
-        </>
+        </div>
       ) : (
         <p>No hay mascotas disponibles</p>
-      )
-      }
+      )}
+
       <div className="reviews">
         <h2> MIRA LO QUE DICEN SOBRE NOSOTROS </h2>
         {loading ? (
