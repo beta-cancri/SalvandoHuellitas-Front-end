@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
-import { Link, useParams, useNavigate  } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
 
-import axios from 'axios'; 
-
-const Adopt = () => {
-
+import axios from 'axios';
 
 const Adopt = () => {
     const dispatch = useDispatch();
@@ -71,7 +68,7 @@ const Adopt = () => {
                     if (!id) {
                         const response = await axios.post("/pets/suggest", requestData, { headers });
                         setSuggestedPets(response.data);  // Mostrar mascotas sugeridas
-                        
+
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
 
@@ -83,24 +80,24 @@ const Adopt = () => {
                         };
 
 
-                    //se envía la solicitud vía Redux
-                    dispatch(createRequest(requestDataWithUser, headers));
-                    alert('¡Gracias por enviarnos tu solicitud!');
+                        //se envía la solicitud vía Redux
+                        dispatch(createRequest(requestDataWithUser, headers));
+                        alert('¡Gracias por enviarnos tu solicitud!');
 
 
-                    setRequestData({
-                        adress: '',
-                        occupation: '',
-                        totalHabitants: 1,
-                        hasKids: '',
-                        hasPets: '',
-                        space: '',
-                        timeAvailable: '',
-                        addedCondition: '',
-                        clauses: false
+                        setRequestData({
+                            adress: '',
+                            occupation: '',
+                            totalHabitants: 1,
+                            hasKids: '',
+                            hasPets: '',
+                            space: '',
+                            timeAvailable: '',
+                            addedCondition: '',
+                            clauses: false
 
-                    })
-                }
+                        })
+                    }
 
 
                 } else {
@@ -310,15 +307,15 @@ const Adopt = () => {
                     </ul>
 
                     <div className="checkbox">
-                            <input type="checkbox"
-                                id="clauses"
-                                name="clauses"
-                                onChange={handleChange}
-                                checked={requestData.clauses}
-                            />
-                            <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
-                        </div>
-                    
+                        <input type="checkbox"
+                            id="clauses"
+                            name="clauses"
+                            onChange={handleChange}
+                            checked={requestData.clauses}
+                        />
+                        <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
+                    </div>
+
                     {errors.clauses && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.clauses}</p>
@@ -326,10 +323,10 @@ const Adopt = () => {
                         </div>
                     )}
                     <div className='button-container'>
-                    <button type="submit" className='button' disabled={uploading}>
-                        {uploading ? 'Enviando...' : 'Enviar'}
-                    </button>
-                    <Link className='button' to="/home">Volver</Link>
+                        <button type="submit" className='button' disabled={uploading}>
+                            {uploading ? 'Enviando...' : 'Enviar'}
+                        </button>
+                        <Link className='button' to="/home">Volver</Link>
                     </div>
                 </form>
             </div>

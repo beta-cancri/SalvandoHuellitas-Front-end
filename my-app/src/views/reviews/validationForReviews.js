@@ -18,11 +18,6 @@ const validate = (formData) => {
     errors.rating = "Por favor, selecciona una calificación.";
   }
 
-  // Validación para la fecha
-  if (!formData.date || formData.date === "") {
-    errors.date = "Por favor, ingresa la fecha.";
-  }
-
   return errors;
 };
 
