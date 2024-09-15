@@ -178,6 +178,7 @@
   color: #fff; 
   font-family: 'Poppins', sans-serif; 
 }
+   
 
 .intro a:hover, .faq a:hover, .reviews a:hover {
   background-color: #c3a86e6c; /* Fondo oscuro en hover */
