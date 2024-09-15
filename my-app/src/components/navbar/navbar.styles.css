@@ -15,7 +15,7 @@
   background-color: #0000007d; /* Fondo negro para el navbar */
   padding: 10px 15px;
   min-height: 65px;
-position: relative;
+  position: relative;
 }
 
 .navbar-container {
@@ -157,6 +157,8 @@ position: relative;
   display: flex;
   align-items: center; /* Alinea los items al centro verticalmente */
 }
+
+/* Remove underline from the Donar button */
 .donate-button {
   background: none; 
   color: #ffffff;
@@ -167,38 +169,100 @@ position: relative;
   font-weight: 500; 
   font-size: 1em; 
   transition: color 0.3s ease; 
-  text-decoration: underline;
+  text-decoration: none; /* Removed underline */
 }
 
 .donate-button:hover {
   color: #ffbd61; 
 }
 
-
-
-
 /* Contenedor del input de donación */
 .donation-input-container {
   top: 65px; /* Ajusta según la altura del navbar más el espacio deseado */
   background-color: #333333;
-  padding: 2px;
+  padding: 15px;
   width: 25%;
   min-width: 250px;
-  right: 10%;
+  right: 0; /* Align near the Donar button */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 4;
   position: absolute; 
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.donation-input-container.animate-fade {
+  opacity: 1;
+  visibility: visible;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animations */
+.user-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1em;
+  position: relative;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.user-dropdown.animate-slide {
+  opacity: 1;
+  visibility: visible;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.user-dropdown button {
+  padding: 10px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.user-dropdown button:hover {
+  background-color: #444;
+}
+
+.user-dropdown button + button {
+  margin-top: 10px;
+}
+
+.user-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 
+/* Media Queries */
 @media (max-width: 768px) {
   .menu-icon {
     display: flex;
     cursor: pointer; /* Asegúrate de que el cursor cambie para el icono de menú */
-    
   }
 
-  .navbar-user-info{
+  .navbar-user-info {
     flex-direction: column;
   }
 
@@ -206,7 +270,6 @@ position: relative;
     display: flex;
     flex-direction: column; /* Pone los enlaces en columna */
     gap: 10px; /* Elimina el padding para el menú desplegable */
-    
   }
 
   .navbar-options {
@@ -222,13 +285,10 @@ position: relative;
     font-size: 1.6rem;
   }
 
-  
   .navbar-options.active {
     display: flex; /* Muestra el menú cuando está activo */
     /* Asegúrate de que el z-index funcione */
     z-index: 5; /* Número más bajo que el título "Contacto" */
-   
-   
   }
 
   .navbar-container {
@@ -241,20 +301,49 @@ position: relative;
     border: none;
     color: #dddddd;
   }
-  .navbar-search-button-text{
+
+  .navbar-search-button-text {
     display: none;
   }
 
-  .logout-button{
+  .logout-button {
     margin-bottom: 12px;
   }
-
 }
 
 @media (max-width: 480px) {
   .navbar-logo {
     font-size: 100%;
   }
+}
 
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Apply the animations */
+.animate-slide {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-fade {
+  animation: fadeIn 0.3s ease-in-out;
 }
 

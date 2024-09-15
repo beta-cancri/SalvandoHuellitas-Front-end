@@ -1,54 +1,155 @@
 .manage-requests {
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .manage-requests h2 {
-    margin-bottom: 20px;
-    font-size: 1.8rem;
-    color: #343a40;
-  }
-  
-  .manage-requests ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .manage-requests li {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .manage-requests li:last-child {
-    border-bottom: none;
-  }
-  
-  .request-details {
-    flex: 1;
-    margin-right: 20px;
-  }
-  
-  .request-info {
-    font-size: 1rem;
-    color: #6c757d;
-  }
-  
-  .edit-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .edit-button:hover {
-    background-color: #0056b3;
-  }
-  
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+  flex-grow: 1;
+  margin-top: 20px;
+  min-height: 100vh;
+}
+
+.manage-requests-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0px;
+}
+
+.manage-requests h2 {
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin: 0;
+}
+
+.requests-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.request-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.request-item:last-child {
+  border-bottom: none;
+}
+
+.request-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pet-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.request-details {
+  flex: 1;
+  margin-right: 20px;
+  font-size: 0.9rem;
+  color: #fcf9f9;
+}
+
+.request-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #d59432;
+}
+
+.request-info {
+  font-size: 1rem;
+  color: #fcf9f9;
+}
+
+/* Button group for 'Denegar' and 'Aprobar' */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.deny-button, .approve-button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 50px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.deny-button:hover, .approve-button:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.deny-button {
+  background-color: #dc3545; /* Red for Denegar */
+}
+
+.approve-button {
+  background-color: #28a745; /* Green for Aprobar */
+}
+
+.deny-button:hover {
+  background-color: #c82333;
+}
+
+.approve-button:hover {
+  background-color: #218838;
+}
+
+/* Pagination */
+.pagination-requests {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-requests button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 50px;
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.pagination-requests button:hover {
+  background-color: #555;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.pagination-requests button:disabled {
+  background-color: #222;
+  color: #777;
+  border: 1px solid #333;
+  cursor: not-allowed;
+}
+
+.pagination-requests span {
+  color: #fff;
+  font-size: 14px;
+  margin: 0 10px;
+  font-weight: 500;
+}
