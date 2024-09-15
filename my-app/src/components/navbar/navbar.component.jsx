@@ -37,11 +37,7 @@ const Navbar = () => {
   // Fetch pets when on the /home page and searchQuery changes
   useEffect(() => {
     if (location.pathname === '/home') {
-      if (searchQuery.trim() === '') {
-        dispatch(fetchPets({ search: '' }));
-      } else {
-        dispatch(fetchPets({ search: searchQuery }));
-      }
+      dispatch(fetchPets({ search: searchQuery }, 1, true));
     }
   }, [searchQuery, dispatch, location.pathname]);
 

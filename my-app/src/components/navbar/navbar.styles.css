@@ -63,6 +63,7 @@
 .navbar-links {
   padding: 10px 0;
   display: flex;
+  align-items: center;
 }
 
 .navbar-links div a {
@@ -119,23 +120,6 @@
   border-color: #ff4c4c;
 }
 
-/* Ensure consistency in responsive buttons */
-.navbar-responsive-buttons button {
-  background: none;
-  border: none;
-  color: #ffffff;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif; /* Ensure same font */
-  font-weight: 500; /* Ensure same font weight */
-  font-size: 1em; /* Ensure same font size */
-  text-align: left;
-}
-
-.navbar-responsive-buttons button:hover {
-  background-color: #444;
-}
-
 .menu-icon {
   display: none;
   font-size: 2rem;
@@ -146,6 +130,11 @@
 .navbar-options {
   display: flex;
   align-items: center;
+}
+
+/* Hide user-dashboard and cerrar-sesion in normal view */
+.navbar-responsive-buttons {
+  display: none;
 }
 
 .donate-button {
@@ -222,7 +211,7 @@
   color: #fff;
   border: none;
   cursor: pointer;
-  text-align: left;
+  text-align: center;
 }
 
 .user-dropdown button:hover {
@@ -271,6 +260,12 @@
     z-index: 5;
   }
 
+  /* Show user-dashboard and cerrar-sesion in responsive view */
+  .navbar-responsive-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
   .navbar-responsive-buttons button {
     background: none;
     border: none;
@@ -280,7 +275,7 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 1em;
-    text-align: left;
+    text-align: center;
   }
 
   .navbar-container {
