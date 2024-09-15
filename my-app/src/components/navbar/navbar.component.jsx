@@ -66,20 +66,20 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuActive(!isMenuActive);
-    setIsUserMenuActive(false);
-    setShowDonationInput(false);
+    setIsUserMenuActive(false); // Close user menu when opening the main menu
+    setShowDonationInput(false); // Close donation menu when opening the main menu
   };
 
   const toggleUserMenu = () => {
-    setIsUserMenuActive(!isUserMenuActive);
-    setIsMenuActive(false);
-    setShowDonationInput(false);
+    setIsUserMenuActive(!isUserMenuActive); // Toggle the user menu
+    setIsMenuActive(false); // Close the main menu when opening the user menu
+    setShowDonationInput(false); // Close the donation input if it is open
   };
 
   const handleDonateClick = () => {
-    setShowDonationInput(!showDonationInput);
-    setIsMenuActive(false);
-    setIsUserMenuActive(false);
+    setShowDonationInput(!showDonationInput); // Toggle the donation menu
+    setIsMenuActive(false); // Close the main menu when opening the donation menu
+    setIsUserMenuActive(false); // Close the user menu if it is open
   };
 
   const handleDonationInputClose = () => {
@@ -172,8 +172,31 @@ const Navbar = () => {
                   Contacto
                 </Link>
               </div>
+
+              {/* Responsive view additional buttons */}
+              <div className="navbar-responsive-buttons">
+                {userDetail && (
+                  <>
+                    {location.pathname !== '/user/dashboard' && (
+                      <button
+                        className="navbar-button"
+                        onClick={() =>
+                          (window.location.href = userDetail.isAdmin
+                            ? '/admin/dashboard'
+                            : '/user/dashboard')
+                        }
+                      >
+                        {userDetail.isAdmin ? 'Admin Dashboard' : 'User Dashboard'}
+                      </button>
+                    )}
+                    <button className="logout-button" onClick={handleLogout}>
+                      Cerrar sesión
+                    </button>
+                  </>
+                )}
+              </div>
             </div>
-            {userDetail ? (
+            {userDetail && (
               <div className="user-menu" ref={userMenuRef}>
                 <button
                   className="user-button"
@@ -203,13 +226,6 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-            ) : (
-              <Link
-                to="/login"
-                className={`navbar-button ${location.pathname === '/login' ? 'active' : ''}`}
-              >
-                Ingresar
-              </Link>
             )}
           </div>
           <span className="menu-icon" onClick={toggleMenu}>

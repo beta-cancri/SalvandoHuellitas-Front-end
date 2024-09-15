@@ -1,3 +1,4 @@
+/* Global reset and layout settings */
 * {
   margin: 0;
   padding: 0;
@@ -116,6 +117,23 @@
   background-color: #ff4c4c;
   color: #fff;
   border-color: #ff4c4c;
+}
+
+/* Ensure consistency in responsive buttons */
+.navbar-responsive-buttons button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif; /* Ensure same font */
+  font-weight: 500; /* Ensure same font weight */
+  font-size: 1em; /* Ensure same font size */
+  text-align: left;
+}
+
+.navbar-responsive-buttons button:hover {
+  background-color: #444;
 }
 
 .menu-icon {
@@ -253,12 +271,29 @@
     z-index: 5;
   }
 
+  .navbar-responsive-buttons button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    text-align: left;
+  }
+
   .navbar-container {
     justify-content: space-between;
   }
 
   .logout-button {
     margin-bottom: 12px;
+  }
+
+    /* Hide user menu and image in responsive view */
+  .user-menu {
+    display: none;
   }
 }
 
