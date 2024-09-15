@@ -48,6 +48,7 @@
   font-weight: 500;
 }
 
+
 .reset-button:hover {
   color: #000000; 
   text-decoration-color: #000000; 
@@ -67,20 +68,9 @@
   text-decoration: underline;
   transition: color 0.3s ease, text-decoration-color 0.3s ease; 
   margin: 0;
-
   margin-top: 16px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
-
-.reset-button:hover {
-  color: #ffffff;
-  background-color: rgba(211, 47, 47, 0.5);
-}
-
-
-
-
-
 
 
 
