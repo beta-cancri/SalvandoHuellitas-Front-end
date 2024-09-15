@@ -103,6 +103,7 @@
   justify-content: space-around;
   margin-left: 100px;
   margin-right: 100px;
+  
 }
 
 .contact-info h2::before,
@@ -148,6 +149,7 @@
 
 .contact-social a:hover {
   color: #ffbd61;
+  animation: bounce_613 0.4s linear;
 }
 
 .contact-map {
@@ -173,7 +175,8 @@
 
 .whatsapp-button:hover {
   transform: scale(1.1);
-  color: #39aa08;
+  color: #25D366;
+  animation: bounce_613 0.4s linear;
 }
 
 .whatsapp-button i {
@@ -181,7 +184,23 @@
   font-size: 1.2em;
 }
 
+@keyframes bounce_613 {
+  40% {
+    transform: scale(1.4);
+  }
 
+  60% {
+    transform: scale(0.8);
+  }
+
+  80% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
 @media (max-width: 768px) {
   .contact-body-container{
     flex-direction: column;
