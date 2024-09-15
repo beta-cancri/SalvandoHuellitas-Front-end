@@ -1,21 +1,21 @@
+/* Global reset and layout settings */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.input-group{
+.input-group {
   display: flex;
   flex-direction: column;
 }
 
-
 /* Navbar Styles */
 .navbar {
-  background-color: #0000007d; /* Fondo negro para el navbar */
+  background-color: #0000007d;
   padding: 10px 15px;
   min-height: 65px;
-position: relative;
+  position: relative;
 }
 
 .navbar-container {
@@ -28,8 +28,8 @@ position: relative;
   font-size: 1.6em;
   color: #fff;
   text-decoration: none;
-  font-family: 'Poppins', sans-serif; /* Fuente aplicada */
-  font-weight: 500; /* Medium weight */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
 }
 
 .navbar-search {
@@ -37,93 +37,67 @@ position: relative;
   align-items: center;
 }
 
-.navbar-search-icon {
-  display: none;
-}
-
 .navbar-search-input {
   padding: 10px 0px 10px 10px;
-  border: 0; 
-  border-bottom: 1px solid #e6e4e4b9; 
-  border-radius: 0; 
+  border: 0;
+  border-bottom: 1px solid #e6e4e4b9;
+  border-radius: 0;
   font-size: 0.8em;
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500; 
-  color: #fff; 
-  background-color: transparent; 
-  outline: none; 
-  transition: border-color 0.3s ease; 
-  margin-right: 5px; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #fff;
+  background-color: transparent;
+  outline: none;
+  transition: border-color 0.3s ease;
+  margin-right: 5px;
 }
 
 .navbar-search-input::placeholder {
-  color: #fffefe; 
+  color: #fffefe;
 }
 
 .navbar-search-input:focus {
-  border-bottom-color: #cac8c5; 
-}
-
-.navbar-search-button {
-  padding: 5px;
-  border-radius: 5px; 
-  background-color: transparent; 
-  color: #fff; 
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
-  margin-left: 5px;  
-  border: 1px solid #ffffff;
-}
-.navbar-user-info{
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-.navbar-search-button:hover {
-  background-color: #cac8c5;  
-  color: #131212; 
-  border: 1px solid #ffffff; 
+  border-bottom-color: #cac8c5;
 }
 
 .navbar-links {
   padding: 10px 0;
   display: flex;
+  align-items: center;
 }
 
 .navbar-links div a {
-  font-family: 'Poppins', sans-serif;  
-  font-weight: 500; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   font-size: 1em;
   text-decoration: none;
-  color: #fff; 
+  color: #fff;
   padding: 10px 15px;
   transition: color 0.3s ease;
 }
 
 .navbar-links a.active,
 .navbar-links a:hover {
-  color: #ffbd61; 
+  color: #ffbd61;
 }
 
 /* Login */
 .navbar-button {
   padding: 10px 10px;
-  border-radius: 5px ; 
-  background-color: transparent; 
-  color: #fff; 
+  border-radius: 5px;
+  background-color: transparent;
+  color: #fff;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif; 
-  font-weight: 500; 
-  text-decoration: none; 
-  transition: background-color 0.3s ease, color 0.3s ease; 
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .navbar-button.active,
 .navbar-button:hover {
-  background-color: #cac8c5; 
-  color: #fff;  
+  background-color: #cac8c5;
+  color: #fff;
 }
 
 /* Estilos del botón de logout */
@@ -155,58 +129,117 @@ position: relative;
 
 .navbar-options {
   display: flex;
-  align-items: center; /* Alinea los items al centro verticalmente */
+  align-items: center;
 }
+
+/* Hide user-dashboard and cerrar-sesion in normal view */
+.navbar-responsive-buttons {
+  display: none;
+}
+
 .donate-button {
-  background: none; 
+  background: none;
   color: #ffffff;
-  border: none; 
-  padding: 10px 20px; 
+  border: none;
+  padding: 10px 20px;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
-  font-weight: 500; 
-  font-size: 1em; 
-  transition: color 0.3s ease; 
-  text-decoration: underline;
+  font-weight: 500;
+  font-size: 1em;
+  transition: color 0.3s ease;
+  text-decoration: none;
 }
 
 .donate-button:hover {
-  color: #ffbd61; 
+  color: #ffbd61;
 }
 
-
-
-
-/* Contenedor del input de donación */
 .donation-input-container {
-  top: 65px; /* Ajusta según la altura del navbar más el espacio deseado */
+  top: 65px;
   background-color: #333333;
-  padding: 2px;
+  padding: 15px;
   width: 25%;
   min-width: 250px;
-  right: 10%;
+  right: 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 4;
-  position: absolute; 
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 
+.donation-input-container.animate-fade {
+  opacity: 1;
+  visibility: visible;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.user-button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1em;
+  position: relative;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background-color: #333;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.user-dropdown.animate-slide {
+  opacity: 1;
+  visibility: visible;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.user-dropdown button {
+  padding: 10px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+
+.user-dropdown button:hover {
+  background-color: #444;
+}
+
+.user-dropdown button + button {
+  margin-top: 10px;
+}
+
+.user-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
 
 @media (max-width: 768px) {
   .menu-icon {
     display: flex;
-    cursor: pointer; /* Asegúrate de que el cursor cambie para el icono de menú */
-    
-  }
-
-  .navbar-user-info{
-    flex-direction: column;
+    cursor: pointer;
   }
 
   .navbar-links {
     display: flex;
-    flex-direction: column; /* Pone los enlaces en columna */
-    gap: 10px; /* Elimina el padding para el menú desplegable */
-    
+    flex-direction: column;
+    gap: 10px;
   }
 
   .navbar-options {
@@ -216,45 +249,73 @@ position: relative;
     background-color: #333;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    display: none; /* Inicialmente oculto */
+    display: none;
     flex-direction: column;
     width: 200px;
     font-size: 1.6rem;
   }
 
-  
   .navbar-options.active {
-    display: flex; /* Muestra el menú cuando está activo */
-    /* Asegúrate de que el z-index funcione */
-    z-index: 5; /* Número más bajo que el título "Contacto" */
-   
-   
+    display: flex;
+    z-index: 5;
+  }
+
+  /* Show user-dashboard and cerrar-sesion in responsive view */
+  .navbar-responsive-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar-responsive-buttons button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 1em;
+    text-align: center;
   }
 
   .navbar-container {
     justify-content: space-between;
   }
 
-  .navbar-search-icon {
-    display: block;
-    margin: 0;
-    border: none;
-    color: #dddddd;
-  }
-  .navbar-search-button-text{
-    display: none;
-  }
-
-  .logout-button{
+  .logout-button {
     margin-bottom: 12px;
   }
 
-}
-
-@media (max-width: 480px) {
-  .navbar-logo {
-    font-size: 100%;
+    /* Hide user menu and image in responsive view */
+  .user-menu {
+    display: none;
   }
-
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-slide {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-fade {
+  animation: fadeIn 0.3s ease-in-out;
+}
