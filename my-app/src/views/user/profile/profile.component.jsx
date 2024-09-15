@@ -53,12 +53,27 @@ const UserProfile = () => {
       if (profilePicture) {
         formData.append('idCard', profilePicture); // Append profile picture if it exists
       }
-
-      dispatch(updateUserProfile(formData)); // Dispatch the formData including profile picture
+  
+      dispatch(updateUserProfile(formData))
+        .then(() => {
+          // After the update is successful, refetch the user details
+          const user = JSON.parse(localStorage.getItem('user')); // Get the user from localStorage
+          if (user && user.userID) {
+            dispatch(fetchUserDetail(user.userID)); // Refetch user details to update the component state
+          }
+          setIsEditing(false); // Exit edit mode after saving
+        })
+        .catch((error) => {
+          console.error('Error updating profile:', error);
+        });
+    } else {
+      setIsEditing(true); // Enable edit mode
     }
-
-    setIsEditing(!isEditing); // Toggle the editing state
   };
+  
+
+  
+  
 
   // Cancel editing and reset the form to the original data
   const handleCancel = () => {

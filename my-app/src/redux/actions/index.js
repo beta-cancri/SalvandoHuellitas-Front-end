@@ -1,5 +1,4 @@
-import axios from 'axios';
-
+import axios from "axios";
 export const FETCH_PETS_SUCCESS = 'FETCH_PETS_SUCCESS';
 export const FETCH_PET_DETAIL_SUCCESS = 'FETCH_PET_DETAIL_SUCCESS';
 export const CREATE_PET_SUCCESS = 'CREATE_PET_SUCCESS';
@@ -37,21 +36,23 @@ export const fetchPets = (filters = {}, page = 1, isHome = false) => async (disp
   }
 };
 
+
 // Fetch pet by ID
 export const fetchPetDetail = (id) => async (dispatch) => {
   try {
     console.log(`Fetching Pet detail for ID: ${id}`);
     const response = await axios.get(`/pets/${id}`);
-    console.log('Fetched Pet detail:', response.data);
+    console.log("Fetched Pet detail:", response.data);
     dispatch({ type: FETCH_PET_DETAIL_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error fetching pet detail:', error.message);
+    console.error("Error fetching pet detail:", error.message);
   }
 };
 
 // Create a new pet
 export const createPet = (pet) => async (dispatch) => {
   try {
+
     const response = await axios.post('/pets', pet,
       {
         headers: {
@@ -61,7 +62,7 @@ export const createPet = (pet) => async (dispatch) => {
     console.log('Created Pet:', response.data);
     dispatch({ type: CREATE_PET_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error creating pet:', error.message);
+    console.error("Error creating pet:", error.message);
   }
 };
 
@@ -104,50 +105,32 @@ export const changePetStatus = (id, status) => async (dispatch) => {
 // Fetch all reviews
 export const fetchReviews = () => async (dispatch) => {
   try {
-    const response = await axios.get('/reviews');
-    console.log('Fetched Reviews:', response.data);
+    const response = await axios.get("/reviews");
+    console.log("Fetched Reviews:", response.data);
     dispatch({ type: FETCH_REVIEWS_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error fetching reviews:', error.message);
+    console.error("Error fetching reviews:", error.message);
   }
 };
 
 // Create a new review
 export const createReview = (review) => async (dispatch) => {
   try {
-    const response = await axios.post('/reviews', review);
-    console.log('Created Review:', response.data);
+    const response = await axios.post("/reviews", review);
+    console.log("Created Review:", response.data);
     dispatch({ type: CREATE_REVIEW_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error creating review:', error.message);
+    console.error("Error creating review:", error.message);
   }
 };
 
-// Fetch all users
-export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
+
+// Fetch all users with automatic sorting
+export const fetchUsers = (filters = {}, page = 1) => async (dispatch) => {
   try {
     let token = localStorage.getItem("jwt");
 
-    // Map the status value to true or false for isActive
-    let isActiveStatus;
-    if (status === 'active') {
-      isActiveStatus = true;
-    } else if (status === 'inactive') {
-      isActiveStatus = false;
-    } else {
-      isActiveStatus = ''; // No filter for status
-    }
-
-    const params = {
-      page,
-    };
-
-    if (isActiveStatus !== '') {  // Only include status if it's defined
-      params.status = status;
-    }
-
-    console.log('Dispatching fetchUsers with params:', params); // Log params
-    console.log('Mapped isActiveStatus:', isActiveStatus); // Debug log for status mapping
+    const params = { ...filters, page, sort: 'isActive' };
 
     const response = await axios.get('/users', {
       headers: {
@@ -160,16 +143,15 @@ export const fetchUsers = (page = 1, status = '') => async (dispatch) => {
 
     dispatch({
       type: FETCH_USERS_SUCCESS,
-      payload: {
-        results: response.data.results,
-        page: response.data.page,
-        totalPages: response.data.totalPages,
-      },
+      payload: response.data,
     });
   } catch (error) {
-    console.error('Error fetching users:', error.message);
+    console.error("Error fetching users:", error.message);
   }
 };
+
+
+
 
 
 
@@ -218,20 +200,83 @@ export const createUser = (user) => async (dispatch) => {
     console.log('Created User:', response.data);
     dispatch({ type: CREATE_USER_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error creating user:', error.message);
+    console.error("Error creating user:", error.message);
   }
 };
 
-// Fetch all requests
-export const fetchRequests = () => async (dispatch) => {
+// Fetch all requests with status filter
+export const fetchRequests = (page = 1, limit = 10, sort = 'id', order = 'ASC', status = '') => async (dispatch) => {
   try {
-    const response = await axios.get('/requests');
-    console.log('Fetched Requests:', response.data);
-    dispatch({ type: FETCH_REQUESTS_SUCCESS, payload: response.data });
+    let token = localStorage.getItem("jwt");
+
+    const params = {
+      page,
+      limit,
+      sort,
+      order,
+    };
+
+    if (status) {
+      params.status = status; // Include status if it's provided
+    }
+
+    const response = await axios.get("/requests", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params,
+    });
+
+    dispatch({
+      type: FETCH_REQUESTS_SUCCESS,
+      payload: {
+        results: response.data.results,
+        page: response.data.page,
+        totalPages: response.data.totalPages,
+      },
+    });
   } catch (error) {
-    console.error('Error fetching requests:', error.message);
+    console.error("Error fetching requests:", error.message);
   }
 };
+
+
+
+
+
+
+
+// Update request status and comment
+export const updateRequest = (requestId, status, comment) => async (dispatch) => {
+  try {
+    console.log(`Updating request with ID: ${requestId} to status: ${status}`);
+
+    // Retrieve the token from localStorage
+    let token = localStorage.getItem("jwt");
+
+    // Make the PATCH request to update the request
+    const response = await axios.patch(`/requests/${requestId}`, { status, comment }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Update Request response:', response.data);
+
+    // Dispatch an action to update the state
+    dispatch({
+      type: 'UPDATE_REQUEST_SUCCESS',
+      payload: response.data.request,
+    });
+
+    return Promise.resolve(response.data);
+  } catch (error) {
+    console.error('Error updating request status:', error.message);
+    return Promise.reject(error);
+  }
+};
+
+
 
 
 //Create a new request
@@ -241,7 +286,7 @@ export const createRequest = (request, headers) => async (dispatch) => {
     console.log('Created Request:', response.data);
     dispatch({ type: CREATE_REQUEST_SUCCESS, payload: response.data });
   } catch (error) {
-    console.error('Error creating request:', error.message);
+    console.error("Error creating request:", error.message);
   }
 };
 
@@ -270,7 +315,8 @@ export const updateUserProfile = (formData) => async (dispatch) => {
   try {
     // Get the token from local storage
     const token = localStorage.getItem('jwt');
-
+    console.log('Token:', token);
+    
     // Ensure the token exists
     if (!token) {
       throw new Error("Token not found. User is not authenticated.");
@@ -285,7 +331,7 @@ export const updateUserProfile = (formData) => async (dispatch) => {
     }
 
     // Make the PATCH request with the token in the headers
-    const response = await axios.patch('http://localhost:3001/users/profile', formData, {
+    const response = await axios.patch('/users/profile', formData, {
       headers: {
         Authorization: `Bearer ${token}`, // Include JWT token
         'Content-Type': 'multipart/form-data',

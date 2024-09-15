@@ -27,14 +27,14 @@ axios.defaults.baseURL = backendBaseUrl;
 const root = ReactDOM.createRoot(document.getElementById('root')); // Usa createRoot en lugar de render
 
 root.render(
-  <React.StrictMode>
+
     <Provider store={store}>
       <Router>
         <App />
         <ToastContainer />
       </Router>
     </Provider>
-  </React.StrictMode>
+
 );
 
 reportWebVitals();
