@@ -18,11 +18,11 @@ const Adopt = () => {
         adress: '',
         occupation: '',
         totalHabitants: 1,
-        hasKids: '', // Inicializado como cadena vacía
-        hasPets: '', // Inicializado como cadena vacía
+        hasKids: null, // Inicializado como cadena vacía
+        hasPets: null, // Inicializado como cadena vacía
         space: '',
         timeAvailable: '',
-        addedCondition: '', // Inicializado como cadena vacía
+        addedCondition: null, // Inicializado como cadena vacía
         clauses: false
     });
 
@@ -39,11 +39,13 @@ const Adopt = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
+    
         setRequestData(prevState => ({
             ...prevState,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked : (type === 'radio' ? value === 'true' : value) // Si es radio, convierte a booleano
         }));
     };
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,10 +63,13 @@ const Adopt = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     };
-
+    // Imprimir los datos que se enviarán
+    console.log("Datos enviados al backend: ", requestData);
                     // Si no hay mascota seleccionada, sugerimos mascotas
                     if (!id) {
+                        console.log("Request Data:", requestData);
                         const response = await axios.post("/pets/suggest", requestData, { headers });
+                        console.log("Suggested Pets Response: ", response.data);  
                         setSuggestedPets(response.data);  // Mostrar mascotas sugeridas
 
                         // Redirigir a Home con las mascotas sugeridas
@@ -75,9 +80,9 @@ const Adopt = () => {
                         const requestDataWithUser = {
                             ...requestData,
                             id_pet: id,
-                            hasKids: requestData.hasKids === 'true', // Convert string to boolean
-                            hasPets: requestData.hasPets === 'true', // Convert string to boolean
-                            addedCondition: requestData.addedCondition === 'true' // Convert string to boolean
+                            hasKids: requestData.hasKids, 
+                            hasPets: requestData.hasPets, 
+                            addedCondition: requestData.addedCondition
                         };
 
 
@@ -90,11 +95,11 @@ const Adopt = () => {
                             adress: '',
                             occupation: '',
                             totalHabitants: 1,
-                            hasKids: '',
-                            hasPets: '',
+                            hasKids: null,
+                            hasPets: null,
                             space: '',
                             timeAvailable: '',
-                            addedCondition: '',
+                            addedCondition: null,
                             clauses: false
 
                         })
@@ -171,7 +176,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="hasKids"
                                     value="true"
-                                    checked={requestData.hasKids === 'true'}
+                                    checked={requestData.hasKids === true}
                                     onChange={handleChange}
                                 />
                                 Sí
@@ -181,7 +186,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="hasKids"
                                     value="false"
-                                    checked={requestData.hasKids === 'false'}
+                                    checked={requestData.hasKids === false}
                                     onChange={handleChange}
                                 />
                                 No
@@ -221,7 +226,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="hasPets"
                                     value="true"
-                                    checked={requestData.hasPets === 'true'}
+                                    checked={requestData.hasPets === true}
                                     onChange={handleChange}
                                 />
                                 Sí
@@ -231,7 +236,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="hasPets"
                                     value="false"
-                                    checked={requestData.hasPets === 'false'}
+                                    checked={requestData.hasPets === false }
                                     onChange={handleChange}
                                 />
                                 No
@@ -274,7 +279,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="addedCondition"
                                     value="true"
-                                    checked={requestData.addedCondition === 'true'}
+                                    checked={requestData.addedCondition === true}
                                     onChange={handleChange}
                                 />
                                 Sí
@@ -284,7 +289,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="addedCondition"
                                     value="false"
-                                    checked={requestData.addedCondition === 'false'}
+                                    checked={requestData.addedCondition === false}
                                     onChange={handleChange}
                                 />
                                 No
