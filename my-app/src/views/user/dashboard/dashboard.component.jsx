@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import UserProfile from '../profile/profile.component';
 import FetchRequests from '../requests/requests.component';
 import DonationInput from '../../../components/donation/DonationInput'; // Import DonationInput
+
 import './dashboard.styles.css';
 
 const UserDashboard = () => {
@@ -57,6 +58,7 @@ const UserDashboard = () => {
           Adoptar
         </button>
       </div>
+
 
       <div className="user-dashboard-grid">
         <div className="user-profile-section">
