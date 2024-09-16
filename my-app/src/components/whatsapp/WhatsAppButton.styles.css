@@ -1,0 +1,16 @@
+.whatsApp-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+ 
+  z-index: 1000;
+
+}
+
+.whatsApp-icon {
+  width: 60px; 
+  height: 60px;
+}
+.whatsApp-button:hover{
+  animation: bounce_613 0.4s linear;
+}
