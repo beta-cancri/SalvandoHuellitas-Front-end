@@ -17,8 +17,6 @@ import ReviewForm from "./views/reviews/formReviews";
 import ReviewsPage from "./views/reviews/reviewsPage";
 import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Import the AdminDashboard component
 import UserDashboard from './views/user/dashboard/dashboard.component'; // Import the UserDashboard component
-import WhatsAppButton from './components/whatsapp/whatsAppButton.component';
-import ScrollToTopButton from './components/scroll/ScrollToTopButton.component';
 import './App.css';
 
 
@@ -52,8 +50,6 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
         <Route path="/user/dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
       </Routes>
-      <WhatsAppButton />
-      <ScrollToTopButton />
     </div>
   );
 };
