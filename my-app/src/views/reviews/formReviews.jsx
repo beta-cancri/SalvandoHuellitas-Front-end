@@ -87,7 +87,8 @@ function ReviewForm({ userName, userId }) {
                 const requestData = {
                     id_user: userId,
                     status: "Pendiente",
-                    comment: reviewText
+                    comment: reviewText,
+                    rating: parseInt(rating),
                 };
                 await axios.post("/reviews", requestData, { headers }).then(res => {
                     const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
