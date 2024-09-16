@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
-    "@fortawesome/react-fontawesome": "github:fortawesome/react-fontawesome",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@hookform/resolvers": "^3.9.0",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,7 +12,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.7.5",
     "cloudinary": "^2.4.0",
-    "fortawesome": "^0.0.1-security",
+    "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -25,6 +25,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "serve": "^14.2.3",
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },

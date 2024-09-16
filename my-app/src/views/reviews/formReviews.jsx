@@ -2,17 +2,13 @@ import { useState, useEffect } from 'react';
 import './form.styles.css';
 import { useNavigate } from 'react-router-dom';
 import validate from '../reviews/validationForReviews';
-import axios from "axios";
 
-
-function ReviewForm({ userName, userId }) {
-    let userStore = JSON.parse(localStorage.getItem('user')) || {};
-    userName = userName || userStore.name || '';
-    userId = userId || userStore.userID || '';
+function ReviewForm({ onSubmitReview, userName, userId, adoptionApproved }) {
     const [reviewText, setReviewText] = useState('');
     const [rating, setRating] = useState('');
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
     const [errors, setErrors] = useState({});
-    const [name, setName] = useState(userName);
+    const [name, setName] = useState(userName || '');
     const [reviews, setReviews] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const navigate = useNavigate();
@@ -20,12 +16,12 @@ function ReviewForm({ userName, userId }) {
     // useEffect para validar en tiempo real solo después de haber intentado enviar el formulario
     useEffect(() => {
         if (isSubmitted) {
-            const formData = { userName: name, reviewText, rating };
+            const formData = { userName: name, reviewText, rating, date };
             setErrors(validate(formData));
         }
-    }, [name, reviewText, rating, isSubmitted]);
+    }, [name, reviewText, rating, date, isSubmitted]);
 
-    // Carga reseñas guardadas en localStorage al montar el componente
+    // Cargar reseñas guardadas en localStorage al montar el componente
     useEffect(() => {
         const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
         if (storedReviews.length > 0) {
@@ -39,6 +35,7 @@ function ReviewForm({ userName, userId }) {
         switch (id) {
             case 'userName':
                 setName(value);
+                // Validación inmediata del nombre si tiene números
                 if (value.length > 0 && /[\d]/.test(value)) {
                     setErrors((prevErrors) => ({
                         ...prevErrors,
@@ -57,16 +54,19 @@ function ReviewForm({ userName, userId }) {
             case 'rating':
                 setRating(value);
                 break;
+            case 'date':
+                setDate(value);
+                break;
             default:
                 break;
         }
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitted(true); // Marca que el formulario ha sido enviado
 
-        const formData = { userId, userName: name, reviewText, rating };
+        const formData = { userId, userName: name, reviewText, rating, date };
         const validationErrors = validate(formData);
 
         // Validación del nombre en caso de números
@@ -78,6 +78,7 @@ function ReviewForm({ userName, userId }) {
 
         // Solo procesar si no hay errores de validación
         if (Object.keys(validationErrors).length === 0) {
+
             try {
                 let token = localStorage.getItem("jwt");
                 const headers = {
@@ -102,9 +103,21 @@ function ReviewForm({ userName, userId }) {
                 });
             } catch (error) {
                 console.error("Error creating request:", error.message);
+
+            if (adoptionApproved) {
+                // Guardar la reseña en localStorage
+                const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                const updatedReviews = [...storedReviews, formData];
+                localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+
+                setReviews(updatedReviews); // Actualizar las reseñas en el estado
+                alert('Reseña enviada con éxito.');
+            } else {
+                alert('Solo puedes dejar una reseña si has completado una adopción.');
+
             }
         }
-    }
+    };
 
     const handleDelete = (indexToDelete) => {
         const updatedReviews = reviews.filter((_, index) => index !== indexToDelete);
@@ -160,6 +173,19 @@ function ReviewForm({ userName, userId }) {
                         </select>
                         {(isSubmitted || rating.length > 0) && errors.rating && (
                             <p className="error-message">{errors.rating}</p>
+                        )}
+                    </div>
+
+                    <div>
+                        <label htmlFor="date">Fecha <span style={{ color: 'red' }}>*</span></label>
+                        <input
+                            type="date"
+                            id="date"
+                            value={date}
+                            onChange={handleChange}
+                        />
+                        {(isSubmitted || date.length > 0) && errors.date && (
+                            <p className="error-message">{errors.date}</p>
                         )}
                     </div>
 

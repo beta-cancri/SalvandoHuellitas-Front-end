@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate  } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
+import axios from 'axios'; 
 
-import axios from 'axios';
 
 const Adopt = () => {
     const dispatch = useDispatch();
@@ -66,7 +66,7 @@ const Adopt = () => {
                     if (!id) {
                         const response = await axios.post("/pets/suggest", requestData, { headers });
                         setSuggestedPets(response.data);  // Mostrar mascotas sugeridas
-
+                        
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
 
@@ -80,12 +80,10 @@ const Adopt = () => {
                             addedCondition: requestData.addedCondition === 'true' // Convert string to boolean
                         };
 
-
                         //se envía la solicitud vía Redux
                         dispatch(createRequest(requestDataWithUser, headers));
                         alert('¡Gracias por enviarnos tu solicitud!');
-
-
+                        
                         setRequestData({
                             adress: '',
                             occupation: '',
@@ -96,11 +94,8 @@ const Adopt = () => {
                             timeAvailable: '',
                             addedCondition: '',
                             clauses: false
-
-                        })
+                        });
                     }
-
-
                 } else {
                     setShowNotification(true);
                 }
@@ -315,14 +310,13 @@ const Adopt = () => {
                         />
                         <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
                     </div>
-                    {
-                        errors.clauses && (
-                            <div className="error-tooltip">
-                                <p className="error-text">{errors.clauses}</p>
-                                <div className="error-arrow"></div>
-                            </div>
-                        )
-                    }
+                    
+                    {errors.clauses && (
+                        <div className="error-tooltip">
+                            <p className="error-text">{errors.clauses}</p>
+                            <div className="error-arrow"></div>
+                        </div>
+                    )}
 
                     <div className='button-container'>
                         <button type="submit" className='button' disabled={uploading}>
@@ -330,8 +324,8 @@ const Adopt = () => {
                         </button>
                         <Link className='button' to="/home">Volver</Link>
                     </div>
-                </form >
-            </div >
+                </form>
+            </div>
             {showNotification && (
                 <Notification
                     onClose={handleCloseNotification}
@@ -339,7 +333,7 @@ const Adopt = () => {
                     message="¡Gracias por enviar tu solicitud! Nos pondremos en contacto contigo pronto 🐾."
                 />
             )}
-        </div >
+        </div>
     );
 }
 
