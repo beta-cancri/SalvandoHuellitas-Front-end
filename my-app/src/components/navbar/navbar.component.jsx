@@ -142,13 +142,16 @@ const Navbar = () => {
             </div>
           )}
           <div className={`navbar-options ${isMenuActive ? 'active' : ''}`} ref={menuRef}>
-            <button
-              onClick={handleDonateClick}
-              className="donate-button"
-              ref={donationButtonRef}
-            >
-              Donar
-            </button>
+            {/* Hide "Donar" button if user is on /user/dashboard */}
+            {location.pathname !== '/user/dashboard' && (
+              <button
+                onClick={handleDonateClick}
+                className="donate-button"
+                ref={donationButtonRef}
+              >
+                Donar
+              </button>
+            )}
             <div className="navbar-links">
               <div>
                 <Link
@@ -168,7 +171,7 @@ const Navbar = () => {
                   Contacto
                 </Link>
               </div>
-
+  
               {/* Responsive view additional buttons */}
               <div className="navbar-responsive-buttons">
                 {isLoggedIn ? (
@@ -177,9 +180,9 @@ const Navbar = () => {
                       <button
                         className="navbar-button"
                         onClick={() =>
-                          (window.location.href = userDetail.isAdmin
+                          window.location.href = userDetail.isAdmin
                             ? '/admin/dashboard'
-                            : '/user/dashboard')
+                            : '/user/dashboard'
                         }
                       >
                         {userDetail.isAdmin ? 'Admin Dashboard' : 'User Dashboard'}
@@ -206,20 +209,24 @@ const Navbar = () => {
                   onClick={toggleUserMenu}
                   ref={profileButtonRef}
                 >
-                  <img
-                    src={userDetail.idCard || 'default-profile-image.png'}
-                    alt="User Profile"
-                    className="user-profile-image"
-                  />
+                  {userDetail.idCard ? (
+                    <img
+                      src={userDetail.idCard}
+                      alt="User Profile"
+                      className="user-profile-image"
+                    />
+                  ) : (
+                    <span className="default-profile-symbol">🐶</span> // Show 🐾 when there is no image
+                  )}
                 </button>
                 {isUserMenuActive && (
                   <div className="user-dropdown animate-slide">
                     {location.pathname !== '/user/dashboard' && (
                       <button
                         onClick={() =>
-                          (window.location.href = userDetail.isAdmin
+                          window.location.href = userDetail.isAdmin
                             ? '/admin/dashboard'
-                            : '/user/dashboard')
+                            : '/user/dashboard'
                         }
                       >
                         {userDetail.isAdmin ? 'Admin Dashboard' : 'User Dashboard'}
@@ -231,8 +238,8 @@ const Navbar = () => {
               </div>
             ) : (
               <button
-                className="navbar-button"
-                onClick={() => window.location.href = '/login'}
+                className="navbar-button-no-responsive" /* Apply a different class */
+                onClick={() => (window.location.href = '/login')}
               >
                 Ingresar
               </button>
@@ -243,7 +250,7 @@ const Navbar = () => {
           </span>
         </div>
       </nav>
-
+  
       {showDonationInput && (
         <div className="donation-input-container animate-fade" ref={donationInputRef}>
           <DonationInput onClose={handleDonationInputClose} />
@@ -251,6 +258,7 @@ const Navbar = () => {
       )}
     </>
   );
+  
 };
 
 export default Navbar;

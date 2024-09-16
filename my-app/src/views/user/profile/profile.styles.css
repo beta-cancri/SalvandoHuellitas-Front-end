@@ -1,7 +1,7 @@
 /* Main container for the user profile */
 .user-profile {
     padding: 20px;
-    background-color: #f7f7f7;
+    background-color: rgba(255, 255, 255, 0.2); /* Match the dashboard background color */
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     max-width: 800px;
@@ -9,89 +9,156 @@
     display: flex;
     flex-direction: column;
     align-items: center; /* Center the photo */
-}
-
-/* Profile form styles */
-.user-profile-form {
+  }
+  
+  /* Title for the profile section */
+  .profile-title {
+    font-size: 2rem;
+    color: #ffffff; /* Match the sidebar text color */
+    text-align: center;
+    margin-bottom: 20px; /* Add space below the title */
+  }
+  
+  /* Profile form styles */
+  .user-profile-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-}
-
-/* Profile photo container */
-.profile-photo-container {
+  }
+  
+  /* Profile photo container */
+  .profile-photo-container {
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
-}
-
-/* Specific styles for the profile photo */
-.profile-photo {
-    width: 150px;
-    height: 150px;
+  }
+  
+  /* Specific styles for the profile photo */
+  .profile-photo {
+    width: 250px; /* Increased image size */
+    height: 250px; /* Increased image size */
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #ccc;
-}
-
-/* Placeholder text if no photo is available */
-.profile-photo-container p {
+    border: 3px solid #d59432; /* Match the selected button border color */
+  }
+  
+  /* Placeholder text if no photo is available */
+  .profile-photo-container p {
     font-style: italic;
     color: #999;
-}
-
-/* Horizontal form layout */
-.form-horizontal {
+  }
+  
+  /* Horizontal form layout */
+  .form-horizontal {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-}
-
-/* Each form group for labels and inputs */
-.form-group {
+  }
+  
+  /* Each form group for labels and inputs */
+  .form-group {
     display: flex;
     flex-direction: column;
     width: 48%; /* Set width for form elements to arrange them horizontally */
-}
-
-/* Labels for each field */
-.form-group label {
+  }
+  
+  /* Labels for each field */
+  .form-group label {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #333;
-}
-
-/* Styling for input fields */
-.form-group input {
+    color: #fdfcfc; /* Match text color with sidebar */
+  }
+  
+  /* Styling for input fields */
+  .form-group input {
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: #f0f0f0;
     font-size: 16px;
     color: #666;
-}
-
-/* Style for the "loading" message */
-.user-profile p {
-    text-align: center;
-    font-size: 18px;
-    color: #666;
-}
-
-/* Edit button styling */
-.edit-button {
+  }
+  
+  /* Edit button styling */
+  .edit-button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Match with sidebar button */
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
     cursor: pointer;
     margin-top: 20px;
     align-self: flex-start;
-}
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .edit-button:hover {
+    background-color: rgba(255, 255, 255, 0.047);
+  }
+  
+  /* Cancel button styling */
+  .cancel-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .cancel-button:hover {
+    background-color: #000000;
+    color: white;
+  }
+  
+  /* MEDIA QUERIES FOR RESPONSIVENESS */
+  
+  /* Adjust for smaller screen sizes (tablets and smaller) */
+  @media (max-width: 768px) {
 
-.edit-button:hover {
-    background-color: #0056b3;
-}
+    
+    .form-group {
+      width: 100%; /* Make form groups take full width */
+    }
+    
+    .profile-photo {
+      width: 180px;
+      height: 180px; /* Adjust photo size for smaller screens */
+    }
+  
+    .profile-title {
+      font-size: 1.5rem; /* Adjust the title font size */
+    }
+  
+    .edit-button, .cancel-button {
+      width: 100%; /* Full width buttons for smaller screens */
+      margin-left: 0;
+    }
+  }
+  
+  /* Adjust for very small screens (mobile phones) */
+  @media (max-width: 480px) {
+    .user-profile {
+      padding: 10px; /* Reduce padding */
+    }
+  
+    .profile-photo {
+      width: 150px;
+      height: 150px; /* Further reduce the photo size */
+    }
+  
+    .profile-title {
+      font-size: 1.2rem; /* Further adjust the title font size */
+    }
+  
+    .edit-button, .cancel-button {
+      padding: 10px;
+      font-size: 14px; /* Adjust button sizes */
+    }
+  }
+  

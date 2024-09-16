@@ -229,7 +229,30 @@
   cursor: pointer;
 }
 
+/* New styles for the no-responsive button */
+.navbar-button-no-responsive {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  text-decoration: none;
+  color: #fff;
+  padding: 10px 15px;
+  transition: color 0.3s ease;
+  background-color: transparent;
+  border: transparent;
+}
+
+.navbar-button-no-responsive:hover {
+  color: #ffbd61;
+}
+
+/* Hide the button in responsive view */
 @media (max-width: 768px) {
+  .navbar-button-no-responsive {
+    display: none; /* Hide this button in responsive view */
+  }
+  
+  /* Existing responsive styles for the navbar */
   .menu-icon {
     display: flex;
     cursor: pointer;
@@ -275,19 +298,6 @@
     font-weight: 500;
     font-size: 1em;
     text-align: center;
-  }
-
-  .navbar-container {
-    justify-content: space-between;
-  }
-
-  .logout-button {
-    margin-bottom: 12px;
-  }
-
-    /* Hide user menu and image in responsive view */
-  .user-menu {
-    display: none;
   }
 }
 
