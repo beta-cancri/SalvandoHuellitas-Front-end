@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDonation } from '../../redux/actions/index';
+import Notification from '../../views/create/Notification.jsx';
 import './DonationInput.styles.css';  
 
 const DonationInput = ({ onClose }) => {
   const [donationAmount, setDonationAmount] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+const [notificationMessage, setNotificationMessage] = useState('');
+
   const dispatch = useDispatch();
   const donationError = useSelector(state => state.donationError);
   const paymentLink = useSelector(state => state.paymentLink);
@@ -21,7 +25,8 @@ const DonationInput = ({ onClose }) => {
     if (donationAmount > 0) {
       dispatch(createDonation(donationAmount));
     } else {
-      alert('Ingrese un monto válido');
+      setNotificationMessage('⚠ Ingrese un monto de donación válido');
+      setShowNotification(true);
     }
   };
 
@@ -51,6 +56,12 @@ const DonationInput = ({ onClose }) => {
         </div>
         {donationError && <div className="error-message">{donationError}</div>}
       </form>
+      {showNotification && (
+        <Notification 
+          message={notificationMessage} 
+          onClose={() => setShowNotification(false)} 
+          />
+      )}
     </div>
   );
 };

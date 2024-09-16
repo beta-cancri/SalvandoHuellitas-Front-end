@@ -59,7 +59,7 @@
 .animal-image {
   object-fit: cover;
   border-radius: 5%;
-  border: 6px solid #ffffff;
+  border: 3px solid #ffffff;
   width: 100%;
   max-width: 320px;
   height: auto;
@@ -80,10 +80,7 @@
 }
 
 
-.button-atras{
-  position: absolute;
-  top: 0;
-  right: 0;
+.button-atras {
   margin: 10px;
   padding: 6px 12px;
   font-size: 1.2rem;
@@ -98,15 +95,10 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.button-atras:hover {
-  border: 2px solid #ffffff;
-  background-color: #00000076 ;
-  color: #ffffff;
-}
-
-.button-atras:active {
-  background-color: #222222;
-  border-color: #ffffff;
+.buttons-detail{
+  width: 60%;
+  display: flex;
+  justify-content: space-around;
 }
 
 
@@ -123,6 +115,10 @@
 
   html {
     font-size: 75%;
+  }
+
+  .buttons-detail{
+    flex-direction: column-reverse;
   }
 
 }

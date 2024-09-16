@@ -126,17 +126,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './about.styles.css';
+//import axios from 'axios';
 
 
 const About = () => {
-  const [expandedFAQs, setExpandedFAQs] = useState([]);
+
+  const [expandedFAQs, setExpandedFAQs] = useState([]); 
   const navigate = useNavigate();
+
+  
 
   const toggleFAQ = (index) => {
     setExpandedFAQs((prev) =>
       prev.includes(index)
-        ? prev.filter((i) => i !== index)
-        : [...prev, index]
+        ? prev.filter((i) => i !== index) 
+        : [...prev, index] 
     );
   };
 
@@ -150,7 +154,7 @@ const About = () => {
           Con tu ayuda, esperamos marcar una diferencia en la vida de estos maravillosos animales.
         </p>
       </div>
-
+      
       <div className="team">
         <h2>Conoce a Nuestro Equipo</h2>
         <div className="team-members">
@@ -200,8 +204,15 @@ const About = () => {
           ))}
         </ul>
       </div>
+
+  
+      
+      <div className="back-button-container">
+        <button className="button" onClick={() => navigate('/home')}>Inicio</button>        
+      </div>
     </div>
   );
 };
+
 
 export default About;

@@ -114,18 +114,26 @@ const Home = () => {
     { value: 'large', label: 'Grande' }
   ];
 
+  // Estilos personalizados para React Select
   const customStyles = {
     control: (provided) => ({
       ...provided,
+      width: '100%',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       borderColor: '#fff',
+      boxShadow: 'none',
+      borderRadius: '4px'
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      borderRadius: '4px'
     }),
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#a8a3a3' : state.isFocused ? '#f0cd8a' : 'rgba(0, 0, 0, 0.5)',
       color: state.isSelected ? '#000' : '#fff',
     }),
-
     singleValue: (provided) => ({
       ...provided,
       color: '#fff'
@@ -135,7 +143,6 @@ const Home = () => {
       color: '#a8a3a3'
     })
   };
-
   // Maneja los cambios en los filtros y guarda en el localStorage
   const handleFilterChange = (key, value) => {
     const filters = {
@@ -187,6 +194,7 @@ const Home = () => {
           Especie:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={speciesOptions.find(option => option.value === species)}
             onChange={(option) => handleFilterChange('species', option ? option.value : '')}
             options={speciesOptions}
@@ -199,6 +207,7 @@ const Home = () => {
           Nivel de Energía:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={energyLevelOptions.find(option => option.value === energyLevel)}
             onChange={(option) => handleFilterChange('energyLevel', option ? option.value : '')}
             options={energyLevelOptions}
@@ -211,6 +220,7 @@ const Home = () => {
           Tamaño:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={sizeOptions.find(option => option.value === size)}
             onChange={(option) => handleFilterChange('size', option ? option.value : '')}
             options={sizeOptions}
