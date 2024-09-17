@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import './form.styles.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 import validate from '../reviews/validationForReviews';
 
 function ReviewForm({ onSubmitReview, userName, userId, adoptionApproved }) {
@@ -62,23 +63,22 @@ function ReviewForm({ onSubmitReview, userName, userId, adoptionApproved }) {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {  // Mark handleSubmit as async
         e.preventDefault();
         setIsSubmitted(true); // Marca que el formulario ha sido enviado
-
+    
         const formData = { userId, userName: name, reviewText, rating, date };
         const validationErrors = validate(formData);
-
+    
         // Validación del nombre en caso de números
         if (name.length > 0 && /[\d]/.test(name)) {
             validationErrors.userName = 'El nombre no puede contener números.';
         }
-
+    
         setErrors(validationErrors);
-
+    
         // Solo procesar si no hay errores de validación
         if (Object.keys(validationErrors).length === 0) {
-
             try {
                 let token = localStorage.getItem("jwt");
                 const headers = {
@@ -103,18 +103,6 @@ function ReviewForm({ onSubmitReview, userName, userId, adoptionApproved }) {
                 });
             } catch (error) {
                 console.error("Error creating request:", error.message);
-
-            if (adoptionApproved) {
-                // Guardar la reseña en localStorage
-                const storedReviews = JSON.parse(localStorage.getItem('reviews')) || [];
-                const updatedReviews = [...storedReviews, formData];
-                localStorage.setItem('reviews', JSON.stringify(updatedReviews));
-
-                setReviews(updatedReviews); // Actualizar las reseñas en el estado
-                alert('Reseña enviada con éxito.');
-            } else {
-                alert('Solo puedes dejar una reseña si has completado una adopción.');
-
             }
         }
     };
