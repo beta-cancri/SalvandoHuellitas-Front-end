@@ -5,20 +5,22 @@ import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
 
 const Home = () => {
   const dispatch = useDispatch();
   const { pets, currentPage, totalPages } = useSelector((state) => state);
-
+  const navigate = useNavigate();
+  const location = useLocation(); 
+  const [suggestedPets, setSuggestedPets] = useState([]);
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
   const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
-  const navigate = useNavigate();
+ 
 
   // Reseñas estáticas
   useEffect(() => {
@@ -37,12 +39,32 @@ const Home = () => {
     fetchReviews();
   }, []);
 
+
+
+
+  // Cargar las mascotas sugeridas desde el state de la redirección
+  useEffect(() => {
+    if (location.state && location.state.suggestedPets) {
+      setSuggestedPets(location.state.suggestedPets);
+    }
+  }, [location.state]);
+
+   // Limpiar mascotas sugeridas y filtros si se navega al home desde el logo
+   useEffect(() => {
+    if (location.pathname === '/home') {
+      localStorage.removeItem('filters');  // Limpiar los filtros guardados
+      setSuggestedPets([]);                // Limpiar las mascotas sugeridas
+      dispatch(fetchPets({}, 1));           // Volver a cargar todas las mascotas
+    }
+  }, [location.pathname, dispatch]);
+
   // Cargar filtros desde localStorage
   useEffect(() => {
     manejarRedireccion();
 
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
+      if (savedFilters) {
       setSpecies(savedFilters.species || '');
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
@@ -50,7 +72,9 @@ const Home = () => {
     } else {
       dispatch(fetchPets({}, 1));
     }
-  }, [dispatch]);
+  }
+
+  }, [dispatch,  suggestedPets]);
 
   const handleFilterChange = (key, value) => {
     const filters = { species, energyLevel, size, [key]: value };
@@ -114,6 +138,7 @@ const Home = () => {
       <h1>Mascotas disponibles para adopción</h1>
 
       {/* Filtros */}
+      {!suggestedPets.length && ( // Solo mostrar los filtros si no hay mascotas sugeridas
       <div className="filter-controls">
         <label>
           Especie:
@@ -155,8 +180,22 @@ const Home = () => {
           <i className="fas fa-trash"></i>
         </button>
       </div>
+)}
 
-      {pets.length > 0 ? (
+{/* Mostrar mensaje si no hay coincidencias */}
+{!suggestedPets.length && (
+        <p>No hubo coincidencias, pero aquí están todas las mascotas disponibles para que puedas verlas:</p>
+      )}
+
+      {/* Mostrar mascotas sugeridas si existen, de lo contrario mostrar las mascotas filtradas */}
+      {suggestedPets.length > 0 ? (
+        <>
+          <h2>Mascotas sugeridas</h2>
+          <Cards pets={suggestedPets} /> {/* Mostrar mascotas sugeridas */}
+        </>
+      ) : (
+
+      pets.length > 0 ? (
         <>
           <Cards pets={pets} />
           <div className="pagination">
@@ -172,7 +211,7 @@ const Home = () => {
       ) : (
         <p>No hay mascotas disponibles</p>
       )
-      }
+      )}
       <div className="reviews">
         <h2> MIRA LO QUE DICEN SOBRE NOSOTROS </h2>
         {loading ? (
