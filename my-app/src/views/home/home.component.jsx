@@ -9,7 +9,6 @@ import { manejarRedireccion } from "../../auth/auth";
 import { useNavigate } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
-import axios from "axios";
 
 
 const Home = () => {
@@ -28,26 +27,22 @@ const Home = () => {
   const [formData, setFormData] = useState({ name: '', photoUrl: '', text: '', rating: 0 });
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
-  const [reviews, setReviews] = useState([
-    { user_name: 'Juan Pérez', comment: 'Excelente experiencia, altamente recomendado.', rating: 5 },
-    { user_name: 'Ana Gómez', comment: 'Muy buen servicio y atención.', rating: 4 },
-    { user_name: 'Carlos López', comment: 'La atención podría mejorar.', rating: 3 },
-    { user_name: 'Lucía Fernández', comment: 'Un lugar maravilloso para adoptar mascotas.', rating: 5 }
-  ]);
+  const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
-  // Cargar reseñas desde el servidor
+  // Reseñas estáticas
   useEffect(() => {
     const fetchReviews = async () => {
       setLoading(true);
-      try {
-        const response = await axios.get('/reviews');
-        setReviews(reviews.concat(response.data));
+      setTimeout(() => {
+        setReviews([
+          { name: 'Juan Pérez', text: 'Excelente experiencia, altamente recomendado.', rating: 5, date: new Date() },
+          { name: 'Ana Gómez', text: 'Muy buen servicio y atención.', rating: 4, date: new Date() },
+          { name: 'Carlos López', text: 'La atención podría mejorar.', rating: 3, date: new Date() },
+          { name: 'Lucía Fernández', text: 'Un lugar maravilloso para adoptar mascotas.', rating: 5, date: new Date() }
+        ]);
         setLoading(false);
-      } catch (error) {
-        console.error(error);
-        setLoading(false);
-      }
+      }, 1000);
     };
     fetchReviews();
   }, []);
@@ -263,16 +258,16 @@ const Home = () => {
         ) : reviews.length > 0 ? (
           <div className="review-cards">
             {reviews.map((review) => (
-              <div key={review.id_user} className="review-card">
+              <div key={review.name} className="review-card">
                 <div className="review-item">
                   <div className="review-name">
                     <strong>Nombre</strong>
-                    <span className="name-text">{review.user_name}</span>
+                    <span className="name-text">{review.name}</span>
                   </div>
 
                   <div className="review-text">
                     <strong>Reseña</strong>
-                    <span className="text-content">{review.comment}</span>
+                    <span className="text-content">{review.text}</span>
                   </div>
 
                   <div className="review-rating">
@@ -281,6 +276,8 @@ const Home = () => {
                       <LittleFootprintRating rating={review.rating} setRating={() => { }} />
                     </span>
                   </div>
+
+
                 </div>
               </div>
             ))}
