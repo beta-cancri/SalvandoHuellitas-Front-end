@@ -28,7 +28,14 @@ export function manejarRedireccion() {
         localStorage.setItem("jwt", response.data.token)
         var decoded = jwtDecode(response.data.token);
         localStorage.setItem("user",JSON.stringify(decoded));
-        window.location= "/home";
+        
+        let redirectPath = localStorage.getItem('afterLogin')
+      
+        if (redirectPath) {
+          localStorage.removeItem('afterLogin')
+          window.location = redirectPath 
+          } else { window.location = "/home";
+          }
       }).catch(error => {
         console.log(error)
       })
