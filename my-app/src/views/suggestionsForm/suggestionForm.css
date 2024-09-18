@@ -8,7 +8,7 @@
     position: relative;
     box-sizing: border-box;
     overflow-y: auto;
-  
+    
 }
 
 .full-screen-container-adopt::before {

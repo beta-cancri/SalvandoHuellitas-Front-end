@@ -4,9 +4,11 @@ import { createPet } from '../../redux/actions';
 import Notification from './Notification';
 import './create.styles.css';
 import validationForCreate from './validationForCreate';
+import { useNavigate } from 'react-router-dom'; // For navigation
 
 const CreatePet = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     status: 'available',
@@ -27,16 +29,29 @@ const CreatePet = () => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [error, setError] = useState({});
   const [uploading, setUploading] = useState(false);
-  const [showNotification, setShowNotification] = useState(false); //agregado
+  const [showNotification, setShowNotification] = useState(false);
+
+  // Validate if the user is an admin
+  useEffect(() => {
+    let storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      window.location = '/'; // Redirect to home if user is not found
+      return;
+    }
+    storedUser = JSON.parse(storedUser);
+    if (!storedUser.isAdmin) {
+      window.location = '/'; // Redirect to home if the user is not an admin
+    }
+  }, []);
 
   useEffect(() => {
-    // Limpia la URL anterior si existe
+    // Clean up URL if petImage exists
     if (petImage) {
       const newPreviewUrl = URL.createObjectURL(petImage);
       setPreviewUrl(newPreviewUrl);
 
       return () => {
-        URL.revokeObjectURL(newPreviewUrl); // Libera la memoria utilizada por la URL anterior
+        URL.revokeObjectURL(newPreviewUrl);
       };
     }
   }, [petImage]);
@@ -50,31 +65,29 @@ const CreatePet = () => {
   };
 
   const handleImageChange = (e) => {
-    console.log(e.target.files)
     const file = e.target.files[0];
     if (file && file.type.startsWith('image/')) {
       setFormData({
         ...formData,
-        photo: "file" // Aquí, "file" es solo un marcador, no estás enviando el archivo real
+        photo: 'file', // Placeholder for the real file
       });
       setPetImage(file);
-      setError(prevError => ({ ...prevError, photo: null }));
+      setError((prevError) => ({ ...prevError, photo: null }));
     } else {
-      setError(prevError => ({ ...prevError, photo: 'Por favor, selecciona una imagen válida' }));
+      setError((prevError) => ({ ...prevError, photo: 'Por favor, selecciona una imagen válida' }));
     }
   };
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validateErrors = validationForCreate(formData);
     setError(validateErrors);
-  
+
     if (Object.keys(validateErrors).length === 0 && petImage) {
       setUploading(true);
       try {
         const formDataWithImage = new FormData();
-        formDataWithImage.append('photo', petImage); // Aquí se agrega el archivo real
+        formDataWithImage.append('photo', petImage); // Real file
         formDataWithImage.append('status', formData.status);
         formDataWithImage.append('name', formData.name);
         formDataWithImage.append('species', formData.species);
@@ -86,13 +99,13 @@ const CreatePet = () => {
         formDataWithImage.append('okWithKids', formData.okWithKids);
         formDataWithImage.append('history', formData.history);
         formDataWithImage.append('gender', formData.gender);
-  
+
         await dispatch(createPet(formDataWithImage));
-        setShowNotification(true); //agregado
-  
+        setShowNotification(true);
+
         setFormData({
           status: 'available',
-          photo: '', // Esta propiedad ya no es necesaria aquí
+          photo: '',
           name: '',
           species: '',
           age: '',
@@ -105,15 +118,16 @@ const CreatePet = () => {
           gender: '',
         });
         setPetImage(null);
-        setPreviewUrl(null); // Limpiar la vista previa de la imagen
-        document.querySelector('input[name="photo"]').value = ''; // Limpiar el campo de archivo
+        setPreviewUrl(null);
+        document.querySelector('input[name="photo"]').value = ''; // Reset file input
       } catch (err) {
-        setError(prevError => ({ ...prevError, global: 'Error al ingresar la mascota: ' + err.message }));
+        setError((prevError) => ({ ...prevError, global: 'Error al ingresar la mascota: ' + err.message }));
       } finally {
         setUploading(false);
       }
     }
   };
+
   const handleCloseNotification = () => {
     setShowNotification(false);
   };
@@ -140,27 +154,34 @@ const CreatePet = () => {
                 <option value="inactive">Inactivo</option>
               </select>
             </label>
-            {error.status && <div className="error-tooltip"><p className="error-text">{error.status}</p><div className="error-arrow"></div></div>}
+            {error.status && (
+              <div className="error-tooltip">
+                <p className="error-text">{error.status}</p>
+                <div className="error-arrow"></div>
+              </div>
+            )}
 
             {/* Photo */}
             <label>
               Foto
-              <div class="file-upload-container">
-              <button class="custom-button">Seleccionar</button>
-              <input
-                type="file"
-                name="photo"
-                onChange={handleImageChange}
-                className={error.photo ? 'error' : ''}
-              />
+              <div className="file-upload-container">
+                <button className="custom-button">Seleccionar</button>
+                <input
+                  type="file"
+                  name="photo"
+                  onChange={handleImageChange}
+                  className={error.photo ? 'error' : ''}
+                />
               </div>
-            {error.photo && (
-              <div className="error-tooltip">
-                <p className="error-text">{error.photo}</p>
-                <div className="error-arrow"></div></div>
-                )}
-             {previewUrl && <img src={previewUrl} alt="Pet" className="pet-preview-image" />}
+              {error.photo && (
+                <div className="error-tooltip">
+                  <p className="error-text">{error.photo}</p>
+                  <div className="error-arrow"></div>
+                </div>
+              )}
+              {previewUrl && <img src={previewUrl} alt="Pet" className="pet-preview-image" />}
             </label>
+
             {/* Name */}
             <label>
               Nombre
@@ -341,7 +362,6 @@ const CreatePet = () => {
       {showNotification && (
         <Notification message="¡Mascota creada exitosamente! 🐾" onClose={handleCloseNotification} />
       )}
-
     </div>
   );
 };

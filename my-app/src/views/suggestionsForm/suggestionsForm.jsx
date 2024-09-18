@@ -1,30 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import './adopt.styles.css';
+import './suggestionForm.css';
 import { createRequest } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
 import { Link, useParams, useNavigate  } from 'react-router-dom';
 import Notification from '../create/Notification';
-import validationForAdopt from './validationForAdopt';
+import validationForAdopt from './validationForSuggestions';
 import axios from 'axios'; 
 
 
 
-const Adopt = () => {
+const SuggestionsForm = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
     const navigate = useNavigate(); // Inicializa useNavigate para redirigir
     const { id } = useParams();
     const [suggestedPets, setSuggestedPets] = useState([]);  // Estado para guardar las mascotas sugeridas
     const [requestData, setRequestData] = useState({
-        adress: '',
-        occupation: '',
-        totalHabitants: 1,
-        hasKids: null, // Inicializado como cadena vacía
-        hasPets: null, // Inicializado como cadena vacía
+        hasKids: null, 
+        hasPets: null, 
         space: '',
         timeAvailable: '',
-        addedCondition: null, // Inicializado como cadena vacía
-        clauses: false
     });
 
     const [errors, setErrors] = useState({});
@@ -72,44 +67,29 @@ const Adopt = () => {
                             const response = await axios.post("/pets/suggest", requestData, { headers });
                             console.log("Suggested Pets Response: ", response.data);
                             setSuggestedPets(response.data);
-    
-
-                                    
+                                        
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
-                    } else {
-                        // Si hay mascota seleccionada, enviamos la solicitud de adopción
-                        const requestDataWithUser = {
-                            ...requestData,
-                            id_pet: id
-                        };
-
-                        //se envía la solicitud vía Redux
-                        dispatch(createRequest(requestDataWithUser, headers));
-                        alert('¡Gracias por enviarnos tu solicitud!');
-                        
+                        } 
+                                                
                         setRequestData({
-                            adress: '',
-                            occupation: '',
-                            totalHabitants: 1,
                             hasKids: null,
                             hasPets: null,
                             space: '',
                             timeAvailable: '',
-                            addedCondition: null,
-                            clauses: false
                         });
+
+
                     }
-                } else {
-                    setShowNotification(true);
-                }
-            } catch (error) {
-                alert('No pudimos procesar tu solicitud debido a esto: ' + error.message);
+                } 
+             catch (error) {
+                alert('Debes iniciar sesion primero' + error.message);
             } finally {
                 setUploading(false);
             }
         }
     };
+
 
     const handleCloseNotification = () => {
         setShowNotification(false);
@@ -118,50 +98,10 @@ const Adopt = () => {
     return (
         <div className='full-screen-container-adopt'>
             <div className='adopt-container'>
-                <h2 className='adopt-h2'>Formulario de Adopción</h2>
-                
+                <h2 className='adopt-h2'>Encuentra mascotas para ti</h2>
+                                
                 <form onSubmit={handleSubmit} className='adopt-form'>
-                    <h5>🐾 Información de contacto</h5>
-                    Dirección
-                    <input type="text"
-                        name='adress'
-                        value={requestData.adress}
-                        onChange={handleChange}
-                        placeholder='¿Dónde vives?' />
-                    {errors.adress && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.adress}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}
-
-                    Ocupación
-                    <input type="text"
-                        name='occupation'
-                        value={requestData.occupation}
-                        onChange={handleChange}
-                        placeholder='¿A qué te dedicas?' />
-                    {errors.occupation && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.occupation}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}
-
-                    <h5>🐾 Condiciones de vivienda</h5>
-                    ¿Cuántas personas viven en la vivienda?
-                    <input type="number"
-                        name='totalHabitants'
-                        min="1"
-                        max="20"
-                        value={requestData.totalHabitants}
-                        onChange={handleChange} />
-                    {errors.totalHabitants && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.totalHabitants}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}
+            
 
                     <div className="radio-group">
                         <p>¿Hay niños en la vivienda?</p>
@@ -266,38 +206,13 @@ const Adopt = () => {
                         </div>
                     )}
 
-                   
-
-                    <h3>Cláusulas</h3>
-                    <ul>
-                        <li>Me comprometo a llevar a mi mascota al veterinario en caso de que se requiera.</li>
-                        <li>Estoy al tanto de los gastos que se requieren para el cuidado de mi mascota, y estoy dispuesto/a a asumirlos.</li>
-                        <li>Declaro que en el lugar donde vivo se permite tener mascotas.</li>
-                        <li>Declaro que todos los miembros de mi familia están de acuerdo con la adopción, y se comprometen a cuidar y darle buen trato a la mascota.</li>
-                    </ul>
-
-                    <div className="checkbox">
-                        <input type="checkbox"
-                            id="clauses"
-                            name="clauses"
-                            onChange={handleChange}
-                            checked={requestData.clauses}
-                        />
-                        <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
-                    </div>
                     
-                    {errors.clauses && (
-                        <div className="error-tooltip">
-                            <p className="error-text">{errors.clauses}</p>
-                            <div className="error-arrow"></div>
-                        </div>
-                    )}
 
                     <div className='button-container'>
                         <button type="submit" className='button' disabled={uploading}>
                             {uploading ? 'Enviando...' : 'Enviar'}
                         </button>
-                        <Link className='button' to="/home">Volver</Link>
+                        <Link className='button' to="/home">Omitir</Link>
                     </div>
                 </form>
             </div>
@@ -312,4 +227,4 @@ const Adopt = () => {
     );
 }
 
-export default Adopt;
+export default SuggestionsForm;
