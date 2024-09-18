@@ -86,7 +86,8 @@ const Adopt = () => {
 
                         //se envía la solicitud vía Redux
                         dispatch(createRequest(requestDataWithUser, headers));
-                        alert('¡Gracias por enviarnos tu solicitud!');
+                        setShowNotification(true);
+                        //alert('¡Gracias por enviarnos tu solicitud!');
                         
                         setRequestData({
                             adress: '',
@@ -101,6 +102,7 @@ const Adopt = () => {
                         });
                     }
                 } else {
+                    console.log("Mostrando notificación");
                     setShowNotification(true);
                 }
             } catch (error) {
@@ -131,7 +133,7 @@ const Adopt = () => {
                     {errors.adress && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.adress}</p>
-                            <div className="error-arrow"></div>
+                         <div className="error-arrow"></div>
                         </div>
                     )}
 
