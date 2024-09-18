@@ -3,37 +3,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPets } from '../../redux/actions';
 import Cards from '../../components/cards/cards.component';
 import Select from 'react-select';
-import { useLocation } from 'react-router-dom'; // Importar useLocation para acceder a state de navigate
 import './home.styles.css';
 import { manejarRedireccion } from "../../auth/auth";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
 import axios from "axios";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const location = useLocation(); // Para obtener las mascotas sugeridas desde el state
   const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
-
-
-  // Estado para manejar mascotas sugeridas (si vienen en la redirección)
-  const [suggestedPets, setSuggestedPets] = useState(location.state?.suggestedPets || []);
-
-
+  const navigate = useNavigate();
+  const location = useLocation(); 
+  const [suggestedPets, setSuggestedPets] = useState([]);
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
+  const [okWithPets, setOkWithPets] = useState('');
+  const [okWithKids, setOkWithKids] = useState('');
   const [formData, setFormData] = useState({ name: '', photoUrl: '', text: '', rating: 0 });
   const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
-  const [reviews, setReviews] = useState([
-    { user_name: 'Juan Pérez', comment: 'Excelente experiencia, altamente recomendado.', rating: 5 },
-    { user_name: 'Ana Gómez', comment: 'Muy buen servicio y atención.', rating: 4 },
-    { user_name: 'Carlos López', comment: 'La atención podría mejorar.', rating: 3 },
-    { user_name: 'Lucía Fernández', comment: 'Un lugar maravilloso para adoptar mascotas.', rating: 5 }
-  ]);
-  const navigate = useNavigate();
+  const [reviews, setReviews] = useState([]);
+ 
 
   // Cargar reseñas desde el servidor
   useEffect(() => {
@@ -51,6 +43,21 @@ const Home = () => {
     fetchReviews();
   }, []);
 
+
+
+
+  // Cargar las mascotas sugeridas desde el state de la redirección
+  useEffect(() => {
+    if (location.state && location.state.suggestedPets && location.state.suggestedPets.length > 0) {
+      setSuggestedPets(location.state.suggestedPets);
+    } else {
+      setSuggestedPets([]);
+    }
+  }, [location.state]);
+
+   
+  
+
   // Cargar filtros desde localStorage
   useEffect(() => {
     manejarRedireccion();
@@ -60,17 +67,16 @@ const Home = () => {
       setSpecies(savedFilters.species || '');
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
+      setOkWithKids(savedFilters.okWithKids || '');
+      setOkWithPets(savedFilters.okWithPets || '');
+      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage  || 1));
 
-      // Aplicar los filtros guardados al montar el componente solo si no hay mascotas sugeridas
-      if (!suggestedPets.length) {
-        dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage || 1, true)); // Ensure isHome is true here
-      }
-    } else if (!suggestedPets.length) {
-      // Si no hay filtros guardados ni mascotas sugeridas, cargar solo las mascotas disponibles
-      dispatch(fetchPets({}, 1, true)); // Ensure isHome is true here
-
+    } else {
+      dispatch(fetchPets({}, 1));
     }
-  }, [dispatch, suggestedPets]);
+  }, [dispatch]);
+
+  
 
   const speciesOptions = [
     { value: '', label: '' },
@@ -90,6 +96,20 @@ const Home = () => {
     { value: 'small', label: 'Chico' },
     { value: 'medium', label: 'Mediano' },
     { value: 'large', label: 'Grande' }
+  ];
+
+  const okWithPetsOptions = [
+    { value: '', label: '' },
+    { value: 'false', label: 'No' },
+    { value: 'true', label: 'Si' },
+    
+  ];
+
+  const okWithKidsOptions = [
+    { value: '', label: '' },
+    { value: 'false', label: 'No' },
+    { value: 'true', label: 'Si' },
+    
   ];
 
   // Estilos personalizados para React Select
@@ -127,12 +147,16 @@ const Home = () => {
       species,
       energyLevel,
       size,
+      okWithKids,
+      okWithPets,
       [key]: value,
     };
 
     if (key === 'species') setSpecies(value);
     if (key === 'energyLevel') setEnergyLevel(value);
     if (key === 'size') setSize(value);
+    if (key === 'okWithPets') setOkWithPets(value);
+    if (key === 'okWithKids') setOkWithKids(value);
 
     // Guardar los filtros en localStorage
     localStorage.setItem('filters', JSON.stringify({
@@ -146,7 +170,7 @@ const Home = () => {
 
   // Cambiar de página
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size }, pageNumber, true)); // Pass isHome as true
+    dispatch(fetchPets({ species, energyLevel, size, okWithPets, okWithKids }, pageNumber, true)); // Pass isHome as true
   };
 
   // Reiniciar filtros y limpiar localStorage
@@ -154,19 +178,21 @@ const Home = () => {
     setSpecies('');
     setEnergyLevel('');
     setSize('');
-
+    setOkWithPets('');
+    setOkWithKids('');
+    setSuggestedPets([]);
     // Eliminar filtros de localStorage
     localStorage.removeItem('filters');
 
     // Cargar solo las mascotas disponibles
-    dispatch(fetchPets({}, 1, true)); // Ensure only available pets are fetched on reset
+    dispatch(fetchPets({}, 1, true)); 
   };
 
   return (
     <div className="home-container">
       <h1>Mascotas disponibles para adopción</h1>
 
-      {/* Filtros */}
+      { 
       <div className="filter-controls">
         <label>
           Especie:
@@ -207,12 +233,54 @@ const Home = () => {
           />
         </label>
 
+        <label>
+          Convive con animales:
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={okWithPetsOptions.find(option => option.value === okWithPets)}
+            onChange={(option) => handleFilterChange('okWithPets', option ? option.value : '')}
+            options={okWithPetsOptions}
+            styles={customStyles}
+            isClearable
+          />
+        </label>
+
+        <label>
+          Convive con niños:
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={okWithKidsOptions.find(option => option.value === okWithKids)}
+            onChange={(option) => handleFilterChange('okWithKids', option ? option.value : '')}
+            options={okWithKidsOptions}
+            styles={customStyles}
+            isClearable
+          />
+        </label>
+
+
         <button onClick={handleResetFilters} className="reset-button">
           Limpiar Filtros
         </button>
       </div>
+      }
 
-      {pets.length > 0 ? (
+      {/* Mostrar mensaje si no hay coincidencias */}
+      {!suggestedPets.length && pets.length === 0 && (
+        <p>No hay coincidencias con los filtros aplicados ni mascotas disponibles.</p>
+      )}
+
+      {/* Mostrar mascotas sugeridas si existen */}
+      {suggestedPets.length > 0 ? (
+        <>
+          <h2>Mascotas sugeridas</h2>
+          <Cards pets={suggestedPets} /> {/* Mostrar mascotas sugeridas */}
+        </>
+      ) : (
+
+      pets.length > 0 && (
+        
         <div className="pets-container">
           <Cards pets={pets} />
           <div className="pagination">
@@ -225,10 +293,9 @@ const Home = () => {
             </button>
           </div>
         </div>
-      ) : (
-        <p>No hay mascotas disponibles</p>
+      ) 
+      
       )}
-
       <div className="reviews">
         <h2> MIRA LO QUE DICEN SOBRE NOSOTROS </h2>
         {loading ? (
