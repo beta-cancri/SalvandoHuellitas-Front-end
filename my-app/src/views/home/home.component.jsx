@@ -11,7 +11,6 @@ import LittleFootprintRating from '../reviews/littleFootprintRating';
 
 import axios from "axios";
 
-
 const Home = () => {
   const dispatch = useDispatch();
   const location = useLocation(); // Para obtener las mascotas sugeridas desde el state
@@ -72,32 +71,6 @@ const Home = () => {
 
     }
   }, [dispatch, suggestedPets]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validar datos del formulario
-    if (!formData.name || !formData.photoUrl || !formData.text || formData.rating === 0) {
-      setError({ general: 'Todos los campos son requeridos.' });
-      return;
-    }
-
-    // Agregar nueva reseña al estado
-    const newReview = {
-      id_user: reviews.length + 1, // Generar ID
-      ...formData,
-      date: new Date(),
-    };
-
-    const updatedReviews = [...reviews, newReview];
-    setReviews(updatedReviews);
-
-    // Guardar reseñas en localStorage
-    localStorage.setItem('reviews', JSON.stringify(updatedReviews));
-
-    setFormData({ name: '', photoUrl: '', text: '', rating: 0 });
-    setError({});
-    alert('Testimonio agregado exitosamente');
-  };
 
   const speciesOptions = [
     { value: '', label: '' },
@@ -288,8 +261,8 @@ const Home = () => {
         ) : null}
 
         <div className="back-button-container">
-          <button className="button-review" onClick={() => navigate('/home')}>Inicio</button>
-          <button className="button-review" onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇</button>
+       
+         <button className="button" onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇</button>
         </div>
       </div>
     </div>
