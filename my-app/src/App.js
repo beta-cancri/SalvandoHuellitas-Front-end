@@ -54,8 +54,8 @@ const App = () => {
         <Route path="/user/dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
         <Route path="/suggestPets" element={<SuggestionsForm />} />
       </Routes>
-      <WhatsAppButton />
-      <ScrollToTopButton />
+      <WhatsAppButton/>
+      <ScrollToTopButton/>
     </div>
   );
 };

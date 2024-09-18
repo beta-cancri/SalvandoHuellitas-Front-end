@@ -2,7 +2,7 @@
 
 # dependencies
 .idea/
-/node_modules
+*/node_modules
 /.pnp
 .pnp.js
 
@@ -23,6 +23,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD:my-app/.gitignore
 
 package.json
+=======
+*/package-lock.json
+>>>>>>> develop:.gitignore
 package-lock.json
