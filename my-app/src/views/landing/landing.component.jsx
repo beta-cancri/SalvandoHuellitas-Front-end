@@ -27,7 +27,7 @@ const Landing = () => {
               <button className="button-landing" onClick={handleDonateClick}>
                 Donar
               </button>
-              <Link to="/adopt" className="button-landing">Adoptar</Link>
+              <Link to="/suggestPets" className="button-landing">Adoptar</Link>
             </>
           )}
 

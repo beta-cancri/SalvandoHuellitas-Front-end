@@ -8,33 +8,38 @@ import { manejarRedireccion } from "../../auth/auth";
 import { useNavigate, useLocation } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
+import axios from "axios";
+
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { pets, currentPage, totalPages } = useSelector((state) => state);
+  const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
   const navigate = useNavigate();
   const location = useLocation(); 
   const [suggestedPets, setSuggestedPets] = useState([]);
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
+  const [okWithPets, setOkWithPets] = useState('');
+  const [okWithKids, setOkWithKids] = useState('');
+  const [formData, setFormData] = useState({ name: '', photoUrl: '', text: '', rating: 0 });
+  const [error, setError] = useState({});
   const [loading, setLoading] = useState(false);
   const [reviews, setReviews] = useState([]);
  
 
-  // Reseñas estáticas
+  // Cargar reseñas desde el servidor
   useEffect(() => {
     const fetchReviews = async () => {
       setLoading(true);
-      setTimeout(() => {
-        setReviews([
-          { name: 'Juan Pérez', text: 'Excelente experiencia, altamente recomendado.', rating: 5, date: new Date() },
-          { name: 'Ana Gómez', text: 'Muy buen servicio y atención.', rating: 4, date: new Date() },
-          { name: 'Carlos López', text: 'La atención podría mejorar.', rating: 3, date: new Date() },
-          { name: 'Lucía Fernández', text: 'Un lugar maravilloso para adoptar mascotas.', rating: 5, date: new Date() }
-        ]);
+      try {
+        const response = await axios.get('/reviews');
+        setReviews(reviews.concat(response.data));
         setLoading(false);
-      }, 1000);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
     };
     fetchReviews();
   }, []);
@@ -44,19 +49,15 @@ const Home = () => {
 
   // Cargar las mascotas sugeridas desde el state de la redirección
   useEffect(() => {
-    if (location.state && location.state.suggestedPets) {
+    if (location.state && location.state.suggestedPets && location.state.suggestedPets.length > 0) {
       setSuggestedPets(location.state.suggestedPets);
+    } else {
+      setSuggestedPets([]);
     }
   }, [location.state]);
 
-   // Limpiar mascotas sugeridas y filtros si se navega al home desde el logo
-   useEffect(() => {
-    if (location.pathname === '/home') {
-      localStorage.removeItem('filters');  // Limpiar los filtros guardados
-      setSuggestedPets([]);                // Limpiar las mascotas sugeridas
-      dispatch(fetchPets({}, 1));           // Volver a cargar todas las mascotas
-    }
-  }, [location.pathname, dispatch]);
+   
+  
 
   // Cargar filtros desde localStorage
   useEffect(() => {
@@ -64,86 +65,167 @@ const Home = () => {
 
     const savedFilters = JSON.parse(localStorage.getItem('filters'));
     if (savedFilters) {
-      if (savedFilters) {
       setSpecies(savedFilters.species || '');
       setEnergyLevel(savedFilters.energyLevel || '');
       setSize(savedFilters.size || '');
-      dispatch(fetchPets(savedFilters, savedFilters.currentPage || 1));
+      setOkWithKids(savedFilters.okWithKids || '');
+      setOkWithPets(savedFilters.okWithPets || '');
+      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage  || 1));
+
     } else {
       dispatch(fetchPets({}, 1));
     }
-  }
+  }, [dispatch]);
 
-  }, [dispatch,  suggestedPets]);
+  
 
-  const handleFilterChange = (key, value) => {
-    const filters = { species, energyLevel, size, [key]: value };
-    if (key === 'species') setSpecies(value);
-    if (key === 'energyLevel') setEnergyLevel(value);
-    if (key === 'size') setSize(value);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validar datos del formulario
+    if (!formData.name || !formData.photoUrl || !formData.text || formData.rating === 0) {
+      setError({ general: 'Todos los campos son requeridos.' });
+      return;
+    }
 
-    localStorage.setItem('filters', JSON.stringify({ ...filters, currentPage: currentPage || 1 }));
-    dispatch(fetchPets(filters, 1));
-  };
+    // Agregar nueva reseña al estado
+    const newReview = {
+      id_user: reviews.length + 1, // Generar ID
+      ...formData,
+      date: new Date(),
+    };
 
-  const handleResetFilters = () => {
-    setSpecies('');
-    setEnergyLevel('');
-    setSize('');
-    localStorage.removeItem('filters');
-    dispatch(fetchPets({}, 1));
-  };
+    const updatedReviews = [...reviews, newReview];
+    setReviews(updatedReviews);
 
-  const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ species, energyLevel, size, status: "available" }, pageNumber));
+    // Guardar reseñas en localStorage
+    localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+
+    setFormData({ name: '', photoUrl: '', text: '', rating: 0 });
+    setError({});
+    alert('Testimonio agregado exitosamente');
   };
 
   const speciesOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'dog', label: 'Perro' },
     { value: 'cat', label: 'Gato' }
   ];
 
   const energyLevelOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'low', label: 'Bajo' },
     { value: 'medium', label: 'Medio' },
     { value: 'high', label: 'Alto' }
   ];
 
   const sizeOptions = [
-    { value: '', label: 'Todos' },
+    { value: '', label: '' },
     { value: 'small', label: 'Chico' },
     { value: 'medium', label: 'Mediano' },
     { value: 'large', label: 'Grande' }
   ];
 
+  const okWithPetsOptions = [
+    { value: '', label: '' },
+    { value: 'false', label: 'No' },
+    { value: 'true', label: 'Si' },
+    
+  ];
+
+  const okWithKidsOptions = [
+    { value: '', label: '' },
+    { value: 'false', label: 'No' },
+    { value: 'true', label: 'Si' },
+    
+  ];
+
+  // Estilos personalizados para React Select
   const customStyles = {
     control: (provided) => ({
       ...provided,
+      width: '100%',
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
       borderColor: '#fff',
+      boxShadow: 'none',
+      borderRadius: '4px'
+    }),
+    menu: (provided) => ({
+      ...provided,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      borderRadius: '4px'
     }),
     option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected ? '#a8a3a3' : state.isFocused ? '#f0cd8a' : 'rgba(0, 0, 0, 0.5)',
       color: state.isSelected ? '#000' : '#fff',
     }),
-    singleValue: (provided) => ({ ...provided, color: '#fff' }),
-    placeholder: (provided) => ({ ...provided, color: '#a8a3a3' })
+    singleValue: (provided) => ({
+      ...provided,
+      color: '#fff'
+    }),
+    placeholder: (provided) => ({
+      ...provided,
+      color: '#a8a3a3'
+    })
+  };
+  // Maneja los cambios en los filtros y guarda en el localStorage
+  const handleFilterChange = (key, value) => {
+    const filters = {
+      species,
+      energyLevel,
+      size,
+      okWithKids,
+      okWithPets,
+      [key]: value,
+    };
+
+    if (key === 'species') setSpecies(value);
+    if (key === 'energyLevel') setEnergyLevel(value);
+    if (key === 'size') setSize(value);
+    if (key === 'okWithPets') setOkWithPets(value);
+    if (key === 'okWithKids') setOkWithKids(value);
+
+    // Guardar los filtros en localStorage
+    localStorage.setItem('filters', JSON.stringify({
+      ...filters,
+      petsCurrentPage: petsCurrentPage || 1 // Guardar la página actual
+    }));
+
+    // Despachar la acción para obtener los datos filtrados
+    dispatch(fetchPets(filters, 1, true)); // Reset to the first page and ensure isHome is true
+  };
+
+  // Cambiar de página
+  const handlePageChange = (pageNumber) => {
+    dispatch(fetchPets({ species, energyLevel, size, okWithPets, okWithKids }, pageNumber, true)); // Pass isHome as true
+  };
+
+  // Reiniciar filtros y limpiar localStorage
+  const handleResetFilters = () => {
+    setSpecies('');
+    setEnergyLevel('');
+    setSize('');
+    setOkWithPets('');
+    setOkWithKids('');
+    setSuggestedPets([]);
+    // Eliminar filtros de localStorage
+    localStorage.removeItem('filters');
+
+    // Cargar solo las mascotas disponibles
+    dispatch(fetchPets({}, 1, true)); 
   };
 
   return (
     <div className="home-container">
       <h1>Mascotas disponibles para adopción</h1>
 
-      {/* Filtros */}
-      {!suggestedPets.length && ( // Solo mostrar los filtros si no hay mascotas sugeridas
+      { 
       <div className="filter-controls">
         <label>
           Especie:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={speciesOptions.find(option => option.value === species)}
             onChange={(option) => handleFilterChange('species', option ? option.value : '')}
             options={speciesOptions}
@@ -156,6 +238,7 @@ const Home = () => {
           Nivel de Energía:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={energyLevelOptions.find(option => option.value === energyLevel)}
             onChange={(option) => handleFilterChange('energyLevel', option ? option.value : '')}
             options={energyLevelOptions}
@@ -168,6 +251,7 @@ const Home = () => {
           Tamaño:
           <Select
             className="custom-select-container"
+            classNamePrefix="custom-select"
             value={sizeOptions.find(option => option.value === size)}
             onChange={(option) => handleFilterChange('size', option ? option.value : '')}
             options={sizeOptions}
@@ -176,18 +260,45 @@ const Home = () => {
           />
         </label>
 
+        <label>
+          Convive con animales:
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={okWithPetsOptions.find(option => option.value === okWithPets)}
+            onChange={(option) => handleFilterChange('okWithPets', option ? option.value : '')}
+            options={okWithPetsOptions}
+            styles={customStyles}
+            isClearable
+          />
+        </label>
+
+        <label>
+          Convive con niños:
+          <Select
+            className="custom-select-container"
+            classNamePrefix="custom-select"
+            value={okWithKidsOptions.find(option => option.value === okWithKids)}
+            onChange={(option) => handleFilterChange('okWithKids', option ? option.value : '')}
+            options={okWithKidsOptions}
+            styles={customStyles}
+            isClearable
+          />
+        </label>
+
+
         <button onClick={handleResetFilters} className="reset-button">
-          <i className="fas fa-trash"></i>
+          Limpiar Filtros
         </button>
       </div>
-)}
+      }
 
-{/* Mostrar mensaje si no hay coincidencias */}
-{!suggestedPets.length && (
-        <p>No hubo coincidencias, pero aquí están todas las mascotas disponibles para que puedas verlas:</p>
+      {/* Mostrar mensaje si no hay coincidencias */}
+      {!suggestedPets.length && pets.length === 0 && (
+        <p>No hay coincidencias con los filtros aplicados ni mascotas disponibles.</p>
       )}
 
-      {/* Mostrar mascotas sugeridas si existen, de lo contrario mostrar las mascotas filtradas */}
+      {/* Mostrar mascotas sugeridas si existen */}
       {suggestedPets.length > 0 ? (
         <>
           <h2>Mascotas sugeridas</h2>
@@ -195,22 +306,22 @@ const Home = () => {
         </>
       ) : (
 
-      pets.length > 0 ? (
-        <>
+      pets.length > 0 && (
+        
+        <div className="pets-container">
           <Cards pets={pets} />
           <div className="pagination">
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            <button onClick={() => handlePageChange(petsCurrentPage - 1)} disabled={petsCurrentPage === 1}>
               Anterior
             </button>
-            <span>Página {currentPage} de {totalPages}</span>
-            <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            <span>Página {petsCurrentPage} de {petsTotalPages}</span>
+            <button onClick={() => handlePageChange(petsCurrentPage + 1)} disabled={petsCurrentPage === petsTotalPages}>
               Siguiente
             </button>
           </div>
-        </>
-      ) : (
-        <p>No hay mascotas disponibles</p>
-      )
+        </div>
+      ) 
+      
       )}
       <div className="reviews">
         <h2> MIRA LO QUE DICEN SOBRE NOSOTROS </h2>
@@ -219,16 +330,16 @@ const Home = () => {
         ) : reviews.length > 0 ? (
           <div className="review-cards">
             {reviews.map((review) => (
-              <div key={review.name} className="review-card">
+              <div key={review.id_user} className="review-card">
                 <div className="review-item">
                   <div className="review-name">
                     <strong>Nombre</strong>
-                    <span className="name-text">{review.name}</span>
+                    <span className="name-text">{review.user_name}</span>
                   </div>
 
                   <div className="review-text">
                     <strong>Reseña</strong>
-                    <span className="text-content">{review.text}</span>
+                    <span className="text-content">{review.comment}</span>
                   </div>
 
                   <div className="review-rating">
@@ -237,8 +348,6 @@ const Home = () => {
                       <LittleFootprintRating rating={review.rating} setRating={() => { }} />
                     </span>
                   </div>
-
-
                 </div>
               </div>
             ))}

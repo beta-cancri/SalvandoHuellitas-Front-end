@@ -1,52 +1,79 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import UserProfile from '../profile/profile.component'; // Import the profile component
+import UserProfile from '../profile/profile.component';
+import FetchRequests from '../requests/requests.component';
+import DonationInput from '../../../components/donation/DonationInput'; // Import DonationInput
+
 import './dashboard.styles.css';
 
 const UserDashboard = () => {
-  const [activeSection, setActiveSection] = useState(null);
+  const [showDonationInput, setShowDonationInput] = useState(false); // Manage donation input visibility
   const navigate = useNavigate(); 
+  const donationButtonRef = useRef(null);
+  const donationInputRef = useRef(null);
 
-  // Handle section change
-  const handleSectionChange = (section) => {
-    setActiveSection(section);
+  // Toggle donation input visibility
+  const handleDonateClick = () => {
+    setShowDonationInput(!showDonationInput); // Toggle donation input visibility
   };
 
+  const handleDonationInputClose = () => {
+    setShowDonationInput(false); // Close donation input when needed
+  };
+
+  // Close donation input if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        donationInputRef.current &&
+        !donationInputRef.current.contains(event.target) &&
+        donationButtonRef.current &&
+        !donationButtonRef.current.contains(event.target)
+      ) {
+        setShowDonationInput(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [donationInputRef, donationButtonRef]);
+
   return (
-    <div className="user-dashboard">
-      <div className="sidebar">
+    <div className="user-dashboard-container">
+      <div className="user-sidebar">
         <h2>Usuario</h2>
         <button
-          className={`sidebar-button ${activeSection === 'user-data' ? 'selected' : ''}`}
-          onClick={() => handleSectionChange('user-data')}
-        >
-          Ver datos del usuario
-        </button>
-        <button
-          className={`sidebar-button ${activeSection === 'user-requests' ? 'selected' : ''}`}
-          onClick={() => handleSectionChange('user-requests')}
-        >
-          Ver peticiones del usuario
-        </button>
-        <button
-          className={`sidebar-button ${activeSection === 'donate' ? 'selected' : ''}`}
-          onClick={() => navigate('/donate')}
+          className="user-sidebar-button"
+          onClick={handleDonateClick} // Call the donate toggle handler
+          ref={donationButtonRef} // Reference the donation button
         >
           Donar
         </button>
         <button
-          className={`sidebar-button ${activeSection === 'adopt' ? 'selected' : ''}`}
+          className="user-sidebar-button"
           onClick={() => navigate('/home')}
         >
-          Adoptar (Ir a Inicio)
+          Adoptar
         </button>
       </div>
 
-      <div className="dashboard-display">
-        {activeSection === 'user-data' && <UserProfile />} {/* Render profile when user-data is active */}
-        {activeSection === 'user-requests' && <div>Placeholder: Peticiones del usuario</div>}
-        {activeSection === 'donate' && <div>Placeholder: Donar</div>}
+
+      <div className="user-dashboard-grid">
+        <div className="user-profile-section">
+          <UserProfile />
+        </div>
+        <div className="user-requests-section">
+          <FetchRequests />
+        </div>
       </div>
+
+      {showDonationInput && (
+        <div className="donation-input-container animate-fade" ref={donationInputRef}>
+          <DonationInput onClose={handleDonationInputClose} />
+        </div>
+      )}
     </div>
   );
 };

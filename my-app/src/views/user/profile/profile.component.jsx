@@ -70,10 +70,6 @@ const UserProfile = () => {
       setIsEditing(true); // Enable edit mode
     }
   };
-  
-
-  
-  
 
   // Cancel editing and reset the form to the original data
   const handleCancel = () => {
@@ -91,116 +87,113 @@ const UserProfile = () => {
   return (
     <div className="user-profile">
       {userDetail ? (
-        <form className="user-profile-form" onSubmit={(e) => e.preventDefault()}>
-          {/* Profile picture at the top */}
-          <div className="profile-photo-container">
-            {!imageError && userDetail.idCard ? (
-              <img
-                src={userDetail.idCard} // Use idCard as the profile picture
-                alt="Foto de perfil"
-                className="profile-photo"
-                onError={handleImageError} // If image fails to load, mark error
-              />
-            ) : (
-              <p>No hay foto disponible</p> // Display if no photo is available or there's an error
-            )}
-          </div>
-
-          {/* File input for changing profile picture */}
-          {isEditing && (
-            <div className="form-group">
-              <label>Cambiar Foto de Perfil:</label>
-              <input type="file" onChange={handleFileChange} />
+        <>
+          {/* Add title */}
+          <h2 className="profile-title">Información Personal</h2>
+  
+          <form className="user-profile-form" onSubmit={(e) => e.preventDefault()}>
+            {/* Profile picture at the top */}
+            <div className="profile-photo-container">
+              {!imageError && userDetail.idCard ? (
+                <img
+                  src={userDetail.idCard} // Use idCard as the profile picture
+                  alt="Foto de perfil"
+                  className="profile-photo"
+                  onError={handleImageError} // If image fails to load, mark error
+                />
+              ) : (
+                <p>No hay foto disponible</p> // Display if no photo is available or there's an error
+              )}
             </div>
-          )}
-
-          {/* User Information */}
-          <div className="form-horizontal">
-            <div className="form-group">
-              <label>Nombre Completo:</label>
-              <input
-                type="text"
-                name="fullName"
-                value={userData.fullName || ''}
-                onChange={handleChange}
-                disabled={!isEditing} // Enable or disable input based on isEditing state
-              />
-            </div>
-            <div className="form-group">
-              <label>Email:</label>
-              <input
-                type="email"
-                name="email"
-                value={userData.email || ''}
-                disabled // Email is not editable
-              />
-            </div>
-            <div className="form-group">
-              <label>Teléfono:</label>
-              <input
-                type="text"
-                name="phone"
-                value={userData.phone || ''}
-                onChange={handleChange}
-                disabled={!isEditing} // Enable or disable input based on isEditing state
-              />
-            </div>
-            <div className="form-group">
-              <label>Ocupación:</label>
-              <input
-                type="text"
-                name="occupation"
-                value={userData.occupation || ''}
-                onChange={handleChange}
-                disabled={!isEditing} // Enable or disable input based on isEditing state
-              />
-            </div>
-            <div className="form-group">
-              <label>Fecha de Nacimiento:</label>
-              <input
-                type="date"
-                name="birthDate"
-                value={userData.birthDate ? userData.birthDate.split('T')[0] : ''}
-                onChange={handleChange}
-                disabled={!isEditing} // Enable or disable input based on isEditing state
-              />
-            </div>
-            <div className="form-group">
-              <label>Cantidad de Adopciones:</label>
-              <input
-                type="number"
-                name="adoptions"
-                value={userData.adoptions || 0}
-                disabled // This field is not editable
-              />
-            </div>
-          </div>
-
-          {/* Edit/Save and Cancel Buttons */}
-          <div className="button-container">
-            <button
-              type="button"
-              className="edit-button"
-              onClick={toggleEdit}
-            >
-              {isEditing ? 'Guardar Cambios' : 'Editar Perfil'}
-            </button>
+  
+            {/* File input for changing profile picture */}
             {isEditing && (
+              <div className="form-group">
+                <label>Cambiar Foto de Perfil:</label>
+                <input type="file" onChange={handleFileChange} />
+              </div>
+            )}
+  
+            {/* User Information */}
+            <div className="form-horizontal">
+              <div className="form-group">
+                <label>Nombre Completo:</label>
+                <input
+                  type="text"
+                  name="fullName"
+                  value={userData.fullName || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing} // Enable or disable input based on isEditing state
+                />
+              </div>
+              <div className="form-group">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={userData.email || ''}
+                  disabled // Email is not editable
+                />
+              </div>
+              <div className="form-group">
+                <label>Teléfono:</label>
+                <input
+                  type="text"
+                  name="phone"
+                  value={userData.phone || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing} // Enable or disable input based on isEditing state
+                />
+              </div>
+              <div className="form-group">
+                <label>Ocupación:</label>
+                <input
+                  type="text"
+                  name="occupation"
+                  value={userData.occupation || ''}
+                  onChange={handleChange}
+                  disabled={!isEditing} // Enable or disable input based on isEditing state
+                />
+              </div>
+              <div className="form-group">
+                <label>Fecha de Nacimiento:</label>
+                <input
+                  type="date"
+                  name="birthDate"
+                  value={userData.birthDate ? userData.birthDate.split('T')[0] : ''}
+                  onChange={handleChange}
+                  disabled={!isEditing} // Enable or disable input based on isEditing state
+                />
+              </div>
+            </div>
+  
+            {/* Edit/Save and Cancel Buttons */}
+            <div className="button-container">
               <button
                 type="button"
-                className="cancel-button"
-                onClick={handleCancel}
+                className="edit-button"
+                onClick={toggleEdit}
               >
-                Cancelar
+                {isEditing ? 'Guardar Cambios' : 'Editar Perfil'}
               </button>
-            )}
-          </div>
-        </form>
+              {isEditing && (
+                <button
+                  type="button"
+                  className="cancel-button"
+                  onClick={handleCancel}
+                >
+                  Cancelar
+                </button>
+              )}
+            </div>
+          </form>
+        </>
       ) : (
         <p>Cargando datos del usuario...</p>
       )}
     </div>
   );
+  
 };
 
 export default UserProfile;

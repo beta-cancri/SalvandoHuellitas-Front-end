@@ -54,20 +54,24 @@ const ManageRequests = ({ status }) => {
                     Especie: {request.Pet?.species || 'Desconocida'}
                   </div>
                 </div>
-                <div className="button-group">
-                  <button
-                    className="deny-button"
-                    onClick={() => handleUpdateRequest(request.id, 'denied')}
-                  >
-                    Denegar
-                  </button>
-                  <button
-                    className="approve-button"
-                    onClick={() => handleUpdateRequest(request.id, 'approved')}
-                  >
-                    Aprobar
-                  </button>
-                </div>
+
+                {/* Conditionally render buttons only if the status is 'pending' */}
+                {request.status === 'pending' && (
+                  <div className="button-group">
+                    <button
+                      className="deny-button"
+                      onClick={() => handleUpdateRequest(request.id, 'denied')}
+                    >
+                      Denegar
+                    </button>
+                    <button
+                      className="approve-button"
+                      onClick={() => handleUpdateRequest(request.id, 'approved')}
+                    >
+                      Aprobar
+                    </button>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
