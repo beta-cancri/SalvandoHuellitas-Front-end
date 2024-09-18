@@ -26,7 +26,14 @@ const Login = () => {
       var decoded = jwtDecode(response.data.token);
       console.log(decoded);
       localStorage.setItem("user", JSON.stringify(decoded));
-      window.location = "/home";
+      
+      let redirectPath = localStorage.getItem('afterLogin')
+      
+      if (redirectPath) {
+        localStorage.removeItem('afterLogin')
+        window.location = redirectPath 
+        } else { window.location = "/home";
+        }
     }).catch(error => {
       alert(error.response.data.error);
     });
