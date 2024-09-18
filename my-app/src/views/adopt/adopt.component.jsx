@@ -23,7 +23,6 @@ const Adopt = () => {
         hasPets: null, // Inicializado como cadena vacía
         space: '',
         timeAvailable: '',
-        addedCondition: null, // Inicializado como cadena vacía
         clauses: false
     });
 
@@ -33,7 +32,7 @@ const Adopt = () => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-        //const storedSuggestionData = localStorage.getItem('suggestionFormData');
+        const storedSuggestionData = localStorage.getItem('suggestionFormData');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
         }
@@ -108,7 +107,6 @@ const Adopt = () => {
                             hasPets: null,
                             space: '',
                             timeAvailable: '',
-                            addedCondition: null,
                             clauses: false
                         });
                     }
