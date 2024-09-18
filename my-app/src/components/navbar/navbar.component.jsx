@@ -49,6 +49,8 @@ const Navbar = () => {
   };
 
   const handleLogoClick = (event) => {
+    localStorage.removeItem('filters');
+    localStorage.removeItem('suggestedPets');
     if (location.pathname === '/home') {
       event.preventDefault();
       window.location.reload();

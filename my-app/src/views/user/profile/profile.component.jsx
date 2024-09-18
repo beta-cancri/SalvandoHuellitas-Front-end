@@ -46,7 +46,7 @@ const UserProfile = () => {
       const formData = new FormData();
       formData.append('fullName', userData.fullName);
       formData.append('email', userData.email);
-      formData.append('birthDate', userData.birthDate);
+      formData.append('birthDate', userData.birthDate ? userData.birthDate : null); // Ensure null if not provided
       formData.append('phone', userData.phone);
       formData.append('occupation', userData.occupation);
       

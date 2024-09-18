@@ -19,6 +19,7 @@ import AdminDashboard from './views/admin/dashboard/dashboard.component'; // Imp
 import UserDashboard from './views/user/dashboard/dashboard.component'; // Import the UserDashboard component
 import WhatsAppButton from './components/whatsapp/whatsAppButton.component';
 import ScrollToTopButton from './components/scroll/ScrollToTopButton.component';
+import SuggestionsForm from './views/suggestionsForm/suggestionsForm';
 import './App.css';
 
 
@@ -51,9 +52,10 @@ const App = () => {
         <Route path="/auth/google/callback" element={<GoogleCallback />} /> {/* Google Callback Route */}
         <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
         <Route path="/user/dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
+        <Route path="/suggestPets" element={<SuggestionsForm />} />
       </Routes>
-      <WhatsAppButton />
-      <ScrollToTopButton />
+      <WhatsAppButton/>
+      <ScrollToTopButton/>
     </div>
   );
 };

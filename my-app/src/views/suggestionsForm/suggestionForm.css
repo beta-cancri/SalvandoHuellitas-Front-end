@@ -8,7 +8,7 @@
     position: relative;
     box-sizing: border-box;
     overflow-y: auto;
-  
+    
 }
 
 .full-screen-container-adopt::before {
@@ -184,10 +184,13 @@ select:focus {
     font-size: 18px; /* Tamaño del icono */
     margin-right: 4px; /* Espacio entre el icono y el texto */
     color: #ba0600; /* Color del icono de advertencia */
-    display: flex;
 }
 
-
+/* Estilo opcional para mejorar la visibilidad */
+.adopt-form input.error::placeholder,
+.adopt-form select.error::placeholder {
+    color: #c80700; /* Color del texto del placeholder cuando hay error */
+}
 
 
 .checkbox {

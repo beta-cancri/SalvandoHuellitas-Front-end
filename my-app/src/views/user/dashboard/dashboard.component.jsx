@@ -3,14 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import UserProfile from '../profile/profile.component';
 import FetchRequests from '../requests/requests.component';
 import DonationInput from '../../../components/donation/DonationInput'; // Import DonationInput
-
 import './dashboard.styles.css';
 
 const UserDashboard = () => {
   const [showDonationInput, setShowDonationInput] = useState(false); // Manage donation input visibility
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const donationButtonRef = useRef(null);
   const donationInputRef = useRef(null);
+
+  // Validate if the user is a regular user (not an admin)
+  useEffect(() => {
+    let storedUser = localStorage.getItem('user');
+    if (!storedUser) {
+      window.location = '/'; // Redirect to home if user is not found
+      return;
+    }
+    storedUser = JSON.parse(storedUser);
+    if (storedUser.isAdmin) {
+      window.location = '/'; // Redirect to home if the user is an admin
+    }
+  }, []);
 
   // Toggle donation input visibility
   const handleDonateClick = () => {
@@ -58,7 +70,6 @@ const UserDashboard = () => {
           Adoptar
         </button>
       </div>
-
 
       <div className="user-dashboard-grid">
         <div className="user-profile-section">

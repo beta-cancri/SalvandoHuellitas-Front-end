@@ -307,9 +307,6 @@ export const updateUserProfile = (formData) => async (dispatch) => {
       throw new Error("Token not found. User is not authenticated.");
     }
 
-    // Log the token to check if it's correct
-    console.log('Token:', token);
-
     // Log form data (for debugging purposes, check structure)
     for (let pair of formData.entries()) {
       console.log(pair[0] + ': ' + pair[1]);
@@ -330,6 +327,7 @@ export const updateUserProfile = (formData) => async (dispatch) => {
     alert("Error updating profile: " + error.message);
   }
 };
+
 
 //Donation 
 export const createDonation = (amount) => async (dispatch) => {
