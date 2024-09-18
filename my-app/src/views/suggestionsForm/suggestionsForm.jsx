@@ -68,6 +68,9 @@ const SuggestionsForm = () => {
                             console.log("Suggested Pets Response: ", response.data);
                             setSuggestedPets(response.data);
                                         
+                            // Guardar los valores en localStorage
+                            localStorage.setItem('suggestionFormData', JSON.stringify(requestData));
+
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
                         } 

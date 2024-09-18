@@ -33,8 +33,19 @@ const Adopt = () => {
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
+        //const storedSuggestionData = localStorage.getItem('suggestionFormData');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
+        }
+        if (storedSuggestionData) {
+            const parsedSuggestionData = JSON.parse(storedSuggestionData);
+            setRequestData(prevState => ({
+                ...prevState,
+                hasKids: parsedSuggestionData.hasKids,
+                hasPets: parsedSuggestionData.hasPets,
+                space: parsedSuggestionData.space,
+                timeAvailable: parsedSuggestionData.timeAvailable,
+            }));
         }
     }, []);
 
@@ -73,7 +84,7 @@ const Adopt = () => {
                             console.log("Suggested Pets Response: ", response.data);
                             setSuggestedPets(response.data);
     
-
+                            
                                     
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
