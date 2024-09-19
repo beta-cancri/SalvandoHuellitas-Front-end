@@ -15,7 +15,7 @@ const Home = () => {
   const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
   const navigate = useNavigate();
   const location = useLocation(); 
-  const [suggestedPets, setSuggestedPets] = useState([]);
+  const [suggestedPets, setSuggestedPets] = useState(null);
   const [species, setSpecies] = useState('');
   const [energyLevel, setEnergyLevel] = useState('');
   const [size, setSize] = useState('');
@@ -48,7 +48,7 @@ const Home = () => {
 
   // Cargar las mascotas sugeridas desde el state de la redirección
   useEffect(() => {
-    if (location.state && location.state.suggestedPets && location.state.suggestedPets.length > 0) {
+    if (location.state && location.state.suggestedPets) {
       setSuggestedPets(location.state.suggestedPets);
     } else {
       setSuggestedPets([]);
@@ -180,7 +180,7 @@ const Home = () => {
     setSize('');
     setOkWithPets('');
     setOkWithKids('');
-    setSuggestedPets([]);
+    setSuggestedPets(null);
     // Eliminar filtros de localStorage
     localStorage.removeItem('filters');
 
@@ -267,12 +267,12 @@ const Home = () => {
       }
 
       {/* Mostrar mensaje si no hay coincidencias */}
-      {!suggestedPets.length && pets.length === 0 && (
-        <p>No hay coincidencias con los filtros aplicados ni mascotas disponibles.</p>
-      )}
+      { suggestedPets?.length === 0 ? (
+        <p>No hay mascotas sugeridas, pero mira, tenemos estas:</p>
+      ): null}
 
       {/* Mostrar mascotas sugeridas si existen */}
-      {suggestedPets.length > 0 ? (
+      {suggestedPets?.length > 0 ? (
         <>
           <h2>Mascotas sugeridas</h2>
           <Cards pets={suggestedPets} /> {/* Mostrar mascotas sugeridas */}
