@@ -15,8 +15,8 @@ import axios from 'axios';
 let backendBaseUrl = '';
 
 
-if (process.env.NODE_ENV === 'development') {
-    backendBaseUrl = 'http://localhost:3001'; // Apunta al backend local
+if (process.env.REACT_APP_BACK_END_BASE_URL) {
+    backendBaseUrl = process.env.REACT_APP_BACK_END_BASE_URL; // Apunta al backend indicado en env
 } else {
     backendBaseUrl = 'https://salvandohuellitas-back-end-production.up.railway.app'; // Apunta al backend en producción
 }
