@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './adopt.styles.css';
 import { createRequest } from '../../redux/actions/index';
 import { useDispatch } from 'react-redux';
-import { Link, useParams, useNavigate  } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import Notification from '../create/Notification';
 import validationForAdopt from './validationForAdopt';
-import axios from 'axios'; 
+import axios from 'axios';
 
 
 
@@ -50,13 +50,13 @@ const Adopt = () => {
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-    
+
         setRequestData(prevState => ({
             ...prevState,
             [name]: type === 'checkbox' ? checked : (type === 'radio' ? value === 'true' : value) // Si es radio, convierte a booleano
         }));
     };
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -74,17 +74,17 @@ const Adopt = () => {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     };
-                  
-                   
-                       
-                        if (!id) {
-                            // Enviar los datos del formulario al backend
-                            const response = await axios.post("/pets/suggest", requestData, { headers });
-                            console.log("Suggested Pets Response: ", response.data);
-                            setSuggestedPets(response.data);
-    
-                            
-                                    
+
+
+
+                    if (!id) {
+                        // Enviar los datos del formulario al backend
+                        const response = await axios.post("/pets/suggest", requestData, { headers });
+                        console.log("Suggested Pets Response: ", response.data);
+                        setSuggestedPets(response.data);
+
+
+
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
                     } else {
@@ -98,7 +98,7 @@ const Adopt = () => {
                         dispatch(createRequest(requestDataWithUser, headers));
                         setShowNotification(true);
                         //alert('¡Gracias por enviarnos tu solicitud!');
-                        
+
                         setRequestData({
                             adress: '',
                             occupation: '',
@@ -130,7 +130,7 @@ const Adopt = () => {
         <div className='full-screen-container-adopt'>
             <div className='adopt-container'>
                 <h2 className='adopt-h2'>Formulario de Adopción</h2>
-                
+
                 <form onSubmit={handleSubmit} className='adopt-form'>
                     <h5>🐾 Información de contacto</h5>
                     Dirección
@@ -142,7 +142,7 @@ const Adopt = () => {
                     {errors.adress && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.adress}</p>
-                         <div className="error-arrow"></div>
+                            <div className="error-arrow"></div>
                         </div>
                     )}
 
@@ -242,7 +242,7 @@ const Adopt = () => {
                                     type="radio"
                                     name="hasPets"
                                     value="false"
-                                    checked={requestData.hasPets === false }
+                                    checked={requestData.hasPets === false}
                                     onChange={handleChange}
                                 />
                                 No
@@ -276,7 +276,7 @@ const Adopt = () => {
                         </div>
                     )}
 
-                   
+
 
                     <h3>Cláusulas</h3>
                     <ul>
@@ -295,7 +295,7 @@ const Adopt = () => {
                         />
                         <label htmlFor="clauses">Estoy de acuerdo con las cláusulas.</label>
                     </div>
-                    
+
                     {errors.clauses && (
                         <div className="error-tooltip">
                             <p className="error-text">{errors.clauses}</p>
