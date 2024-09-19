@@ -102,8 +102,8 @@ const SuggestionsForm = () => {
     };
 
     return (
-        <div className='full-screen-container-adopt'>
-            <div className='adopt-container'>
+        <div className='full-screen-container-adopts'>
+            <div className='adopts-container'>
                 <h2 className='adopt-h2'>Encuentra mascotas para ti</h2>
                                 
                 <form onSubmit={handleSubmit} className='adopt-form'>
