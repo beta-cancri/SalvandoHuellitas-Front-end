@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { fetchPets, fetchUserDetail } from '../../redux/actions';
 import './navbar.styles.css';
 import DonationInput from '../../components/donation/DonationInput';
+import defaultProfilePic from '../../assets/perfil.png'; 
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -218,7 +219,11 @@ const Navbar = () => {
                       className="user-profile-image"
                     />
                   ) : (
-                    <span className="default-profile-symbol">🐶</span> // Show 🐾 when there is no image
+                    <img
+                    src={defaultProfilePic}
+                    alt="Default Profile"
+                    className="user-profile-image"
+                  />
                   )}
                 </button>
                 {isUserMenuActive && (
