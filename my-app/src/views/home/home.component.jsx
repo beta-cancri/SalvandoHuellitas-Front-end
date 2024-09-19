@@ -69,10 +69,10 @@ const Home = () => {
       setSize(savedFilters.size || '');
       setOkWithKids(savedFilters.okWithKids || '');
       setOkWithPets(savedFilters.okWithPets || '');
-      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage  || 1));
+      dispatch(fetchPets(savedFilters, savedFilters.petsCurrentPage  || 1, true));
 
     } else {
-      dispatch(fetchPets({}, 1));
+      dispatch(fetchPets({}, 1, true));
     }
   }, [dispatch]);
 
