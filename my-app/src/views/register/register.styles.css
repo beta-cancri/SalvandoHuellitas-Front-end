@@ -97,34 +97,31 @@
   outline: none;
 }
 
-.error-message {
-  background-color: #7e161f;
-  color: #f7e5e6;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 10px;
+/* Estilo para los campos de entrada con error */
+.register-form input.error {
+  border: 1px solid #d9534f; /* Borde rojo para indicar error */
+  border-radius: 5px;
+  padding: 8px;
+  outline: none;
+  background-color: #fff; /* Fondo blanco para los campos de entrada */
 }
 
-/* Flecha del tooltip */
-.error-arrow {
-  position: absolute;
-  left: 10px;
-  /* Ajusta esto para centrar la flecha bajo el tooltip */
-  bottom: 20px;
-  /* Alineado con la parte superior del input */
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #f8d7da;
-  /* Rojo claro, mismo que el fondo del tooltip */
+/* Estilo para el mensaje de error debajo del campo */
+.error-tooltip {
+  display: flex;
+  align-items: center;
+  color: #b70600; /* Color del texto de error */
+  font-size: 15px;
+  margin-top: 4px; /* Espacio entre el campo y el mensaje de error */
+  margin-bottom: 10px; /* Espacio debajo del mensaje de error */
 }
 
-.register-form input.error,
-.register-form input[type="date"].error,
-.register-form select.error {
-  border: 1px solid red;
-  background-color: #ffe6e6;
+/* Icono de advertencia */
+.error-tooltip::before {
+  content: '⚠'; /* Símbolo de advertencia */
+  font-size: 18px; /* Tamaño del icono */
+  margin-right: 4px; /* Espacio entre el icono y el texto */
+  color: #ba0600; /* Color del icono de advertencia */
 }
 
 /*Responsive*/

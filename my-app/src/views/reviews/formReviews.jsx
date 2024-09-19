@@ -5,6 +5,8 @@ import validate from '../reviews/validationForReviews';
 import axios from "axios";
 
 
+
+
 function ReviewForm({ userName, userId }) {
     let userStore = JSON.parse(localStorage.getItem('user')) || {};
     userName = userName || userStore.name || '';
@@ -69,12 +71,15 @@ function ReviewForm({ userName, userId }) {
         const formData = { userId, userName: name, reviewText, rating };
         const validationErrors = validate(formData);
 
+
         // Validación del nombre en caso de números
         if (name.length > 0 && /[\d]/.test(name)) {
             validationErrors.userName = 'El nombre no puede contener números.';
         }
 
+
         setErrors(validationErrors);
+
 
         // Solo procesar si no hay errores de validación
         if (Object.keys(validationErrors).length === 0) {
@@ -163,8 +168,8 @@ function ReviewForm({ userName, userId }) {
                         )}
                     </div>
 
-                    <button className="submit-button" type="submit">Enviar Reseña</button>
-                    <button className="submit-button" type="button" onClick={() => navigate('/home')}>Volver al Inicio</button>
+                    <button className="button" type="submit">Enviar Reseña</button>
+                    <button className="button" type="button" onClick={() => navigate('/home')}>Volver al Inicio</button>
                 </form>
 
                 {reviews.length > 0 && (

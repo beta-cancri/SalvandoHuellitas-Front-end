@@ -29,10 +29,7 @@ const validationForAdopt = (formData) => {
         errors.timeAvailable = "Necesitamos saber el tiempo disponible para el cuidado correcto de la mascota.";
     }
 
-    if (formData.addedCondition === '') {
-        errors.addedCondition = "No puedes dejar este campo vacío.";
-    }
-
+    
     if (!formData.clauses) {
         errors.clauses = "Debes aceptar las cláusulas para poder enviar la solicitud.";
     }

@@ -5,6 +5,7 @@ import './card.styles.css';
 
 const Card = ({ pet }) => {
   const capitalizeFirstLetter = (string) => {
+    if (typeof string !== 'string') return ''; // Maneja casos donde `string` no es una cadena
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 

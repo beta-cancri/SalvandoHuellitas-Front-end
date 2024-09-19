@@ -5,9 +5,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    position: relative;
+    position: absolute;
     box-sizing: border-box;
-    overflow-y: auto;
+    overflow-y: hidden;
+    overflow: hidden;
+    min-height: calc(100vh - 65px);
     
 }
 
@@ -278,5 +280,8 @@ select:focus {
         flex-direction: column; /* Cambia a columna para pantallas pequeñas */
         gap: 5px; /* Reduce el gap aún más */
     
+}
+.full-screen-container-adopt {
+    position: relative;
 }
 }

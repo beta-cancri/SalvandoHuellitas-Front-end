@@ -328,8 +328,8 @@ const Home = () => {
         ) : null}
 
         <div className="back-button-container">
-          <button className="button-review" onClick={() => navigate('/home')}>Inicio</button>
-          <button className="button-review" onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇</button>
+       
+         <button className="button" onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇</button>
         </div>
       </div>
     </div>

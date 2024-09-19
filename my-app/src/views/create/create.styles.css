@@ -154,10 +154,33 @@ body,
   flex: 1;
 }
 
+/* Estilo para los campos de entrada con error */
+.create-pet-form select.error,
 .create-pet-form input.error,
-.create-pet-form select.error {
-  border: 1px solid red;
-  background-color: #ffe6e6;
+.create-pet-form textarea.error {
+    border: 1px solid #d9534f; /* Borde rojo para indicar error */
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    background-color: #fff; /* Fondo blanco para los campos de entrada */
+}
+
+/* Estilo para el mensaje de error debajo del campo */
+.error-tooltip {
+    display: flex;
+    align-items: center;
+    color: #b70600; /* Color del texto de error */
+    font-size: 15px;
+    margin-top: 4px; /* Espacio entre el campo y el mensaje de error */
+    margin-bottom: 10px; /* Espacio debajo del mensaje de error */
+}
+
+/* Icono de advertencia */
+.error-tooltip::before {
+    content: '⚠'; /* Símbolo de advertencia */
+    font-size: 18px; /* Tamaño del icono */
+    margin-right: 4px; /* Espacio entre el icono y el texto */
+    color: #ba0600; /* Color del icono de advertencia */
 }
 /* boton encimado */
 .file-upload-container {

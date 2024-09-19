@@ -97,47 +97,7 @@
   outline: none;
 }
 
-.error-tooltip {
-  position: relative;
-  display: inline-block;
-  margin-top: 5px;
-}
 
-.error-text {
-  background-color: #7e161f;
-  color: #f7e5e6;
-  padding: 10px;
-  border-radius: 4px;
-  font-size: 10px;
-  position: absolute;
-  left: 0;
-  bottom: 30px;
-  /* Altura del input */
-  z-index: 1;
-  white-space: nowrap;
-}
-
-/* Flecha del tooltip */
-.error-arrow {
-  position: absolute;
-  left: 10px;
-  /* Ajusta esto para centrar la flecha bajo el tooltip */
-  bottom: 20px;
-  /* Alineado con la parte superior del input */
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 5px solid #f8d7da;
-  /* Rojo claro, mismo que el fondo del tooltip */
-}
-
-.review-form input.error,
-.review-form input[type="date"].error,
-.review-form select.error {
-  border: 1px solid red;
-  background-color: #ffe6e6;
-}
 
 .submit-button {
   width: 40%;
@@ -167,11 +127,31 @@
   outline: none;
 }
 
+/* Estilo para los campos de entrada con error */
+.review-form input.error,
+.review-form textarea.error,
+.review-form select.error {
+    border: 2px solid #d9534f; /* Borde rojo para indicar error */
+    border-radius: 4px;
+    padding: 8px;
+    outline: none;
+    background-color: #fff; /* Fondo blanco para los campos de entrada */
+}
+
+/* Estilo para el mensaje de error debajo del campo */
 .error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 2px; /* Reducir la separación entre el input y el mensaje de error */
-  margin-bottom: 0; /* Evitar margen extra debajo */
-  position: relative;
-  top: -5px; /* Ajustar más cerca del input */
+    display: flex;
+    align-items: center;
+    color: #b70600; /* Color del texto de error */
+    font-size: 15px;
+    margin-top: 4px; /* Espacio entre el campo y el mensaje de error */
+    margin-bottom: 10px; /* Espacio debajo del mensaje de error */
+}
+
+/* Icono de advertencia */
+.error-message::before {
+    content: '⚠'; /* Símbolo de advertencia */
+    font-size: 18px; /* Tamaño del icono */
+    margin-right: 4px; /* Espacio entre el icono y el texto */
+    color: #ba0600; /* Color del icono de advertencia */
 }

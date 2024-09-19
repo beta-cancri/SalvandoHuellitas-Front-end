@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDetail, updateUserProfile } from '../../../redux/actions'; // Import the actions
 import './profile.styles.css'; // Assuming there's a corresponding styles file
+import defaultProfilePic from '../../../assets/perfil.png'; // Importa la imagen predeterminada
+
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -102,8 +104,12 @@ const UserProfile = () => {
                   onError={handleImageError} // If image fails to load, mark error
                 />
               ) : (
-                <p>No hay foto disponible</p> // Display if no photo is available or there's an error
-              )}
+                <img
+                src={defaultProfilePic}  // Usa la imagen predeterminada si no hay foto disponible
+                alt="Foto de perfil predeterminada"
+                className="profile-photo"
+              />
+            )}
             </div>
   
             {/* File input for changing profile picture */}

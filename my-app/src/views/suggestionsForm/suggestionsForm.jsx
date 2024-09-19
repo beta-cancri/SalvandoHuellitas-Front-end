@@ -30,8 +30,13 @@ const SuggestionsForm = () => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
             setUser(JSON.parse(storedUser));
-        }
-    }, []);
+        } else {window.confirm("Primero necesitas iniciar sesión")
+            localStorage.setItem('afterLogin', '/suggestPets')
+           navigate('/login');
+        }        
+    }, [navigate]);
+    
+   
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -60,14 +65,15 @@ const SuggestionsForm = () => {
                         'Authorization': `Bearer ${token}`
                     };
                   
-                   
-                       
                         if (!id) {
                             // Enviar los datos del formulario al backend
                             const response = await axios.post("/pets/suggest", requestData, { headers });
                             console.log("Suggested Pets Response: ", response.data);
                             setSuggestedPets(response.data);
                                         
+                            // Guardar los valores en localStorage
+                            localStorage.setItem('suggestionFormData', JSON.stringify(requestData));
+
                         // Redirigir a Home con las mascotas sugeridas
                         navigate('/home', { state: { suggestedPets: response.data } });
                         } 
@@ -192,10 +198,9 @@ const SuggestionsForm = () => {
                         onChange={handleChange}
                     >
                         <option value="">Selecciona una opción</option>
-                        <option value="1">Medio tiempo (4-8 horas al día)</option>
-                        <option value="0">Casi no tengo tiempo (hasta 1 hora al día)</option>
-                        <option value="-1">Algo de tiempo (1-4 horas al día)</option>
-                        <option value="+1">Tengo mucho tiempo (más de 8 horas al día)</option>
+                        <option value="-1">Poco tiempo (menos de 1 hora al día)</option>
+                        <option value="1">Algo de tiempo (1 hora al día)</option>
+                        <option value="+1">Tengo mucho tiempo (más de 1 hora al día)</option>
 
                     </select> <br />
 
@@ -212,7 +217,9 @@ const SuggestionsForm = () => {
                         <button type="submit" className='button' disabled={uploading}>
                             {uploading ? 'Enviando...' : 'Enviar'}
                         </button>
-                        <Link className='button' to="/home">Omitir</Link>
+
+                        <Link className='button' to="/home">Omitir
+                        </Link>
                     </div>
                 </form>
             </div>
