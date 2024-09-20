@@ -72,7 +72,9 @@
   letter-spacing: 1.5px;
   text-align: center;
 }
-
+.review-form{
+  color: black;
+}
 /* Estilo de los campos de entrada y selección */
 .review-form input,
 .review-form input[type="date"],
@@ -80,7 +82,7 @@
   width: 100%;
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #e67e22;
+  border: 1px solid #ffbd61;
   border-radius: 8px;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
@@ -92,7 +94,7 @@
 .review-form input:focus,
 .review-form input[type="date"]:focus,
 .review-form select:focus {
-  border-color: #e67e22;
+  border-color: #ffbd61;
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
   outline: none;
 }
@@ -103,7 +105,7 @@
   width: 40%;
   margin-right: 10px;
   padding: 12px;
-  border: 1px solid #e67e22;
+  border: 1px solid #ffbd61;
   border-radius: 8px;
   font-size: 16px;
   font-family: "Poppins", sans-serif;
@@ -117,12 +119,12 @@
   padding: 10px;
   margin: 5px 0;
   box-sizing: border-box;
-  border: 2px solid #ccc;
+  border: 2px solid #ffbd61;;
   border-radius: 4px;
 }
 
 .textarea:focus {
-  border-color: #e67e22;
+  border-color: #ffbd61;
   box-shadow: 0 0 10px rgba(230, 126, 34, 0.5);
   outline: none;
 }
@@ -136,6 +138,7 @@
     padding: 8px;
     outline: none;
     background-color: #fff; /* Fondo blanco para los campos de entrada */
+    
 }
 
 /* Estilo para el mensaje de error debajo del campo */
