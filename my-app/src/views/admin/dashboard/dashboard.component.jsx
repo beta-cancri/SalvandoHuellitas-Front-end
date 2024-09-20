@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
+import ViewDonations from '../viewdonations/viewdonations.component';
 import CreatePet from '../../create/create.component'; // Import the CreatePet component
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
@@ -153,6 +154,12 @@ const AdminDashboard = () => {
         >
           Crea una mascota
         </button>
+        <button
+          className={`sidebar-button ${activeSection === 'donations' ? 'selected' : ''}`}
+          onClick={() => handleSectionChange('donations')} // Change section to 'create'
+        >
+          Ver donaciones
+        </button>
 
         {/* Show filters for Pets section */}
         {activeSection === 'pets' && (
@@ -232,6 +239,7 @@ const AdminDashboard = () => {
         {activeSection === 'users' && initialFetchDone.users && <ManageUser status={status} />}
         {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests status={status} />}
         {activeSection === 'create' && <CreatePet />} {/* Render the CreatePet component */}
+        {activeSection === 'donations' && <ViewDonations />} {/* Render the CreatePet component */}
       </div>
     </div>
   );
