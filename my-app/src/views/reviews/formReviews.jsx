@@ -105,9 +105,19 @@ function ReviewForm({ userName, userId }) {
                     setReviews(updatedReviews); // Actualizar las reseñas en el estado
                     setShowNotification(true);//('¡Gracias por tu reseña!');
                     setBackendError(''); // Limpia cualquier mensaje de error anterior
+
+                    setReviewText('');
+                    setRating('');
+                    setIsSubmitted(false);
                 }).catch(err => {
-                    setBackendError(err.response.data.message); 
-                    console.log(err);
+                    if (err.response && err.response.data.message === "Ya has dejado una reseña") {
+                        setBackendError(err.response.data.message);
+                        console.log(err);
+                        setShowNotification(false);
+                        setReviewText('');
+                        setRating('');
+                        setIsSubmitted(false);
+                    }
                 });
             } catch (error) {
                 console.error("Error creating request:", error.message);
@@ -123,7 +133,7 @@ function ReviewForm({ userName, userId }) {
     const handleCloseNotification = () => {
         setShowNotification(false);
         setBackendError('');
-      };
+    };
     return (
         <div className="full-screen-container-review">
             <div className="review-container">
@@ -146,12 +156,12 @@ function ReviewForm({ userName, userId }) {
                     <div>
                         <label htmlFor="reviewText">Escribe tu comentario <span style={{ color: 'red' }}>*</span></label>
                         <textarea
-                        id="reviewText"
-                        value={reviewText}
-                        className="textarea"
-                        onChange={handleChange}
-                         maxLength={85} 
-                       />
+                            id="reviewText"
+                            value={reviewText}
+                            className="textarea"
+                            onChange={handleChange}
+                            maxLength={85}
+                        />
                         {(isSubmitted || reviewText.length > 0) && errors.reviewText && (
                             <p className="error-message">{errors.reviewText}</p>
                         )}
@@ -179,14 +189,14 @@ function ReviewForm({ userName, userId }) {
                     <button className="button" type="submit">Enviar Reseña</button>
                     <button className="button" type="button" onClick={() => navigate('/home')}>Volver al Inicio</button>
                     {backendError && (
-    <Notification message={backendError} onClose={() => setBackendError('')} />
-)}
+                        <Notification message={backendError} onClose={() => setBackendError('')} />
+                    )}
                 </form>
 
             </div>
             {showNotification && (
-        <Notification message="¡Gracias por tu reseña!" onClose={handleCloseNotification} />
-      )}
+                <Notification message="¡Gracias por tu reseña!" onClose={handleCloseNotification} />
+            )}
         </div>
     );
 }
