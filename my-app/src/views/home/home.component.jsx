@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import LittleFootprintRating from '../reviews/littleFootprintRating';
 
 import axios from "axios";
+import DonationComplete from "../../components/donation/DonationComplete";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -190,6 +191,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
+      <DonationComplete />
       <h1>Mascotas disponibles para adopción</h1>
 
       { 
