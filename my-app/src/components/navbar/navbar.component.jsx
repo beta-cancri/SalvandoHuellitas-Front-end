@@ -243,7 +243,7 @@ const Navbar = () => {
                             : '/user/dashboard'
                         }
                       >
-                        {userDetail.isAdmin ? 'Admin Dashboard' : 'Panel Admin'}
+                        {userDetail.isAdmin ? 'Administrador' : 'Mi cuenta'}
                       </button>
                     )}
                     <button onClick={handleLogout}>Cerrar sesión</button>
