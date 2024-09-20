@@ -34,7 +34,7 @@ const App = () => {
   const [user, setUser] = useState(null);
 
   return (
-    <div className="App">
+    <div className="App" >
       {showNavbar && <Navbar user={user} />}
       <Routes>
         <Route path="/" element={<Landing />} />
