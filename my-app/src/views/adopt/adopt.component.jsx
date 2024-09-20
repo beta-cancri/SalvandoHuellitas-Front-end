@@ -109,6 +109,9 @@ const Adopt = () => {
                             timeAvailable: '',
                             clauses: false
                         });
+                        setTimeout(() => {
+                          navigate('/home');
+                        }, 3000);
                     }
                 } else {
                     console.log("Mostrando notificación");
