@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
+import CreatePet from '../../create/create.component'; // Import the CreatePet component
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
@@ -123,11 +124,6 @@ const AdminDashboard = () => {
     }),
   };
 
-  // Navigate to the "Create a Pet" route
-  const handleCreatePet = () => {
-    navigate('/create');
-  };
-
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
@@ -151,7 +147,10 @@ const AdminDashboard = () => {
         >
           Manejo de mascotas
         </button>
-        <button className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`} onClick={handleCreatePet}>
+        <button
+          className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`} 
+          onClick={() => handleSectionChange('create')} // Change section to 'create'
+        >
           Crea una mascota
         </button>
 
@@ -232,6 +231,7 @@ const AdminDashboard = () => {
         {activeSection === 'pets' && initialFetchDone.pets && <ManagePets status={status} />}
         {activeSection === 'users' && initialFetchDone.users && <ManageUser status={status} />}
         {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests status={status} />}
+        {activeSection === 'create' && <CreatePet />} {/* Render the CreatePet component */}
       </div>
     </div>
   );
