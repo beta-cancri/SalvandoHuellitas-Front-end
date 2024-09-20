@@ -302,29 +302,31 @@ const Home = () => {
           <p>Cargando reseñas...</p>
         ) : reviews.length > 0 ? (
           <div className="review-cards">
-            {reviews.map((review) => (
-              <div key={review.id_user} className="review-card">
-                <div className="review-item">
-                  <div className="review-name">
-                    <strong>Nombre</strong>
-                    <span className="name-text">{review.user_name}</span>
-                  </div>
-
-                  <div className="review-text">
-                    <strong>Reseña</strong>
-                    <span className="text-content">{review.comment}</span>
-                  </div>
-
-                  <div className="review-rating">
-                    <strong>Calificación</strong>
-                    <span className="rating-display">
-                      <LittleFootprintRating rating={review.rating} setRating={() => { }} />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
+  {reviews.map((review) => (
+    <div key={review.id_user} className="review-card">
+      <div className="review-item">
+        <div className="review-name">
+          <strong>Nombre</strong>
+          <div className='name-text'>
+            <span>{review.user_name}</span>
           </div>
+        </div>
+        <div className="review-text">
+          <strong>Reseña</strong>
+          <div className="text-content">
+            <span>{review.comment}</span>
+          </div>
+        </div>
+      </div>
+        <div className="review-rating">
+          <strong>Calificación</strong>
+          <span className="rating-display">
+            <LittleFootprintRating rating={review.rating} setRating={() => { }} />
+          </span>
+        </div>
+    </div>
+  ))}
+</div>
         ) : null}
 
         <div className="back-button-container">
