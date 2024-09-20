@@ -148,7 +148,7 @@ const AdminDashboard = () => {
           Manejo de mascotas
         </button>
         <button
-          className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`} 
+          className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`}
           onClick={() => handleSectionChange('create')} // Change section to 'create'
         >
           Crea una mascota
@@ -165,8 +165,8 @@ const AdminDashboard = () => {
                 value={statusOptions.find((option) => option.value === status)}
                 onChange={(selectedOption) => {
                   const newStatus = selectedOption ? selectedOption.value : '';
-                  setStatus(newStatus);
-                  dispatch(fetchPets({ status: newStatus }, 1, false));
+                  setStatus(newStatus || ['available', 'inactive']);  
+                  dispatch(fetchPets({ status: newStatus || ['available', 'inactive'] }, 1, false));
                 }}
                 options={statusOptions}
                 styles={customStyles}

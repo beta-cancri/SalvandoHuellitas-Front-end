@@ -8,12 +8,11 @@ const ManagePets = ({ status }) => {
   const { pets, petsCurrentPage, petsTotalPages } = useSelector((state) => state);
   const sortCriteria = 'status';  // Sort by status
 
-  // Fetch pets with sorting and status filter for only available and inactive pets
+  // Fetch pets with sorting and dynamic status filter
   useEffect(() => {
-    console.log("Fetching active and inactive pets...");
-    const statusFilter = ['available', 'inactive'];  // Only fetch available and inactive pets
-    dispatch(fetchPets({ status: statusFilter, sort: sortCriteria }, 1, false));  // Always reset to page 1 when status or sort changes
-  }, [dispatch, sortCriteria]);  // Remove status from dependency array, as we're hardcoding it to 'available' and 'inactive'
+    const statusFilter = status || ['available', 'inactive'];  // If no status is selected, default to 'available' and 'inactive'
+    dispatch(fetchPets({ status: statusFilter, sort: sortCriteria }, 1, false));
+  }, [dispatch, status, sortCriteria]);
 
   // Handle status change
   const handleToggleStatus = (petId, currentStatus) => {
@@ -23,8 +22,7 @@ const ManagePets = ({ status }) => {
     if (window.confirm(confirmationMessage)) {
       dispatch(changePetStatus(petId, newStatus))
         .then(() => {
-          // Refetch pets after status change
-          dispatch(fetchPets({ status: ['available', 'inactive'], sort: sortCriteria }, 1, false));  // Ensure we go back to page 1
+          dispatch(fetchPets({ status: status || ['available', 'inactive'], sort: sortCriteria }, 1, false));  // Refetch pets after status change
         })
         .catch((error) => {
           console.error('Error changing status:', error);
@@ -34,7 +32,7 @@ const ManagePets = ({ status }) => {
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
-    dispatch(fetchPets({ status: ['available', 'inactive'], sort: sortCriteria }, pageNumber, false));
+    dispatch(fetchPets({ status: status || ['available', 'inactive'], sort: sortCriteria }, pageNumber, false));  // Pass the correct status when paginating
   };
 
   return (
