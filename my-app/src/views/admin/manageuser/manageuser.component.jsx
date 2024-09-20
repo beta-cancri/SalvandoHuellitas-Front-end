@@ -59,7 +59,7 @@ const ManageUser = ({ status }) => {
                   className="status-button"
                   onClick={() => handleToggleStatus(user.id, user.isActive)}
                 >
-                  {user.isActive ? 'Inactivo' : 'Activo'}
+                  {user.isActive ? 'Inactivar' : 'Activar'}
                 </button>
               </li>
             ))}

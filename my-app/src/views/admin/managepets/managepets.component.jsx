@@ -65,7 +65,7 @@ const ManagePets = ({ status }) => {
                   className="status-button-admin"
                   onClick={() => handleToggleStatus(pet.id, pet.status)}
                 >
-                  {pet.status === 'available' ? 'Inactivo' : 'Activo'}
+                  {pet.status === 'available' ? 'Inactivar' : 'Activar'}
                 </button>
               </li>
             ))}
