@@ -333,19 +333,13 @@ export const updateUserProfile = (formData) => async (dispatch) => {
 //Donation 
 export const createDonation = (amount) => async (dispatch) => {
   try {
-    const response = await fetch('/paymentLink/', {  //  ruta del back
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount }),
-    });
+    const response = await axios.post('/paymentLink/', { amount });
 
-    if (!response.ok) {
+    if (response.status > 400) {
       throw new Error(`Request failed with status code ${response.status}`);
     }
 
-    const data = await response.json();
+    const data = await response.data;
     dispatch({ type: CREATE_DONATION_SUCCESS, payload: data.paymentLink });
   } catch (error) {
     dispatch({ type: CREATE_DONATION_ERROR, payload: error.message });
