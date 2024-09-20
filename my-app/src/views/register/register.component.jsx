@@ -70,7 +70,7 @@ const Register = () => {
        
          // redirigir a la página de inicio después de un registro exitoso
          setTimeout(() => {
-          navigate('/home'); // Redirige al home
+          navigate('/login'); // Redirige al home
         }, 2000); // Espera 2 segundos para mostrar la notificación
 
         // Clear the form after successful submission
