@@ -200,7 +200,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={speciesOptions.find(option => option.value === species)}
-            onChange={(option) => handleFilterChange('species', option ? option.value : '')}
+            onChange={(option) => handleFilterChange('species', option ? option.value : '---')}
             options={speciesOptions}
             styles={customStyles}
             isClearable
@@ -213,7 +213,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={energyLevelOptions.find(option => option.value === energyLevel)}
-            onChange={(option) => handleFilterChange('energyLevel', option ? option.value : '')}
+            onChange={(option) => handleFilterChange('energyLevel', option ? option.value : '---')}
             options={energyLevelOptions}
             styles={customStyles}
             isClearable
@@ -226,7 +226,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={sizeOptions.find(option => option.value === size)}
-            onChange={(option) => handleFilterChange('size', option ? option.value : '')}
+            onChange={(option) => handleFilterChange('size', option ? option.value : '---')}
             options={sizeOptions}
             styles={customStyles}
             isClearable
@@ -239,7 +239,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={okWithPetsOptions.find(option => option.value === okWithPets)}
-            onChange={(option) => handleFilterChange('okWithPets', option ? option.value : '')}
+            onChange={(option) => handleFilterChange('okWithPets', option ? option.value : '---')}
             options={okWithPetsOptions}
             styles={customStyles}
             isClearable
@@ -252,7 +252,7 @@ const Home = () => {
             className="custom-select-container"
             classNamePrefix="custom-select"
             value={okWithKidsOptions.find(option => option.value === okWithKids)}
-            onChange={(option) => handleFilterChange('okWithKids', option ? option.value : '')}
+            onChange={(option) => handleFilterChange('okWithKids', option ? option.value : '---')}
             options={okWithKidsOptions}
             styles={customStyles}
             isClearable
@@ -268,7 +268,7 @@ const Home = () => {
 
       {/* Mostrar mensaje si no hay coincidencias */}
       { suggestedPets?.length === 0 ? (
-        <p>No hay mascotas sugeridas, pero mira, tenemos estas:</p>
+        <p>No hay mascotas sugeridas, pero puedes buscar entre las que tenemos disponibles:</p>
       ): null}
 
       {/* Mostrar mascotas sugeridas si existen */}
@@ -331,7 +331,7 @@ const Home = () => {
 
         <div className="back-button-container">
        
-         <button className="button" onClick={() => navigate('/formReviews')}>Ingresa tu calificación aquí 👇</button>
+         <button className="button" onClick={() => navigate('/formReviews')}>Ingresa tu calificación</button>
         </div>
       </div>
     </div>
