@@ -82,7 +82,7 @@
 }
 
 .deny-button, .approve-button {
-  background-color: #333;
+  background-color: #333333;
   color: #fff;
   border: 1px solid #444;
   border-radius: 50px;
@@ -103,7 +103,7 @@
 }
 
 .approve-button {
-  background-color: #28a745; /* Green for Aprobar */
+  background-color: #45e60a; /* Green for Aprobar */
 }
 
 .deny-button:hover {
@@ -111,7 +111,7 @@
 }
 
 .approve-button:hover {
-  background-color: #218838;
+  background-color: #45e60a;
 }
 
 /* Pagination */
