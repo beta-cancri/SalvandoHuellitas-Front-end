@@ -152,5 +152,5 @@ body, html {
   .request-detail-columns-id{
     flex-direction: column;
     align-items: center
-  };
-};
+  }
+}
