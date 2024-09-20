@@ -1,0 +1,107 @@
+body, html {
+  background-color: #a09999; /* Dark background for the whole page */
+  margin: 0;
+  padding: 0;
+}
+
+/* General layout */
+.request-detail-container-id {
+  width: 100%;
+  max-width: 800px; /* Increase width to accommodate two columns */
+  margin: auto;
+  padding: 20px;
+  background-color: rgba(50, 50, 50, 0.85); /* Darker background with transparency */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgb(0, 0, 0);
+  color: #fcf9f9;
+}
+
+.request-detail-title-id {
+  text-align: center;
+  color: #f0cd8a; /* Accent color for the title */
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+/* Display pet image and content in two columns */
+.request-detail-id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Pet image */
+.request-detail-image-container {
+  margin-bottom: 20px;
+}
+
+.request-detail-pet-photo-id {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid #f7a64b; /* Accent border around the image */
+}
+
+/* Two-column layout for the fields */
+.request-detail-columns-id {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.form-group-id {
+  flex-basis: 48%; /* Each form group takes up roughly half the container width */
+  margin-bottom: 20px;
+}
+
+.request-detail-label-id {
+  display: block;
+  font-weight: bold;
+  color: #f0cd8a; /* Accent color for labels */
+  margin-bottom: 5px;
+}
+
+.request-detail-input-id {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #444; /* Darker border for inputs */
+  background-color: #333; /* Dark grey background for inputs */
+  color: #f0f0f0; /* Light grey text */
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Text area for comments */
+.request-detail-comment-id {
+  width: 100%;
+  text-align: center;
+}
+
+.request-detail-textarea-id {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #444; /* Darker border for text area */
+  background-color: #333; /* Dark grey background */
+  color: #f0f0f0; /* Light grey text */
+  font-size: 1rem;
+  resize: none;
+}
+
+/* Button group styling */
+.button-group-id {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* Back button */
+.back-button-container-id {
+  margin-top: 10px;
+  text-align: center;
+}
