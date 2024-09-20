@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserDetail, updateUserProfile } from '../../../redux/actions'; // Import the actions
 import './profile.styles.css'; // Assuming there's a corresponding styles file
 import defaultProfilePic from '../../../assets/perfil.png'; // Importa la imagen predeterminada
-
+import Notification from '../../create/Notification';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,7 @@ const UserProfile = () => {
   const [originalData, setOriginalData] = useState({}); // State to store the original data for cancel functionality
   const [imageError, setImageError] = useState(false); // Handle image errors
   const [profilePicture, setProfilePicture] = useState(null); // Handle profile picture uploads
-
+  const [showNotification, setShowNotification] = useState(false);
   // Fetch user data on component mount
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user')); // Retrieve the user object from localStorage
@@ -62,6 +62,7 @@ const UserProfile = () => {
           const user = JSON.parse(localStorage.getItem('user')); // Get the user from localStorage
           if (user && user.userID) {
             dispatch(fetchUserDetail(user.userID)); // Refetch user details to update the component state
+            setShowNotification(true);
           }
           setIsEditing(false); // Exit edit mode after saving
         })
@@ -84,6 +85,10 @@ const UserProfile = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const handleCloseNotification = () => {
+    setShowNotification(false);
   };
 
   return (
@@ -196,6 +201,9 @@ const UserProfile = () => {
         </>
       ) : (
         <p>Cargando datos del usuario...</p>
+      )}
+       {showNotification && (
+        <Notification message="¡Perfil modificado exitosamente! 🐾" onClose={handleCloseNotification} />
       )}
     </div>
   );
