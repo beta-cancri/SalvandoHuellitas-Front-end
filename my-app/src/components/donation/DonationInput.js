@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDonation } from '../../redux/actions/index';
 import Notification from '../../views/create/Notification.jsx';
@@ -9,8 +9,7 @@ const DonationInput = ({ onClose }) => {
   const [donationAmount, setDonationAmount] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  const [previousPage, setPreviousPage] = useState(null); 
-
+ 
   const dispatch = useDispatch();
   const donationError = useSelector(state => state.donationError);
   const paymentLink = useSelector(state => state.paymentLink);
@@ -26,8 +25,6 @@ const DonationInput = ({ onClose }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (donationAmount > 0) {
-      setPreviousPage(window.location.href);
-      localStorage.setItem('previousPage', previousPage); 
       dispatch(createDonation(donationAmount));
     } else {
       setNotificationMessage('⚠ Ingrese un monto de donación válido');
@@ -35,12 +32,16 @@ const DonationInput = ({ onClose }) => {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (paymentLink) {
-      window.location.href = paymentLink; // Redirige al link de pago
-      setDonationAmount(''); // Limpia el campo de entrada
+      // Guardar la bandera de donación exitosa
+      localStorage.setItem('donationComplete', 'true');
+
+      // Redirigir al link de pago
+      window.location.href = paymentLink;
+      setDonationAmount('');
     }
-  }, [paymentLink]);
+  }, [paymentLink, navigate]);
 
   return (
     <div className="donation-form-container">
@@ -65,12 +66,10 @@ const DonationInput = ({ onClose }) => {
         <Notification 
           message={notificationMessage} 
           onClose={() => setShowNotification(false)} 
-          />
+        />
       )}
     </div>
   );
 };
-
-
 
 export default DonationInput;

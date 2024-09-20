@@ -7,18 +7,18 @@ const DonationComplete = () => {
   const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
-    const previousPage = localStorage.getItem('previousPage'); // Recuperar la URL anterior
-    if (previousPage) {
-      localStorage.removeItem('previousPage'); // Eliminar el dato del storage
-
-      // Mostrar la notificación
+    const donationComplete = localStorage.getItem('donationComplete');
+    
+    if (donationComplete) {
+      // Mostrar la notificación solo si la bandera está presente
       setShowNotification(true);
-
-      // Después de unos segundos, redirigir a la página anterior
-      setTimeout(() => {
-        navigate(previousPage); // Redirige a la página anterior
-      }, 3000); // Puedes ajustar el tiempo de espera según prefieras
+      localStorage.removeItem('donationComplete'); // Eliminar la bandera
     }
+
+    // Redirigir a /home
+    setTimeout(() => {
+      navigate('/home');
+    }, 3000);
   }, [navigate]);
 
   return (
