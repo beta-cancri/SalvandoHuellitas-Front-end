@@ -20,6 +20,7 @@ import UserDashboard from './views/user/dashboard/dashboard.component'; // Impor
 import WhatsAppButton from './components/whatsapp/whatsAppButton.component';
 import ScrollToTopButton from './components/scroll/ScrollToTopButton.component';
 import SuggestionsForm from './views/suggestionsForm/suggestionsForm';
+import RequestDetail from './components/requestsbyid/requestsbyid.component';
 import './App.css';
 
 
@@ -53,6 +54,7 @@ const App = () => {
         <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
         <Route path="/user/dashboard" element={<UserDashboard />} /> {/* User Dashboard Route */}
         <Route path="/suggestPets" element={<SuggestionsForm />} />
+        <Route path="/requests/:id" element={<RequestDetail />} />
       </Routes>
       <WhatsAppButton/>
       <ScrollToTopButton/>

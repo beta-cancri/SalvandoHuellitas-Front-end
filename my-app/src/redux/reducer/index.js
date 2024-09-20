@@ -2,9 +2,9 @@ import {
   FETCH_PETS_SUCCESS, FETCH_PET_DETAIL_SUCCESS, CREATE_PET_SUCCESS, CHANGE_PET_STATUS,
   FETCH_REVIEWS_SUCCESS, CREATE_REVIEW_SUCCESS,
   FETCH_USERS_SUCCESS, CREATE_USER_SUCCESS, CHANGE_USER_STATUS,
-  FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS,
+  FETCH_REQUESTS_SUCCESS, CREATE_REQUEST_SUCCESS, FETCH_REQUEST_BY_ID_SUCCESS,
   FETCH_USER_DETAIL_SUCCESS, UPDATE_USER_PROFILE_SUCCESS,
-  CREATE_DONATION_SUCCESS, CREATE_DONATION_ERROR 
+  CREATE_DONATION_SUCCESS, CREATE_DONATION_ERROR
 } from '../actions';
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
   reviews: [],
   users: [],
   requests: [],
+  requestDetail: {}, // Added for request details by ID
   userDetail: {}, // Keep user detail in the state
   petsCurrentPage: 1,  // Separate currentPage for pets
   petsTotalPages: 1,   // Separate totalPages for pets
@@ -20,8 +21,8 @@ const initialState = {
   usersTotalPages: 1,   // Separate totalPages for users
   requestsCurrentPage: 1,  // Separate currentPage for requests
   requestsTotalPages: 1,   // Separate totalPages for requests
-  paymentLink: '', // Añadido para las donaciones
-  donationError: '', // Añadido para manejar errores de donación
+  paymentLink: '', // Added for donations
+  donationError: '', // Added to handle donation errors
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -104,29 +105,37 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         requests: [...state.requests, action.payload],
       };
-    
-      case 'UPDATE_REQUEST_SUCCESS':
-        return {
-          ...state,
-          requests: state.requests.map((request) =>
-            request.id === action.payload.id ? action.payload : request
-          ),
-        };
-        case CREATE_DONATION_SUCCESS:
-          return {
-            ...state,
-            paymentLink: action.payload,
-            donationError: '', // Clear error on success
-          };
-        case CREATE_DONATION_ERROR:
-          return {
-            ...state,
-            donationError: action.payload,
-          };
-    
-        default:
-          return state;
-      }
-    };
+
+    case FETCH_REQUEST_BY_ID_SUCCESS:
+      return {
+        ...state,
+        requestDetail: action.payload,  // Store the request detail fetched by ID
+      };
+
+    case 'UPDATE_REQUEST_SUCCESS':
+      return {
+        ...state,
+        requests: state.requests.map((request) =>
+          request.id === action.payload.id ? action.payload : request
+        ),
+      };
+
+    case CREATE_DONATION_SUCCESS:
+      return {
+        ...state,
+        paymentLink: action.payload,
+        donationError: '', // Clear error on success
+      };
+      
+    case CREATE_DONATION_ERROR:
+      return {
+        ...state,
+        donationError: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
 
 export default rootReducer;

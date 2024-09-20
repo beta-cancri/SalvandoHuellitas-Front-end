@@ -4,7 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { fetchPets, fetchUserDetail } from '../../redux/actions';
 import './navbar.styles.css';
 import DonationInput from '../../components/donation/DonationInput';
-import defaultProfilePic from '../../assets/perfil.png'; 
+import defaultProfilePic from '../../assets/perfil.png';
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -174,7 +174,7 @@ const Navbar = () => {
                   Contacto
                 </Link>
               </div>
-  
+
               {/* Responsive view additional buttons */}
               <div className="navbar-responsive-buttons">
                 {isLoggedIn ? (
@@ -211,7 +211,14 @@ const Navbar = () => {
                   className="user-button"
                   onClick={toggleUserMenu}
                   ref={profileButtonRef}
+                  style={{ display: 'flex', alignItems: 'center' }} // Align items horizontally
                 >
+
+                  {userDetail.fullName && (
+                    <span className="user-full-name" style={{ color: '#fff', marginRight: '10px', fontSize: '1em', fontFamily: 'Poppins, sans-serif', }}>
+                      {userDetail.fullName}
+                    </span>
+                  )}
                   {userDetail.idCard ? (
                     <img
                       src={userDetail.idCard}
@@ -220,10 +227,10 @@ const Navbar = () => {
                     />
                   ) : (
                     <img
-                    src={defaultProfilePic}
-                    alt="Default Profile"
-                    className="user-profile-image"
-                  />
+                      src={defaultProfilePic}
+                      alt="Default Profile"
+                      className="user-profile-image"
+                    />
                   )}
                 </button>
                 {isUserMenuActive && (
@@ -245,19 +252,19 @@ const Navbar = () => {
               </div>
             ) : (
               <button
-                className="navbar-button-no-responsive" /* Apply a different class */
+                className="navbar-button-no-responsive"
                 onClick={() => (window.location.href = '/login')}
               >
                 Ingresar
               </button>
             )}
+
           </div>
           <span className="menu-icon" onClick={toggleMenu}>
             ☰
           </span>
         </div>
       </nav>
-  
       {showDonationInput && (
         <div className="donation-input-container animate-fade" ref={donationInputRef}>
           <DonationInput onClose={handleDonationInputClose} />
@@ -265,7 +272,7 @@ const Navbar = () => {
       )}
     </>
   );
-  
+
 };
 
 export default Navbar;

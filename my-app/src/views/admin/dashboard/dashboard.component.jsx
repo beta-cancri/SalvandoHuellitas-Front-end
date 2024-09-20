@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import ManagePets from '../managepets/managepets.component';
 import ManageRequests from '../managerequests/managerequests.component';
 import ManageUser from '../manageuser/manageuser.component';
+import CreatePet from '../../create/create.component'; // Import the CreatePet component
 import Select from 'react-select';
 import { useDispatch } from 'react-redux';
 import { fetchPets, fetchUsers, fetchRequests } from '../../../redux/actions';
 import './dashboard.styles.css';
 
 const AdminDashboard = () => {
-  const [activeSection, setActiveSection] = useState(null); // Initially null
+  const [activeSection, setActiveSection] = useState('requests'); // Default to 'requests'
   const [status, setStatus] = useState('');
   const [initialFetchDone, setInitialFetchDone] = useState({
     pets: false,
@@ -53,6 +54,14 @@ const AdminDashboard = () => {
     }
   }, [dispatch, status, activeSection, initialFetchDone.users]);
 
+  // Fetch requests immediately on mount because 'requests' is the default section
+  useEffect(() => {
+    if (activeSection === 'requests' && !initialFetchDone.requests) {
+      dispatch(fetchRequests(1, 10, 'id', 'ASC', status));
+      setInitialFetchDone((prev) => ({ ...prev, requests: true }));
+    }
+  }, [dispatch, status, activeSection, initialFetchDone.requests]);
+
   // Validate if the user is an admin
   useEffect(() => {
     let storedUser = localStorage.getItem('user');
@@ -81,10 +90,8 @@ const AdminDashboard = () => {
 
   const requestStatusOptions = [
     { value: '', label: 'Todos' },
-    { value: 'pending', label: 'Pendiente' },
     { value: 'approved', label: 'Aprobada' },
     { value: 'denied', label: 'Denegada' },
-    { value: 'closed', label: 'Cerrada' },
   ];
 
   // Custom styles for Select dropdown
@@ -117,15 +124,17 @@ const AdminDashboard = () => {
     }),
   };
 
-  // Navigate to the "Create a Pet" route
-  const handleCreatePet = () => {
-    navigate('/create');
-  };
-
   return (
     <div className="admin-dashboard">
       <div className="sidebar">
         <h2>Administrador</h2>
+        {/* Ver peticiones de adopción button moved to the top */}
+        <button
+          className={`sidebar-button ${activeSection === 'requests' ? 'selected' : ''}`}
+          onClick={() => handleSectionChange('requests')}
+        >
+          Ver peticiones de adopción
+        </button>
         <button
           className={`sidebar-button ${activeSection === 'users' ? 'selected' : ''}`}
           onClick={() => handleSectionChange('users')}
@@ -139,12 +148,9 @@ const AdminDashboard = () => {
           Manejo de mascotas
         </button>
         <button
-          className={`sidebar-button ${activeSection === 'requests' ? 'selected' : ''}`}
-          onClick={() => handleSectionChange('requests')}
+          className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`}
+          onClick={() => handleSectionChange('create')} // Change section to 'create'
         >
-          Ver peticiones de adopción
-        </button>
-        <button className={`sidebar-button ${activeSection === 'create' ? 'selected' : ''}`} onClick={handleCreatePet}>
           Crea una mascota
         </button>
 
@@ -159,8 +165,8 @@ const AdminDashboard = () => {
                 value={statusOptions.find((option) => option.value === status)}
                 onChange={(selectedOption) => {
                   const newStatus = selectedOption ? selectedOption.value : '';
-                  setStatus(newStatus);
-                  dispatch(fetchPets({ status: newStatus }, 1, false));
+                  setStatus(newStatus || ['available', 'inactive']);  
+                  dispatch(fetchPets({ status: newStatus || ['available', 'inactive'] }, 1, false));
                 }}
                 options={statusOptions}
                 styles={customStyles}
@@ -225,6 +231,7 @@ const AdminDashboard = () => {
         {activeSection === 'pets' && initialFetchDone.pets && <ManagePets status={status} />}
         {activeSection === 'users' && initialFetchDone.users && <ManageUser status={status} />}
         {activeSection === 'requests' && initialFetchDone.requests && <ManageRequests status={status} />}
+        {activeSection === 'create' && <CreatePet />} {/* Render the CreatePet component */}
       </div>
     </div>
   );

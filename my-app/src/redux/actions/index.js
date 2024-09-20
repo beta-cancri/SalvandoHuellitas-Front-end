@@ -14,6 +14,7 @@ export const FETCH_USER_DETAIL_SUCCESS = 'FETCH_USER_DETAIL_SUCCESS';
 export const UPDATE_USER_PROFILE_SUCCESS = 'UPDATE_USER_PROFILE_SUCCESS';
 export const CREATE_DONATION_SUCCESS = 'CREATE_DONATION_SUCCESS';
 export const CREATE_DONATION_ERROR = 'CREATE_DONATION_ERROR';
+export const FETCH_REQUEST_BY_ID_SUCCESS = 'FETCH_REQUEST_BY_ID_SUCCESS';
 
 // Fetch all pets with optional filters and pagination
 export const fetchPets = (filters = {}, page = 1, isHome = false) => async (dispatch) => {
@@ -350,5 +351,26 @@ export const createDonation = (amount) => async (dispatch) => {
     dispatch({ type: CREATE_DONATION_ERROR, payload: error.message });
   }
 };
+
+// Fetch a request by its ID
+export const fetchRequestById = (id) => async (dispatch) => {
+  try {
+    const token = localStorage.getItem("jwt");
+
+    const response = await axios.get(`/requests/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    dispatch({
+      type: FETCH_REQUEST_BY_ID_SUCCESS,
+      payload: response.data,  // Dispatch the full request object
+    });
+  } catch (error) {
+    console.error('Error fetching request by ID:', error.message);
+  }
+};
+
 
 
