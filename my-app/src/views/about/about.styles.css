@@ -3,6 +3,14 @@
   position: relative;
   overflow: hidden; 
   padding-top: 6vh; 
+  background: linear-gradient(
+      rgba(0, 0, 0, 0.5), 
+      rgba(0, 0, 0, 0.5) 
+    ), 
+    url('https://i.imgur.com/v1io1jV.jpeg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat;
 }
 
 .about-container::before {

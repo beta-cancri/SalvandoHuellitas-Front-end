@@ -188,7 +188,7 @@ const Navbar = () => {
                             : '/user/dashboard'
                         }
                       >
-                        {userDetail.isAdmin ? 'Admin Dashboard' : 'Mi cuenta'}
+                        {userDetail.isAdmin ? 'Administrador' : 'Mi cuenta'}
                       </button>
                     )}
                     <button className="logout-button" onClick={handleLogout}>
