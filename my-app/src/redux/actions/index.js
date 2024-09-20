@@ -333,7 +333,7 @@ export const updateUserProfile = (formData) => async (dispatch) => {
 //Donation 
 export const createDonation = (amount) => async (dispatch) => {
   try {
-    const response = await fetch('http://localhost:3001/paymentLink/', {  //  ruta del back 
+    const response = await fetch('/paymentLink/', {  //  ruta del back
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
