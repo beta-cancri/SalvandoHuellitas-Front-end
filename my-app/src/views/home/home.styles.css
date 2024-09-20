@@ -23,7 +23,7 @@
 }
 
 .home-container h1 {
-  font-size: 3rem;
+  font-size: 4rem;
   color: #fffafa;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
   margin-top: 50px;
@@ -117,79 +117,66 @@
 /*  React Select */
 .custom-select-container {
   width: 170px;
-  margin: 0 10px;
-}
-
-
-.review-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 100px;
-  padding: 10px;
+  margin:  20px;
 }
 
 .reviews h2 {
-  margin: 20px;
-  margin-top: 50px;
-  /* padding: 20px; */
+  font-size: 4rem;
   color: #fffafa;
-  font-family: "Poppins", sans-serif;
-  text-shadow: none;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  margin-top: 10px;
+}
+
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 450px));
+  gap: 30px; /* Espacio más pequeño entre las tarjetas */
+  padding: 20px; /* Espaciado interno */
+  justify-content: center; /* Centra las tarjetas en el contenedor */
 }
 
 .review-card {
-  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column; /* Asegura que los elementos se alineen verticalmente */
+  background-color: rgba(255, 255, 255, 0.145);
   border: 2px solid #515151;
   border-radius: 12px;
-  padding: 20px;
+  padding: 20px; /* Espaciado interno más pequeño */
   box-sizing: border-box;
-  grid-template-rows: auto auto auto 1fr; /*Cada fila con altura automática excepto la última*/
-  gap: 10px; /*Espacio entre cada fila*/
-  justify-items: center; /* Centra horizontalmente los contenidos */
+  transition: transform 0.3s, box-shadow 0.3s; /* Efecto de transición */
+  min-height: 250px;
 }
 
-.review-name,
-.review-text,
-.review-rating {
+.review-card:hover {
+  transform: translateY(-5px); /* Elevación al pasar el mouse */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Sombra al pasar el mouse */
+}
+
+.review-item {
+  margin: 10px 0; /* Espaciado vertical entre elementos */
   display: flex;
-  flex-direction: column;
-  align-items: center; /*Alinea todo en el centro horizontalmente */
-  width: 100%; /* Ocupa todo el ancho */
+  flex-direction: column; /* Alineación vertical */
+  gap: 10px; /* Espacio entre los elementos dentro */
+  height: 100%;
 }
 
-.name-text,
-.text-content,
-.rating-display,
-.date-text {
-  word-break: break-word;
-  text-align: center;
+.review-name, .review-text, .review-rating {
+  color: #ffbd61; 
+  font-size: 20px; /* Tamaño de fuente reducido para mejor legibilidad */
+  text-align: center; /* Centra el texto */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.button-review {
-  background-color: transparent;
+.text-content, .name-text {
   color: white;
-  margin-right: 8px;
-  margin-top: 20px;
-  padding: 8px;
-  font-size: 1.3em;
-  cursor: pointer;
-  border-radius: 15px;
-  border: 3px solid #bdbdbd;
-  font-family: "Poppins", sans-serif; /* Fuente aplicada aquí */
+  font-size: 18px; /* Tamaño de texto ajustado */
+  margin-top: 5px;
+  flex-direction: column;
 }
-
-.button-review:hover {
-  background-color: #ffad39c6;
-  color: #ffffff;
-  transform: scale(1.05);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
 
 @media (max-width: 768px) {
   .filter-controls {
     flex-direction: column;
   };
-  
 };
 

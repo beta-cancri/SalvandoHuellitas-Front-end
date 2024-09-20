@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './form.styles.css';
 import { useNavigate } from 'react-router-dom';
 import validate from '../reviews/validationForReviews';
+import Notification from '../create/Notification';
 import axios from "axios";
 
 
@@ -17,6 +18,8 @@ function ReviewForm({ userName, userId }) {
     const [name, setName] = useState(userName);
     const [reviews, setReviews] = useState([]);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+    const [backendError, setBackendError] = useState('');
     const navigate = useNavigate();
 
     // useEffect para validar en tiempo real solo después de haber intentado enviar el formulario
@@ -100,9 +103,10 @@ function ReviewForm({ userName, userId }) {
                     const updatedReviews = [...storedReviews, formData];
                     localStorage.setItem('reviews', JSON.stringify(updatedReviews));
                     setReviews(updatedReviews); // Actualizar las reseñas en el estado
-                    alert('¡Gracias por tu reseña!');
+                    setShowNotification(true);//('¡Gracias por tu reseña!');
+                    setBackendError(''); // Limpia cualquier mensaje de error anterior
                 }).catch(err => {
-                    alert(err.response.data.message);
+                    setBackendError(err.response.data.message); 
                     console.log(err);
                 });
             } catch (error) {
@@ -116,7 +120,10 @@ function ReviewForm({ userName, userId }) {
         localStorage.setItem('reviews', JSON.stringify(updatedReviews));
         setReviews(updatedReviews);
     };
-
+    const handleCloseNotification = () => {
+        setShowNotification(false);
+        setBackendError('');
+      };
     return (
         <div className="full-screen-container-review">
             <div className="review-container">
@@ -139,11 +146,12 @@ function ReviewForm({ userName, userId }) {
                     <div>
                         <label htmlFor="reviewText">Escribe tu comentario <span style={{ color: 'red' }}>*</span></label>
                         <textarea
-                            id="reviewText"
-                            value={reviewText}
-                            className="textarea"
-                            onChange={handleChange}
-                        />
+                        id="reviewText"
+                        value={reviewText}
+                        className="textarea"
+                        onChange={handleChange}
+                         maxLength={85} 
+                       />
                         {(isSubmitted || reviewText.length > 0) && errors.reviewText && (
                             <p className="error-message">{errors.reviewText}</p>
                         )}
@@ -170,22 +178,15 @@ function ReviewForm({ userName, userId }) {
 
                     <button className="button" type="submit">Enviar Reseña</button>
                     <button className="button" type="button" onClick={() => navigate('/home')}>Volver al Inicio</button>
+                    {backendError && (
+    <Notification message={backendError} onClose={() => setBackendError('')} />
+)}
                 </form>
 
-                {reviews.length > 0 && (
-                    <div className="review-list">
-                        {reviews.map((review, index) => (
-                            <div key={index} className="review-item">
-                                <p><strong>Nombre:</strong> {review.userName}</p>
-                                <p><strong>Comentario:</strong> {review.reviewText}</p>
-                                <p><strong>Calificación:</strong> {review.rating} Huellitas</p>
-                                <p><strong>Fecha:</strong> {review.date}</p>
-                                <button onClick={() => handleDelete(index)}>Eliminar</button>
-                            </div>
-                        ))}
-                    </div>
-                )}
             </div>
+            {showNotification && (
+        <Notification message="¡Gracias por tu reseña!" onClose={handleCloseNotification} />
+      )}
         </div>
     );
 }
