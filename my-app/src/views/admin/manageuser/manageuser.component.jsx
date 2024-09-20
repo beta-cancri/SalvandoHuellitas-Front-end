@@ -1,32 +1,55 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsers, changeUserStatus } from '../../../redux/actions';
+import Notification from '../../create/Notification';
+import ConfirmationDialog from '../managepets/ConfirmationDialog.component'; 
 import './manageuser.styles.css';
 
 const ManageUser = ({ status }) => {
   const dispatch = useDispatch();
   const { users, usersCurrentPage, usersTotalPages } = useSelector((state) => state);
-
+  const [notification, setNotification] = useState(null);
+  const [confirmation, setConfirmation] = useState(null);
   // Fetch users with status filter and default sorting (active first, then alphabetically)
   useEffect(() => {
     dispatch(fetchUsers({ status }, 1));  // Always fetch from the first page
   }, [dispatch, status]);
+// Mostrar notificación
+const showNotification = (message, type) => {
+  setNotification({ message, type });
+  setTimeout(() => setNotification(null), 3000); // Ocultar notificación después de 3 segundos
+};
 
+// Mostrar confirmación personalizada
+const showConfirmation = (message, onConfirm, onCancel) => {
+  setConfirmation({ message, onConfirm, onCancel });
+};
+// Confirmar y cambiar el estado del usuario
+const handleConfirmToggleStatus = (userId, newStatus) => {
+  setConfirmation(null); // Ocultar la confirmación
+  dispatch(changeUserStatus(userId, newStatus))
+    .then(() => {
+      dispatch(fetchUsers({ status }, 1));  // Ensure status is passed and we go back to page 1
+      showNotification(`Estado del usuario cambiado a ${newStatus ? 'Activo' : 'Inactivo'}`, 'success');
+    })
+    .catch((error) => {
+      console.error('Error changing user status:', error);
+      showNotification('Error al cambiar el estado del usuario', 'error');
+    });
+};
   // Handle status change
   const handleToggleStatus = (userId, currentStatus) => {
     const newStatus = currentStatus ? false : true;
     const confirmationMessage = `¿Cambiar el estado del usuario a ${newStatus ? 'Activo' : 'Inactivo'}?`;
 
-    if (window.confirm(confirmationMessage)) {
-      dispatch(changeUserStatus(userId, newStatus))
-        .then(() => {
-          dispatch(fetchUsers({ status }, 1));  // Ensure status is passed and we go back to page 1
-        })
-        .catch((error) => {
-          console.error('Error changing user status:', error);
-        });
-    }
+     // Mostrar confirmación personalizada
+     showConfirmation(
+      confirmationMessage,
+      () => handleConfirmToggleStatus(userId, newStatus), // Acción de confirmar
+      () => setConfirmation(null) // Acción de cancelar
+    );
   };
+
 
   // Pagination handling
   const handlePageChange = (pageNumber) => {
@@ -38,6 +61,14 @@ const ManageUser = ({ status }) => {
       <div className="manage-users-header">
         <h2>Manejo de Usuarios</h2>
       </div>
+      {notification && <Notification message={notification.message} type={notification.type} />}
+      {confirmation && (
+        <ConfirmationDialog
+          message={confirmation.message}
+          onConfirm={confirmation.onConfirm}
+          onCancel={confirmation.onCancel}
+        />
+      )}
       {users && users.length > 0 ? (
         <div className="users-container">
           <ul className="users-grid">

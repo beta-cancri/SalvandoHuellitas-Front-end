@@ -48,7 +48,7 @@ const ManageRequests = ({ status }) => {
                     Estado: 
                     <span
                       style={{
-                        color: request.status === 'approved' ? 'green' : request.status === 'denied' ? 'red' : 'black',
+                        color: request.status === 'approved' ? '#45e60a' : request.status === 'denied' ? '#e60a0a' : 'black',
                         fontWeight: 'bold',
                       }}
                     >
