@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createDonation } from '../../redux/actions/index';
 import Notification from '../../views/create/Notification.jsx';
-import './DonationInput.styles.css';  
+import './DonationInput.styles.css';
+import DonationComplete from './DonationComplete'
 import { useNavigate } from 'react-router-dom';
 
 const DonationInput = ({ onClose }) => {
@@ -45,6 +46,7 @@ const DonationInput = ({ onClose }) => {
 
   return (
     <div className="donation-form-container">
+      <DonationComplete />
       <form onSubmit={handleSubmit} className="donation-form">
         <label htmlFor="donation">Ingrese el monto de donación:</label>
         <div className="input-group">
