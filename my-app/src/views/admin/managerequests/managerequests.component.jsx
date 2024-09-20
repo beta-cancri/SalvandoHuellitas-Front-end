@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchRequests, updateRequest } from '../../../redux/actions';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from React Router
+import { fetchRequests } from '../../../redux/actions';
 import './managerequests.styles.css';
 
 const ManageRequests = ({ status }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize navigate to change routes
   const { requests, requestsCurrentPage, requestsTotalPages } = useSelector((state) => state);
 
   // Fetch requests with pagination and filtering by status
@@ -12,25 +14,14 @@ const ManageRequests = ({ status }) => {
     dispatch(fetchRequests(1, 10, 'id', 'ASC', status)); // Fetch requests filtered by status
   }, [dispatch, status]);
 
-  // Handle request status update
-  const handleUpdateRequest = (requestId, status) => {
-    const comment = window.prompt('Agrega un comentario (opcional):');
-    const confirmationMessage = `¿Estás seguro de cambiar el estado de la solicitud a ${status}?`;
-
-    if (window.confirm(confirmationMessage)) {
-      dispatch(updateRequest(requestId, status, comment))
-        .then(() => {
-          dispatch(fetchRequests(1, 10, 'id', 'ASC', status)); // Refetch requests after updating
-        })
-        .catch((error) => {
-          console.error('Error al actualizar la solicitud:', error);
-        });
-    }
-  };
-
-  // Pagination handling
+  // Handle page change for pagination
   const handlePageChange = (pageNumber) => {
     dispatch(fetchRequests(pageNumber, 10, 'id', 'ASC', status)); // Change page number when paginating
+  };
+
+  // Navigate to request details
+  const handleViewRequest = (requestId) => {
+    navigate(`/requests/${requestId}`); // Navigate to the RequestDetail component by request ID
   };
 
   return (
@@ -53,25 +44,28 @@ const ManageRequests = ({ status }) => {
                     <br />
                     Especie: {request.Pet?.species || 'Desconocida'}
                   </div>
+                  <div className="request-status">
+                    Estado: 
+                    <span
+                      style={{
+                        color: request.status === 'approved' ? 'green' : request.status === 'denied' ? 'red' : 'black',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {request.status || 'Desconocido'}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Conditionally render buttons only if the status is 'pending' */}
-                {request.status === 'pending' && (
-                  <div className="button-group">
-                    <button
-                      className="deny-button"
-                      onClick={() => handleUpdateRequest(request.id, 'denied')}
-                    >
-                      Denegar
-                    </button>
-                    <button
-                      className="approve-button"
-                      onClick={() => handleUpdateRequest(request.id, 'approved')}
-                    >
-                      Aprobar
-                    </button>
-                  </div>
-                )}
+                {/* New 'Ver Petición' Button */}
+                <div className="button-group">
+                  <button
+                    className="button"
+                    onClick={() => handleViewRequest(request.id)}
+                  >
+                    Ver Petición
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
