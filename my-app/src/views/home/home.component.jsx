@@ -267,7 +267,7 @@ const Home = () => {
       }
 
       {/* Mostrar mensaje si no hay coincidencias */}
-      { suggestedPets?.length === 0 ? (
+      { suggestedPets !== null && suggestedPets.length === 0 ? (
         <p>No hay mascotas sugeridas, pero puedes buscar entre las que tenemos disponibles:</p>
       ): null}
 
