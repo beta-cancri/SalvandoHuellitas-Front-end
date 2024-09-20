@@ -138,7 +138,7 @@ const Navbar = () => {
               <input
                 type="text"
                 className="navbar-search-input"
-                placeholder="Buscar raza ó nombre"
+                placeholder="Buscar raza ó nombre  🔍"
                 value={searchQuery}
                 onChange={handleSearchChange}
               />
@@ -188,7 +188,7 @@ const Navbar = () => {
                             : '/user/dashboard'
                         }
                       >
-                        {userDetail.isAdmin ? 'Admin Dashboard' : 'User Dashboard'}
+                        {userDetail.isAdmin ? 'Admin Dashboard' : 'Mi cuenta'}
                       </button>
                     )}
                     <button className="logout-button" onClick={handleLogout}>
@@ -243,7 +243,7 @@ const Navbar = () => {
                             : '/user/dashboard'
                         }
                       >
-                        {userDetail.isAdmin ? 'Admin Dashboard' : 'User Dashboard'}
+                        {userDetail.isAdmin ? 'Admin Dashboard' : 'Panel Admin'}
                       </button>
                     )}
                     <button onClick={handleLogout}>Cerrar sesión</button>
