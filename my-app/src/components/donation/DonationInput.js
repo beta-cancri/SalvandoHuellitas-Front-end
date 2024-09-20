@@ -46,7 +46,7 @@ const DonationInput = ({ onClose }) => {
 
   return (
     <div className="donation-form-container">
-      <DonationComplete />
+
       <form onSubmit={handleSubmit} className="donation-form">
         <label htmlFor="donation">Ingrese el monto de donación:</label>
         <div className="input-group">
